@@ -1,8 +1,9 @@
-#include "init_win.h"
+#include "includes.aux"
 
 int main(int argv, char* args[]){
 
     win_init("win");
+    read_mdf("src/regions/regions.mdf"); /* Relative to the executable location */
 
     while(1){
         SDL_Event e;

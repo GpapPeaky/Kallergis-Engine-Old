@@ -4,7 +4,7 @@ LIBFLAG = -Lsrc/lib
 INCLUDEFLAG = -Isrc/include
 SRCPATH = src/
 
-main.exe: $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp
+main.exe: $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp $(SRCPATH)province.cpp $(SRCPATH)regions.cpp $(SRCPATH)init_map.cpp
 	$(CC) $(LIBFLAG) $(INCLUDEFLAG) $^ -o  main $(CFLAGS)
 
 clean:
