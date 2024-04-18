@@ -50,8 +50,6 @@ err_capable prov_to_reg(const std::string fname){
             new_prov.prov_id = regions[region_id].reg_provs.size(); /* Unique id for each province */
             new_prov.region = region_id;
 
-            std::printf("PROV: %s - RGB: %d,%d,%d - REG: %d", prov_name.c_str(), R, G, B, region_id);
-
             regions[region_id].reg_provs.push_back(new_prov);
 
         }else{
@@ -62,6 +60,51 @@ err_capable prov_to_reg(const std::string fname){
 
     file.close();
     return SUCCESS;
+}
+
+err_capable reg_names(const std::string fname){
+    std::ifstream file(fname);
+    if(!file.is_open()){
+        std::printf("Failed to open regions map data file %s\n", fname);
+        return FAIL;
+    }
+
+    std::string line;
+    std::regex pattern("\\s*(\\d+)\\s*:\\s*\"([^\"]+)\"");
+
+    while(std::getline(file, line)){
+
+        if(line.empty()){
+            continue;
+        }
+
+        if(line[0] == '#'){
+            continue;
+        }
+
+        std::smatch matches;
+        if(std::regex_match(line, matches, pattern)){
+            int reg_id = std::stoi(matches[1]);
+            std::string reg_n = matches[2];
+
+            /* Create a new province */
+
+            for(int i = 0 ; i < regions.size() ; i++){
+                if(i == reg_id){
+                    regions[i].reg_name = reg_n;
+                    break;
+                }
+            }
+
+        }else{
+            std::printf("Failed to parse line: %s", line);
+            return FAIL;
+        }
+    }
+
+    file.close();
+    return SUCCESS;
+
 }
 
 err_capable scan_png_map(const std::string fname){
