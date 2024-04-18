@@ -15,6 +15,8 @@ err_capable prov_to_reg(const std::string fname){
     std::string line;
     std::regex pattern("\"([^\"]+)\"\\s*:\\s*\\{\\s*(\\d+),\\s*(\\d+),\\s*(\\d+)\\s*\\}\\s*:\\s*(\\d+)"); /* Regex pattern */
 
+    int i = 0;
+
     while(std::getline(file, line)){
 
         if(line.empty()){
@@ -27,6 +29,7 @@ err_capable prov_to_reg(const std::string fname){
 
         std::smatch matches;
         if(std::regex_search(line, matches, pattern)){
+            i++;
             std::string prov_name = matches[1];
             int R = std::stoi(matches[2]);
             int G = std::stoi(matches[3]);
@@ -47,7 +50,7 @@ err_capable prov_to_reg(const std::string fname){
                 regions.resize(region_id + 1);
             }
 
-            new_prov.prov_id = regions[region_id].reg_provs.size(); /* Unique id for each province */
+            new_prov.prov_id = i; /* Unique id for each province */
             new_prov.region = region_id;
 
             regions[region_id].reg_provs.push_back(new_prov);
