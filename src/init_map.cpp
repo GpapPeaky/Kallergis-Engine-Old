@@ -91,6 +91,7 @@ err_capable reg_names(const std::string fname){
 
             for(int i = 0 ; i < regions.size() ; i++){
                 if(i == reg_id){
+                    regions[i].reg_id = i;
                     regions[i].reg_name = reg_n;
                     break;
                 }
@@ -124,7 +125,7 @@ err_capable scan_png_map(const std::string fname){
 
 void print_regions(void){
     for(const auto& reg : regions){
-        std::printf("REG: %s\n", reg.reg_name.c_str());
+        std::printf("REG: %s ID - %d\n", reg.reg_name.c_str(), reg.reg_id);
         for (const auto& prov : reg.reg_provs){
             std::printf("   PROV: %s, RGB, %d,%d,%d, ID: %d\n", prov.prov_name.c_str(), prov.prov_colour.r, prov.prov_colour.b, prov.prov_colour.g, prov.prov_id);
         }
