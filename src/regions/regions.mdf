@@ -1,3 +1,4 @@
-# "PROV_NAME" : { R, G , B } (ALPHA REMAINS TO 255) : REG_ID
+# "PROV_NAME" : { R, G , B } (ALPHA REMAINS TO 255) : REG_ID, PROV_ID IS GENERATE WHEN PARSED
 
 "Candia" : { 100, 100, 100 } : 1
+"Saint John" : { 95, 95, 95 } : 1

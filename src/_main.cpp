@@ -3,7 +3,9 @@
 int main(int argv, char* args[]){
 
     win_init("win");
-    read_mdf("src/regions/regions.mdf"); /* Relative to the executable location */
+    prov_to_reg("src/regions/regions.mdf"); /* Relative to the executable location */
+
+    print_regions();
 
     while(1){
         SDL_Event e;
@@ -14,7 +16,7 @@ int main(int argv, char* args[]){
         }
     }
 
-    std::printf("Works correctly\n");
+    std::printf("terminates correctly\n");
 
     return EXIT_SUCCESS;
 }
