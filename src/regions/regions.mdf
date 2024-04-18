@@ -1,4 +1,8 @@
-# "PROV_NAME" : { R, G , B } (ALPHA REMAINS TO 255) : REG_ID, PROV_ID IS GENERATE WHEN PARSED
+# "PROV_NAME" : { R, G , B } (ALPHA REMAINS TO 255) : REG_ID, PROV_ID IS GENERATED WHEN PARSED
+# 0 0 0 CONSISTS OF OCEAN TILES
 
 "Candia" : { 100, 100, 100 } : 1
 "Saint John" : { 95, 95, 95 } : 1
+"Saint Catherine" : { 90, 90, 90 } : 1
+"Gazi" : { 85, 85, 85 } : 2
+"Estavromenos" : { 80, 80, 80 } : 2

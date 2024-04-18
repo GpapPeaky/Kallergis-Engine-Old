@@ -1,6 +1,8 @@
 #include "init_map.h"
 
 std::vector<reg>  regions;
+SDL_Surface* map_surface;
+SDL_Texture* map_texture;
 
 err_capable prov_to_reg(const std::string fname){
     
@@ -62,9 +64,24 @@ err_capable prov_to_reg(const std::string fname){
     return SUCCESS;
 }
 
+err_capable scan_png_map(const std::string fname){
+    map_surface = IMG_Load("src/regions/regions.png");
+    if(map_surface == nullptr){
+        printf("Error, cannot create map surface\n");
+        return FAIL;
+    }
+    map_texture = SDL_CreateTextureFromSurface(renderer, map_surface);
+    if(map_texture == nullptr){
+        printf("Error, cannot create map texture\n");
+        return FAIL;
+    }
+
+    return SUCCESS;
+}
+
 void print_regions(void){
     for(const auto& reg : regions){
-        std::printf("REG_ID: %d\n", reg.reg_id);
+        std::printf("REG: %s\n", reg.reg_name.c_str());
         for (const auto& prov : reg.reg_provs){
             std::printf("   PROV: %s, RGB, %d,%d,%d, ID: %d\n", prov.prov_name.c_str(), prov.prov_colour.r, prov.prov_colour.b, prov.prov_colour.g, prov.prov_id);
         }

@@ -3,7 +3,8 @@
 int main(int argv, char* args[]){
 
     win_init("win");
-    prov_to_reg("src/regions/regions.mdf"); /* Relative to the executable location */
+    prov_to_reg("src/regions/regions.mdf"); /* Relative to the executable location */   
+    scan_png_map("src/regions/region.png");
 
     print_regions();
 
@@ -14,6 +15,12 @@ int main(int argv, char* args[]){
                 break;
             }
         }
+
+        SDL_RenderClear(renderer);
+
+        SDL_Rect rect = { 0, 0, map_surface->w, map_surface->h };
+        SDL_RenderCopy(renderer, map_texture, NULL, &rect);
+        SDL_RenderPresent(renderer);
     }
 
     std::printf("terminates correctly\n");
