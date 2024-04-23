@@ -9,4 +9,9 @@ typedef struct country{
     SDL_Surface* country_flag;
 }cou;
 
+/**
+ * @brief Initialises the data for each country
+*/
+err_capable country_init(void);
+
 #endif

@@ -12,16 +12,18 @@ int main(int argv, char* args[]){
     while(1){
         SDL_Event e;
         if(SDL_PollEvent(&e)){
-            if(e.type == SDL_QUIT){
+            if(e.type == SDL_QUIT || e.key.keysym.sym == SDLK_e){ /* Force termination key */
                 break;
             }
         }
 
-        SDL_RenderClear(renderer);
+        SDL_RenderClear(renderer); /* Canvas clearing */
 
-        SDL_Rect rect = { 0, 0, map_surface->w, map_surface->h };
-        SDL_RenderCopy(renderer, map_texture, NULL, &rect);
-        SDL_RenderPresent(renderer);
+         /* Loading texture copies */
+
+        render_map();
+
+        SDL_RenderPresent(renderer); /* Present copies */
     }
 
     std::printf("terminates correctly\n");
