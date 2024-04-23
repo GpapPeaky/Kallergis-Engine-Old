@@ -37,12 +37,10 @@ err_capable reg_names(const std::string fname);
 /**
  * @brief scans the png map to assign regions to countries
  * 
- * @param fname png to scan
- * 
  * @returns 1 on failure
  *                0 on success
 */
-err_capable scan_png_map(const std::string fname);
+err_capable scan_png_map(void);
 
 /**
  * @brief prints all regions, along with their data

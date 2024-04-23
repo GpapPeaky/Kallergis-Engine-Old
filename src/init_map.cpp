@@ -111,8 +111,8 @@ err_capable reg_names(const std::string fname){
 
 }
 
-err_capable scan_png_map(const std::string fname){
-    map_surface = IMG_Load("src/regions/regions.png");
+err_capable scan_png_map(void){
+    map_surface = IMG_Load("src/regions/provinces.png");
     if(map_surface == nullptr){
         printf("Error, cannot create map surface\n");
         return FAIL;
