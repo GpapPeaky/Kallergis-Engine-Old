@@ -1,0 +1,3 @@
+# ndf -> Name data file (Has data for names) (Country Names, Region Names ...)
+# cdf -> Country data file (Has data for countries) (Country RGB, Country Regions ...)
+# mdf -> Map data file (Has data for the map) ( Region's Provinces, Provinces' RGB)
