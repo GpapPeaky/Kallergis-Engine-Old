@@ -44,6 +44,7 @@ err_capable reg_names(const std::string fname);
  *                0 on success
 */
 err_capable reg_to_country(const std::string fname);
+/* TODO: reg2cou */
 
 /**
  * @brief prints all regions, along with their data
