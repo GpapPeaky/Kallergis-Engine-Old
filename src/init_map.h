@@ -1,5 +1,6 @@
 #include "province.h"
 #include "regions.h"
+#include "country.h"
 #include "init_win.h"
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
@@ -35,16 +36,23 @@ err_capable prov_to_reg(const std::string fname);
 err_capable reg_names(const std::string fname);
 
 /**
- * @brief scans the png map to assign regions to countries
+ * @brief assigns regions to countries
+ * 
+ * @param fname file name to read from
  * 
  * @returns 1 on failure
  *                0 on success
 */
-err_capable scan_png_map(void);
+err_capable reg_to_country(const std::string fname);
 
 /**
  * @brief prints all regions, along with their data
 */
 void print_regions(void);
+
+/**
+ * @brief prints all countries along with their data
+*/
+void print_countries(void);
 
 #endif

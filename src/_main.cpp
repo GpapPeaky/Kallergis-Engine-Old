@@ -3,11 +3,13 @@
 int main(int argv, char* args[]){
 
     win_init("win");
-    prov_to_reg("src/regions/regions.mdf"); /* Relative to the executable location */   
+    prov_to_reg("src/regions/provinces.mdf"); /* Relative to the executable location */   
     reg_names("src/regions/region_names.ndf");
-    scan_png_map(); /* Scans the global texture provinces.png */
+    init_countries("src/country/cou.ndf", "src/country/tags.cdf");
+    reg_to_country("src/regions/ownership.cdf"); 
 
     print_regions();
+    print_countries();
 
     while(1){
         SDL_Event e;
@@ -21,7 +23,7 @@ int main(int argv, char* args[]){
 
          /* Loading texture copies */
 
-        render_map();
+        /* render_map(); */
 
         SDL_RenderPresent(renderer); /* Present copies */
     }

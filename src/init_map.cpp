@@ -1,6 +1,6 @@
 #include "init_map.h"
 
-std::vector<reg>  regions;
+std::vector<reg>  regions; /* IDEA: MIGHT BE ABLE TO BE OMITED, BY SAVING THE RELEVANT REGIONS DIRECTLY TO COUNTRY REGIONS */
 SDL_Surface* map_surface;
 SDL_Texture* map_texture;
 
@@ -111,17 +111,13 @@ err_capable reg_names(const std::string fname){
 
 }
 
-err_capable scan_png_map(void){
-    map_surface = IMG_Load("src/regions/provinces.png");
-    if(map_surface == nullptr){
-        printf("Error, cannot create map surface\n");
+err_capable reg_to_country(const std::string fname){
+    std::ifstream file(fname);
+    if(!file.is_open()){
+        std::printf("Failed to open regions map data file %s\n", fname);
         return FAIL;
     }
-    map_texture = SDL_CreateTextureFromSurface(renderer, map_surface);
-    if(map_texture == nullptr){
-        printf("Error, cannot create map texture\n");
-        return FAIL;
-    }
+
 
     return SUCCESS;
 }
@@ -136,3 +132,22 @@ void print_regions(void){
     }
 }
 
+void print_countries(void){
+    for(const auto& cou : countries){
+        std::printf("COU: %s,  TAG %s, RGB: %d %d %d\n", cou.country_name.c_str(), cou.tag.c_str(), cou.country_rgb.r, cou.country_rgb.g, cou.country_rgb.b);
+    }
+    return;
+}
+
+    /*
+    map_surface = IMG_Load("src/regions/provinces.png");
+    if(map_surface == nullptr){
+        printf("Error, cannot create map surface\n");
+        return FAIL;
+    }
+    map_texture = SDL_CreateTextureFromSurface(renderer, map_surface);
+    if(map_texture == nullptr){
+        printf("Error, cannot create map texture\n");
+        return FAIL;
+    }
+    */
