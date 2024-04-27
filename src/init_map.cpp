@@ -134,7 +134,7 @@ void print_regions(void){
 
 void print_countries(void){
     for(const auto& cou : countries){
-        std::printf("COU: %s,  TAG %s, RGB: %d %d %d\n", cou.country_name.c_str(), cou.tag.c_str(), cou.country_rgb.r, cou.country_rgb.g, cou.country_rgb.b);
+        std::printf("COU: %s, TAG %s, RGB: %d %d %d\n", cou.country_name.c_str(), cou.tag.c_str(), cou.country_rgb.r, cou.country_rgb.g, cou.country_rgb.b);
     }
     return;
 }
