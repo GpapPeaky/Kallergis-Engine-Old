@@ -11,6 +11,7 @@ typedef struct prov{
     uint prov_id;
     uint region;
     SDL_Color prov_colour;
+    std::vector<struct prov> prov_con; /* Province connections */
 }prov;
 
 #endif
