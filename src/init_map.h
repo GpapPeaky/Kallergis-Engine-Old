@@ -35,6 +35,8 @@ err_capable prov_to_reg(const std::string fname);
 */
 err_capable reg_names(const std::string fname);
 
+/*===========================================================================*/
+
 /**
  * @brief assigns regions to countries
  * 
@@ -44,7 +46,9 @@ err_capable reg_names(const std::string fname);
  *                0 on success
 */
 err_capable reg_to_country(const std::string fname);
-/* TODO: reg2cou */
+/* TODO: reg2cou reads from ownership.cdf */
+
+/*===========================================================================*/
 
 /**
  * @brief prints all regions, along with their data
