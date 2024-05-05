@@ -48,14 +48,15 @@ event pan_map(int d_x, int d_y){
 void events_handling(bool& quit){
     SDL_Event e;
 
+    // Panning variables
     //_______________________________
-    static int prev_mouse_x = 0;
-    static int prev_mouse_y = 0;
+    // static int prev_mouse_x = 0;
+    // static int prev_mouse_y = 0;
 
-    int delta_x;
-    int delta_y;
+    // int delta_x;
+    // int delta_y;
 
-    bool pan_active = false;
+    // bool pan_active = false;
     //_______________________________
     while(SDL_PollEvent(&e)){
         switch(e.type){
