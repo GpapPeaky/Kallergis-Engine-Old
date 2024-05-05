@@ -1,12 +1,11 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_keyboard.h>
 #include "init_win.h"
+#include "map.h"
 #include "definitions.aux"
 
 #ifndef EVENTS
 #define EVENTS
-
-extern SDL_Rect viewport; /* Will be initialised in main */
 
 /**
  * @brief Handles events
@@ -29,9 +28,8 @@ event highlight_on_click(void);
 /**
  * @brief Zoom in/out event
  * 
- * @param viewport where to set the view
  * @param scale How much to zoom in/out
 */
-event zoom_map(SDL_Rect& viewport, float scale);
+event zoom_map(float scale);
 
 #endif
