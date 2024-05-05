@@ -4,8 +4,8 @@ event zoom_map(float scale){
 
     map_scale *= scale; /* Adjust the scale */
 
-    if(map_scale < 0.5){
-        map_scale = 0.5f;
+    if(map_scale < 1.0f){
+        map_scale = 1.0f;
     }else if(map_scale > 1.5f){
         map_scale = 1.5f;
     }
