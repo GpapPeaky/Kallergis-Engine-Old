@@ -1,6 +1,7 @@
 #include "init_map.h"
 #include "definitions.aux"
 
+extern SDL_Rect viewport;
 extern float map_scale;
 extern int map_width;
 extern int map_height;

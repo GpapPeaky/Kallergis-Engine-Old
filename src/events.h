@@ -26,14 +26,22 @@ event info_on_hover(void);
 event highlight_on_click(void);
 /*TODO*/
 
-/* IDEA: ADD CAMERA PANING WITH RIGHT MOUSE CLICK AND MIDDLE CLICK */
+/**
+ * @brief Allows to pan the map
+ * 
+ * @param d_x cursor x
+ * @param d_y cursor y
+*/
+event pan_map(int d_x, int d_y);
 
 /**
  * @brief Zoom in/out event
  * 
  * @param scale How much to zoom in/out
+ * @param cursor_w cursor coord x
+ * @param cursor_h cursor coord y
 */
-event zoom_map(float scale);
+event zoom_map(float scale, int cursor_w, int cursor_h);
 /* FIXME: ZOOM ON CURSOR INSTEAD ON 0,0 */
 
 #endif
