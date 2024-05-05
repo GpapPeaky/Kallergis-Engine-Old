@@ -40,7 +40,9 @@ event zoom_map(float scale, int cursor_w, int cursor_h){
 }
 
 event pan_map(int d_x, int d_y){
-    /*TODO*/
+    /* FIXME */
+
+    return;
 }
 
 void events_handling(bool& quit){
@@ -65,7 +67,7 @@ void events_handling(bool& quit){
                     quit = true;
                 }
                 break;
-                /* FIXME: PANNING */
+            //FIXME
             // case SDL_MOUSEBUTTONDOWN:
             //     if (e.button.button == SDL_BUTTON_RIGHT) {
             //         pan_active = true;
