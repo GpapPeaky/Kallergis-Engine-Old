@@ -4,6 +4,21 @@ std::vector<reg>  regions; /* IDEA: MIGHT BE ABLE TO BE OMITED, BY SAVING THE RE
 SDL_Surface* map_surface;
 SDL_Texture* map_texture;
 
+err_capable init_map(void){
+    map_surface = IMG_Load("src/regions/provinces.png");
+    if(map_surface == nullptr){
+        printf("Error, cannot create map surface\n");
+        return FAIL;
+    }
+    map_texture = SDL_CreateTextureFromSurface(renderer, map_surface);
+    if(map_texture == nullptr){
+        printf("Error, cannot create map texture\n");
+        return FAIL;
+    }
+
+    return SUCCESS;
+}
+
 err_capable prov_to_reg(const std::string fname){
     
     std::ifstream file(fname);
@@ -139,15 +154,3 @@ void print_countries(void){
     return;
 }
 
-    /*
-    map_surface = IMG_Load("src/regions/provinces.png");
-    if(map_surface == nullptr){
-        printf("Error, cannot create map surface\n");
-        return FAIL;
-    }
-    map_texture = SDL_CreateTextureFromSurface(renderer, map_surface);
-    if(map_texture == nullptr){
-        printf("Error, cannot create map texture\n");
-        return FAIL;
-    }
-    */

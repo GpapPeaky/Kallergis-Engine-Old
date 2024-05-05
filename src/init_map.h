@@ -16,6 +16,14 @@ extern SDL_Surface* map_surface;
 extern SDL_Texture* map_texture;
 
 /**
+ * @brief Selects and image for a map
+ * 
+ * @returns 1 on failure
+ *                0 on success
+*/
+err_capable init_map(void);
+
+/**
  * @brief parses data from mdf, to assign ma data of provinces to each region
  * 
  * @param fname file name to read from
