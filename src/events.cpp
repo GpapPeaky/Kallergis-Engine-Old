@@ -64,6 +64,8 @@ event highlight_on_click(int x, int y){
         }
     }
 
+    /* TODO: add +50 to the clicked colour, reset after closing */
+
     return;
 }
 
