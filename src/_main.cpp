@@ -22,6 +22,13 @@ int main(int argv, char* args[]){
         SDL_RenderPresent(renderer); /* Present copies */
     }
 
+    /* Cleanup */
+
+    SDL_DestroyTexture(map_texture);
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(win);
+    SDL_Quit();
+
     std::printf("terminates correctly\n");
 
     return EXIT_SUCCESS;

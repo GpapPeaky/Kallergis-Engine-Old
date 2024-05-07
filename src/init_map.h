@@ -14,6 +14,7 @@
 extern std::vector<reg>  regions; /* Contains data for each region */
 extern SDL_Surface* map_surface;
 extern SDL_Texture* map_texture;
+extern std::vector<prov> provinces;
 
 /**
  * @brief Selects and image for a map

@@ -39,6 +39,34 @@ event zoom_map(float scale, int cursor_w, int cursor_h){
     return;
 }
 
+event highlight_on_click(int x, int y){
+
+    Uint8 r, g, b;
+
+    SDL_Surface* surface = IMG_Load("src/regions/provinces.bmp");
+
+    int map_x = (x - viewport.x) / map_scale;
+    int map_y = (y - viewport.y) / map_scale;
+
+    int index = map_y * surface->pitch + map_x * 3;
+
+    b = ((Uint8*)surface->pixels)[index];
+    g = ((Uint8*)surface->pixels)[index + 1];
+    r = ((Uint8*)surface->pixels)[index + 2];
+
+    SDL_FreeSurface(surface);
+
+    SDL_Color clicked = {r, g, b, 255};
+
+    for(const auto& prov : provinces){
+        if(prov.prov_colour.r == clicked.r && prov.prov_colour.g == clicked.g && prov.prov_colour.b == clicked.b){
+            std::printf("Clicked Province: %s\n", prov.prov_name.c_str());
+        }
+    }
+
+    return;
+}
+
 event pan_map(int d_x, int d_y){
     /* FIXME */
 
@@ -103,6 +131,11 @@ void events_handling(bool& quit){
                     zoom_map(1.1f, cursor_x, cursor_y); 
                 }
                 break;
+            case SDL_MOUSEBUTTONDOWN:
+                int cursor_x;
+                int cursor_y;
+                SDL_GetMouseState(&cursor_x, &cursor_y);
+                highlight_on_click(cursor_x, cursor_y);
         }
     }
 

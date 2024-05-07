@@ -22,8 +22,11 @@ event info_on_hover(void);
 
 /**
  * @brief Highlights a province when clicked
+ * 
+ * @param mouse_x Mouse x 
+ * @param mouse_y Mouse y
 */
-event highlight_on_click(void);
+event highlight_on_click(int mouse_x, int mouse_y);
 /*TODO*/
 
 /**
