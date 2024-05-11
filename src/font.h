@@ -2,8 +2,9 @@
 #include <SDL2/SDL_ttf.h>
 #include <string>
 #include "init_win.h"
-#include "utils.h"
-#include "enemy.h"
+#include "definitions.aux"
+
+/* FIXME */
 
 #ifndef UI
 #define UI
