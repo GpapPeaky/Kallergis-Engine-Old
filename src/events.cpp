@@ -1,6 +1,6 @@
 #include "events.h"
 
-event zoom_map(float scale, int cursor_w, int cursor_h){
+eng_event zoom_map(float scale, int cursor_w, int cursor_h){
 
     float new_scale = map_scale * scale; /* Adjust the scale */
 
@@ -39,7 +39,22 @@ event zoom_map(float scale, int cursor_w, int cursor_h){
     return;
 }
 
-event highlight_on_click(int x, int y){
+eng_event info_on_hover(){
+        int cursor_x;
+        int cursor_y;
+        SDL_GetMouseState(&cursor_x, &cursor_y);
+
+        SDL_Surface* info = IMG_Load("src/gfx/ui/infobox.png");
+        SDL_CreateTextureFromSurface(renderer, info);
+
+        if(cursor_x ... ){
+            display info
+        }
+
+            /* Info box: 129 - 114 */
+}
+
+eng_event highlight_on_click(int x, int y){
 
     Uint8 r, g, b;
 
@@ -54,9 +69,7 @@ event highlight_on_click(int x, int y){
     g = ((Uint8*)surface->pixels)[index + 1];
     r = ((Uint8*)surface->pixels)[index + 2];
 
-    SDL_FreeSurface(surface);
-
-    SDL_Color clicked = {r, g, b, 255};
+    SDL_Color clicked = {r, g, b, ALPHA};
 
     for(const auto& prov : provinces){
         if(prov.prov_colour.r == clicked.r && prov.prov_colour.g == clicked.g && prov.prov_colour.b == clicked.b){
@@ -64,12 +77,14 @@ event highlight_on_click(int x, int y){
         }
     }
 
+    SDL_FreeSurface(surface);
+
     /* TODO: add +50 to the clicked colour, reset after closing */
 
     return;
 }
 
-event pan_map(int d_x, int d_y){
+eng_event pan_map(int d_x, int d_y){
     /* FIXME */
 
     return;

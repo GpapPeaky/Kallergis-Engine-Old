@@ -17,7 +17,7 @@ void events_handling(bool& quit);
 /**
  * @brief displays info when hovering a province
 */
-event info_on_hover(void);
+eng_event info_on_hover(void);
 /*TODO*/
 
 /**
@@ -26,7 +26,7 @@ event info_on_hover(void);
  * @param mouse_x Mouse x 
  * @param mouse_y Mouse y
 */
-event highlight_on_click(int mouse_x, int mouse_y);
+eng_event highlight_on_click(int mouse_x, int mouse_y);
 /*TODO*/
 
 /**
@@ -35,7 +35,7 @@ event highlight_on_click(int mouse_x, int mouse_y);
  * @param d_x cursor x
  * @param d_y cursor y
 */
-event pan_map(int d_x, int d_y);
+eng_event pan_map(int d_x, int d_y);
 /* FIXME */
 
 /**
@@ -45,7 +45,7 @@ event pan_map(int d_x, int d_y);
  * @param cursor_w cursor coord x
  * @param cursor_h cursor coord y
 */
-event zoom_map(float scale, int cursor_w, int cursor_h);
+eng_event zoom_map(float scale, int cursor_w, int cursor_h);
 /* FIXME: ZOOM ON CURSOR INSTEAD ON 0,0 */
 
 #endif
