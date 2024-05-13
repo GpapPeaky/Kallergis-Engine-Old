@@ -25,6 +25,7 @@ int main(int argv, char* args[]){
         SDL_RenderClear(renderer); /* Canvas clearing */
         render_map(); /* Renders the .png */
         render_text("Hello, World!", &local_rect);
+        render_on_mouse_hover(); /* Special Event */
         SDL_RenderPresent(renderer); /* Present copies */
     }
 

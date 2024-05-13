@@ -2,6 +2,8 @@
 #include <SDL2/SDL_ttf.h>
 #include <string>
 #include "init_win.h"
+#include "init_map.h"
+#include "map.h"
 #include "regions.h"
 #include "definitions.aux"
 
@@ -35,7 +37,7 @@ err_capable init_font(void);
  * @returns 1 on FAILURE
  *                0 on SUCCESS
 */
-render_capable render_text(const std::string msg, SDL_FRect* position);
+render_capable render_text(std::string msg, SDL_FRect* position);
 
 /**
  * @brief Renders stats on hovering a sprite with the mouse

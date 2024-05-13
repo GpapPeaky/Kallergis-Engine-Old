@@ -23,7 +23,7 @@ err_capable init_font(void){
     return SUCCESS;
 }
 
-render_capable render_text(const std::string msg, SDL_FRect* position){
+render_capable render_text(std::string msg, SDL_FRect* position){
     text = TTF_RenderUTF8_Solid(font, msg.c_str(), text_colour);
     if(!text){
         std::printf("%s\n ", SDL_GetError());
@@ -71,12 +71,36 @@ render_capable render_text(const std::string msg, SDL_FRect* position){
 
 render_capable render_on_mouse_hover(void){
 
-    int mouseX, mouseY;
-    SDL_GetMouseState(&mouseX, &mouseY);
+    int mouse_x, mouse_y;
+    SDL_GetMouseState(&mouse_x, &mouse_y);
 
-    // for(auto& province : provinces){
-    //     if(){
-    //         render_text(("HP: " + std::to_string(enemy.sprite.HP)).c_str(), &enemy.sprite.pos);
-    //     }
-    // }
+    Uint8 r, g, b;
+
+    int map_x = (mouse_x - viewport.x) / map_scale;
+    int map_y = (mouse_y - viewport.y) / map_scale;
+
+    int index = map_y * map_surface->pitch + map_x * 3;
+
+    b = ((Uint8*)map_surface->pixels)[index];
+    g = ((Uint8*)map_surface->pixels)[index + 1];
+    r = ((Uint8*)map_surface->pixels)[index + 2];
+
+    for(auto& province : provinces){
+        if(province.prov_colour.r == r &&
+        province.prov_colour.g ==  g &&
+        province.prov_colour.b == b){
+
+            std::string info = "Name: " + province.prov_name +  " Region: " + regions[province.region].reg_name + " (" + std::to_string(province.region) + ") ID: " + std::to_string(province.prov_id);
+
+            SDL_FRect text_pos;
+
+            text_pos.x = mouse_x;
+            text_pos.y = mouse_y;
+
+            render_text(info, &text_pos);
+            return;
+        }
+    }
+
+    return;
 }

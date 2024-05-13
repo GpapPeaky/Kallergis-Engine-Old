@@ -2,6 +2,7 @@
 #include <SDL2/SDL_keyboard.h>
 #include "init_win.h"
 #include "map.h"
+#include "font.h"
 #include "definitions.aux"
 
 #ifndef EVENTS
