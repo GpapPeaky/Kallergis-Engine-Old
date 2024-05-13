@@ -15,16 +15,11 @@ int main(int argv, char* args[]){
 
     bool quit = false;
 
-    SDL_FRect local_rect;
-    local_rect.x = 100.0f;
-    local_rect.y = 200.0f;
-    
     while(!quit){
         events_handling(quit);
 
         SDL_RenderClear(renderer); /* Canvas clearing */
         render_map(); /* Renders the .png */
-        render_text("Hello, World!", &local_rect);
         render_on_mouse_hover(); /* Special Event */
         SDL_RenderPresent(renderer); /* Present copies */
     }

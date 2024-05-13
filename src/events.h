@@ -19,7 +19,6 @@ void events_handling(bool& quit);
  * @brief displays info when hovering a province
 */
 eng_event info_on_hover(void);
-/*TODO*/
 
 /**
  * @brief Highlights a province when clicked
@@ -47,6 +46,5 @@ eng_event pan_map(int d_x, int d_y);
  * @param cursor_h cursor coord y
 */
 eng_event zoom_map(float scale, int cursor_w, int cursor_h);
-/* FIXME: ZOOM ON CURSOR INSTEAD ON 0,0 */
 
 #endif
