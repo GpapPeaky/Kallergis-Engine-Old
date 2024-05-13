@@ -47,11 +47,7 @@ eng_event info_on_hover(){
         SDL_Surface* info = IMG_Load("src/gfx/ui/infobox.png");
         SDL_CreateTextureFromSurface(renderer, info);
 
-        if(cursor_x ... ){
-            display info
-        }
-
-            /* Info box: 129 - 114 */
+        /* Info box: 129 - 114 */
 }
 
 eng_event highlight_on_click(int x, int y){

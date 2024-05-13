@@ -3,6 +3,7 @@
 int main(int argv, char* args[]){
 
     win_init("win");
+    init_font();
     init_map();
     prov_to_reg("src/regions/provinces.mdf"); /* Relative to the executable location */   
     reg_names("src/regions/region_names.ndf");
@@ -13,12 +14,17 @@ int main(int argv, char* args[]){
     print_countries();
 
     bool quit = false;
+
+    SDL_FRect local_rect;
+    local_rect.x = 100.0f;
+    local_rect.y = 200.0f;
     
     while(!quit){
         events_handling(quit);
 
         SDL_RenderClear(renderer); /* Canvas clearing */
         render_map(); /* Renders the .png */
+        render_text("Hello, World!", &local_rect);
         SDL_RenderPresent(renderer); /* Present copies */
     }
 
