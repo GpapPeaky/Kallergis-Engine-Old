@@ -109,7 +109,6 @@ void events_handling(bool& quit){
                     quit = true;
                 }
                 break;
-            //FIXME
             // case SDL_MOUSEBUTTONDOWN:
             //     if (e.button.button == SDL_BUTTON_RIGHT) {
             //         pan_active = true;

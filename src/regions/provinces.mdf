@@ -2,7 +2,7 @@
 # 0 0 0 WILL CONSIST OF OCEAN TILES, IMPASSABLE 
 # FOLLOW THE EXACT SYNTAX OR ELSE THE PROGRAM WON'T WORK ACCORDINGLY
 
-"Candia" : { 255, 0, 0 } : 1
+"Messabelies" : { 255, 0, 0 } : 1
 "Saint John" : { 0, 255, 0 } : 1
 "Saint Catherine" : { 0, 0, 255 } : 1
 "Gazi" : { 255, 50, 50 } : 2

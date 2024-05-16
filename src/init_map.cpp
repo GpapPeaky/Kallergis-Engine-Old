@@ -1,6 +1,9 @@
 #include "init_map.h"
 
-std::vector<reg>  regions; /* IDEA: MIGHT BE ABLE TO BE OMITED, BY SAVING THE RELEVANT REGIONS DIRECTLY TO COUNTRY REGIONS */
+/* The country regions are only there for ownership, the values of each region is updated in the global region vector 
+the same is true for the provinces */
+
+std::vector<reg>  regions;
 std::vector<prov> provinces;
 SDL_Surface* map_surface;
 SDL_Texture* map_texture;

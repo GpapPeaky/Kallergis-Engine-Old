@@ -36,7 +36,6 @@ eng_event highlight_on_click(int mouse_x, int mouse_y);
  * @param d_y cursor y
 */
 eng_event pan_map(int d_x, int d_y);
-/* FIXME */
 
 /**
  * @brief Zoom in/out event
