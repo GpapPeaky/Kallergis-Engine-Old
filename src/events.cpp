@@ -2,7 +2,7 @@
 
 eng_event zoom_map(double scale){
 
-    /* FIXME: make it to zoom on the centre of the screen, zooming out too much crashes the game and moves the camera in weird positions */
+    /* FIXME: make it to zoom on the centre of the screen, zooming out too much crashes the game and moves the camera in weird position */
 
      float new_scale = map_scale * scale; /* Adjust the scale */
 
