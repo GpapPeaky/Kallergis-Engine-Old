@@ -2,6 +2,8 @@
 
 eng_event zoom_map(float scale, int cursor_w, int cursor_h){
 
+    /* FIXME: make it to zoom on the centre of the screen */
+
     float new_scale = map_scale * scale; /* Adjust the scale */
 
     const int max_width = 1000;

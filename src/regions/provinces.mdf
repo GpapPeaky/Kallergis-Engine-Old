@@ -5,7 +5,12 @@
 "Messabelies" : { 255, 0, 0 } : 1
 "Saint John" : { 0, 255, 0 } : 1
 "Saint Catherine" : { 0, 0, 255 } : 1
-"Gazi" : { 255, 50, 50 } : 2
-"Estavromenos" : { 255, 100, 50 } : 2
-"Voutes" : { 255, 100, 100 } : 2
+"Gazi" : { 255, 50, 50 } : 1
+"Estavromenos" : { 255, 100, 50 } : 1
+"Voutes" : { 255, 100, 100 } : 1
 "Alikarnasos" : { 255, 150, 100 } : 1
+"Kokkini" : { 255, 150, 150 } : 1
+"Rogdia" : { 255, 200, 150 } : 1
+"Crete" : { 255, 200, 200 } : 1
+"62 Martyrs" : { 255, 0, 255 } : 1
+"Herakleion" : { 0, 255, 255 } : 1

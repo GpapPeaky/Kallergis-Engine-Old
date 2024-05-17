@@ -9,11 +9,13 @@ SDL_Surface* map_surface;
 SDL_Texture* map_texture;
 
 err_capable init_map(void){
+
     map_surface = IMG_Load("src/regions/provinces.bmp");
     if(map_surface == nullptr){
         printf("Error, cannot create map surface\n");
         return FAIL;
     }
+
     map_texture = SDL_CreateTextureFromSurface(renderer, map_surface);
     if(map_texture == nullptr){
         printf("Error, cannot create map texture\n");
