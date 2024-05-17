@@ -1,11 +1,13 @@
 #include "map.h"
 
 SDL_FRect viewport;
-float map_scale = 1.0f;
+long double map_scale = 1.0f;
 int map_width;
 int map_height;
 
 render_capable render_map(void){
+
+    /* FIXME: zoom scaling */
 
     SDL_QueryTexture(map_texture, NULL, NULL, &map_width, &map_height); /* Take the width and height of the map */
 

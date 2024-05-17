@@ -1,35 +1,29 @@
 #include "events.h"
 
-eng_event zoom_map(float scale, int cursor_w, int cursor_h){
+eng_event zoom_map(double scale){
 
-    /* FIXME: make it to zoom on the centre of the screen */
+    /* FIXME: make it to zoom on the centre of the screen, zooming out too much crashes the game and moves the camera in weird positions */
 
-    float new_scale = map_scale * scale; /* Adjust the scale */
+     float new_scale = map_scale * scale; /* Adjust the scale */
 
-    const int max_width = 1000;
-    const int max_height = 900;
-
-    const float min_scale = 0.5f;
-    const float max_scale = 2.0f;
-
-    if(new_scale < min_scale){
-        new_scale = min_scale;
-    }else if (new_scale > max_scale){
-        new_scale = max_scale;
-    }
+    const double min_scale = 0.5f;
+    const double max_scale = 2.0f;
 
     float dscale = new_scale / map_scale;
 
     int new_w = static_cast<int>(map_width * new_scale);
     int new_h = static_cast<int>(map_height * new_scale);
 
-    int new_cursor_x = static_cast<int>(cursor_w * dscale);
-    int new_cursor_y = static_cast<int>(cursor_h * dscale);
+    int center_w = viewport.w / 2;
+    int center_h = viewport.h / 2;
 
-    /* Cursor position calculation */
+    int new_center_x = static_cast<int>(center_w * dscale);
+    int new_center_y = static_cast<int>(center_h * dscale);
 
-    int dx = cursor_w - new_cursor_x;
-    int dy = cursor_h - new_cursor_y;
+    /* center position calculation */
+
+    int dx = center_w - new_center_x;
+    int dy = center_h - new_center_y;
 
     viewport.x += dx;
     viewport.y += dy;
@@ -110,6 +104,21 @@ void events_handling(bool& quit){
                 if(e.key.keysym.sym == SDLK_e){
                     quit = true;
                 }
+
+                /* WASD panning */
+
+                if(e.key.keysym.sym == SDLK_w){
+                    viewport.y -= -50;
+                }
+                if(e.key.keysym.sym == SDLK_a){
+                    viewport.x -= -50;
+                }
+                if(e.key.keysym.sym == SDLK_s){
+                    viewport.y += -50;
+                }
+                if(e.key.keysym.sym == SDLK_d){
+                    viewport.x += -50;
+                }
                 break;
             // case SDL_MOUSEBUTTONDOWN:
             //     if (e.button.button == SDL_BUTTON_RIGHT) {
@@ -134,15 +143,9 @@ void events_handling(bool& quit){
             //     break;
             case SDL_MOUSEWHEEL:
                 if(e.wheel.y < 0){
-                    int cursor_x;
-                    int cursor_y;
-                    SDL_GetMouseState(&cursor_x, &cursor_y);
-                    zoom_map(0.9f, cursor_x, cursor_y); 
+                    zoom_map(0.9f); 
                 }else if(e.wheel.y > 0){
-                    int cursor_x;
-                    int cursor_y;
-                    SDL_GetMouseState(&cursor_x, &cursor_y);
-                    zoom_map(1.1f, cursor_x, cursor_y); 
+                    zoom_map(1.1f); 
                 }
                 break;
             case SDL_MOUSEBUTTONDOWN:

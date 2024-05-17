@@ -2,7 +2,7 @@
 #include "definitions.aux"
 
 extern SDL_FRect viewport;
-extern float map_scale;
+extern long double map_scale;
 extern int map_width;
 extern int map_height;
 

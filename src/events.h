@@ -38,12 +38,10 @@ eng_event highlight_on_click(int mouse_x, int mouse_y);
 eng_event pan_map(int d_x, int d_y);
 
 /**
- * @brief Zoom in/out event
+ * @brief Zoom in/out event at the center of the screen
  * 
  * @param scale How much to zoom in/out
- * @param cursor_w cursor coord x
- * @param cursor_h cursor coord y
 */
-eng_event zoom_map(float scale, int cursor_w, int cursor_h);
+eng_event zoom_map(double scale);
 
 #endif
