@@ -4,33 +4,30 @@ eng_event zoom_map(double scale){
 
     /* FIXME: make it to zoom on the centre of the screen, zooming out too much crashes the game and moves the camera in weird position */
 
-     float new_scale = map_scale * scale; /* Adjust the scale */
+    const float min_scale = 0.25f;
+    const float max_scale = 2.0f;
 
-    const double min_scale = 0.5f;
-    const double max_scale = 2.0f;
+    map_scale *= scale; /* Adjust the scale */
+    map_scale = std::max(min_scale, std::min(max_scale, map_scale));
 
-    float dscale = new_scale / map_scale;
+    float screen_center_x = 800 / 2.0f;
+    float screen_center_y = 600 / 2.0f;
 
-    int new_w = static_cast<int>(map_width * new_scale);
-    int new_h = static_cast<int>(map_height * new_scale);
+    // Calculate the offset of the current viewport center from the screen center
+    float offset_x = viewport.x + viewport.w / 2.0f - screen_center_x;
+    float offset_y = viewport.y + viewport.h / 2.0f - screen_center_y;
 
-    int center_w = viewport.w / 2;
-    int center_h = viewport.h / 2;
+    // Calculate the new viewport center in screen coordinates
+    float new_viewport_center_x = screen_center_x + offset_x * scale;
+    float new_viewport_center_y = screen_center_y + offset_y * scale;
 
-    int new_center_x = static_cast<int>(center_w * dscale);
-    int new_center_y = static_cast<int>(center_h * dscale);
+    // Calculate the new viewport position
+    viewport.x = new_viewport_center_x - viewport.w / 2.0f;
+    viewport.y = new_viewport_center_y - viewport.h / 2.0f;
 
-    /* center position calculation */
-
-    int dx = center_w - new_center_x;
-    int dy = center_h - new_center_y;
-
-    viewport.x += dx;
-    viewport.y += dy;
-    viewport.w = new_w;
-    viewport.h = new_h;
-
-    map_scale = new_scale;
+    // Update the viewport size
+    viewport.w /= scale;
+    viewport.h /= scale;
 
     return;
 }

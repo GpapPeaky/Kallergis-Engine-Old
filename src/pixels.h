@@ -17,7 +17,7 @@
  *                0 on success
 */
 err_capable generate_pixel_coords(std::string fname);
-/* TODO: parses from .png */
+/* WRITE: parses from .png */
 
 /**
  * @brief Parses the png and scans for each pixel
@@ -32,4 +32,4 @@ err_capable generate_pixel_coords(std::string fname);
  *                0 on success
 */
 err_capable generate_province_connections(std::string fname);
-/* TODO: parses from .png */
+/* WRITE: parses from .png */

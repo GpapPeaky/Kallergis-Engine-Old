@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_keyboard.h>
+#include <algorithm>
 #include "init_win.h"
 #include "map.h"
 #include "font.h"
@@ -27,7 +28,6 @@ eng_event info_on_hover(void);
  * @param mouse_y Mouse y
 */
 eng_event highlight_on_click(int mouse_x, int mouse_y);
-/*TODO*/
 
 /**
  * @brief Allows to pan the map

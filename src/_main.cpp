@@ -2,14 +2,22 @@
 
 int main(int argv, char* args[]){
 
-    win_init("win");
+    map_width = 5760;
+    map_height = 3240;
+
+    /* Initialise */
+    win_init("project candia");
     init_font();
     init_map();
+    initialise_viewport(DEV_SCREEN_W, DEV_SCREEN_H);
+
+    /* Parsers */
     prov_to_reg("src/regions/provinces.mdf"); /* Relative to the executable location */   
     reg_names("src/regions/region_names.ndf");
     init_countries("src/country/cou.ndf", "src/country/tags.cdf");
     reg_to_country("src/regions/ownership.cdf"); 
 
+    /* Prints */
     print_regions();
     print_countries();
 
