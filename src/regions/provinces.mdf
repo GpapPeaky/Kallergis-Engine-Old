@@ -11,6 +11,13 @@
 "Alikarnasos" : { 255, 150, 100 } : 1
 "Kokkini" : { 255, 150, 150 } : 1
 "Rogdia" : { 255, 200, 150 } : 1
-"Crete" : { 255, 200, 200 } : 1
+"Crete" : { 0, 72, 160 } : 1
 "62 Martyrs" : { 255, 0, 255 } : 1
 "Herakleion" : { 0, 255, 255 } : 1
+"Palaiokastro" : { 20, 100, 0 } : 1
+"Ammoudi" : { 20, 50, 0 } : 1
+"Lygaria" : { 20, 50, 132 } : 1
+"Saint Pelagia" : { 20, 163, 132 } : 1
+"Knossos" : { 85, 85, 132 } : 1
+"Tylissos" : { 245, 112, 0 } : 1
+"Gournes" : { 109, 112, 0 } : 1
