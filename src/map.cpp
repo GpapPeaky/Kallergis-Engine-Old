@@ -2,26 +2,36 @@
 
 SDL_FRect viewport; 
 float map_scale = 1.0f;
-int map_width;
-int map_height;
+int map_width, map_height;
 
-render_capable render_map(void){
-    SDL_QueryTexture(map_texture, NULL, NULL, &map_width, &map_height); /* Take the width and height of the map */
+render_capable render_map(float zoom){
+    int texture_h, texture_w;
+    SDL_QueryTexture(map_texture, NULL, NULL, &texture_w, &texture_h); /* Take the width and height of the map */
+
+    int renderer_w, renderer_h;
+    SDL_GetRendererOutputSize(renderer, &renderer_w, &renderer_h);
 
     /* Moves the colours as well for the font to be displayed on hover */
     float zoom_scale_w = (map_width * map_scale);
     float zoom_scale_h = (map_height * map_scale);
 
-    SDL_FRect rect = { 
-        viewport.x,
-        viewport.y,
-        zoom_scale_w,
-        zoom_scale_h
-        };
+    float texture_center_x = texture_w / 2.0f;
+    float texture_center_y = texture_h / 2.0f;
 
-    SDL_RenderCopyF(renderer, map_texture, NULL, &rect);
+    float renderer_center_x = renderer_w / 2.0f;
+    float rendere_center_y = renderer_h / 2.0f;
+
+    SDL_Rect dest_rect;
+    dest_rect.w = static_cast<int>(texture_w * zoom);
+    dest_rect.h = static_cast<int>(texture_h * zoom);
+    dest_rect.x = static_cast<int>(renderer_center_x - (texture_center_x * zoom));
+    dest_rect.y = static_cast<int>(rendere_center_y - (texture_center_y * zoom));
+
+    SDL_RenderCopy(renderer, map_texture, NULL, &dest_rect);
+
+    return;
 }
-
+/* FIXME */
 void initialise_viewport(float screen_width, float screen_height){
     viewport.h = screen_height / 2;
     viewport.w = screen_width / 2;
@@ -35,5 +45,6 @@ void initialise_viewport(float screen_width, float screen_height){
     viewport.y = (map_height * map_scale - screen_height) / 2;
 
     std::printf("viewport initialised\n");
+
     return;
 }

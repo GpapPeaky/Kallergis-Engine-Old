@@ -42,6 +42,6 @@ eng_event pan_map(int d_x, int d_y);
  * 
  * @param scale How much to zoom in/out
 */
-eng_event zoom_map(double scale);
+eng_event zoom_map(float scale);
 
 #endif

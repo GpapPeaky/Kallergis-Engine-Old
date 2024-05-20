@@ -1,6 +1,6 @@
 #include "events.h"
 
-eng_event zoom_map(double scale){
+eng_event zoom_map(float scale){
 
     /* FIXME: make it to zoom on the centre of the screen, zooming out too much crashes the game and moves the camera in weird position */
 
@@ -103,6 +103,7 @@ void events_handling(bool& quit){
                 }
 
                 /* WASD panning */
+                /* FIXME */
 
                 if(e.key.keysym.sym == SDLK_w){
                     viewport.y -= -50;
@@ -140,10 +141,10 @@ void events_handling(bool& quit){
             //     break;
             case SDL_MOUSEWHEEL:
                 if(e.wheel.y < 0){
-                    zoom_map(0.9f); 
+                    map_scale -= 0.1f;
                 }else if(e.wheel.y > 0){
-                    zoom_map(1.1f); 
-                }
+                    map_scale += 0.1f;
+                }   
                 break;
             case SDL_MOUSEBUTTONDOWN:
                 int cursor_x;
