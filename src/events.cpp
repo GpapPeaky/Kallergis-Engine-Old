@@ -22,9 +22,6 @@ eng_event zoom_map(double scale){
     float new_center_y = center_y * (new_height / viewport.h);
 
     /* Calculate the new viewport position to keep the zoom centered */
-
-    SDL_Log("Zoom map: new_scale=%f, new_width=%f, new_height=%f, center_x=%f, center_y=%f", new_scale, new_width, new_height, new_center_x, new_center_y);
-
     viewport.x = new_center_x - viewport.x - new_width / 2;
     viewport.y = new_center_y - viewport.y - new_height / 2;
     viewport.w = new_width;
