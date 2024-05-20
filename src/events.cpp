@@ -1,37 +1,5 @@
 #include "events.h"
 
-eng_event zoom_map(float scale){
-
-    /* FIXME: make it to zoom on the centre of the screen, zooming out too much crashes the game and moves the camera in weird position */
-
-    float new_scale = map_scale * scale; /* Adjust the scale */
-
-    const float min_scale = 0.25f;
-    const float max_scale = 2.0f;
-
-    new_scale = std::max(min_scale, std::min(max_scale, new_scale));
-
-    float center_x = viewport.x + viewport.w / 2;
-    float center_y = viewport.y + viewport.h / 2;
-
-    /* Calculate the new width and height of the viewport */
-    float new_width = DEV_SCREEN_W / map_scale;
-    float new_height = DEV_SCREEN_H / map_scale;
-
-    float new_center_x = center_x * (new_width / viewport.w);
-    float new_center_y = center_y * (new_height / viewport.h);
-
-    /* Calculate the new viewport position to keep the zoom centered */
-    viewport.x = new_center_x - viewport.x - new_width / 2;
-    viewport.y = new_center_y - viewport.y - new_height / 2;
-    viewport.w = new_width;
-    viewport.h = new_height;
-
-    map_scale = new_scale;
-
-    return;
-}
-
 eng_event info_on_hover(){
         int cursor_x;
         int cursor_y;
@@ -106,16 +74,16 @@ void events_handling(bool& quit){
                 /* FIXME */
 
                 if(e.key.keysym.sym == SDLK_w){
-                    viewport.y -= -50;
+                    y_off -= -50 * map_scale;
                 }
                 if(e.key.keysym.sym == SDLK_a){
-                    viewport.x -= -50;
+                    x_off -= -50 * map_scale;
                 }
                 if(e.key.keysym.sym == SDLK_s){
-                    viewport.y += -50;
+                    y_off += -50 * map_scale;
                 }
                 if(e.key.keysym.sym == SDLK_d){
-                    viewport.x += -50;
+                    x_off += -50 * map_scale;
                 }
                 break;
             // case SDL_MOUSEBUTTONDOWN:

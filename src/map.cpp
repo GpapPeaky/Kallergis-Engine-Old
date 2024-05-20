@@ -1,10 +1,13 @@
 #include "map.h"
 
-SDL_FRect viewport; 
+SDL_Rect viewport; 
 float map_scale = 1.0f;
-int map_width, map_height;
+int map_width;
+int map_height;
+int x_off = 0;
+int y_off = 0;
 
-render_capable render_map(float zoom){
+render_capable render_map(float zoom, int x, int y){
     int texture_h, texture_w;
     SDL_QueryTexture(map_texture, NULL, NULL, &texture_w, &texture_h); /* Take the width and height of the map */
 
@@ -21,17 +24,16 @@ render_capable render_map(float zoom){
     float renderer_center_x = renderer_w / 2.0f;
     float rendere_center_y = renderer_h / 2.0f;
 
-    SDL_Rect dest_rect;
-    dest_rect.w = static_cast<int>(texture_w * zoom);
-    dest_rect.h = static_cast<int>(texture_h * zoom);
-    dest_rect.x = static_cast<int>(renderer_center_x - (texture_center_x * zoom));
-    dest_rect.y = static_cast<int>(rendere_center_y - (texture_center_y * zoom));
+    viewport.w = static_cast<int>(texture_w * zoom);
+    viewport.h = static_cast<int>(texture_h * zoom);
+    viewport.x = static_cast<int>(renderer_center_x - (texture_center_x * zoom) + x);
+    viewport.y = static_cast<int>(rendere_center_y - (texture_center_y * zoom) + y);
 
-    SDL_RenderCopy(renderer, map_texture, NULL, &dest_rect);
+    SDL_RenderCopy(renderer, map_texture, NULL, &viewport);
 
     return;
 }
-/* FIXME */
+
 void initialise_viewport(float screen_width, float screen_height){
     viewport.h = screen_height / 2;
     viewport.w = screen_width / 2;

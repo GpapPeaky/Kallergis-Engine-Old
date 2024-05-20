@@ -27,7 +27,7 @@ int main(int argv, char* args[]){
         events_handling(quit);
 
         SDL_RenderClear(renderer); /* Canvas clearing */
-        render_map(map_scale); /* Renders the .png */
+        render_map(map_scale, x_off, y_off); /* Renders the .png */
         render_on_mouse_hover(); /* Special Event */
         SDL_RenderPresent(renderer); /* Present copies */
     }
