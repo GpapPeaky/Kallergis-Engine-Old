@@ -71,19 +71,18 @@ void events_handling(bool& quit){
                 }
 
                 /* WASD panning */
-                /* FIXME */
 
                 if(e.key.keysym.sym == SDLK_w){
-                    y_off -= -50 * map_scale;
+                    y_off -= -50;
                 }
                 if(e.key.keysym.sym == SDLK_a){
-                    x_off -= -50 * map_scale;
+                    x_off -= -50;
                 }
                 if(e.key.keysym.sym == SDLK_s){
-                    y_off += -50 * map_scale;
+                    y_off += -50;
                 }
                 if(e.key.keysym.sym == SDLK_d){
-                    x_off += -50 * map_scale;
+                    x_off += -50;
                 }
                 break;
             // case SDL_MOUSEBUTTONDOWN:
@@ -108,10 +107,17 @@ void events_handling(bool& quit){
             //     }
             //     break;
             case SDL_MOUSEWHEEL:
+            /* FIXME set viewport boundaries */
                 if(e.wheel.y < 0){
                     map_scale -= 0.1f;
+                    if(map_scale <= 0.1f){
+                        map_scale = 0.1f;
+                    }
                 }else if(e.wheel.y > 0){
                     map_scale += 0.1f;
+                    if(map_scale >= 2.5f){
+                        map_scale = 2.5f;
+                    }
                 }   
                 break;
             case SDL_MOUSEBUTTONDOWN:
