@@ -81,6 +81,8 @@ render_capable render_on_mouse_hover(void){
 
     int index = map_y * map_surface->pitch + map_x * 3;
 
+    /* Parse pixels from the map_surface and not the actual screen */
+
     b = ((Uint8*)map_surface->pixels)[index];
     g = ((Uint8*)map_surface->pixels)[index + 1];
     r = ((Uint8*)map_surface->pixels)[index + 2];

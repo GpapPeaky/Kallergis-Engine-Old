@@ -30,6 +30,7 @@ render_capable render_map(float zoom, int x, int y){
     viewport.y = static_cast<int>(rendere_center_y - (texture_center_y * zoom) + y);
 
     SDL_RenderCopy(renderer, map_texture, NULL, &viewport);
+    SDL_RenderCopy(renderer, map_bg_texture, NULL, &viewport); /* Render the texture on top of the map */
 
     return;
 }

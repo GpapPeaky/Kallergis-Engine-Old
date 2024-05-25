@@ -1,6 +1,6 @@
 #include "events.h"
 
-eng_event info_on_hover(){
+eng_event info_on_hover(void){
         int cursor_x;
         int cursor_y;
         SDL_GetMouseState(&cursor_x, &cursor_y);
@@ -15,7 +15,7 @@ eng_event highlight_on_click(int x, int y){
 
     Uint8 r, g, b;
 
-    SDL_Surface* surface = IMG_Load("src/regions/provinces.bmp");
+    SDL_Surface* surface = IMG_Load("src/regions/provinces.bmp"); /* They check the specific surface for the asked data, not the screen itself */
 
     int map_x = (x - viewport.x) / map_scale; /* viewport offset to bring the camera to the correct place for the rgb values*/
     int map_y = (y - viewport.y) / map_scale;

@@ -7,6 +7,8 @@ std::vector<reg>  regions;
 std::vector<prov> provinces;
 SDL_Surface* map_surface;
 SDL_Texture* map_texture;
+SDL_Surface* map_bg_surface;
+SDL_Texture* map_bg_texture;
 
 err_capable init_map(void){
 
@@ -21,6 +23,21 @@ err_capable init_map(void){
         printf("Error, cannot create map texture\n");
         return FAIL;
     }
+
+    map_bg_surface = IMG_Load("src/gfx/textures/map/map_background_texture.png");
+    if(map_bg_surface == nullptr){
+        printf("Error, cannot create map background surface\n");
+        return FAIL;
+    }
+
+    map_bg_texture = SDL_CreateTextureFromSurface(renderer, map_bg_surface);
+    if(map_bg_texture == nullptr){
+        printf("Error, cannot create map background texture\n");
+        return FAIL;
+    }
+
+    SDL_SetTextureBlendMode(map_bg_texture, SDL_BLENDMODE_BLEND);
+    SDL_SetTextureAlphaMod(map_bg_texture, BG_TEXTURE_ALPHA);
 
     return SUCCESS;
 }
