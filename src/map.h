@@ -1,6 +1,7 @@
-#include "init_map.h"
-#include <algorithm>
 #include "definitions.aux"
+#include "init_map.h"
+#include "pixels.h"
+#include <algorithm>
 
 extern SDL_Rect viewport;
 extern float map_scale;

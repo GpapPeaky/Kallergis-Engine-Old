@@ -5,9 +5,11 @@ INCLUDEFLAG = -Isrc/include
 SRCPATH = src/
 EXEC_NAME = projectcandia
 
-projectcandia.exe: $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp $(SRCPATH)province.cpp $(SRCPATH)regions.cpp $(SRCPATH)init_map.cpp $(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)pixels.cpp $(SRCPATH)events.cpp $(SRCPATH)font.cpp
-	@echo Compiling executable...
+def: $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp $(SRCPATH)province.cpp $(SRCPATH)regions.cpp $(SRCPATH)init_map.cpp $(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)pixels.cpp $(SRCPATH)events.cpp $(SRCPATH)font.cpp
+	@echo Compiling and running executable...
 	$(CC) $(LIBFLAG) $(INCLUDEFLAG) $^ -o  $(EXEC_NAME) $(CFLAGS)
+	$(EXEC_NAME).exe
+	
 
 clean:
 	@echo Cleaning executable...

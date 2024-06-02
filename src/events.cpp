@@ -1,12 +1,6 @@
 #include "events.h"
 
 eng_event info_on_hover(void){
-        int cursor_x;
-        int cursor_y;
-        SDL_GetMouseState(&cursor_x, &cursor_y);
-
-        SDL_Surface* info = IMG_Load("src/gfx/ui/infobox.png");
-        SDL_CreateTextureFromSurface(renderer, info);
 
         /* Info box: 129 - 114 */
 }
