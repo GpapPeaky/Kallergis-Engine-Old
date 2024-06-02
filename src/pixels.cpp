@@ -36,7 +36,7 @@ err_capable generate_countries_surfaces(void){
 
             for(int i = 0 ; i < countries.size() ; i++){
                 /* std::printf("%s\n", countries[i].country_name.c_str()); */
-                if(r == countries[i].country_rgb.r && g == countries[i].country_rgb.g && b == countries[i].country_rgb.b){
+                if(r == countries[i].country_rgb.r && g == countries[i].country_rgb.g && b == countries[i].country_rgb.b){ // Wrong statement 
                     Uint32 country_pixel = SDL_MapRGB(country_surface->format, r, g, b); /* Fixing the pixel format */
                     ((Uint32*)country_surface->pixels)[j * country_surface->pitch / 4 + p] = country_pixel; /* Changing the RGB value of the new surface */
                     std::printf("%d %d %d\n", r, g, b);

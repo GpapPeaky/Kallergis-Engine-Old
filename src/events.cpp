@@ -2,7 +2,8 @@
 
 eng_event info_on_hover(void){
 
-        /* Info box: 129 - 114 */
+    /* Info box: 129 - 114 */
+    return;
 }
 
 eng_event highlight_on_click(int x, int y){
