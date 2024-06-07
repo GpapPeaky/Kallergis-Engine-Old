@@ -4,7 +4,7 @@
 the same is true for the provinces */
 
 std::vector<reg>  regions;
-std::vector<prov> provinces; /* IDEA: */ /* CHECK FOR PROV COLOURS HERE MAYBE */
+std::vector<prov> provinces; /* IDEA */ /* CHECK FOR PROV COLOURS HERE MAYBE */
 SDL_Surface* map_surface;
 SDL_Texture* map_texture;
 SDL_Surface* map_bg_surface;
