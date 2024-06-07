@@ -45,16 +45,6 @@ eng_event pan_map(int d_x, int d_y){
 void events_handling(bool& quit){
     SDL_Event e;
 
-    // Panning variables
-    //_______________________________
-    // static int prev_mouse_x = 0;
-    // static int prev_mouse_y = 0;
-
-    // int delta_x;
-    // int delta_y;
-
-    // bool pan_active = false;
-    //_______________________________
     while(SDL_PollEvent(&e)){
         switch(e.type){
             case SDL_QUIT:
@@ -66,7 +56,6 @@ void events_handling(bool& quit){
                 }
 
                 /* WASD panning */
-
                 if(e.key.keysym.sym == SDLK_w){
                     y_off -= -50;
                 }
@@ -80,27 +69,6 @@ void events_handling(bool& quit){
                     x_off += -50;
                 }
                 break;
-            // case SDL_MOUSEBUTTONDOWN:
-            //     if (e.button.button == SDL_BUTTON_RIGHT) {
-            //         pan_active = true;
-            //         prev_mouse_x = e.button.x;
-            //         prev_mouse_y = e.button.y;
-            //     }
-            //     break;
-            // case SDL_MOUSEBUTTONUP:
-            //     if (e.button.button == SDL_BUTTON_RIGHT) {
-            //         pan_active = false;
-            //     }
-            //     break;
-            // case SDL_MOUSEMOTION:
-            //     if (pan_active) {
-            //         delta_x += 1;
-            //         delta_y += 
-            //         prev_mouse_x = e.motion.x;
-            //         prev_mouse_y = e.motion.y;
-            //         pan_map(delta_x, delta_y);
-            //     }
-            //     break;
             case SDL_MOUSEWHEEL:
             /* FIXME set viewport boundaries */
                 if(e.wheel.y < 0){

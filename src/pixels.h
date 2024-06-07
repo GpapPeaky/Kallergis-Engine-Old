@@ -40,7 +40,6 @@ err_capable generate_pixel_coords(std::string fname);
 err_capable generate_province_connections(std::string fname);
 /* WRITE: parses from .bmp */
 
-
 /**
  * @brief Parses the bmp and scans for each pixel
  *          it paints the cou RGB value onto a new surface that is rendered lastly
