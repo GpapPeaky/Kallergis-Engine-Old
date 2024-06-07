@@ -91,7 +91,7 @@ err_capable prov_to_reg(const std::string fname){
             new_prov.prov_id = i; /* Unique id for each province */
             new_prov.region = region_id;
 
-            provinces.push_back(new_prov);
+            provinces.push_back(new_prov); /* Each province is also saved here, and in the regions vector */
             regions[region_id].reg_provs.push_back(new_prov);
         }else{
             std::printf("Failed to parse line: %s", line);
