@@ -2,7 +2,6 @@
 
 int main(int argv, char* args[]){
 
-
     map_width = 5760;
     map_height = 3240;
 

@@ -23,7 +23,7 @@ extern SDL_Texture* country_texture;
  *                0 on success
 */
 err_capable generate_pixel_coords(std::string fname);
-/* WRITE: parses from .bmp */
+/* WRITE */
 
 /**
  * @brief Parses the bmp and scans for each pixel
@@ -38,7 +38,7 @@ err_capable generate_pixel_coords(std::string fname);
  *                0 on success
 */
 err_capable generate_province_connections(std::string fname);
-/* WRITE: parses from .bmp */
+/* WRITE */
 
 /**
  * @brief Parses the bmp and scans for each pixel
@@ -50,3 +50,4 @@ err_capable generate_province_connections(std::string fname);
  *              0 on success
 */
 err_capable generate_countries_surfaces(void);
+/* WRITE */

@@ -31,8 +31,6 @@ eng_event highlight_on_click(int x, int y){
 
     SDL_FreeSurface(surface);
 
-    /* TODO: add +50 to the clicked colour, reset after closing */
-
     return;
 }
 
@@ -70,7 +68,8 @@ void events_handling(bool& quit){
                 }
                 break;
             case SDL_MOUSEWHEEL:
-            /* FIXME set viewport boundaries */
+                /* FIXME */
+                /* set viewport boundaries */
                 if(e.wheel.y < 0){
                     map_scale -= 0.1f;
                     if(map_scale <= 0.1f){
