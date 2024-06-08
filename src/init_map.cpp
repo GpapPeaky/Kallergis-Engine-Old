@@ -156,8 +156,44 @@ err_capable reg_to_country(const std::string fname){
         return FAIL;
     }
 
-    /* WRITE */
+    std::string line;
+    std::regex pattern(R"(\s*\"(\w+)\"\s*:\s*\{\s*([\d\s,]*)\s*\}\s*)");
 
+    while(std::getline(file, line)){
+        if(line.empty() || line[0] == '#'){
+            continue;
+        }
+
+        std::smatch matches;
+        if(std::regex_match(line, matches, pattern)){
+            std::string tag = matches[1];
+            std::string regions_str = matches[2];
+
+            std::istringstream region_stream(regions_str);
+            std::string reg_id;
+            std::vector<int> region_ids;
+            while(std::getline(region_stream, reg_id, ',')){
+                region_ids.push_back(std::stoi(reg_id));
+            }
+
+            for(auto& cou : countries){
+                if(cou.tag == tag){
+                    for(const auto& id : region_ids){
+                        auto it = std::find_if(regions.begin(), regions.end(), [&id](const reg& r){
+                            return r.reg_id == id;
+                        });
+                    
+                        if(it != regions.end()){
+                            cou.country_regs.push_back(*it);
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    file.close();
     return SUCCESS;
 }
 
@@ -169,12 +205,21 @@ void print_regions(void){
         }
         std::printf("\n");
     }
+
+    return;
 }
 
 void print_countries(void){
     for(const auto& cou : countries){
         std::printf("COU: %s, TAG %s, RGB: %d %d %d\n", cou.country_name.c_str(), cou.tag.c_str(), cou.country_rgb.r, cou.country_rgb.g, cou.country_rgb.b);
+        for(const auto& creg : cou.country_regs){
+            std::printf("   REG: %s, ID: %d\n",creg.reg_name.c_str(), creg.reg_id);
+            for(const auto& prov : creg.reg_provs){
+                std::printf("       PROV: %s, RGB, %d,%d,%d, ID: %d\n", prov.prov_name.c_str(), prov.prov_colour.r, prov.prov_colour.b, prov.prov_colour.g, prov.prov_id);
+            }
+        }
     }
+
     return;
 }
 

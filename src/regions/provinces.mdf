@@ -21,7 +21,7 @@
 "Knossos" : { 85, 85, 132 } : 1
 "Tylissos" : { 245, 112, 0 } : 1
 "Gournes" : { 109, 112, 0 } : 1
-"Herakleion Demos" : { 105, 200, 95 } : 1
-"Saint Nickolas Demos" : { 200, 200, 95 } : 1
-"Rethemnon Demos" : { 200, 100, 95 } : 1
-"Chania Demos" : { 0, 72, 160 } : 1
+"Herakleion Demos" : { 105, 200, 95 } : 2
+"Saint Nickolas Demos" : { 200, 200, 95 } : 2
+"Rethemnon Demos" : { 200, 100, 95 } : 2
+"Chania Demos" : { 0, 72, 160 } : 2

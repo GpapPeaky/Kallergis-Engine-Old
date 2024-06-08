@@ -6,9 +6,9 @@ int main(int argv, char* args[]){
     map_height = 3240;
 
     Uint64 start, end, seconds;
-    SDL_FRect FPS_pos;
-    FPS_pos.x = 0.0f;
-    FPS_pos.y = 25.0f;
+    SDL_FRect CPC_pos;
+    CPC_pos.x = 0.0f;
+    CPC_pos.y = 25.0f;
 
     /* Initialise */
     win_init("project candia");
@@ -23,7 +23,7 @@ int main(int argv, char* args[]){
     reg_to_country("src/regions/ownership.cdf"); 
 
     /* Prints */
-    print_regions();
+    // print_regions();
     print_countries();
 
     bool quit = false;
@@ -51,9 +51,9 @@ int main(int argv, char* args[]){
             end = SDL_GetPerformanceCounter(); /* CALC_COUNT */
 
             seconds = (end - start);
-            std::string FPS = "cpc: " + std::to_string(seconds);
+            std::string CPC = "cpc: " + std::to_string(seconds);
 
-            render_text(FPS, &FPS_pos);
+            render_text(CPC, &CPC_pos);
 
         #endif /* CALC_COUNT */
 
