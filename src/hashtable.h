@@ -1,6 +1,7 @@
 #include "province.h"
 #include "regions.h"
 #include "country.h"
+#include "math.h" /* Requires the -lm flag */
 
 typedef struct prov_node{
     prov data;
@@ -27,9 +28,12 @@ extern reg_node** regions_h;
 
 /* Hash Function Constants */
 
-extern int a_constant; /* For the generation of a random hash function (1 ... p - 1) */ 
-extern int b_constant; /* For the generation of a random hash function (0 ... p - 1) */ 
 extern int p_constant; /* For the generation of a random hash function */
+
+extern int a_constant_p; /* For the generation of a random hash function (1 ... p - 1) */ 
+extern int b_constant_p; /* For the generation of a random hash function (0 ... p - 1) */ 
+extern int a_constant_r; /* For the generation of a random hash function (1 ... p - 1) */ 
+extern int b_constant_r; /* For the generation of a random hash function (0 ... p - 1) */ 
 
 /**
  * @brief Initialises the hash table

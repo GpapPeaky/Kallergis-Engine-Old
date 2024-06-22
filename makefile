@@ -1,7 +1,7 @@
 # Main
 
 CC = g++
-CFLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -Ofast -Wunused-variable
+CFLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -Ofast -Wunused-variable -lm
 LIBFLAG = -Lsrc/lib
 INCLUDEFLAG = -Isrc/include
 SRCPATH = src/
