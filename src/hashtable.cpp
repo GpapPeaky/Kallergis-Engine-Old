@@ -9,14 +9,23 @@ int b_constant;
 prov_node** provinces_h;
 reg_node** regions_h;
 
-int prime_selection(int cap){
-	for(int i = 0 ; i < 170 ; i++){
-		if(primes[i] > cap){
-			return primes[i];
-		}
-	}
-
-    printf("Prime For Hash Couldn't Be Found\n");
+int prime_selection(int cap, HASH_MODE mode){
+    if(mode == PROV_M){
+        for(int i = 0 ; i < PROV_H_CAP ; i++){
+            if(primes[i] > cap){
+                return primes[i];
+            }
+        }
+    }else if(mode == REG_M){
+        for(int i = 0 ; i < PROV_H_CAP ; i++){
+            if(primes[i] > cap){
+                return primes[i];
+            }
+        }
+    }else{
+        printf("Prime For Hash Couldn't Be Found\n");
+        exit(EXIT_FAILURE);
+    }
 }
 
 void init_hash(void){

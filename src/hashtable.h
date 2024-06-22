@@ -1,4 +1,3 @@
-#include "definitions.aux"
 #include "province.h"
 #include "regions.h"
 #include "country.h"
@@ -46,5 +45,15 @@ void init_hash(void);
  * @returns The cell where the data is saved
  */
 ulint h(int idx, HASH_MODE mode);
+
+/**
+ * @brief Selects a prime
+ * 
+ * @param cap the right biggest smaller prime of the number
+ * @param mode For what to hash ( prov / reg )
+ * 
+ * @returns The selected prime
+ */
+int prime_selection(int cap, HASH_MODE mode);
 
 #endif
