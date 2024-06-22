@@ -4,7 +4,7 @@
 
 int main(int argv, char* args[]){
 
-    prime_array_generation(3000);
+    prime_array_generation(300);
     print_primes();
 
     printf("terminates correctly");
