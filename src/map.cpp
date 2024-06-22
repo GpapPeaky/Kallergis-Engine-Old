@@ -15,8 +15,6 @@ render_capable render_map(float zoom, int x, int y){
     SDL_GetRendererOutputSize(renderer, &renderer_w, &renderer_h);
 
     /* Moves the colours as well for the font to be displayed on hover */
-    float zoom_scale_w = (map_width * map_scale);
-    float zoom_scale_h = (map_height * map_scale);
 
     float texture_center_x = texture_w / 2.0f;
     float texture_center_y = texture_h / 2.0f;
