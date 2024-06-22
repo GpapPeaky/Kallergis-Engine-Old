@@ -28,7 +28,11 @@ extern reg_node** regions_h;
 
 /* Hash Function Constants */
 
-extern int p_constant; /* For the generation of a random hash function */
+extern int prov_hash_s;
+extern int reg_hash_s;
+
+extern int p_constant_p; /* For the generation of a random hash function */
+extern int p_constant_r; /* For the generation of a random hash function */
 
 extern int a_constant_p; /* For the generation of a random hash function (1 ... p - 1) */ 
 extern int b_constant_p; /* For the generation of a random hash function (0 ... p - 1) */ 
@@ -39,6 +43,17 @@ extern int b_constant_r; /* For the generation of a random hash function (0 ... 
  * @brief Initialises the hash table
  */
 void init_hash(void);
+
+/**
+ * @brief Hash Function for provinces
+ * @warning The true hash function is this devided by 2
+ * 
+ * @param idx Index to hash
+ * @param mode For what to hash ( prov / reg )
+ * 
+ * @returns The cell where the data is saved
+ */
+ulint H(int idx, HASH_MODE mode);
 
 /**
  * @brief Hash Function for provinces
