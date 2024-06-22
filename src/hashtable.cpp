@@ -38,13 +38,20 @@ void init_hash(void){
     int p_prov = prime_selection(PROV_H_CAP, PROV_M);
     int p_reg = prime_selection(REG_H_CAP, REG_M);
 
-    printf("%d %d", p_prov, p_reg);
+    printf("Primes: prov %d - reg %d\n\n", p_prov, p_reg);
 
     a_constant_p = rand() % (p_prov - 1) + 1;
     a_constant_r = rand() % (p_reg - 1) + 1;
     
     b_constant_p = rand() % (p_prov - 1);
     b_constant_r = rand() % (p_reg - 1);
+
+    printf("Selected prov_a: %d\n", a_constant_p);
+    printf("Selected prov_b: %d\n", b_constant_p);
+    printf("Selected reg_a: %d\n", a_constant_r);
+    printf("Selected reg_b: %d\n", b_constant_r);
+
+    return;
 }
 
 ulint h(int idx, HASH_MODE mode){
