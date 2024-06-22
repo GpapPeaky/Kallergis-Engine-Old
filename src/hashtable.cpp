@@ -68,9 +68,9 @@ void init_hash(void){
 
 ulint H(int idx, HASH_MODE mode){
     if(mode == PROV_M){
-        return ((((a_constant_p * idx) + b_constant_p) % p_constant_p) % (prov_hash_s + 11));
+        return ((((a_constant_p * idx) + b_constant_p) % p_constant_p) % (prov_hash_s + 11 + (rand() % prov_hash_s) - 1));
     }else if(mode == REG_M){
-        return ((((a_constant_r * idx) + b_constant_r) % p_constant_r) % (reg_hash_s + 6));
+        return ((((a_constant_r * idx) + b_constant_r) % p_constant_r) % (reg_hash_s + 6 + (rand() % reg_hash_s) - 1));
     }else{
         printf("Couldn't Hash Correctly: Wrong Mode\n");
         exit(EXIT_FAILURE);
