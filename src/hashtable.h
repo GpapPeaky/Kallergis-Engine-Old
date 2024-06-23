@@ -75,4 +75,6 @@ ulint h(int idx, HASH_MODE mode);
  */
 int prime_selection(int cap, HASH_MODE mode);
 
+/* All insertions will be done inside the map functions */
+
 #endif
