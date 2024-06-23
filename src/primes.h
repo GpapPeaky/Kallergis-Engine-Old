@@ -1,4 +1,5 @@
 #include "definitions.aux"
+#include "modules.aux"
 #include <stdio.h>
 #include <stdlib.h>
 

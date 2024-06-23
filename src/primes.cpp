@@ -22,12 +22,16 @@ void prime_array_generation(int max_prime){
     int num = 2;
     while(found_primes < 3000 && num < max_prime){
         if(is_prime(num)){
-            printf("%d\n", num);
+            #ifdef HASH_DBG
+                printf("%d\n", num);
+            #endif
             found_primes++;
         }
         num++;
     }
-    printf("Primes %d\n", found_primes);
+    #ifdef HASH_DBG
+        printf("Primes %d\n", found_primes);
+    #endif
 
     primes = (int*)malloc(sizeof(int) * found_primes); /* Allocate memory */
     

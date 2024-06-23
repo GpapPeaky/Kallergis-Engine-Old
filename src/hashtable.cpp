@@ -1,5 +1,4 @@
 #include "hashtable.h"
-#include "primes.h"
 
 int prov_hash_s;
 int reg_hash_s;
@@ -44,13 +43,22 @@ void init_hash(void){
     prov_hash_s = (int)sqrt(PROV_H_CAP);
     reg_hash_s = (int)sqrt(REG_H_CAP);
 
-    printf("size of provinces hash: %d\n", prov_hash_s);
-    printf("size of regions hash: %d\n", reg_hash_s);
+    #ifdef HASH_DBG
+
+        printf("size of provinces hash: %d\n", prov_hash_s);
+        printf("size of regions hash: %d\n", reg_hash_s);
+
+    #endif
 
     int p_prov = prime_selection(2999, PROV_M);
-    printf("p_prov = %d\n", p_prov);
     int p_reg = prime_selection(299, REG_M);
-    printf("p_reg = %d\n",p_reg);
+
+    #ifdef HASH_DBG
+
+        printf("p_prov = %d\n", p_prov);
+        printf("p_reg = %d\n",p_reg);
+
+    #endif
 
     a_constant_p = rand() % (p_prov - 1) + 1;
     a_constant_r = rand() % (p_reg - 1) + 1;
@@ -58,19 +66,23 @@ void init_hash(void){
     b_constant_p = rand() % (p_prov - 1);
     b_constant_r = rand() % (p_reg - 1);
 
-    printf("Selected prov_a: %d\n", a_constant_p);
-    printf("Selected prov_b: %d\n", b_constant_p);
-    printf("Selected reg_a: %d\n", a_constant_r);
-    printf("Selected reg_b: %d\n", b_constant_r);
+    #ifdef HASH_DBG
+
+        printf("Selected prov_a: %d\n", a_constant_p);
+        printf("Selected prov_b: %d\n", b_constant_p);
+        printf("Selected reg_a: %d\n", a_constant_r);
+        printf("Selected reg_b: %d\n", b_constant_r);
+
+    #endif
 
     return;
 }
 
 ulint H(int idx, HASH_MODE mode){
     if(mode == PROV_M){
-        return ((((a_constant_p * idx) + b_constant_p) % p_constant_p) % (prov_hash_s + 11 + (rand() % prov_hash_s) - 1));
+        return (((a_constant_p * idx) + b_constant_p) % p_constant_p) % (prov_hash_s + 10);
     }else if(mode == REG_M){
-        return ((((a_constant_r * idx) + b_constant_r) % p_constant_r) % (reg_hash_s + 6 + (rand() % reg_hash_s) - 1));
+        return ((((a_constant_r * idx) + b_constant_r) % p_constant_r) % (reg_hash_s + 6));
     }else{
         printf("Couldn't Hash Correctly: Wrong Mode\n");
         exit(EXIT_FAILURE);
