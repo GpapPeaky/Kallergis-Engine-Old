@@ -103,6 +103,10 @@ err_capable prov_to_reg(const std::string fname){
                 continue;
             }
 
+            if(region_id >= regions.size()){
+                regions.resize(region_id + 1);
+            }
+
             if(provinces_h[hidx] == NULL){
                 /* First Insertion */
                 provinces_h[hidx] = new_prov;
@@ -115,8 +119,8 @@ err_capable prov_to_reg(const std::string fname){
                 std::printf("Inserted In Province Hash Successfully\n");
             }
 
-            // provinces.push_back(new_prov); /* Each province is also saved here, and in the regions vector */
-            // regions[region_id].reg_provs.push_back(*(provinces_h[hidx]));
+            /* Each province is also saved here, and in the regions vector */
+            regions[region_id].reg_provs.push_back(*new_prov); /* Regions will remain in vectors for now... */
         }else{
             std::printf("Failed to parse line: %s", line);
             file.close();

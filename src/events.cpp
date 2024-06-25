@@ -23,9 +23,14 @@ eng_event highlight_on_click(int x, int y){
 
     SDL_Color clicked = {r, g, b, ALPHA};
 
-    for(const auto& prov : provinces){
-        if(prov.prov_colour.r == clicked.r && prov.prov_colour.g == clicked.g && prov.prov_colour.b == clicked.b){
-            std::printf("Clicked Province: %s\n", prov.prov_name.c_str());
+    for(int i = 0 ; i < prov_hash_s ; i++){
+        prov* current = provinces_h[h(i, PROV_M)];
+        while(current != NULL){
+            if(current->prov_colour.r == clicked.r && current->prov_colour.g == clicked.g && current->prov_colour.b == clicked.b){
+                std::printf("Clicked Province: %s\n", current->prov_name.c_str());
+                break;
+            }
+            current = current->next;
         }
     }
 
