@@ -54,19 +54,19 @@ err_capable prov_to_reg(const std::string fname){
     std::regex pattern("\"([^\"]+)\"\\s*:\\s*\\{\\s*(\\d+),\\s*(\\d+),\\s*(\\d+)\\s*\\}\\s*:\\s*(\\d+)"); /* Regex pattern */
 
     int i = 0;
+    int line_n = 0;
 
     while(std::getline(file, line)){
+        line_n++;
+        std::printf("++++++++\nReading line %d\n", line_n);
 
-        if(line.empty()){
-            continue;
-        }
-
-        if(line[0] == '#'){
+        if(line.empty() || line[0] == '#'){
             continue;
         }
 
         std::smatch matches;
         if(std::regex_search(line, matches, pattern)){
+            printf("parsing line\n");
             i++;
             std::string prov_name = matches[1];
             int R = std::stoi(matches[2]);
@@ -75,30 +75,56 @@ err_capable prov_to_reg(const std::string fname){
             int region_id = std::stoi(matches[5]);
 
 
-            /* Create a new province */
+            /* Create a new province by allocating memory */
 
-            prov new_prov;
-            new_prov.prov_name = prov_name;
-            new_prov.prov_colour.a = ALPHA;
-            new_prov.prov_colour.r = R;
-            new_prov.prov_colour.g = G;
-            new_prov.prov_colour.b = B;
+            prov* new_prov = new prov; /* HUH?: Malloc doesn't work ??? */
+            // prov* new_prov = (prov*)malloc(sizeof(prov));
 
-            if(region_id >= regions.size()){
-                regions.resize(region_id + 1);
+            if(!new_prov){
+                std::printf("Memory allocation failed\n");
+                file.close();
+                return FAIL;
             }
 
-            new_prov.prov_id = i; /* Unique id for each province */
-            new_prov.region = region_id;
+            new_prov->prov_name = prov_name;
+            new_prov->prov_colour.a = ALPHA;
+            new_prov->prov_colour.r = R;
+            new_prov->prov_colour.g = G;
+            new_prov->prov_colour.b = B;
+            new_prov->prov_id = i; /* Unique id for each province */
+            new_prov->region = region_id;
+            new_prov->next = NULL;
 
-            provinces.push_back(new_prov); /* Each province is also saved here, and in the regions vector */
-            regions[region_id].reg_provs.push_back(new_prov);
+            ulint hidx = h(new_prov->prov_id, PROV_M);
+
+            if(hidx < 0 || hidx >= prov_hash_s){
+                std::printf("!!!! Hash index %d out of bounds\n", hidx);
+                delete new_prov;
+                continue;
+            }
+
+            if(provinces_h[hidx] == NULL){
+                /* First Insertion */
+                provinces_h[hidx] = new_prov;
+                new_prov->next = NULL;
+                std::printf("First Insertion In Province Hash, %d Completed\n", hidx);
+            }else{
+                std::printf("Adding a new province to the hash %d\n", hidx);
+                new_prov->next = provinces_h[hidx];
+                provinces_h[hidx] = new_prov;
+                std::printf("Inserted In Province Hash Successfully\n");
+            }
+
+            // provinces.push_back(new_prov); /* Each province is also saved here, and in the regions vector */
+            // regions[region_id].reg_provs.push_back(*(provinces_h[hidx]));
         }else{
             std::printf("Failed to parse line: %s", line);
+            file.close();
             return FAIL;
         }
     }
 
+    printf("Completion of prov2reg\n");
     file.close();
     return SUCCESS;
 }
@@ -217,6 +243,18 @@ void print_countries(void){
             for(const auto& prov : creg.reg_provs){
                 std::printf("       PROV: %s, RGB, %d,%d,%d, ID: %d\n", prov.prov_name.c_str(), prov.prov_colour.r, prov.prov_colour.b, prov.prov_colour.g, prov.prov_id);
             }
+        }
+    }
+
+    return;
+}
+
+void print_provinces(void){
+    for(int i = 0 ; i < prov_hash_s ; i++){
+        prov* current = provinces_h[h(i, PROV_M)];
+        while(current != NULL){
+            printf(" -PROV: %s, RGB %d - %d - %d, ID %d, HASH_ID %d\n", current->prov_name.c_str(), current->prov_colour.r, current->prov_colour.g, current->prov_colour.b, current->prov_id, i);
+            current = current->next;
         }
     }
 

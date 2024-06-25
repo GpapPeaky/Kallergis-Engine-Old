@@ -1,7 +1,7 @@
 # Main
 
 CC = g++
-CFLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -Ofast -Wunused-variable -lm
+CFLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -Wunused-variable -lm -Ofast
 LIBFLAG = -Lsrc/lib
 INCLUDEFLAG = -Isrc/include
 SRCPATH = src/
@@ -12,7 +12,7 @@ EXEC_NAME = projectcandia
 HFLAGS = -Wunused-variable
 HASH_EXEC_NAME = hash
 
-def: $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp $(SRCPATH)province.cpp $(SRCPATH)regions.cpp $(SRCPATH)init_map.cpp $(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)pixels.cpp $(SRCPATH)events.cpp $(SRCPATH)font.cpp
+def: $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp $(SRCPATH)province.cpp $(SRCPATH)regions.cpp $(SRCPATH)init_map.cpp $(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)pixels.cpp $(SRCPATH)events.cpp $(SRCPATH)font.cpp $(SRCPATH)primes.cpp $(SRCPATH)hashtable.cpp
 	@echo Compiling and running executable...
 	$(CC) $(LIBFLAG) $(INCLUDEFLAG) $^ -o  $(EXEC_NAME) $(CFLAGS)
 	$(EXEC_NAME).exe

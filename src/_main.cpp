@@ -11,20 +11,42 @@ int main(int argv, char* args[]){
     CPC_pos.y = 25.0f;
 
     /* Initialise */
+    prime_array_generation(300);
+    init_hash();
     win_init("project candia");
     init_font();
     init_map();
     initialise_viewport(DEV_SCREEN_W, DEV_SCREEN_H);
 
+    #ifdef MAIN_DBG
+        std::printf("@INITIALISATION COMPLETED@\n");
+    #endif
+
     /* Parsers */
-    prov_to_reg("src/regions/provinces.mdf"); /* Relative to the executable location */   
+    prov_to_reg("src/regions/provinces.mdf"); /* Relative to the executable location */ 
+    #ifdef MAIN_DBG
+        std::printf("$PROV2REG COMPLETED\n");
+    #endif
+
     reg_names("src/regions/region_names.ndf");
+    #ifdef MAIN_DBG
+        std::printf("$REGNAMES COMPLETED\n");
+    #endif
+    
     init_countries("src/country/cou.ndf", "src/country/tags.cdf");
+    #ifdef MAIN_DBG
+        std::printf("$COUNTRIESINIT COMPLETED\n");
+    #endif
+
     reg_to_country("src/regions/ownership.cdf"); 
+    #ifdef MAIN_DBG
+        std::printf("$REG2COU COMPLETED\n");
+    #endif
 
     /* Prints */
     // print_regions();
     print_countries();
+    print_provinces();
 
     bool quit = false;
 

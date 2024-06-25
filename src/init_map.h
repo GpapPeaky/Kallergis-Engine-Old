@@ -1,9 +1,11 @@
 #include "province.h"
 #include "regions.h"
 #include "country.h"
+#include "hashtable.h"
 #include "init_win.h"
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
+#include <stdlib.h>
 #include <fstream>
 #include <regex>
 #include <string>
@@ -65,5 +67,10 @@ void print_regions(void);
  * @brief prints all countries along with their data
 */
 void print_countries(void);
+
+/**
+ * @brief Prints the provinces from the province hashtable
+ */
+void print_provinces(void);
 
 #endif

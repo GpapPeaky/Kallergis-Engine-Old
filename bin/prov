@@ -1,12 +1,3 @@
-# "PROV_NAME" : { R, G , B } (ALPHA REMAINS TO 255) : REG_ID
-# PROV_ID IS GENERATED WHEN EACH PROVINCE IS PARSED 
-# 0 0 0 WILL CONSIST OF OCEAN TILES, IMPASSABLE 
-# FOLLOW THE EXACT SYNTAX OR ELSE THE PROGRAM WON'T WORK ACCORDINGLY
-
-"Messabelies" : { 255, 0, 0 } : 1
-"Saint John" : { 0, 255, 0 } : 1
-"Saint Catherine" : { 0, 0, 255 } : 1
-"Estavromenos" : { 255, 100, 50 } : 1
 "Gazi" : { 255, 50, 50 } : 1
 "Voutes" : { 255, 100, 100 } : 1
 "Kokkini" : { 255, 150, 150 } : 1

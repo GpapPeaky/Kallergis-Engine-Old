@@ -5,28 +5,11 @@
 #include "primes.h"
 #include "modules.aux"
 
-typedef struct prov_node{
-    prov data;
-    prov* next;
-}prov_node;
-
-typedef struct reg_node{
-    reg data;
-    reg* next;
-}reg_node;
-
-/* Countries Hash Might Be Reduntant */
-
-typedef struct cou_node{
-    cou data;
-    cou* next;
-}cou_node;
-
 #ifndef HASHTABLE
 #define HASHTABLE
 
-extern prov_node** provinces_h;
-extern reg_node** regions_h;
+extern prov** provinces_h;
+extern reg** regions_h;
 
 /* Hash Function Constants */
 

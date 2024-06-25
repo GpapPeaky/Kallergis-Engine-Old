@@ -14,6 +14,7 @@ typedef struct prov{
     std::string owner_tag;
     SDL_Color prov_colour;
     std::vector<struct prov> prov_con; /* Province connections */
+    struct prov* next;
 }prov;
 
 #endif
