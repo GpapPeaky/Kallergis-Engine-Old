@@ -1,2 +1,4 @@
 The CPC counter showed a decrese by 2k cpc when hovering
 and a small decrease when clicking... to be expected due to O(n) becoming mostly O(1)
+
+when clicking cpc is reduced from 350k to 270k most of the times

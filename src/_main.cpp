@@ -5,7 +5,7 @@ int main(int argv, char* args[]){
     map_width = 5760;
     map_height = 3240;
 
-    Uint64 start, end, seconds;
+    Uint64 start, end, cpc_count;
     SDL_FRect CPC_pos;
     CPC_pos.x = 0.0f;
     CPC_pos.y = 25.0f;
@@ -72,10 +72,13 @@ int main(int argv, char* args[]){
 
             end = SDL_GetPerformanceCounter(); /* CALC_COUNT */
 
-            seconds = (end - start);
-            std::string CPC = "cpc: " + std::to_string(seconds);
+            cpc_count = (end - start);
+            std::string CPC = "cpc: " + std::to_string(cpc_count);
 
             render_text(CPC, &CPC_pos);
+            if(cpc_count > CPC_BENCHMARK){
+                std::printf("%d\n", cpc_count);
+            }
 
         #endif /* CALC_COUNT */
 
