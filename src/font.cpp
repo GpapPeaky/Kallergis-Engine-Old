@@ -87,20 +87,21 @@ render_capable render_on_mouse_hover(void){
     g = ((Uint8*)map_surface->pixels)[index + 1];
     r = ((Uint8*)map_surface->pixels)[index + 2];
 
-    for(auto& province : provinces){
-        if(province.prov_colour.r == r &&
-        province.prov_colour.g ==  g &&
-        province.prov_colour.b == b){
+    for(int i = 0 ; i < prov_hash_s ; i++){
+        prov* current = provinces_h[h(i, PROV_M)];
+        while(current != NULL){
+            if(current->prov_colour.r == r && current->prov_colour.g == g && current->prov_colour.b == b){
+                std::string info = "Name: " + current->prov_name +  " Region: " + regions[current->region].reg_name + " (" + std::to_string(current->region) + ") ID: " + std::to_string(current->prov_id);
 
-            std::string info = "Name: " + province.prov_name +  " Region: " + regions[province.region].reg_name + " (" + std::to_string(province.region) + ") ID: " + std::to_string(province.prov_id);
+                SDL_FRect text_pos;
 
-            SDL_FRect text_pos;
+                text_pos.x = mouse_x;
+                text_pos.y = mouse_y;
 
-            text_pos.x = mouse_x;
-            text_pos.y = mouse_y;
-
-            render_text(info, &text_pos);
-            return;
+                render_text(info, &text_pos);
+                return;
+            }
+            current = current->next;
         }
     }
 
