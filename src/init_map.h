@@ -14,7 +14,6 @@
 #define INIT_MAP
 
 extern std::vector<reg>  regions; /* Contains data for each region */
-extern std::vector<prov> provinces;
 extern SDL_Surface* map_surface;
 extern SDL_Texture* map_texture;
 extern SDL_Surface* map_bg_surface;
