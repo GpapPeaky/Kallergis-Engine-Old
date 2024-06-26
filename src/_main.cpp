@@ -43,6 +43,11 @@ int main(int argv, char* args[]){
         std::printf("$REG2COU COMPLETED\n");
     #endif
 
+    generate_countries_surfaces();
+    #ifdef PIXELS
+        std::printf("$COUNTRY COLOURS COMPLETED\n");
+    #endif
+    
     /* Prints */
     // print_regions();
     print_countries();

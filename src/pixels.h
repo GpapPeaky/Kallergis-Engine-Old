@@ -2,6 +2,7 @@
 #include "country.h"
 #include "init_win.h"
 #include "init_map.h"
+#include <queue> /* For fill() function */
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_pixels.h>
 #include <string>
@@ -51,3 +52,22 @@ err_capable generate_province_connections(std::string fname);
 */
 err_capable generate_countries_surfaces(void);
 /* WRITE */
+
+/**
+ * @brief Checks if a specific pixel is black or not, on a specific format
+ * 
+ * @param pixel pixel to check
+ * @param format pixel format
+ * 
+ * @returns true / false
+ */
+bool is_black(Uint32 pixel, SDL_PixelFormat* format);
+
+/**
+ * @brief Returns the colour of a specified country
+ * 
+ * @param owner_tag Country's tag
+ * 
+ * @returns The colour of the country, else, if not found, black
+ */
+SDL_Colour get_country_colour(const std::string& owner_tag);
