@@ -7,6 +7,9 @@
 #include <SDL2/SDL_pixels.h>
 #include <string>
 
+#ifndef PIXELS_H
+#define PIXELS_H
+
 extern SDL_Surface* country_surface;
 extern SDL_Texture* country_texture;
 
@@ -71,3 +74,5 @@ bool is_black(Uint32 pixel, SDL_PixelFormat* format);
  * @returns The colour of the country, else, if not found, black
  */
 SDL_Colour get_country_colour(const std::string& owner_tag);
+
+#endif

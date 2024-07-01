@@ -44,14 +44,17 @@ int main(int argv, char* args[]){
     #endif
 
     generate_countries_surfaces();
+
+    /* We might just be close for that... check the bin */
+
     #ifdef PIXELS
         std::printf("$COUNTRY COLOURS COMPLETED\n");
     #endif
     
     /* Prints */
     // print_regions();
-    print_countries();
-    print_provinces();
+    // print_countries();
+    // print_provinces();
 
     bool quit = false;
 
