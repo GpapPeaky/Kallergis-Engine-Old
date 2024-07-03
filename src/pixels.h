@@ -2,16 +2,21 @@
 #include "country.h"
 #include "init_win.h"
 #include "init_map.h"
-#include <queue> /* For fill() function */
+#include <queue> /* For flood_fill() function */
+#include <utility> /* For pairs */
+#include <string>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_pixels.h>
-#include <string>
 
 #ifndef PIXELS_H
+/**
+ * @brief It has appeared that modifying the ! WINDOW ! surface is master and more efficient?
+ *  Although I tried to change already loaded bitmaps, it appeared as it cannot happen?
+ *  Still unsure...
+ * 
+ *  This module is for more direct pixel manipulation and all memory associated with it
+ */
 #define PIXELS_H
-
-extern SDL_Surface* country_surface;
-extern SDL_Texture* country_texture;
 
 /**
  * @brief Parses the bmp and scans for each pixel
@@ -57,6 +62,39 @@ err_capable generate_countries_surfaces(void);
 /* WRITE */
 
 /**
+ * @brief Sets a pixel at specific coordinates to a specific colour
+ * 
+ * @param surface Surface to change the pixel of
+ * @param win window where the surface is shown
+ * @param x x axis
+ * @param y y axis
+ * @param r red value
+ * @param g green value
+ * @param b blue value
+ */
+void set_pixel(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint8 r, Uint8 g, Uint8 b);
+
+/**
+ * @brief Test function, to understan memory manipulation better
+ * 
+ * @param surface Surface to colour
+ * 
+ * @warning DO NOT USE ON REGULAR, JUST A TEST!
+ */
+void pixel_screen_fill(SDL_Surface* surface);
+
+/**
+ * @brief Flood fills a colour on a surface
+ * 
+ * @param surface Surface to fill
+ * @param x x position of pixel
+ * @param y y position of pixel
+ * @param target target colour to fill
+ * @param fill_colour colour to fill target with
+ */
+void flood_fill(SDL_Surface* surface, int x, int y, Uint32 target, Uint32 fill_colour);
+
+/**
  * @brief Checks if a specific pixel is black or not, on a specific format
  * 
  * @param pixel pixel to check
@@ -74,5 +112,10 @@ bool is_black(Uint32 pixel, SDL_PixelFormat* format);
  * @returns The colour of the country, else, if not found, black
  */
 SDL_Colour get_country_colour(const std::string& owner_tag);
+
+/**
+ * @brief Prints the colours of all countries
+ */
+void print_country_colours(void);
 
 #endif

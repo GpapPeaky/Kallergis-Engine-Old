@@ -22,4 +22,6 @@ void win_init(const char* name){
     }
 
     SDL_RenderClear(renderer);
+    
+    return;
 }

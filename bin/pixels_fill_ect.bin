@@ -1,0 +1,56 @@
+// void floodFill(SDL_Surface* surface, int x, int y, Uint32 targetColor, Uint32 fillColor) {
+//     if (targetColor == fillColor) return;
+
+//     int width = surface->w;
+//     int height = surface->h;
+//     Uint32* pixels = (Uint32*)surface->pixels;
+
+//     std::queue<std::pair<int, int>> q;
+//     q.push(std::make_pair(x, y));
+//     pixels[y * width + x] = fillColor;
+
+//     while (!q.empty()) {
+//         std::pair<int, int> p = q.front();
+//         q.pop();
+//         int cx = p.first;
+//         int cy = p.second;
+
+//         std::pair<int, int> neighbors[] = {
+//             {cx + 1, cy}, {cx - 1, cy},
+//             {cx, cy + 1}, {cx, cy - 1}
+//         };
+
+//         for (const auto& n : neighbors) {
+//             int nx = n.first;
+//             int ny = n.second;
+//             if (nx >= 0 && nx < width && ny >= 0 && ny < height && pixels[ny * width + nx] == targetColor) {
+//                 pixels[ny * width + nx] = fillColor;
+//                 q.push(std::make_pair(nx, ny));
+//             }
+//         }
+//     }
+// }
+
+// void fillRegions(SDL_Surface* surface, const std::vector<region>& regions, SDL_PixelFormat* format) {
+//     Uint32* pixels = (Uint32*)surface->pixels;
+
+//     for (const auto& reg : regions) {
+//         for (const auto& prov : reg.reg_provs) {
+//             Uint32 provinceColor = SDL_MapRGB(format, prov.prov_colour.r, prov.prov_colour.g, prov.prov_colour.b);
+//             SDL_Color countryColor = {255, 255, 255, 255}; // White color
+//             Uint32 fillColor = SDL_MapRGB(format, countryColor.r, countryColor.g, countryColor.b);
+
+//             std::printf("Filling province %s with color (%d, %d, %d)\n", prov.prov_name.c_str(), countryColor.r, countryColor.g, countryColor.b);
+
+//             // Calculate starting coordinates based on prov_id assuming it's valid
+//             int x = prov.prov_id % surface->w;
+//             int y = prov.prov_id / surface->w;
+
+//             floodFill(surface, x, y, provinceColor, fillColor);
+
+//             // Debug: Save intermediate stages of surface to BMP for visual inspection
+//         }
+//     }
+
+//     SDL_UpdateTexture(map_texture, NULL, map_surface->pixels, map_surface->pitch);
+// }

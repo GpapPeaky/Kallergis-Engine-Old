@@ -71,6 +71,12 @@ void events_handling(bool& quit){
                 if(e.key.keysym.sym == SDLK_d){
                     x_off += -50;
                 }
+                #ifdef PIXELS
+                    if(e.key.keysym.sym == SDLK_TAB){
+                        pixel_screen_fill(SDL_GetWindowSurface(win)); /* Gets the window surface and changes it to gray when TAB is pressed */
+                    }
+                    /* If any other surface is chosen instead of the window one, it will stay the same visualy but it will bug out... */
+                #endif
                 break;
             case SDL_MOUSEWHEEL:
                 /* FIXME */

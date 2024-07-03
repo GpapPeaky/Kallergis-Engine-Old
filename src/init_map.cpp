@@ -11,7 +11,7 @@ SDL_Texture* map_bg_texture;
 
 err_capable init_map(void){
 
-    map_surface = IMG_Load("src/regions/provinces.bmp");
+    map_surface = SDL_LoadBMP("src/regions/provinces.bmp");
     if(map_surface == nullptr){
         printf("Error, cannot create map surface\n");
         return FAIL;

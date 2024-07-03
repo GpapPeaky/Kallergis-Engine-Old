@@ -2,9 +2,9 @@
 
 int main(int argv, char* args[]){
 
+    /* TODO: Move somewhere else, in an initialiser function maybe */
     map_width = 5760;
     map_height = 3240;
-
     Uint64 start, end, cpc_count;
     SDL_FRect CPC_pos;
     CPC_pos.x = 0.0f;
@@ -45,6 +45,9 @@ int main(int argv, char* args[]){
 
     generate_countries_surfaces();
 
+    // flood_fill(map_surface, 2936, 1189, SDL_MapRGB(map_surface->format, 105, 200, 95), SDL_MapRGB(map_surface->format, 255, 255, 255)); /* TODO: Rewrite */
+    SDL_UpdateTexture(map_texture, &viewport, map_surface->pixels, map_surface->pitch);
+
     /* We might just be close for that... check the bin */
 
     #ifdef PIXELS
@@ -52,19 +55,20 @@ int main(int argv, char* args[]){
     #endif
     
     /* Prints */
-    // print_regions();
-    // print_countries();
-    // print_provinces();
+    print_regions();
+    print_countries();
+    print_country_colours();
+    print_provinces();
 
     bool quit = false;
 
     while(!quit){
 
-        #ifdef CALC_COUNT
+        #ifdef CPC
 
-            start = SDL_GetPerformanceCounter(); /* CALC_COUNT */
+            start = SDL_GetPerformanceCounter(); /* CPC */
 
-        #endif /* CALC_COUNT */
+        #endif /* CPC */
 
         events_handling(quit);
 
@@ -76,9 +80,9 @@ int main(int argv, char* args[]){
 
         render_on_mouse_hover(); /* Special Event */
 
-        #ifdef CALC_COUNT
+        #ifdef CPC
 
-            end = SDL_GetPerformanceCounter(); /* CALC_COUNT */
+            end = SDL_GetPerformanceCounter(); /* CPC */
 
             cpc_count = (end - start);
             std::string CPC = "cpc: " + std::to_string(cpc_count);
@@ -88,8 +92,9 @@ int main(int argv, char* args[]){
                 std::printf("%d\n", cpc_count);
             }
 
-        #endif /* CALC_COUNT */
+        #endif /* CPC */
 
+        SDL_UpdateWindowSurface(win); /* If any change is done to the window surface (all the surfaces mashed together), it is changed and updated so that it is shown */
         SDL_RenderPresent(renderer); /* Present copies */
     }
 
