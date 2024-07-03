@@ -5,6 +5,9 @@
 #include "definitions.aux"
 
 #ifndef PROV
+/**
+ * @brief Province struct, most elementary form of ownership in the engine...
+ */
 #define PROV
 
 typedef struct prov{

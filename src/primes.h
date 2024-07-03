@@ -7,6 +7,9 @@ extern int* primes;
 extern int found_primes;
 
 #ifndef PRIME_SELECT
+/**
+ * @brief Prime selection module for the hashtable
+ */
 #define PRIME_SELECT
 
 /**

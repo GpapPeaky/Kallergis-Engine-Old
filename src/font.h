@@ -7,8 +7,11 @@
 #include "regions.h"
 #include "definitions.aux"
 
-#ifndef INFOBOX
-#define INFOBOX
+#ifndef FONT
+/**
+ * @brief Fonts Module
+ */
+#define FONT
 
 extern SDL_Color text_colour;
 extern SDL_Color text_colour_bg;
@@ -47,4 +50,4 @@ render_capable render_text(std::string msg, SDL_FRect* position);
 */
 render_capable render_on_mouse_hover(void);
 
-#endif/* INFOBOX */
+#endif/* FONT */

@@ -5,6 +5,9 @@
 #include <iostream>
 
 #ifndef COU
+/**
+ * @brief Countries structs, definitions, initialisation functions and other tools
+ */
 #define COU
 
 typedef struct country{

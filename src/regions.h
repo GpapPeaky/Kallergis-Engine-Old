@@ -2,6 +2,9 @@
 #include <vector>
 
 #ifndef REG
+/**
+ * @brief Region structs, consist of provinces
+ */
 #define REG
 
 typedef struct region{

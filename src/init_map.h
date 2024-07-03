@@ -11,6 +11,9 @@
 #include <string>
 
 #ifndef INIT_MAP
+/**
+ * @brief Initialisation functions for the map
+ */
 #define INIT_MAP
 
 extern std::vector<reg>  regions; /* Contains data for each region */

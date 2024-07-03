@@ -3,6 +3,12 @@
 #include "pixels.h"
 #include <algorithm>
 
+#ifndef MAP
+/**
+ * @brief Map rendering and viewport handling (for zoom-in/-out and WASD movement)
+ */
+#define MAP
+
 extern SDL_Rect viewport;
 extern float map_scale;
 extern int map_width;
@@ -26,3 +32,5 @@ render_capable render_map(float scale, int x, int y);
  * @param screen_height y parameter
 */
 void initialise_viewport(float screen_width, float screen_height);
+
+#endif

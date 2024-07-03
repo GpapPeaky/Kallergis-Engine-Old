@@ -6,6 +6,9 @@
 #include "modules.aux"
 
 #ifndef HASHTABLE
+/**
+ * @brief Implementing an O(1) data structure, to write-read the provinces from... The implementetion is the same (or most likely worse) as with the C++ hashmap library
+ */
 #define HASHTABLE
 
 extern prov** provinces_h;

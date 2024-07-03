@@ -7,6 +7,9 @@
 #include "definitions.aux"
 
 #ifndef EVENTS
+/**
+ * @brief Event handling for every aspect of the engine (Map, mouse, provinces, regions, countries ...)
+ */
 #define EVENTS
 
 /**

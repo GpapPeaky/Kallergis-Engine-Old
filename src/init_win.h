@@ -8,6 +8,9 @@
 #include "definitions.aux"
 
 #ifndef INIT_WIN
+/**
+ * @brief Initialisation functions for the window and renderer
+ */
 #define INIT_WIN 
 
 /* GENERAL USE VARIABLES */
