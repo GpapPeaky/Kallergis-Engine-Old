@@ -33,4 +33,6 @@ render_capable render_map(float scale, int x, int y);
 */
 void initialise_viewport(float screen_width, float screen_height);
 
+SDL_Surface* resize_province_bitmap(float w, float h);
+
 #endif

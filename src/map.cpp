@@ -27,8 +27,11 @@ render_capable render_map(float zoom, int x, int y){
     viewport.x = static_cast<int>(renderer_center_x - (texture_center_x * zoom) + x);
     viewport.y = static_cast<int>(rendere_center_y - (texture_center_y * zoom) + y);
 
+    // SDL_RenderCopy(renderer, map_bg_texture, NULL, &viewport); /* Render the texture on top of the map */
     SDL_RenderCopy(renderer, map_texture, NULL, &viewport);
-    SDL_RenderCopy(renderer, map_bg_texture, NULL, &viewport); /* Render the texture on top of the map */
+    // screen = SDL_GetWindowSurface(win);
+    // SDL_BlitSurface(map_surface, NULL, screen, &viewport);
+
     /* IDEA: For each textutre create a texture that has different data and render it instead */
 
     return;
@@ -49,4 +52,15 @@ void initialise_viewport(float screen_width, float screen_height){
     std::printf("viewport initialised\n");
 
     return;
+}
+
+SDL_Surface* resize_province_bitmap(float w, float h){
+    SDL_Surface* resized_map_surface = SDL_CreateRGBSurface(0, static_cast<int>(w), static_cast<int>(h), map_surface->format->BitsPerPixel, 
+                                                    map_surface->format->Rmask, map_surface->format->Gmask, 
+                                                    map_surface->format->Bmask, map_surface->format->Amask);
+
+    SDL_Rect stretched_rect = {0, 0, static_cast<int>(w), static_cast<int>(h)};
+    SDL_BlitScaled(map_surface, NULL, resized_map_surface, &stretched_rect);
+
+    return resized_map_surface;
 }

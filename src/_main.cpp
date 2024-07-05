@@ -46,7 +46,6 @@ int main(int argv, char* args[]){
     generate_countries_surfaces();
 
     // flood_fill(map_surface, 2936, 1189, SDL_MapRGB(map_surface->format, 105, 200, 95), SDL_MapRGB(map_surface->format, 255, 255, 255)); /* TODO: Rewrite */
-    SDL_UpdateTexture(map_texture, &viewport, map_surface->pixels, map_surface->pitch);
 
     /* We might just be close for that... check the bin */
 
@@ -65,36 +64,26 @@ int main(int argv, char* args[]){
     while(!quit){
 
         #ifdef CPC
-
             start = SDL_GetPerformanceCounter(); /* CPC */
-
         #endif /* CPC */
 
-        events_handling(quit);
-
         SDL_RenderClear(renderer); /* Canvas clearing */
-        
-        // generate_countries_surfaces(); /* Creates a new Surface and Texture, to render the country colours */ 
 
+        events_handling(quit);
         render_map(map_scale, x_off, y_off); /* Renders the .png */
-
         render_on_mouse_hover(); /* Special Event */
 
         #ifdef CPC
-
             end = SDL_GetPerformanceCounter(); /* CPC */
-
             cpc_count = (end - start);
-            std::string CPC = "cpc: " + std::to_string(cpc_count);
-
-            render_text(CPC, &CPC_pos);
+            std::string str = "cpc: " + std::to_string(cpc_count);
+            render_text(str, &CPC_pos);
             if(cpc_count > CPC_BENCHMARK){
                 std::printf("%d\n", cpc_count);
             }
-
         #endif /* CPC */
 
-        SDL_UpdateWindowSurface(win); /* If any change is done to the window surface (all the surfaces mashed together), it is changed and updated so that it is shown */
+        // SDL_UpdateWindowSurface(win); /* If any change is done to the window surface (all the surfaces mashed together), it is changed and updated so that it is shown */
         SDL_RenderPresent(renderer); /* Present copies */
     }
 

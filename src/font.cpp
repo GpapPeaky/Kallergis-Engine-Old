@@ -2,9 +2,9 @@
 
 SDL_Color text_colour = { 255, 255, 255};
 SDL_Color text_colour_bg = {0, 0, 0};
-SDL_Surface * text = NULL;
-SDL_Texture * txt = NULL;
-SDL_Texture * b_txt = NULL;
+SDL_Surface* text = NULL;
+SDL_Texture* txt = NULL;
+SDL_Texture* b_txt = NULL;
 TTF_Font* font = NULL;
 SDL_FRect rect;
 SDL_FRect b_rect;

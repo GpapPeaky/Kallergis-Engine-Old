@@ -17,12 +17,16 @@
 
 extern SDL_Window* win;
 extern SDL_Renderer* renderer;
+extern SDL_Surface* screen;
+extern SDL_Surface* map;
 
 /**
  * @brief Initialises the window and the renderer
  * 
  * @param name Window name
+ * 
+ * @returns 1 on failure 0 on success
 */
-void win_init(const char* name);
+err_capable win_init(const char* name);
 
 #endif

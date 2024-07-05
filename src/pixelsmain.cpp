@@ -3,30 +3,33 @@
 int main(int argv, char* args[]){
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) { fprintf(stderr, "Unable to initialize SDL: %s\n", SDL_GetError()); return EXIT_FAILURE; }
-    IMG_Init(IMG_INIT_PNG);
+    if (IMG_Init(IMG_INIT_PNG) != IMG_INIT_PNG) { fprintf(stderr, "Unable to initialize IMG: %s\n", SDL_GetError()); return EXIT_FAILURE; }
 
     SDL_Window* pixel_win = SDL_CreateWindow("C++ Surface And Pixel Manipulation Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1000, 900, SDL_WINDOW_SHOWN); /* Create A Window */
     SDL_Renderer* pixel_renderer = SDL_CreateRenderer(pixel_win,-1,SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC); /* Sprite Rendering */
 
-    if(pixel_win == nullptr){
-        SDL_Log("Could not create pixels' window: %s", SDL_GetError());
+    if(pixel_win == nullptr){ SDL_Log("Could not create pixels' window: %s", SDL_GetError());
         return EXIT_FAILURE;
     }
-    if(pixel_renderer == nullptr){
-        SDL_Log("Could not create pixels' renderer: %s", SDL_GetError());
+    if(pixel_renderer == nullptr){ SDL_Log("Could not create pixels' renderer: %s", SDL_GetError());
         return EXIT_FAILURE;
     }
+
+    SDL_Surface* screen = SDL_GetWindowSurface(pixel_win);
 
     std::printf("Pixel Intialisation Complete!\n");
 
-    SDL_Surface* surface = SDL_GetWindowSurface(pixel_win);
+    SDL_Surface* surface = IMG_Load("src/gfx/pixels/Image008.png");
+    if(!surface){
+        std::printf("Image Failed to Load\n");
+    }
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(pixel_renderer, surface);
 
     bool quit = false;
     SDL_Event event;
-
     while(!quit){
+        srand(time(NULL)); /* Change seed with every loop */
         while(SDL_PollEvent(&event)){
-            srand(time(NULL)); /* Change seed with every loop */
             
             int x, y;
             SDL_GetMouseState(&x, &y); /* Take the mouse state every time */
@@ -46,23 +49,35 @@ int main(int argv, char* args[]){
                 }
             }
             if(event.button.button == SDL_BUTTON_LEFT){
-                set_pixel(surface, pixel_win, x, y, rand() % 255, rand() % 255, rand() % 255);
+                set_pixel(surface, pixel_win, x, y, 255, 255, 255);
+                set_pixel(surface, pixel_win, x + 1, y, 255, 255, 255);
+                set_pixel(surface, pixel_win, x - 1, y, 255, 255, 255);
+                set_pixel(surface, pixel_win, x, y + 1, 255, 255, 255);
+                set_pixel(surface, pixel_win, x, y - 1, 255, 255, 255);
+                set_pixel(surface, pixel_win, x - 1, y - 1, 255, 255, 255);
+                set_pixel(surface, pixel_win, x - 1, y + 1, 255, 255, 255);
+                set_pixel(surface, pixel_win, x + 1, y + 1, 255, 255, 255);
+                set_pixel(surface, pixel_win, x - 1, y - 1, 255, 255, 255);
                 /* Random Colours to be chosen when clicking */
             }
         }
 
-        SDL_RenderClear(pixel_renderer); /* Canvas clearing */
-
-        SDL_UpdateWindowSurface(pixel_win); /* Update */
-
-        SDL_RenderPresent(pixel_renderer); /* Present copies */
+        // SDL_RenderClear(pixel_renderer); /* Canvas clearing  (No need if the window surface is updated)*/
+        // SDL_RenderCopy(pixel_renderer, texture, NULL, NULL);
+        SDL_BlitSurface(surface, NULL, screen, NULL); /* Changes the RGB value format, offsets need to be handled differently in the set pixel value */
+        SDL_UpdateWindowSurface(pixel_win); /* Update only when handling the window surface, makes other renditions stutter due to the 
+        // RenderClear and RenderPresent functions */   
+        // SDL_RenderPresent(pixel_renderer); /* Present copies (No need if the window surface is updated) */
+        /* This method is used for the typical SDL_RenderCopy(...) family of functions */
     }
 
     /* Cleanup */
     EXIT:
         SDL_FreeSurface(surface);
+        SDL_DestroyTexture(texture);
         SDL_DestroyRenderer(pixel_renderer);
         SDL_DestroyWindow(pixel_win);
+        IMG_Quit();
         SDL_Quit();
         std::printf("Pixel test completed\n");
 

@@ -16,10 +16,11 @@ void set_pixel(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint8 r, Uin
     SDL_LockSurface(surface); /* Lock in order to edit */
     Uint8* pixel_array = (Uint8*)surface->pixels;
 
-    /* Making the correct offsets | format: { B, G, R }*/
-    pixel_array[y * surface->pitch + x * surface->format->BytesPerPixel + 2] = r; 
+    /* Making the correct offsets | format: { B, G, R } */
+    /* It becomes { R, G, B } if a surface is blitted onto the window surface (screen) -> offsets need to change */
+    pixel_array[y * surface->pitch + x * surface->format->BytesPerPixel + 0] = r; 
     pixel_array[y * surface->pitch + x * surface->format->BytesPerPixel + 1] = g;
-    pixel_array[y * surface->pitch + x * surface->format->BytesPerPixel + 0] = b;
+    pixel_array[y * surface->pitch + x * surface->format->BytesPerPixel + 2] = b;
     SDL_UnlockSurface(surface);
 
     return;
