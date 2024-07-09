@@ -3,8 +3,6 @@
 int main(int argv, char* args[]){
 
     /* TODO: Move somewhere else, in an initialiser function maybe */
-    map_width = 5760;
-    map_height = 3240;
     Uint64 start, end, cpc_count;
     SDL_FRect CPC_pos;
     CPC_pos.x = 0.0f;
@@ -16,43 +14,32 @@ int main(int argv, char* args[]){
     win_init("project candia");
     init_font();
     init_map();
-    initialise_viewport(DEV_SCREEN_W, DEV_SCREEN_H);
-
+    // initialise_viewport(DEV_SCREEN_W, DEV_SCREEN_H); /* FIXME */
     #ifdef MAIN_DBG
-        std::printf("@INITIALISATION COMPLETED@\n");
+        std::printf("Init Functions Complete!\n");
     #endif
 
     /* Parsers */
     prov_to_reg("src/regions/provinces.mdf"); /* Relative to the executable location */ 
     #ifdef MAIN_DBG
-        std::printf("$PROV2REG COMPLETED\n");
+        std::printf("\nProvinces To Regions Parse Complete\n");
     #endif
 
     reg_names("src/regions/region_names.ndf");
     #ifdef MAIN_DBG
-        std::printf("$REGNAMES COMPLETED\n");
+        std::printf("Region Names Parse Complete\n");
     #endif
     
     init_countries("src/country/cou.ndf", "src/country/tags.cdf");
     #ifdef MAIN_DBG
-        std::printf("$COUNTRIESINIT COMPLETED\n");
+        std::printf("Countries Parse Complete\n");
     #endif
 
     reg_to_country("src/regions/ownership.cdf"); 
     #ifdef MAIN_DBG
-        std::printf("$REG2COU COMPLETED\n");
+        std::printf("Region To Countries Complete\n");
     #endif
 
-    generate_countries_surfaces();
-
-    // flood_fill(map_surface, 2936, 1189, SDL_MapRGB(map_surface->format, 105, 200, 95), SDL_MapRGB(map_surface->format, 255, 255, 255)); /* TODO: Rewrite */
-
-    /* We might just be close for that... check the bin */
-
-    #ifdef PIXELS
-        std::printf("$COUNTRY COLOURS COMPLETED\n");
-    #endif
-    
     /* Prints */
     print_regions();
     print_countries();
@@ -67,11 +54,11 @@ int main(int argv, char* args[]){
             start = SDL_GetPerformanceCounter(); /* CPC */
         #endif /* CPC */
 
-        SDL_RenderClear(renderer); /* Canvas clearing */
+        // SDL_RenderClear(renderer); /* Canvas clearing */
 
         events_handling(quit);
-        render_map(map_scale, x_off, y_off); /* Renders the .png */
-        render_on_mouse_hover(); /* Special Event */
+        render_to_screen(map, screen, 0, 0, 0); /* Renders the .bmp by blitting it onto the screen */
+        // render_on_mouse_hover(); /* Special Event */
 
         #ifdef CPC
             end = SDL_GetPerformanceCounter(); /* CPC */
@@ -84,7 +71,7 @@ int main(int argv, char* args[]){
         #endif /* CPC */
 
         // SDL_UpdateWindowSurface(win); /* If any change is done to the window surface (all the surfaces mashed together), it is changed and updated so that it is shown */
-        SDL_RenderPresent(renderer); /* Present copies */
+        // SDL_RenderPresent(renderer); /* Present copies */
 
         #ifdef WIN_UPDATE /* Only updates when the TAB key is pressed, if called in main it will update and stay there always */
         /* It clatters due to the {CLEAR -> RENDERCOPY -> PRESENT} method */
@@ -94,7 +81,6 @@ int main(int argv, char* args[]){
 
     /* Cleanup */
 
-    SDL_DestroyTexture(map_texture);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(win);
     SDL_Quit();

@@ -27,10 +27,11 @@ eng_event info_on_hover(void);
 /**
  * @brief Highlights a province when clicked
  * 
- * @param mouse_x Mouse x 
+ * @param mouse_x Mouse x
  * @param mouse_y Mouse y
+ * @param map Surface to parse
 */
-eng_event highlight_on_click(int mouse_x, int mouse_y);
+eng_event highlight_on_click(int mouse_x, int mouse_y, SDL_Surface* map);
 
 /**
  * @brief Allows to pan the map

@@ -6,18 +6,15 @@ eng_event info_on_hover(void){
     return;
 }
 
-eng_event highlight_on_click(int x, int y){
+eng_event highlight_on_click(int x, int y, SDL_Surface* map){
 
     Uint8 r, g, b;
 
-    int map_x = (x - viewport.x) / map_scale; /* viewport offset to bring the camera to the correct place for the rgb values*/
-    int map_y = (y - viewport.y) / map_scale;
+    int index = y * map->pitch + x * 3;
 
-    int index = map_y * map_surface->pitch + map_x * 3;
-
-    b = ((Uint8*)map_surface->pixels)[index];
-    g = ((Uint8*)map_surface->pixels)[index + 1];
-    r = ((Uint8*)map_surface->pixels)[index + 2];
+    b = ((Uint8*)map->pixels)[index + 0];
+    g = ((Uint8*)map->pixels)[index + 1];
+    r = ((Uint8*)map->pixels)[index + 2];
 
     SDL_Color clicked = {r, g, b, ALPHA};
 
@@ -53,48 +50,23 @@ void events_handling(bool& quit){
                 if(e.key.keysym.sym == SDLK_e){
                     quit = true;
                 }
-
-                /* WASD panning */
-                if(e.key.keysym.sym == SDLK_w){
-                    y_off -= -50;
-                }
-                if(e.key.keysym.sym == SDLK_a){
-                    x_off -= -50;
-                }
-                if(e.key.keysym.sym == SDLK_s){
-                    y_off += -50;
-                }
-                if(e.key.keysym.sym == SDLK_d){
-                    x_off += -50;
-                }
                 #ifdef PIXELS
                     if(e.key.keysym.sym == SDLK_TAB){
-                        pixel_screen_fill(SDL_GetWindowSurface(win)); /* Gets the window surface and changes it to gray when TAB is pressed */
+                        pixel_screen_fill(map, win); /* Gets the window surface and changes it to gray when TAB is pressed */
                         /* We have to update, or else it won't show */
                     }
                     /* If any other surface is chosen instead of the window one, it will stay the same visualy but it will bug out... */
                 #endif
                 break;
             case SDL_MOUSEWHEEL:
-                /* FIXME */
-                /* set viewport boundaries */
-                if(e.wheel.y < 0){
-                    map_scale -= 0.1f;
-                    if(map_scale <= 0.1f){
-                        map_scale = 0.1f;
-                    }
-                }else if(e.wheel.y > 0){
-                    map_scale += 0.1f;
-                    if(map_scale >= 2.5f){
-                        map_scale = 2.5f;
-                    }
-                }   
+                /* TODO: Zoom */
                 break;
             case SDL_MOUSEBUTTONDOWN:
-                int cursor_x;
-                int cursor_y;
-                SDL_GetMouseState(&cursor_x, &cursor_y);
-                highlight_on_click(cursor_x, cursor_y);
+                int mouse_x;
+                int mouse_y;
+                SDL_GetMouseState(&mouse_x, &mouse_y);
+                highlight_on_click(mouse_x, mouse_y, map);
+                break;
         }
     }
 

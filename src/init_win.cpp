@@ -3,7 +3,6 @@
 SDL_Window* win;
 SDL_Renderer* renderer;
 SDL_Surface* screen;
-SDL_Surface* map;
 
 err_capable win_init(const char* name){
 
@@ -22,6 +21,8 @@ err_capable win_init(const char* name){
         SDL_Log("Could not create a renderer: %s", SDL_GetError());
         return FAIL;
     }
+
+    screen = SDL_GetWindowSurface(win);
 
     return SUCCESS;
 }

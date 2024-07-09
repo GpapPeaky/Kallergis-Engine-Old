@@ -26,12 +26,23 @@ void set_pixel(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint8 r, Uin
     return;
 }
 
-void pixel_screen_fill(SDL_Surface* surface){
+void pixel_screen_fill(SDL_Surface* surface, SDL_Window* win){
 
     /* Locking and unlocking the surface is not really required but it is good practice */
+    Uint8* pixel_array = (Uint8*)surface->pixels;
 
     SDL_LockSurface(surface);
-    SDL_memset(surface->pixels, 150, surface->h * surface->pitch); /* (int c) is on grayscale RGB: {c, c, c} */
+        for(int i = 0 ; i < surface->w ; i++){
+            for(int j = 0 ; j < surface->h ; j++){
+                if(
+                    pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 0] == 0 &&
+                    pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 1] == 0 &&
+                    pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 2] == 0
+                ){
+                    set_pixel(surface, win, i, j, 255, 255, 255); /* Simple Example of image manipulation, quite fast... */
+                }
+            }
+        }
     SDL_UnlockSurface(surface);
 
     return;

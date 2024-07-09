@@ -5,9 +5,7 @@ the same is true for the provinces */
 
 std::vector<reg>  regions;
 SDL_Surface* map_surface;
-SDL_Texture* map_texture;
-SDL_Surface* map_bg_surface;
-SDL_Texture* map_bg_texture;
+SDL_Surface* map;
 
 err_capable init_map(void){
 
@@ -17,26 +15,12 @@ err_capable init_map(void){
         return FAIL;
     }
 
-    map_texture = SDL_CreateTextureFromSurface(renderer, map_surface);
-    if(map_texture == nullptr){
-        printf("Error, cannot create map texture\n");
-        return FAIL;
-    }
-
-    map_bg_surface = IMG_Load("src/gfx/textures/map/map_background_texture.png");
-    if(map_bg_surface == nullptr){
-        printf("Error, cannot create map background surface\n");
-        return FAIL;
-    }
-
-    map_bg_texture = SDL_CreateTextureFromSurface(renderer, map_bg_surface);
-    if(map_bg_texture == nullptr){
-        printf("Error, cannot create map background texture\n");
-        return FAIL;
-    }
-
-    SDL_SetTextureBlendMode(map_bg_texture, SDL_BLENDMODE_BLEND);
-    SDL_SetTextureAlphaMod(map_bg_texture, BG_TEXTURE_ALPHA);
+    int w, h;
+    SDL_GetRendererOutputSize(renderer, &w, &h);
+    map = resize_province_bitmap(map_surface, w, h);
+    #ifdef MAIN_DBG
+        std::printf("Map Surface Resized\n");
+    #endif
 
     return SUCCESS;
 }
@@ -65,7 +49,6 @@ err_capable prov_to_reg(const std::string fname){
 
         std::smatch matches;
         if(std::regex_search(line, matches, pattern)){
-            printf("parsing line\n");
             i++;
             std::string prov_name = matches[1];
             int R = std::stoi(matches[2]);
@@ -110,12 +93,9 @@ err_capable prov_to_reg(const std::string fname){
                 /* First Insertion */
                 provinces_h[hidx] = new_prov;
                 new_prov->next = NULL;
-                std::printf("First Insertion In Province Hash, %d Completed\n", hidx);
             }else{
-                std::printf("Adding a new province to the hash %d\n", hidx);
                 new_prov->next = provinces_h[hidx];
                 provinces_h[hidx] = new_prov;
-                std::printf("Inserted In Province Hash Successfully\n");
             }
 
             /* Each province is also saved here, and in the regions vector */
@@ -127,7 +107,6 @@ err_capable prov_to_reg(const std::string fname){
         }
     }
 
-    printf("Completion of prov2reg\n");
     file.close();
     return SUCCESS;
 }
@@ -224,6 +203,17 @@ err_capable reg_to_country(const std::string fname){
 
     file.close();
     return SUCCESS;
+}
+
+SDL_Surface* resize_province_bitmap(SDL_Surface* map_surface, float w, float h){
+    SDL_Surface* resized_map_surface = SDL_CreateRGBSurface(0, static_cast<int>(w), static_cast<int>(h), map_surface->format->BitsPerPixel, 
+                                                    map_surface->format->Rmask, map_surface->format->Gmask, 
+                                                    map_surface->format->Bmask, map_surface->format->Amask);
+
+    SDL_Rect stretched_rect = {0, 0, static_cast<int>(w), static_cast<int>(h)};
+    SDL_BlitScaled(map_surface, NULL, resized_map_surface, &stretched_rect); /* Fast copy it onto the resized surface */
+
+    return resized_map_surface;
 }
 
 void print_regions(void){

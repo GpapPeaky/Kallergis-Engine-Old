@@ -48,20 +48,7 @@ int main(int argv, char* args[]){
                 goto EXIT;
             }
             if(event.key.keysym.sym == SDLK_1){ /* Eyoo! */
-                Uint8* pixel_array = (Uint8*)surface->pixels;
-                
-                /* We found the issue of filling pixels!! */
-                for(int i = 0 ; i < surface->w ; i++){
-                    for(int j = 0 ; j < surface->h ; j++){
-                        if(
-                            pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 0] == 0 &&
-                            pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 1] == 0 &&
-                            pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 2] == 0
-                        ){
-                            set_pixel(surface, pixel_win, i, j, 255, 255, 255); /* Simple Example of image manipulation, quite fast... */
-                        }
-                    }
-                }
+                pixel_screen_fill(surface, pixel_win);
             }
             if(event.key.keysym.sym == SDLK_2){
                 for(int i = 0 ; i < 450 ; i++){

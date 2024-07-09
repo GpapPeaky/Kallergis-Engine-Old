@@ -78,10 +78,11 @@ void set_pixel(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint8 r, Uin
  * @brief Test function, to understan memory manipulation better
  * 
  * @param surface Surface to colour
+ * @param win Window to go to
  * 
  * @warning DO NOT USE ON REGULAR, JUST A TEST!
  */
-void pixel_screen_fill(SDL_Surface* surface);
+void pixel_screen_fill(SDL_Surface* surface, SDL_Window* win);
 
 /**
  * @brief Flood fills a colour on a surface

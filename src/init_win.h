@@ -18,7 +18,6 @@
 extern SDL_Window* win;
 extern SDL_Renderer* renderer;
 extern SDL_Surface* screen;
-extern SDL_Surface* map;
 
 /**
  * @brief Initialises the window and the renderer

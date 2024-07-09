@@ -16,11 +16,9 @@
  */
 #define INIT_MAP
 
-extern std::vector<reg>  regions; /* Contains data for each region */
+extern std::vector<reg> regions; /* TODO: move | Contains data for each region */
 extern SDL_Surface* map_surface;
-extern SDL_Texture* map_texture;
-extern SDL_Surface* map_bg_surface;
-extern  SDL_Texture* map_bg_texture;
+extern SDL_Surface* map;
 
 /**
  * @brief Selects and image for a map
@@ -59,6 +57,17 @@ err_capable reg_names(const std::string fname);
  *                0 on success
 */
 err_capable reg_to_country(const std::string fname);
+
+/**
+ * @brief Resizes a bmp surface to w / h
+ * 
+ * @param surface surface to resize
+ * @param w width to resize to
+ * @param h height to resize to
+ * 
+ * @returns The resized surface
+ */
+SDL_Surface* resize_province_bitmap(SDL_Surface* surface, float w, float h);
 
 /**
  * @brief prints all regions, along with their data
