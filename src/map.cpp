@@ -54,13 +54,13 @@ void initialise_viewport(float screen_width, float screen_height){
     return;
 }
 
-SDL_Surface* resize_province_bitmap(float w, float h){
+SDL_Surface* resize_province_bitmap(SDL_Surface* map_surface, float w, float h){
     SDL_Surface* resized_map_surface = SDL_CreateRGBSurface(0, static_cast<int>(w), static_cast<int>(h), map_surface->format->BitsPerPixel, 
                                                     map_surface->format->Rmask, map_surface->format->Gmask, 
                                                     map_surface->format->Bmask, map_surface->format->Amask);
 
     SDL_Rect stretched_rect = {0, 0, static_cast<int>(w), static_cast<int>(h)};
-    SDL_BlitScaled(map_surface, NULL, resized_map_surface, &stretched_rect);
+    SDL_BlitScaled(map_surface, NULL, resized_map_surface, &stretched_rect); /* Fast copy it onto the resized surface */
 
     return resized_map_surface;
 }

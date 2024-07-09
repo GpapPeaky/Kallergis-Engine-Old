@@ -33,6 +33,15 @@ render_capable render_map(float scale, int x, int y);
 */
 void initialise_viewport(float screen_width, float screen_height);
 
-SDL_Surface* resize_province_bitmap(float w, float h);
+/**
+ * @brief Resizes a bmp surface to w / h
+ * 
+ * @param surface surface to resize
+ * @param w width to resize to
+ * @param h height to resize to
+ * 
+ * @returns The resized surface
+ */
+SDL_Surface* resize_province_bitmap(SDL_Surface* surface, float w, float h);
 
 #endif

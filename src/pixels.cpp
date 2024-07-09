@@ -37,7 +37,7 @@ void pixel_screen_fill(SDL_Surface* surface){
     return;
 }
 
-void flood_fill(SDL_Surface* surface, int x, int y, Uint32 target, Uint32 fill_colour){
+void flood_fill(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint32 target, Uint32 fill_colour){
     if(!surface) return; /* Surface is NULL */
     if(target == fill_colour) return; /* Same colour picked, do nothing... return */
 
@@ -66,6 +66,7 @@ void flood_fill(SDL_Surface* surface, int x, int y, Uint32 target, Uint32 fill_c
         /* Set the new colour */ 
         // pixels[(cy * w) + cx] = fill_colour;
         // SDL_memset(surface->pixels, 255, h * surface->pitch);
+        set_pixel(surface, win, x, y, 255, 255, 255);
 
 
         // Add neighboring pixels to the queue

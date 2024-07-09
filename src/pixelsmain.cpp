@@ -1,4 +1,5 @@
 #include "pixels.h"
+#include "map.h"
 
 int main(int argv, char* args[]){
 
@@ -19,10 +20,18 @@ int main(int argv, char* args[]){
 
     std::printf("Pixel Intialisation Complete!\n");
 
-    SDL_Surface* surface = IMG_Load("src/gfx/pixels/Image008.png");
+    SDL_Surface* surface = IMG_Load("src/regions/test.bmp");
     if(!surface){
         std::printf("Image Failed to Load\n");
     }
+
+    int w, h;
+    SDL_GetRendererOutputSize(pixel_renderer, &w, &h); /* Due to the windows high dpi and other parameters, we cannot use SDL_GetWindowSize etc */
+
+    std::printf("WIDTH: %d - HEIGHT: %d\n", w, h);
+
+    surface = resize_province_bitmap(surface, w, h);
+    
     SDL_Texture* texture = SDL_CreateTextureFromSurface(pixel_renderer, surface);
 
     bool quit = false;
@@ -59,6 +68,20 @@ int main(int argv, char* args[]){
                 set_pixel(surface, pixel_win, x + 1, y + 1, 255, 255, 255);
                 set_pixel(surface, pixel_win, x - 1, y - 1, 255, 255, 255);
                 /* Random Colours to be chosen when clicking */
+            }
+        }
+
+        Uint8* pixel_array = (Uint8*)surface->pixels;
+
+        for(int i = 0 ; i < surface->w ; i++){
+            for(int j = 0 ; j < surface->h ; j++){
+                if(
+                    pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 0] == 0 &&
+                    pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 1] == 0 &&
+                    pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 2] == 0
+                ){
+                    set_pixel(surface, pixel_win, i, j, 255, 255, 255); /* Simple Example of image manipulation, quite fast... */
+                }
             }
         }
 

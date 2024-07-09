@@ -87,12 +87,13 @@ void pixel_screen_fill(SDL_Surface* surface);
  * @brief Flood fills a colour on a surface
  * 
  * @param surface Surface to fill
+ * @param win Window to fill at
  * @param x x position of pixel
  * @param y y position of pixel
  * @param target target colour to fill
  * @param fill_colour colour to fill target with
  */
-void flood_fill(SDL_Surface* surface, int x, int y, Uint32 target, Uint32 fill_colour);
+void flood_fill(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint32 target, Uint32 fill_colour);
 
 /**
  * @brief Checks if a specific pixel is black or not, on a specific format

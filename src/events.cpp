@@ -70,6 +70,7 @@ void events_handling(bool& quit){
                 #ifdef PIXELS
                     if(e.key.keysym.sym == SDLK_TAB){
                         pixel_screen_fill(SDL_GetWindowSurface(win)); /* Gets the window surface and changes it to gray when TAB is pressed */
+                        /* We have to update, or else it won't show */
                     }
                     /* If any other surface is chosen instead of the window one, it will stay the same visualy but it will bug out... */
                 #endif
@@ -94,10 +95,6 @@ void events_handling(bool& quit){
                 int cursor_y;
                 SDL_GetMouseState(&cursor_x, &cursor_y);
                 highlight_on_click(cursor_x, cursor_y);
-                if(e.button.button == SDL_BUTTON_LEFT){
-                    set_pixel(map, win, cursor_x, cursor_y, rand() % 255, rand() % 255, rand() % 255);
-                /* Random Colours to be chosen when clicking */
-            }
         }
     }
 

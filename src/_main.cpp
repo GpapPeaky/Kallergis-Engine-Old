@@ -85,6 +85,11 @@ int main(int argv, char* args[]){
 
         // SDL_UpdateWindowSurface(win); /* If any change is done to the window surface (all the surfaces mashed together), it is changed and updated so that it is shown */
         SDL_RenderPresent(renderer); /* Present copies */
+
+        #ifdef WIN_UPDATE /* Only updates when the TAB key is pressed, if called in main it will update and stay there always */
+        /* It clatters due to the {CLEAR -> RENDERCOPY -> PRESENT} method */
+            SDL_UpdateWindowSurface(win);
+        #endif
     }
 
     /* Cleanup */
