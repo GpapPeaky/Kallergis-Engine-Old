@@ -4,7 +4,7 @@
 #include "init_win.h"
 #include "map.h"
 #include "font.h"
-#include "definitions.aux"
+#include "../auxf/definitions.aux"
 
 #ifndef EVENTS
 /**

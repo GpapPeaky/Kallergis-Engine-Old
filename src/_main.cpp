@@ -1,4 +1,4 @@
-#include "includes.aux"
+#include "../auxf/includes.aux"
 
 int main(int argv, char* args[]){
 

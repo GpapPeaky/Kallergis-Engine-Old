@@ -1,6 +1,6 @@
-#include "definitions.aux"
 #include "init_map.h"
 #include "pixels.h"
+#include "../auxf/definitions.aux"
 #include <algorithm>
 
 #ifndef MAP

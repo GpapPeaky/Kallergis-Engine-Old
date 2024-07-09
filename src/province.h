@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <SDL2/SDL.h>
-#include "definitions.aux"
+#include "../auxf/definitions.aux"
 
 #ifndef PROV
 /**

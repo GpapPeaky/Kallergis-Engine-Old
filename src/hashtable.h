@@ -3,7 +3,7 @@
 #include "country.h"
 #include "math.h" /* Requires the -lm flag */
 #include "primes.h"
-#include "modules.aux"
+#include "../auxf/modules.aux"
 
 #ifndef HASHTABLE
 /**

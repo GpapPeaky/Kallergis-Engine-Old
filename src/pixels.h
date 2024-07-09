@@ -1,7 +1,7 @@
-#include "definitions.aux"
 #include "country.h"
 #include "init_win.h"
 #include "init_map.h"
+#include "../auxf/definitions.aux"
 #include <queue> /* For flood_fill() function */
 #include <utility> /* For pairs */
 #include <string>
@@ -84,17 +84,17 @@ void set_pixel(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint8 r, Uin
  */
 void pixel_screen_fill(SDL_Surface* surface, SDL_Window* win);
 
-/**
- * @brief Flood fills a colour on a surface
- * 
- * @param surface Surface to fill
- * @param win Window to fill at
- * @param x x position of pixel
- * @param y y position of pixel
- * @param target target colour to fill
- * @param fill_colour colour to fill target with
- */
-void flood_fill(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint32 target, Uint32 fill_colour);
+// /**
+//  * @brief Flood fills a colour on a surface
+//  * 
+//  * @param surface Surface to fill
+//  * @param win Window to fill at
+//  * @param x x position of pixel
+//  * @param y y position of pixel
+//  * @param target target colour to fill
+//  * @param fill_colour colour to fill target with
+//  */
+// void flood_fill(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint32 target, Uint32 fill_colour);
 
 /**
  * @brief Checks if a specific pixel is black or not, on a specific format

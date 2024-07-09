@@ -48,50 +48,50 @@ void pixel_screen_fill(SDL_Surface* surface, SDL_Window* win){
     return;
 }
 
-void flood_fill(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint32 target, Uint32 fill_colour){
-    if(!surface) return; /* Surface is NULL */
-    if(target == fill_colour) return; /* Same colour picked, do nothing... return */
+// void flood_fill(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint32 target, Uint32 fill_colour){
+//     if(!surface) return; /* Surface is NULL */
+//     if(target == fill_colour) return; /* Same colour picked, do nothing... return */
 
-    SDL_LockSurface(surface);
+//     SDL_LockSurface(surface);
 
-    Uint32* pixels = (Uint32*)surface->pixels;
-    int w = surface->w;
-    int h = surface->h;
+//     Uint32* pixels = (Uint32*)surface->pixels;
+//     int w = surface->w;
+//     int h = surface->h;
 
-    std::queue<std::pair<int, int>> points;
-    points.push({x, y}); /* Initial pixels */
+//     std::queue<std::pair<int, int>> points;
+//     points.push({x, y}); /* Initial pixels */
 
-    while(!points.empty()){
-        std::pair<int, int> current = points.front();
-        points.pop();
+//     while(!points.empty()){
+//         std::pair<int, int> current = points.front();
+//         points.pop();
 
-        int cx = current.first;
-        int cy = current.second;
+//         int cx = current.first;
+//         int cy = current.second;
 
-        /* Bounds check */
-        if(cx < 0 || cx >= w || cy < 0 || cy >= h) continue;
+//         /* Bounds check */
+//         if(cx < 0 || cx >= w || cy < 0 || cy >= h) continue;
 
-        Uint32 current_colour = pixels[(cy * w) + cx];
-        if(current_colour != target) continue;
+//         Uint32 current_colour = pixels[(cy * w) + cx];
+//         if(current_colour != target) continue;
 
-        /* Set the new colour */ 
-        // pixels[(cy * w) + cx] = fill_colour;
-        // SDL_memset(surface->pixels, 255, h * surface->pitch);
-        set_pixel(surface, win, x, y, 255, 255, 255);
+//         /* Set the new colour */ 
+//         // pixels[(cy * w) + cx] = fill_colour;
+//         // SDL_memset(surface->pixels, 255, h * surface->pitch);
+//         set_pixel(surface, win, x, y, 255, 255, 255);
 
 
-        // Add neighboring pixels to the queue
-        points.push({cx + 1, cy});
-        points.push({cx - 1, cy});
-        points.push({cx, cy + 1});
-        points.push({cx, cy - 1});
-    }
+//         // Add neighboring pixels to the queue
+//         points.push({cx + 1, cy});
+//         points.push({cx - 1, cy});
+//         points.push({cx, cy + 1});
+//         points.push({cx, cy - 1});
+//     }
 
-    SDL_UnlockSurface(surface);
-    // SDL_UpdateWindowSurface(win); /* To be removed -> Add at the end of the inner while in _main.cpp */
+//     SDL_UnlockSurface(surface);
+//     // SDL_UpdateWindowSurface(win); /* To be removed -> Add at the end of the inner while in _main.cpp */
 
-    return;
-}
+//     return;
+// }
 
 bool is_black(Uint32 pixel, SDL_PixelFormat* format){
     Uint8 r, g, b;
