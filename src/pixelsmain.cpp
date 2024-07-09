@@ -47,8 +47,21 @@ int main(int argv, char* args[]){
                 quit = true;
                 goto EXIT;
             }
-            if(event.key.keysym.sym == SDLK_1){
-                pixel_screen_fill(surface); /* Makes the colour white */
+            if(event.key.keysym.sym == SDLK_1){ /* Eyoo! */
+                Uint8* pixel_array = (Uint8*)surface->pixels;
+                
+                /* We found the issue of filling pixels!! */
+                for(int i = 0 ; i < surface->w ; i++){
+                    for(int j = 0 ; j < surface->h ; j++){
+                        if(
+                            pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 0] == 0 &&
+                            pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 1] == 0 &&
+                            pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 2] == 0
+                        ){
+                            set_pixel(surface, pixel_win, i, j, 255, 255, 255); /* Simple Example of image manipulation, quite fast... */
+                        }
+                    }
+                }
             }
             if(event.key.keysym.sym == SDLK_2){
                 for(int i = 0 ; i < 450 ; i++){
@@ -68,20 +81,6 @@ int main(int argv, char* args[]){
                 set_pixel(surface, pixel_win, x + 1, y + 1, 255, 255, 255);
                 set_pixel(surface, pixel_win, x - 1, y - 1, 255, 255, 255);
                 /* Random Colours to be chosen when clicking */
-            }
-        }
-
-        Uint8* pixel_array = (Uint8*)surface->pixels;
-
-        for(int i = 0 ; i < surface->w ; i++){
-            for(int j = 0 ; j < surface->h ; j++){
-                if(
-                    pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 0] == 0 &&
-                    pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 1] == 0 &&
-                    pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 2] == 0
-                ){
-                    set_pixel(surface, pixel_win, i, j, 255, 255, 255); /* Simple Example of image manipulation, quite fast... */
-                }
             }
         }
 
