@@ -6,7 +6,7 @@
     <p align="center">A Clausewitz Like Grand Strategy Game Engine, By GpapPeaky</p>
 </div>
 
-<img src = "https://i.pinimg.com/564x/d8/fc/c0/d8fcc08bf770ccec00d9918e9a9bba9c.jpg"
+<img src ="https://i.pinimg.com/564x/d8/fc/c0/d8fcc08bf770ccec00d9918e9a9bba9c.jpg"
 alt = ""
 style = "width: 563px;
          height: 419px; 
