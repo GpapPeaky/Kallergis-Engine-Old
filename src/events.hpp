@@ -1,9 +1,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_keyboard.h>
 #include <algorithm>
-#include "init_win.h"
-#include "map.h"
-#include "font.h"
+#include "init_win.hpp"
+#include "map.hpp"
+#include "font.hpp"
 #include "../auxf/definitions.aux"
 
 #ifndef EVENTS

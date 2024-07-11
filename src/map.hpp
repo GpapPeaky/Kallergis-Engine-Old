@@ -1,5 +1,5 @@
-#include "init_map.h"
-#include "pixels.h"
+#include "init_map.hpp"
+#include "pixels.hpp"
 #include "../auxf/definitions.aux"
 #include <algorithm>
 

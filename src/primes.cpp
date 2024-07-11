@@ -1,4 +1,4 @@
-#include "primes.h"
+#include "primes.hpp"
 
 int* primes;
 int found_primes = 0;

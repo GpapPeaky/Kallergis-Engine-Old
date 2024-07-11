@@ -1,9 +1,9 @@
-#include "province.h"
-#include "regions.h"
-#include "country.h"
-#include "math.h" /* Requires the -lm flag */
-#include "primes.h"
+#include "province.hpp"
+#include "regions.hpp"
+#include "country.hpp"
+#include "primes.hpp"
 #include "../auxf/modules.aux"
+#include <math.h> /* Requires the -lm flag */
 
 #ifndef HASHTABLE
 /**

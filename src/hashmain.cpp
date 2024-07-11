@@ -1,5 +1,5 @@
-#include "hashtable.h"
-#include "primes.h"
+#include "hashtable.hpp"
+#include "primes.hpp"
 /* Here is a main function for hashtable testing */
 
 int main(int argv, char* args[]){

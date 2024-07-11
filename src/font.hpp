@@ -1,10 +1,10 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <string>
-#include "init_win.h"
-#include "init_map.h"
-#include "map.h"
-#include "regions.h"
+#include "init_win.hpp"
+#include "init_map.hpp"
+#include "map.hpp"
+#include "regions.hpp"
 #include "../auxf/definitions.aux"
 
 #ifndef FONT

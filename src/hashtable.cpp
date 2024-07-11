@@ -1,4 +1,4 @@
-#include "hashtable.h"
+#include "hashtable.hpp"
 
 int prov_hash_s;
 int reg_hash_s;

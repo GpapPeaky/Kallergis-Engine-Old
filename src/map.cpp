@@ -1,4 +1,4 @@
-#include "map.h"
+#include "map.hpp"
 
 SDL_Rect viewport; 
 float map_scale = 1.0f;

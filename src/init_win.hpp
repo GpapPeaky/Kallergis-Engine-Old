@@ -4,7 +4,7 @@
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <string.h>
+#include <string>
 #include "../auxf/definitions.aux"
 
 #ifndef INIT_WIN

@@ -1,5 +1,5 @@
-#include "pixels.h"
-#include "map.h"
+#include "pixels.hpp"
+#include "map.hpp"
 
 int main(int argv, char* args[]){
 

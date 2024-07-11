@@ -1,4 +1,4 @@
-#include "init_map.h"
+#include "init_map.hpp"
 
 /* The country regions are only there for ownership, the values of each region is updated in the global region vector 
 the same is true for the provinces */

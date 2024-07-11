@@ -1,4 +1,4 @@
-#include "pixels.h"
+#include "pixels.hpp"
 
 err_capable generate_pixel_coords(std::string fname){
     return INSTRUCTION_UNDONE;

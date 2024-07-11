@@ -1,4 +1,4 @@
-#include "font.h"
+#include "font.hpp"
 
 SDL_Color text_colour = { 255, 255, 255};
 SDL_Color text_colour_bg = {0, 0, 0};

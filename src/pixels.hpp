@@ -1,6 +1,6 @@
-#include "country.h"
-#include "init_win.h"
-#include "init_map.h"
+#include "country.hpp"
+#include "init_win.hpp"
+#include "init_map.hpp"
 #include "../auxf/definitions.aux"
 #include <queue> /* For flood_fill() function */
 #include <utility> /* For pairs */
