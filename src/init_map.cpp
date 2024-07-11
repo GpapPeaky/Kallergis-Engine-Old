@@ -9,7 +9,7 @@ SDL_Surface* map;
 
 err_capable init_map(void){
 
-    map_surface = SDL_LoadBMP("src/regions/provinces.bmp");
+    map_surface = SDL_LoadBMP("history/map/provinces.bmp");
     if(map_surface == nullptr){
         printf("Error, cannot create map surface\n");
         return FAIL;

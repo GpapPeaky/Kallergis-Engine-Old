@@ -20,7 +20,7 @@ int main(int argv, char* args[]){
 
     std::printf("Pixel Intialisation Complete!\n");
 
-    SDL_Surface* surface = IMG_Load("src/regions/test.bmp");
+    SDL_Surface* surface = IMG_Load("history/map/test.bmp");
     if(!surface){
         std::printf("Image Failed to Load\n");
     }

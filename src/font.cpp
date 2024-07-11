@@ -14,7 +14,7 @@ err_capable init_font(void){
 
     TTF_Init(); /* Initialise */
 
-    font = TTF_OpenFont("src/gfx/font/constanb.ttf", FONT_SIZE);
+    font = TTF_OpenFont("assets/gfx/font/constanb.ttf", FONT_SIZE);
     if(!font){
         std:printf("FONT: %s\n ", SDL_GetError());
         return FAIL;
@@ -47,7 +47,7 @@ render_capable render_text(std::string msg, SDL_FRect* position){
     SDL_FreeSurface(text);
 
     rect.x = position->x;
-    rect.y = position->y -20;
+    rect.y = position->y - 20;
     rect.h = text->h;
     rect.w = text->w;
 

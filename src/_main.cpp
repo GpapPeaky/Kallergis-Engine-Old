@@ -20,22 +20,22 @@ int main(int argv, char* args[]){
     #endif
 
     /* Parsers */
-    prov_to_reg("src/regions/provinces.mdf"); /* Relative to the executable location */ 
+    prov_to_reg("history/provinces/provinces.mdf"); /* Relative to the executable location */ 
     #ifdef MAIN_DBG
         std::printf("\nProvinces To Regions Parse Complete\n");
     #endif
 
-    reg_names("src/regions/region_names.ndf");
+    reg_names("history/regions/region_names.ndf");
     #ifdef MAIN_DBG
         std::printf("Region Names Parse Complete\n");
     #endif
     
-    init_countries("src/country/cou.ndf", "src/country/tags.cdf");
+    init_countries("history/country/cou.ndf", "history/country/tags.cdf");
     #ifdef MAIN_DBG
         std::printf("Countries Parse Complete\n");
     #endif
 
-    reg_to_country("src/regions/ownership.cdf"); 
+    reg_to_country("history/country/ownership.cdf"); 
     #ifdef MAIN_DBG
         std::printf("Region To Countries Complete\n");
     #endif
@@ -50,25 +50,9 @@ int main(int argv, char* args[]){
 
     while(!quit){
 
-        #ifdef CPC
-            start = SDL_GetPerformanceCounter(); /* CPC */
-        #endif /* CPC */
-
-        // SDL_RenderClear(renderer); /* Canvas clearing */
-
         events_handling(quit);
         render_to_screen(map, screen, 0, 0, 0); /* Renders the .bmp by blitting it onto the screen */
         // render_on_mouse_hover(); /* Special Event */
-
-        #ifdef CPC
-            end = SDL_GetPerformanceCounter(); /* CPC */
-            cpc_count = (end - start);
-            std::string str = "cpc: " + std::to_string(cpc_count);
-            render_text(str, &CPC_pos);
-            if(cpc_count > CPC_BENCHMARK){
-                std::printf("%d\n", cpc_count);
-            }
-        #endif /* CPC */
 
         // SDL_UpdateWindowSurface(win); /* If any change is done to the window surface (all the surfaces mashed together), it is changed and updated so that it is shown */
         // SDL_RenderPresent(renderer); /* Present copies */
