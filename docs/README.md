@@ -6,11 +6,11 @@
     <p align="center">A Clausewitz Like Grand Strategy Game Engine, By GpapPeaky</p>
 </div>
 
-<img src =" https://i.pinimg.com/564x/d8/fc/c0/d8fcc08bf770ccec00d9918e9a9bba9c.jpg"
+<img src = "https://i.pinimg.com/564x/d8/fc/c0/d8fcc08bf770ccec00d9918e9a9bba9c.jpg"
 alt = ""
 style = "width: 563px;
          height: 419px; 
-         display: block;
+         display: flex;;
          margin: 0 auto;">
 
   
@@ -25,12 +25,12 @@ style = "width: 563px;
 
 <img src='../history/map/test.bmp'
 alt = ""
-style = " width: 1024;
+style = "width: 1024;
          height: 768; 
          display: block;
          margin: 0 auto;">
 
-<div style="background-color: rgba(0, 0, 0, 0.4);
+<div style = "background-color: rgba(0, 0, 0, 0.4);
             padding: 15px;
             border-radius: 25px;
             text-align: left;
