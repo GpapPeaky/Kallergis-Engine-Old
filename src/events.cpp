@@ -50,7 +50,7 @@ void events_handling(bool& quit){
                 if(e.key.keysym.sym == SDLK_e){
                     quit = true;
                 }
-                #ifdef PIXELS
+                #ifdef PIXEL_DISPLAY_DBG
                     if(e.key.keysym.sym == SDLK_TAB){
                         pixel_screen_fill(map, win); /* Gets the window surface and changes it to gray when TAB is pressed */
                         /* We have to update, or else it won't show */

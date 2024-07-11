@@ -18,9 +18,6 @@ err_capable init_map(void){
     int w, h;
     SDL_GetRendererOutputSize(renderer, &w, &h);
     map = resize_province_bitmap(map_surface, w, h);
-    #ifdef MAIN_DBG
-        std::printf("Map Surface Resized\n");
-    #endif
 
     return SUCCESS;
 }
@@ -41,7 +38,6 @@ err_capable prov_to_reg(const std::string fname){
 
     while(std::getline(file, line)){
         line_n++;
-        std::printf("++++++++\nReading line %d\n", line_n);
 
         if(line.empty() || line[0] == '#'){
             continue;
