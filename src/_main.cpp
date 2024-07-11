@@ -2,16 +2,10 @@
 
 int main(int argv, char* args[]){
 
-    /* TODO: Move somewhere else, in an initialiser function maybe */
-    Uint64 start, end, cpc_count;
-    SDL_FRect CPC_pos;
-    CPC_pos.x = 0.0f;
-    CPC_pos.y = 25.0f;
-
     /* Initialise */
     prime_array_generation(300);
     init_hash();
-    win_init("project candia");
+    win_init("kallergis engine");
     init_font();
     init_map();
     // initialise_viewport(DEV_SCREEN_W, DEV_SCREEN_H); /* FIXME */

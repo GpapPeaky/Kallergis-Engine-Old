@@ -1,3 +1,10 @@
+
+# Unused Checks For Debugging
+
+UNUSEDVAR = -Wunused-variable
+UNUSEDFUNC = -Wunused-function
+UNUSED = $(UNUSEDVAR) $(UNUSEDFUNC)
+
 # Globals
 
 CC = g++
@@ -69,5 +76,33 @@ all:
 	$(CC) $(CVER) $(LIBFLAG) $(INCLUDEFLAG) $(PSRC) -o $(DSTPATH)$(PIXELS_EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
 	@echo -PIXELS COMPLETED
 	$(CC) $(CVER) $(LIBFLAG) $(INCLUDEFLAG) $(HSRC) -o $(DSTPATH)$(HASH_EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
+	@echo -HASH COMPLETED
+	@echo Compilation completed.
+
+# Unused Variable And Functions Compiling For Debugging
+
+def-unsd: $(DEFSRC)
+	@echo Compiling Main (Default), and running 
+	$(CC) $(CVER) $(LIBFLAG) $(INCLUDEFLAG) $(UNUSED) $^ -o $(DSTPATH)$(EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
+	$(DSTPATH)$(EXEC_NAME).exe
+
+hash-unsd: $(HSRC)
+	@echo Hashtable test.
+	$(CC) $(CVER) $(LIBFLAG) $(INCLUDEFLAG) $(UNUSED) $^ -o $(DSTPATH)$(HASH_EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
+	$(DSTPATH)$(HASH_EXEC_NAME).exe
+
+# The country source is included to remove some errors of undefined references... pretty bad code but it is for testing anyway...
+pixels-unsd: $(PSRC)
+	@echo Pixel test.
+	$(CC) $(CVER) $(LIBFLAG) $(INCLUDEFLAG) $(UNUSED) $^ -o$(DSTPATH)$(PIXELS_EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
+	$(DSTPATH)$(PIXELS_EXEC_NAME).exe
+
+all-unsd:
+	@echo Compiling all executables...
+	$(CC) $(CVER) $(LIBFLAG) $(INCLUDEFLAG) $(UNUSED) $(DEFSRC) -o $(DSTPATH)$(EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
+	@echo -DEF COMPLETED
+	$(CC) $(CVER) $(LIBFLAG) $(INCLUDEFLAG) $(UNUSED) $(PSRC) -o $(DSTPATH)$(PIXELS_EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
+	@echo -PIXELS COMPLETED
+	$(CC) $(CVER) $(LIBFLAG) $(INCLUDEFLAG) $(UNUSED) $(HSRC) -o $(DSTPATH)$(HASH_EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
 	@echo -HASH COMPLETED
 	@echo Compilation completed.
