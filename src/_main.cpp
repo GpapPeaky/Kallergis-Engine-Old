@@ -1,3 +1,10 @@
+/**
+ * @author GpapPeaky Giorgos Papamatthaiakis
+ *          https://github.com/GpapPeaky
+ * 
+ * @version 0.1 Hepanastase (release.patch Name)
+ */
+
 #include "../auxf/includes.aux"
 
 int main(int argv, char* args[]){

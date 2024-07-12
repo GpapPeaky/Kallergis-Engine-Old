@@ -1,3 +1,9 @@
+# Author: GpapPeaky George Papamatthaiakis
+# https://github.com/GpapPeaky
+#
+# Kallergis Engine Makefile
+#
+# # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # Unused Checks For Debugging
 
