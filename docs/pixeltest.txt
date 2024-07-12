@@ -1,0 +1,15 @@
+bad rgbs:
+
+210 50 0 Ammoudi
+20 100 0 Palaiokastro
+245 112 0 Tylissos
+255 0 255 62 Martyrs
+0 255 255
+0 255 0
+0 0 255
+
+255 0 0
+109 112 0
+0 72 160
+
+!! They Had 0's so they were skipped !!

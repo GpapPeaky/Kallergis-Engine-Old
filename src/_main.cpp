@@ -31,7 +31,12 @@ int main(int argv, char* args[]){
 
     reg_to_country("history/country/ownership.cdf"); 
     #ifdef MAIN_DBG
-        std::printf("Region To Countries Complete\n\n");
+        std::printf("Region To Countries Complete\n");
+    #endif
+
+    generate_countries_surfaces(map, win);
+    #ifdef MAIN_DBG
+        std::printf("Countries Painting Completed\n\n");
     #endif
 
     /* Prints */
@@ -41,7 +46,6 @@ int main(int argv, char* args[]){
     print_provinces();
 
     bool quit = false;
-
     while(!quit){
 
         events_handling(quit);

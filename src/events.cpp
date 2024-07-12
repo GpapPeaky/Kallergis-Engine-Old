@@ -33,8 +33,6 @@ eng_event highlight_on_click(int x, int y, SDL_Surface* map){
 }
 
 eng_event pan_map(int d_x, int d_y){
-    /* FIXME */
-
     return;
 }
 
@@ -48,6 +46,7 @@ void events_handling(bool& quit){
                 break;
             case SDL_KEYDOWN:
                 if(e.key.keysym.sym == SDLK_e){
+                    SDL_SaveBMP(map, "bin/output.bmp");
                     quit = true;
                 }
                 #ifdef PIXEL_DISPLAY_DBG

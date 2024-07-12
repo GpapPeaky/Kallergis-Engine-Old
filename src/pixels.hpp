@@ -55,11 +55,13 @@ err_capable generate_province_connections(std::string fname);
  * 
  * @attention the image might have to be of specific size (5760 x 3240)
  * 
+ * @param surface Surface to paint
+ * @param win Window of surface
+ * 
  * @returns 1 on failure
  *              0 on success
 */
-err_capable generate_countries_surfaces(void);
-/* WRITE */
+err_capable generate_countries_surfaces(SDL_Surface* surface, SDL_Window* win);
 
 /**
  * @brief Sets a pixel at specific coordinates to a specific colour
@@ -83,28 +85,6 @@ void set_pixel(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint8 r, Uin
  * @warning DO NOT USE ON REGULAR, JUST A TEST!
  */
 void pixel_screen_fill(SDL_Surface* surface, SDL_Window* win);
-
-// /**
-//  * @brief Flood fills a colour on a surface
-//  * 
-//  * @param surface Surface to fill
-//  * @param win Window to fill at
-//  * @param x x position of pixel
-//  * @param y y position of pixel
-//  * @param target target colour to fill
-//  * @param fill_colour colour to fill target with
-//  */
-// void flood_fill(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint32 target, Uint32 fill_colour);
-
-/**
- * @brief Checks if a specific pixel is black or not, on a specific format
- * 
- * @param pixel pixel to check
- * @param format pixel format
- * 
- * @returns true / false
- */
-bool is_black(Uint32 pixel, SDL_PixelFormat* format);
 
 /**
  * @brief Returns the colour of a specified country

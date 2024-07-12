@@ -16,7 +16,7 @@
  */
 #define INIT_MAP
 
-extern std::vector<reg> regions; /* TODO: move | Contains data for each region */
+extern std::vector<reg> regions;
 extern SDL_Surface* map_surface;
 extern SDL_Surface* map;
 

@@ -8,8 +8,50 @@ err_capable generate_province_connections(std::string fname){
     return INSTRUCTION_UNDONE;
 }
 
-err_capable generate_countries_surfaces(void){
-    return INSTRUCTION_UNDONE;
+err_capable generate_countries_surfaces(SDL_Surface* surface, SDL_Window* win){
+    /* We need to check for Non-black pixels */
+    Uint8* pixel_array = (Uint8*)map->pixels;
+    for(int i = 0 ; i < map->w ; i++){
+        for(int j = 0 ; j < map->h ; j++){
+            if(
+                pixel_array[j * map->pitch + i * map->format->BytesPerPixel + 0] != 0 &&
+                pixel_array[j * map->pitch + i * map->format->BytesPerPixel + 1] != 0 &&
+                pixel_array[j * map->pitch + i * map->format->BytesPerPixel + 2] != 0
+            ){
+                /* Save the pixel for more checks */
+                Uint8 r, g, b;
+                r = pixel_array[j * map->pitch + i * map->format->BytesPerPixel + 2];
+                g = pixel_array[j * map->pitch + i * map->format->BytesPerPixel + 1];
+                b = pixel_array[j * map->pitch + i * map->format->BytesPerPixel + 0];
+                for(auto& cou : countries){
+                    SDL_Colour current_rgb;
+                    current_rgb.r = cou.country_rgb.r;
+                    current_rgb.g = cou.country_rgb.g;
+                    current_rgb.b = cou.country_rgb.b;
+                    // current_rgb = { 255, 255, 255 };
+
+                    for(auto& reg : cou.country_regs){
+                        for(auto& prov : reg.reg_provs){
+                            if(
+                                prov.prov_colour.r == r &&
+                                prov.prov_colour.g == g &&
+                                prov.prov_colour.b == b
+                            ){
+                                /* First Non Black at 813 x 602 */
+                                // std::printf("Non-black pixel found and painted at %d %d\n", i, j);
+                                set_pixel(map, win, i, j, current_rgb.r, current_rgb.g, current_rgb.b);
+                            }else{
+                                /* Make sure that all provinces have no 0 R, G, B value, else it will crash */
+                                continue;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return SUCCESS;
 }
 
 void set_pixel(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint8 r, Uint8 g, Uint8 b){
@@ -27,76 +69,23 @@ void set_pixel(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint8 r, Uin
 }
 
 void pixel_screen_fill(SDL_Surface* surface, SDL_Window* win){
-
+    SDL_LockSurface(surface);
     /* Locking and unlocking the surface is not really required but it is good practice */
     Uint8* pixel_array = (Uint8*)surface->pixels;
-
-    SDL_LockSurface(surface);
-        for(int i = 0 ; i < surface->w ; i++){
-            for(int j = 0 ; j < surface->h ; j++){
-                if(
-                    pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 0] == 0 &&
-                    pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 1] == 0 &&
-                    pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 2] == 0
-                ){
-                    set_pixel(surface, win, i, j, 255, 255, 255); /* Simple Example of image manipulation, quite fast... */
-                }
+    for(int i = 0 ; i < surface->w ; i++){
+        for(int j = 0 ; j < surface->h ; j++){
+            if(
+                pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 0] == 0 &&
+                pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 1] == 0 &&
+                pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 2] == 0
+            ){
+                set_pixel(surface, win, i, j, 255, 255, 255); /* Simple Example of image manipulation, quite fast... */
             }
         }
+    }
     SDL_UnlockSurface(surface);
 
     return;
-}
-
-// void flood_fill(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint32 target, Uint32 fill_colour){
-//     if(!surface) return; /* Surface is NULL */
-//     if(target == fill_colour) return; /* Same colour picked, do nothing... return */
-
-//     SDL_LockSurface(surface);
-
-//     Uint32* pixels = (Uint32*)surface->pixels;
-//     int w = surface->w;
-//     int h = surface->h;
-
-//     std::queue<std::pair<int, int>> points;
-//     points.push({x, y}); /* Initial pixels */
-
-//     while(!points.empty()){
-//         std::pair<int, int> current = points.front();
-//         points.pop();
-
-//         int cx = current.first;
-//         int cy = current.second;
-
-//         /* Bounds check */
-//         if(cx < 0 || cx >= w || cy < 0 || cy >= h) continue;
-
-//         Uint32 current_colour = pixels[(cy * w) + cx];
-//         if(current_colour != target) continue;
-
-//         /* Set the new colour */ 
-//         // pixels[(cy * w) + cx] = fill_colour;
-//         // SDL_memset(surface->pixels, 255, h * surface->pitch);
-//         set_pixel(surface, win, x, y, 255, 255, 255);
-
-
-//         // Add neighboring pixels to the queue
-//         points.push({cx + 1, cy});
-//         points.push({cx - 1, cy});
-//         points.push({cx, cy + 1});
-//         points.push({cx, cy - 1});
-//     }
-
-//     SDL_UnlockSurface(surface);
-//     // SDL_UpdateWindowSurface(win); /* To be removed -> Add at the end of the inner while in _main.cpp */
-
-//     return;
-// }
-
-bool is_black(Uint32 pixel, SDL_PixelFormat* format){
-    Uint8 r, g, b;
-    SDL_GetRGB(pixel, format, &r ,&g ,&b);
-    return (r == 0 && g == 0 && b == 0);
 }
 
 SDL_Colour get_country_colour(const std::string& owner_tag){

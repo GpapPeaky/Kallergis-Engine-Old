@@ -28,8 +28,6 @@ render_capable render_to_screen(SDL_Surface* surface, SDL_Surface* screen, float
     // screen = SDL_GetWindowSurface(win);
     SDL_BlitSurface(surface, NULL, screen, NULL);
 
-    /* IDEA: For each textutre create a texture that has different data and render it instead */
-
     return;
 }
 
