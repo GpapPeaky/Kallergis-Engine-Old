@@ -8,7 +8,7 @@ UNUSED = $(UNUSEDVAR) $(UNUSEDFUNC)
 # Globals
 
 CC = g++
-CVER = -std=c++17 # C/C++23
+CVER = -std=c++17 # C/C++23 Maybe..?
 SDLFLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 CFLAGS = -lm -Ofast
 LIBFLAG = -Lsrc/lib
@@ -91,7 +91,6 @@ hash-unsd: $(HSRC)
 	$(CC) $(CVER) $(LIBFLAG) $(INCLUDEFLAG) $(UNUSED) $^ -o $(DSTPATH)$(HASH_EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
 	$(DSTPATH)$(HASH_EXEC_NAME).exe
 
-# The country source is included to remove some errors of undefined references... pretty bad code but it is for testing anyway...
 pixels-unsd: $(PSRC)
 	@echo Pixel test.
 	$(CC) $(CVER) $(LIBFLAG) $(INCLUDEFLAG) $(UNUSED) $^ -o$(DSTPATH)$(PIXELS_EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
