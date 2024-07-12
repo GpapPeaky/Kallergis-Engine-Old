@@ -9,6 +9,8 @@
 
 int main(int argv, char* args[]){
 
+    SDL_Surface* logo = SDL_LoadBMP("assets/gfx/ui/Kenglogo.bmp");
+
     /* Initialise */
     prime_array_generation(300);
     init_hash();
@@ -56,7 +58,8 @@ int main(int argv, char* args[]){
     while(!quit){
 
         events_handling(quit);
-        render_to_screen(map, screen, 0, 0, 0); /* Renders the .bmp by blitting it onto the screen */
+        render_to_screen(map, screen, 0, DEV_SCREEN_W - 300, DEV_SCREEN_H - 300); /* Renders the .bmp by blitting it onto the screen */
+        render_to_screen(logo, screen, 0, 0, 0);
         // render_on_mouse_hover(); /* Special Event */
 
         #ifdef WIN_UPDATE /* Only updates when the TAB key is pressed, if called in main it will update and stay there always */

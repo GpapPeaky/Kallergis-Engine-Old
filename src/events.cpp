@@ -64,7 +64,7 @@ void events_handling(bool& quit){
                 int mouse_x;
                 int mouse_y;
                 SDL_GetMouseState(&mouse_x, &mouse_y);
-                highlight_on_click(mouse_x, mouse_y, map);
+                highlight_on_click(mouse_x, mouse_y, click_map);
                 break;
         }
     }

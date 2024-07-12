@@ -6,6 +6,7 @@ the same is true for the provinces */
 std::vector<reg>  regions;
 SDL_Surface* map_surface;
 SDL_Surface* map;
+SDL_Surface* click_map; /* For the clicking, highlighting and hovering events */
 
 err_capable init_map(void){
 
@@ -18,6 +19,7 @@ err_capable init_map(void){
     int w, h;
     SDL_GetRendererOutputSize(renderer, &w, &h);
     map = resize_province_bitmap(map_surface, w, h);
+    click_map = resize_province_bitmap(map_surface, w, h);
 
     return SUCCESS;
 }
