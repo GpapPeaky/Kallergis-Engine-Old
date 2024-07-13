@@ -69,7 +69,6 @@ int main(int argv, char* args[]){
         #endif
     }
 
-
     cleanup(win, renderer);
 
     return EXIT_SUCCESS;

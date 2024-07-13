@@ -1,4 +1,5 @@
 #include "pixels.hpp"
+#include "camera.hpp"
 #include "map.hpp"
 
 int main(int argv, char* args[]){
@@ -8,7 +9,6 @@ int main(int argv, char* args[]){
 
     SDL_Window* pixel_win = SDL_CreateWindow("C++ Surface And Pixel Manipulation Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1000, 900, SDL_WINDOW_SHOWN); /* Create A Window */
     SDL_Renderer* pixel_renderer = SDL_CreateRenderer(pixel_win,-1,SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC); /* Sprite Rendering */
-
     if(pixel_win == nullptr){ SDL_Log("Could not create pixels' window: %s", SDL_GetError());
         return EXIT_FAILURE;
     }
@@ -17,9 +17,6 @@ int main(int argv, char* args[]){
     }
 
     SDL_Surface* screen = SDL_GetWindowSurface(pixel_win);
-
-    std::printf("Pixel Intialisation Complete!\n");
-
     SDL_Surface* surface = IMG_Load("history/map/test.bmp");
     if(!surface){
         std::printf("Image Failed to Load\n");
@@ -27,22 +24,19 @@ int main(int argv, char* args[]){
 
     int w, h;
     SDL_GetRendererOutputSize(pixel_renderer, &w, &h); /* Due to the windows high dpi and other parameters, we cannot use SDL_GetWindowSize etc */
-
     std::printf("WIDTH: %d - HEIGHT: %d\n", w, h);
+    surface = resize_province_bitmap(surface, 5760, 3240); /* Retain the actual size of the bitmap, to not lose quality */
 
-    surface = resize_province_bitmap(surface, w, h);
-    
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(pixel_renderer, surface);
+    camera cam = init_camera(pixel_renderer);
 
     bool quit = false;
     SDL_Event event;
     while(!quit){
         srand(time(NULL)); /* Change seed with every loop */
         while(SDL_PollEvent(&event)){
-            
-            int x, y;
-            SDL_GetMouseState(&x, &y); /* Take the mouse state every time */
 
+            handle_camera(cam, event);
+            
             if(event.type == SDL_QUIT || event.key.keysym.sym == SDLK_e){
                 quit = true;
                 goto EXIT;
@@ -58,23 +52,30 @@ int main(int argv, char* args[]){
                 }
             }
             if(event.button.button == SDL_BUTTON_LEFT){
-                set_pixel(surface, pixel_win, x, y, 255, 255, 255);
-                set_pixel(surface, pixel_win, x + 1, y, 255, 255, 255);
-                set_pixel(surface, pixel_win, x - 1, y, 255, 255, 255);
-                set_pixel(surface, pixel_win, x, y + 1, 255, 255, 255);
-                set_pixel(surface, pixel_win, x, y - 1, 255, 255, 255);
-                set_pixel(surface, pixel_win, x - 1, y - 1, 255, 255, 255);
-                set_pixel(surface, pixel_win, x - 1, y + 1, 255, 255, 255);
-                set_pixel(surface, pixel_win, x + 1, y + 1, 255, 255, 255);
-                set_pixel(surface, pixel_win, x - 1, y - 1, 255, 255, 255);
+                int x, y;
+                SDL_GetMouseState(&x, &y);
+
+                int surface_x = (x / cam.zoom) + cam.rect.x;
+                int surface_y = (y /cam.zoom) + cam.rect.y;
+                set_pixel(surface, pixel_win, surface_x, surface_y, 255, 255, 255);
                 /* Random Colours to be chosen when clicking */
             }
+            /* Camera movement */
+            
         }
+
+        SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
+        
+        // Blit the surface with camera rect handling
+        SDL_UpperBlitScaled(surface, &cam.rect, screen, NULL);
+
+        // Update the window surface
+        SDL_UpdateWindowSurface(pixel_win);
 
         // SDL_RenderClear(pixel_renderer); /* Canvas clearing  (No need if the window surface is updated)*/
         // SDL_RenderCopy(pixel_renderer, texture, NULL, NULL);
-        SDL_BlitSurface(surface, NULL, screen, NULL); /* Changes the RGB value format, offsets need to be handled differently in the set pixel value */
-        SDL_UpdateWindowSurface(pixel_win); /* Update only when handling the window surface, makes other renditions stutter due to the 
+        // SDL_BlitSurface(surface, &cam.rect, screen, NULL); /* Changes the RGB value format, offsets need to be handled differently in the set pixel value */
+        // SDL_UpdateWindowSurface(pixel_win); /* Update only when handling the window surface, makes other renditions stutter due to the 
         // RenderClear and RenderPresent functions */   
         // SDL_RenderPresent(pixel_renderer); /* Present copies (No need if the window surface is updated) */
         /* This method is used for the typical SDL_RenderCopy(...) family of functions */
@@ -83,7 +84,6 @@ int main(int argv, char* args[]){
     /* Cleanup */
     EXIT:
         SDL_FreeSurface(surface);
-        SDL_DestroyTexture(texture);
         SDL_DestroyRenderer(pixel_renderer);
         SDL_DestroyWindow(pixel_win);
         IMG_Quit();
