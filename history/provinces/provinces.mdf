@@ -11,7 +11,7 @@
 "Voutes" : { 255, 100, 100 } : 1
 "Kokkini" : { 255, 150, 150 } : 1
 "Alikarnasos" : { 255, 150, 100 } : 1
-"Rogdia" : { 255, 200, 150 } : 1
+"Linoperamata" : { 255, 200, 150 } : 1
 "62 Martyrs" : { 255, 10, 255 } : 1
 "Herakleion" : { 10, 255, 255 } : 1
 "Palaiokastro" : { 20, 100, 10 } : 1
@@ -21,6 +21,16 @@
 "Knossos" : { 85, 85, 132 } : 1
 "Tylissos" : { 245, 112, 10 } : 1
 "Gournes" : { 109, 112, 1 } : 1
+"Savvathianoi" : { 47, 91, 132 } : 1
+"Kapetanaki Metoxi" : { 221, 91, 132 } : 1
+"Pantanassa" : { 82, 91, 132 } : 1
+"Almiros" : { 70, 200, 150 } : 1
+"Rogdia" : { 20, 170, 10 } : 1
+"Mononautis" : { 198, 69, 162 } : 1
+"Koukistra" : { 82, 50, 132 } : 1
+"Tsigkounia" : { 82, 116, 132 } : 1
+"Monompela" : { 177, 116, 132 } : 1
+"Galanos Volakas" : { 175, 8, 5 } : 1
 
 "Herakleion Demos" : { 105, 200, 95 } : 2
 "Saint Nickolas Demos" : { 200, 200, 95 } : 2
