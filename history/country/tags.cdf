@@ -2,3 +2,4 @@
 
 CRT = "Crete"
 SCL = "South Cretan League"
+NCR = "New Crete"
