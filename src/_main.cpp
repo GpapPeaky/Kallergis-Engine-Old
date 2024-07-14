@@ -9,15 +9,15 @@
 
 int main(int argv, char* args[]){
 
-    SDL_Surface* logo = SDL_LoadBMP("assets/gfx/ui/Kenglogo.bmp");
-
     /* Initialise */
+    
+    camera cam = init_camera(); /* Initialising Viewport / Camera */
     prime_array_generation(300);
     init_hash();
     win_init("kallergis engine");
     init_font();
     init_map();
-    // initialise_viewport(DEV_SCREEN_W, DEV_SCREEN_H); /* FIXME */
+
     #ifdef MAIN_DBG
         std::printf("Init Functions Complete!\n");
     #endif
@@ -57,9 +57,12 @@ int main(int argv, char* args[]){
     bool quit = false;
     while(!quit){
 
-        events_handling(quit);
-        render_to_screen(map, screen, 0, DEV_SCREEN_W - 300, DEV_SCREEN_H - 300); /* Renders the .bmp by blitting it onto the screen */
-        render_to_screen(logo, screen, 0, 0, 0);
+        events_handling(quit, cam);
+        SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0)); /* Clean Canvas */
+        render_to_screen(map, screen, cam);
+        // render_to_screen(click_map, screen, cam);
+        // SDL_UpperBlitScaled(click_map, &cam.rect, screen, NULL);
+        // render_to_screen(map, screen, cam); /* Renders the .bmp by blitting it onto the screen */
         // render_on_mouse_hover(); /* Special Event */
 
         #ifdef WIN_UPDATE /* Only updates when the TAB key is pressed, if called in main it will update and stay there always */

@@ -1,11 +1,7 @@
 #include "camera.hpp"
 
-camera init_camera(SDL_Renderer* renderer){
-    int x, y;
-
-    SDL_GetRendererOutputSize(renderer, &x, &y);
-
-    SDL_Rect rect = { 0, 0, 5760, 3240 };
+camera init_camera(void){
+    SDL_Rect rect = { 0, 0, BMP_WIDTH, BMP_HEIGHT };
 
     camera cam = { rect, 1.0f };
 

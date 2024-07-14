@@ -16,10 +16,8 @@ err_capable init_map(void){
         return FAIL;
     }
 
-    int w, h;
-    SDL_GetRendererOutputSize(renderer, &w, &h);
-    map = resize_province_bitmap(map_surface, w, h);
-    click_map = resize_province_bitmap(map_surface, w, h);
+    map = resize_province_bitmap(map_surface, BMP_WIDTH, BMP_HEIGHT); /* Retain Image Quality */
+    click_map = resize_province_bitmap(map_surface, BMP_WIDTH, BMP_HEIGHT); /* Retain Image Quality */
 
     return SUCCESS;
 }

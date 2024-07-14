@@ -32,7 +32,7 @@ for func in functions:
 markdown_content += "```\n"
 
 # Write to a Markdown file
-markdown_file_path = 'mdpyscript.md'
+markdown_file_path = 'bin/mdpyscript.md'
 with open(markdown_file_path, 'w') as markdown_file:
     markdown_file.write(markdown_content)
 

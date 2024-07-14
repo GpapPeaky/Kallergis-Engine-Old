@@ -27,14 +27,15 @@ int main(int argv, char* args[]){
     std::printf("WIDTH: %d - HEIGHT: %d\n", w, h);
     surface = resize_province_bitmap(surface, 5760, 3240); /* Retain the actual size of the bitmap, to not lose quality */
 
-    camera cam = init_camera(pixel_renderer);
+    camera cam = init_camera();
 
     bool quit = false;
     SDL_Event event;
     while(!quit){
         srand(time(NULL)); /* Change seed with every loop */
+        bool toggle = false;
         while(SDL_PollEvent(&event)){
-
+            /* Camera movement */
             handle_camera(cam, event);
             
             if(event.type == SDL_QUIT || event.key.keysym.sym == SDLK_e){
@@ -51,6 +52,12 @@ int main(int argv, char* args[]){
                     }
                 }
             }
+            // if(event.key.keysym.sym == SDLK_TAB){
+            //     toggle = !toggle;
+            //     if(toggle){
+            //         colour_box(surface, 0, 0, 200, 200);
+            //     }
+            // }
             if(event.button.button == SDL_BUTTON_LEFT){
                 int x, y;
                 SDL_GetMouseState(&x, &y);
@@ -60,8 +67,6 @@ int main(int argv, char* args[]){
                 set_pixel(surface, pixel_win, surface_x, surface_y, 255, 255, 255);
                 /* Random Colours to be chosen when clicking */
             }
-            /* Camera movement */
-            
         }
 
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));

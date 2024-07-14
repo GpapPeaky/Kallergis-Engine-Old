@@ -7,6 +7,7 @@
 #include <string>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_pixels.h>
+#include <math.h>
 
 #ifndef PIXELS_H
 /**
@@ -87,13 +88,27 @@ void set_pixel(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint8 r, Uin
 void pixel_screen_fill(SDL_Surface* surface, SDL_Window* win);
 
 /**
- * @brief Returns the colour of a specified country
+ * @brief Colour converter
  * 
- * @param owner_tag Country's tag
- * 
- * @returns The colour of the country, else, if not found, black
+ * @param h Hue
+ * @param s Saturation
+ * @param v -
+ * @param r Red
+ * @param g Green
+ * @param b Blue
  */
-SDL_Colour get_country_colour(const std::string& owner_tag);
+void hsv2rgb(float h, float s, float v, Uint8& r, Uint8& g, Uint8& b);
+
+/**
+ * @brief Colour wheel for editor
+ * 
+ * @param surface Surface to paint at
+ * @param x X 
+ * @param y Y 
+ * @param width Width of box 
+ * @param height Height of box 
+ */
+void colour_box(SDL_Surface* surface, int x, int y, int width, int height);
 
 /**
  * @brief Prints the colours of all countries

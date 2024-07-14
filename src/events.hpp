@@ -5,6 +5,7 @@
 #include "map.hpp"
 #include "font.hpp"
 #include "../auxf/definitions.aux"
+#include "camera.hpp"
 
 #ifndef EVENTS
 /**
@@ -16,8 +17,9 @@
  * @brief Handles events
  * 
  * @param quit Checks if the program has quit or not
+ * @param cam camera struct for viewport
 */
-void events_handling(bool& quit);
+void events_handling(bool& quit, camera& cam);
 
 /**
  * @brief displays info when hovering a province

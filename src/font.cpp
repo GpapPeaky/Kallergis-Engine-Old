@@ -70,40 +70,5 @@ render_capable render_text(std::string msg, SDL_FRect* position){
 }
 
 render_capable render_on_mouse_hover(void){
-
-    int mouse_x, mouse_y;
-    SDL_GetMouseState(&mouse_x, &mouse_y);
-
-    Uint8 r, g, b;
-
-    int map_x = (mouse_x - viewport.x) / map_scale;
-    int map_y = (mouse_y - viewport.y) / map_scale;
-
-    int index = map_y * map_surface->pitch + map_x * 3;
-
-    /* Parse pixels from the map_surface and not the actual screen */
-
-    b = ((Uint8*)map_surface->pixels)[index];
-    g = ((Uint8*)map_surface->pixels)[index + 1];
-    r = ((Uint8*)map_surface->pixels)[index + 2];
-
-    for(int i = 0 ; i < prov_hash_s ; i++){
-        prov* current = provinces_h[h(i, PROV_M)];
-        while(current != NULL){
-            if(current->prov_colour.r == r && current->prov_colour.g == g && current->prov_colour.b == b){
-                std::string info = "Name: " + current->prov_name +  " Region: " + regions[current->region].reg_name + " (" + std::to_string(current->region) + ") ID: " + std::to_string(current->prov_id);
-
-                SDL_FRect text_pos;
-
-                text_pos.x = mouse_x;
-                text_pos.y = mouse_y;
-
-                render_text(info, &text_pos);
-                return;
-            }
-            current = current->next;
-        }
-    }
-
-    return;
+    /* TODO */
 }

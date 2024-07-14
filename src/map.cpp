@@ -1,9 +1,6 @@
 #include "map.hpp"
 
-SDL_Rect viewport; 
-float map_scale = 1.0f;
-
-render_capable render_to_screen(SDL_Surface* surface, SDL_Surface* screen, float zoom = 0.0f, int x = 0, int y = 0){
+render_capable render_to_screen(SDL_Surface* surface, SDL_Surface* screen, camera cam){
     // int texture_h, texture_w;
     // SDL_QueryTexture(map_texture, NULL, NULL, &texture_w, &texture_h); /* Take the width and height of the map */
 
@@ -26,24 +23,7 @@ render_capable render_to_screen(SDL_Surface* surface, SDL_Surface* screen, float
     // SDL_RenderCopy(renderer, map_bg_texture, NULL, &viewport); /* Render the texture on top of the map */
     // SDL_RenderCopy(renderer, map_texture, NULL, &viewport);
     // screen = SDL_GetWindowSurface(win);
-    SDL_BlitSurface(surface, NULL, screen, NULL);
-
-    return;
-}
-
-void initialise_viewport(float screen_width, float screen_height){
-    // viewport.h = screen_height / 2;
-    // viewport.w = screen_width / 2;
-
-    // float scale_w = screen_width / map_width;
-    // float scale_h = screen_height / map_height;
-
-    // map_scale = std::min(scale_w, scale_h);
-
-    // viewport.x = (map_width * map_scale - screen_width) / 2;
-    // viewport.y = (map_height * map_scale - screen_height) / 2;
-
-    // std::printf("viewport initialised\n");
+    SDL_UpperBlitScaled(surface, &cam.rect, screen, NULL);
 
     return;
 }
