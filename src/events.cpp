@@ -41,7 +41,7 @@ eng_event pan_map(int d_x, int d_y){
     return;
 }
 
-void events_handling(bool& quit, camera& cam) {
+void events_handling(bool& quit, camera& cam){
     SDL_Event e;
 
     while(SDL_PollEvent(&e)){
@@ -68,19 +68,36 @@ void events_handling(bool& quit, camera& cam) {
             cam.rect.w = new_w;
             cam.rect.h = new_h;
         }else if(e.type == SDL_KEYDOWN){
+            /* Initial Values */
+            float vel_x = 1.0f;
+            float vel_y = 1.0f;
+
+            Uint32 prev_time = SDL_GetTicks();
+            Uint32 current_time;
+            float dt = 1.0f; /* Initial Value */
+
             if(e.key.keysym.sym == SDLK_w){
-                cam.rect.y -= 150 / cam.zoom;
+                vel_y -= ACC / cam.zoom - 1;
             }else if(e.key.keysym.sym == SDLK_s){
-                cam.rect.y += 150 / cam.zoom;
+                vel_y += ACC / cam.zoom + 1;
             }else if(e.key.keysym.sym == SDLK_a){
-                cam.rect.x -= 150 / cam.zoom;
+                vel_x -= ACC / cam.zoom - 1;
             }else if(e.key.keysym.sym == SDLK_d){
-                cam.rect.x += 150 / cam.zoom;
+                vel_x += ACC / cam.zoom + 1;
             }else if(e.key.keysym.sym == SDLK_e){
                 SDL_SaveBMP(map, "bin/output.bmp");
                 quit = true;
             }
 
+            current_time = SDL_GetTicks();
+            dt = (current_time - prev_time) / 1000.0f; /* Convert to seconds */
+
+            cam.rect.x += static_cast<int>(vel_x * (dt + 0.1f));
+            cam.rect.y += static_cast<int>(vel_y * (dt + 0.1f));
+
+            /* Decelerate */
+            vel_x *= DEC;
+            vel_y *= DEC;
         }else if(e.type == SDL_MOUSEBUTTONDOWN){
             int mouse_x, mouse_y;
             SDL_GetMouseState(&mouse_x, &mouse_y);
