@@ -1,5 +1,3 @@
 # COUNTRY TAG : { REG_ID_1, REG_ID_2, REG_ID_3, ... }
 
-"CRT" : { 1 }
-"SCL" : { 3, 4 }
-"NCR" : { 5, 2 }
+"TST" : { 1 }
