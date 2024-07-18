@@ -88,48 +88,6 @@ void pixel_screen_fill(SDL_Surface* surface, SDL_Window* win){
     return;
 }
 
-// void hsv2rgb(float h, float s, float v, Uint8& r, Uint8& g, Uint8& b) {
-//     int i = static_cast<int>(h * 6);
-//     float f = h * 6 - i;
-//     float p = v * (1 - s);
-//     float q = v * (1 - f * s);
-//     float t = v * (1 - (1 - f) * s);
-
-//     switch (i % 6) {
-//         case 0: r = static_cast<Uint8>(v * 255); g = static_cast<Uint8>(t * 255); b = static_cast<Uint8>(p * 255); break;
-//         case 1: r = static_cast<Uint8>(q * 255); g = static_cast<Uint8>(v * 255); b = static_cast<Uint8>(p * 255); break;
-//         case 2: r = static_cast<Uint8>(p * 255); g = static_cast<Uint8>(v * 255); b = static_cast<Uint8>(t * 255); break;
-//         case 3: r = static_cast<Uint8>(p * 255); g = static_cast<Uint8>(q * 255); b = static_cast<Uint8>(v * 255); break;
-//         case 4: r = static_cast<Uint8>(t * 255); g = static_cast<Uint8>(p * 255); b = static_cast<Uint8>(v * 255); break;
-//         case 5: r = static_cast<Uint8>(v * 255); g = static_cast<Uint8>(p * 255); b = static_cast<Uint8>(q * 255); break;
-//     }
-// }
-
-// void colour_box(SDL_Surface* surface, int x, int y, int width, int height) {
-//     SDL_LockSurface(surface);
-//     Uint32* pixels = (Uint32*)surface->pixels;
-
-//     for (int i = 0; i < height; ++i) {
-//         for (int j = 0; j < width; ++j) {
-//             float hue = static_cast<float>(j) / width; // Hue changes horizontally
-//             float saturation = 1.0; // Saturation can be a constant (1.0 for full saturation)
-//             float value = static_cast<float>(height - i) / height; // Value changes vertically
-
-//             Uint8 r, g, b;
-//             hsv2rgb(hue, saturation, value, r, g, b);
-//             Uint32 color = SDL_MapRGB(surface->format, r, g, b);
-
-//             int pixel_x = x + j;
-//             int pixel_y = y + i;
-
-//             if (pixel_x >= 0 && pixel_x < surface->w && pixel_y >= 0 && pixel_y < surface->h) {
-//                 pixels[pixel_y * surface->w + pixel_x] = color;
-//             }
-//         }
-//     }
-//     SDL_UnlockSurface(surface);
-// }
-
 void mark_borders(SDL_Surface* outter_surface, SDL_Surface* inner_surface, SDL_Window* win, int border_colour){
     // Uint8* pixel_array = (Uint8*)inner_surface->pixels;
     // int bpp = inner_surface->format->BytesPerPixel;

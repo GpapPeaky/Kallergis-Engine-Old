@@ -87,29 +87,6 @@ void set_pixel(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint8 r, Uin
  */
 void pixel_screen_fill(SDL_Surface* surface, SDL_Window* win);
 
-// /**
-//  * @brief Colour converter
-//  * 
-//  * @param h Hue
-//  * @param s Saturation
-//  * @param v -
-//  * @param r Red
-//  * @param g Green
-//  * @param b Blue
-//  */
-// void hsv2rgb(float h, float s, float v, Uint8& r, Uint8& g, Uint8& b);
-
-// /**
-//  * @brief Colour wheel for editor
-//  * 
-//  * @param surface Surface to paint at
-//  * @param x X 
-//  * @param y Y 
-//  * @param width Width of box 
-//  * @param height Height of box 
-//  */
-// void colour_box(SDL_Surface* surface, int x, int y, int width, int height);
-
 /**
  * @brief Generates borders between countries
  * 

@@ -11,7 +11,7 @@ int main(int argv, char* args[]){
 
     /* Initialise */
     camera cam = init_camera(); /* Initialising Viewport / Camera */
-    init_menu("assets/gfx/menu/menu_bg.bmp");
+    init_menu("assets/gfx/menu/menu_bg.bmp"); /* Testing */
     prime_array_generation(300);
     init_hash();
     win_init("kallergis engine");
@@ -103,8 +103,8 @@ int main(int argv, char* args[]){
         #endif
     }
 
-    EXIT:
-        cleanup(win, renderer);
+    /* Cleanup */
+    cleanup(win, renderer);
 
     return EXIT_SUCCESS;
 }

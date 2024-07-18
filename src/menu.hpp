@@ -6,6 +6,7 @@
 extern SDL_Surface* menu;
 
 /* IDEA: Maybe make a new interface for buttons */
+/* TODO: Refactor the code */
 typedef struct button{
     SDL_Rect rect;
     const char* text;
