@@ -16,8 +16,8 @@ err_capable init_map(void){
         return FAIL;
     }
 
-    map = resize_province_bitmap(map_surface, BMP_WIDTH, BMP_HEIGHT); /* Retain Image Quality */
-    click_map = resize_province_bitmap(map_surface, BMP_WIDTH, BMP_HEIGHT); /* Retain Image Quality */
+    map = resize_bitmap(map_surface, BMP_WIDTH, BMP_HEIGHT); /* Retain Image Quality */
+    click_map = resize_bitmap(map_surface, BMP_WIDTH, BMP_HEIGHT); /* Retain Image Quality */
 
     return SUCCESS;
 }
@@ -201,7 +201,7 @@ err_capable reg_to_country(const std::string fname){
     return SUCCESS;
 }
 
-SDL_Surface* resize_province_bitmap(SDL_Surface* map_surface, float w, float h){
+SDL_Surface* resize_bitmap(SDL_Surface* map_surface, float w, float h){
     SDL_Surface* resized_map_surface = SDL_CreateRGBSurface(0, static_cast<int>(w), static_cast<int>(h), map_surface->format->BitsPerPixel, 
                                                     map_surface->format->Rmask, map_surface->format->Gmask, 
                                                     map_surface->format->Bmask, map_surface->format->Amask);

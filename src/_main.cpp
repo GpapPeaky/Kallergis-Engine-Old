@@ -10,8 +10,8 @@
 int main(int argv, char* args[]){
 
     /* Initialise */
-    
     camera cam = init_camera(); /* Initialising Viewport / Camera */
+    init_menu("assets/gfx/menu/menu_bg.bmp");
     prime_array_generation(300);
     init_hash();
     win_init("kallergis engine");
@@ -45,7 +45,12 @@ int main(int argv, char* args[]){
 
     generate_countries_surfaces(map, win);
     #ifdef MAIN_DBG
-        std::printf("Countries Painting Completed\n\n");
+        std::printf("Countries Painting Completed\n");
+    #endif
+
+    mark_borders(map, click_map, win, 1);
+    #ifdef MAIN_DBG
+        std::printf("Borders Created\n\n");
     #endif
 
     /* Prints */
@@ -54,9 +59,35 @@ int main(int argv, char* args[]){
     print_country_colours();
     print_provinces();
 
+    #ifdef MAIN_MENU
+        /* Menu */
+        bool menu_box = false;
+        while(!menu_box){
+            SDL_Event e;
+
+            SDL_UpperBlitScaled(menu, NULL, screen, NULL);
+            draw_buttons();
+            while(SDL_PollEvent(&e)){
+            if(e.type == SDL_MOUSEBUTTONDOWN){
+                button* pressed = check_for_button_interaction();
+                if(strcmp(pressed->text, "play") == 0){
+                    std::printf("Entering game\n");
+                    menu_box = true;
+                }
+                if(strcmp(pressed->text, "quit") == 0){
+                    std::printf("Quitting game\n");
+                    cleanup(win, renderer);
+                    return EXIT_SUCCESS;
+                }
+            }
+            SDL_UpdateWindowSurface(win);
+            }
+        }
+    #endif
+
+    /* Game */
     bool quit = false;
     while(!quit){
-
         events_handling(quit, cam);
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0)); /* Clean Canvas */
         render_to_screen(map, screen, cam);
@@ -72,7 +103,8 @@ int main(int argv, char* args[]){
         #endif
     }
 
-    cleanup(win, renderer);
+    EXIT:
+        cleanup(win, renderer);
 
     return EXIT_SUCCESS;
 }

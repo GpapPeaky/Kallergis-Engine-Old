@@ -130,6 +130,83 @@ void pixel_screen_fill(SDL_Surface* surface, SDL_Window* win){
 //     SDL_UnlockSurface(surface);
 // }
 
+void mark_borders(SDL_Surface* outter_surface, SDL_Surface* inner_surface, SDL_Window* win, int border_colour){
+    // Uint8* pixel_array = (Uint8*)inner_surface->pixels;
+    // int bpp = inner_surface->format->BytesPerPixel;
+
+    // /* Inner Borders First */
+    // for(int i = 0 ; i < inner_surface->w ; i++){
+    //     for(int j = 0 ; j < inner_surface->h ; j++){
+
+    //         int r = pixel_array[j * inner_surface->pitch + i * bpp + 0];
+    //         int g = pixel_array[j * inner_surface->pitch + i * bpp + 1];
+    //         int b = pixel_array[j * inner_surface->pitch + i * bpp + 2];
+    //         if(r != 0 && g != 0 && b != 0){                
+    //             if( /* red */
+    //                 ((pixel_array[(j + 1) * inner_surface->pitch + i * bpp + 0] != r  && pixel_array[(j + 1) * inner_surface->pitch + i * bpp + 0] != 255) ||
+    //                 (pixel_array[(j - 1) * inner_surface->pitch + i * bpp + 0] != r && pixel_array[(j - 1) * inner_surface->pitch + i * bpp + 0] != 255) ||
+    //                 (pixel_array[j * inner_surface->pitch + (i - 1) * bpp + 0] != r && pixel_array[j * inner_surface->pitch + (i - 1) * bpp + 0] != 255) ||
+    //                 (pixel_array[j * inner_surface->pitch + (i + 1) * bpp + 0] != r && pixel_array[j * inner_surface->pitch + (i + 1) * bpp + 0] != 255)) &&
+
+    //                 /* green */
+    //                 ((pixel_array[(j + 1) * inner_surface->pitch + i * bpp + 1] != g && pixel_array[(j + 1) * inner_surface->pitch + i * bpp + 1] != 255) ||
+    //                 (pixel_array[(j - 1) * inner_surface->pitch + i * bpp + 1] != g && pixel_array[(j - 1) * inner_surface->pitch + i * bpp + 1] != 255) ||
+    //                 (pixel_array[j * inner_surface->pitch + (i - 1) * bpp + 1] != g && pixel_array[j * inner_surface->pitch + (i - 1) * bpp + 1] != 255) ||
+    //                 (pixel_array[j * inner_surface->pitch + (i + 1) * bpp + 1] != g && pixel_array[j * inner_surface->pitch + (i + 1) * bpp + 1] != 255)) &&
+
+    //                 /* blue */
+    //                 ((pixel_array[(j + 1) * inner_surface->pitch + i * bpp + 2] != b && pixel_array[(j + 1) * inner_surface->pitch + i * bpp + 2] != 255) ||
+    //                 (pixel_array[(j - 1) * inner_surface->pitch + i * bpp + 2] != b && pixel_array[(j - 1) * inner_surface->pitch + i * bpp + 2] != 255) ||
+    //                 (pixel_array[j * inner_surface->pitch + (i - 1) * bpp + 2] != b && pixel_array[j * inner_surface->pitch + (i - 1) * bpp + 2] != 255) ||
+    //                 (pixel_array[j * inner_surface->pitch + (i + 1) * bpp + 2] != b && pixel_array[j * inner_surface->pitch + (i + 1) * bpp + 2] != 255))
+
+    //                 /* Not white */
+    //             ){
+    //                 set_pixel(outter_surface, win, i, j, 150, 150, 150);
+    //             }
+    //         }
+    //     }
+    // }
+
+    Uint8* pixel_array = (Uint8*)outter_surface->pixels;
+    int bpp = outter_surface->format->BytesPerPixel;
+
+    /* Outer Borders Second */
+    for(int i = 0 ; i < outter_surface->w ; i++){
+        for(int j = 0 ; j < outter_surface->h ; j++){
+            int r = pixel_array[j * outter_surface->pitch + i * bpp + 0];
+            int g = pixel_array[j * outter_surface->pitch + i * bpp + 1];
+            int b = pixel_array[j * outter_surface->pitch + i * bpp + 2];
+            if(r != 0 && g != 0 && b != 0){
+                if( /* red */
+                    ((pixel_array[(j + 1) * outter_surface->pitch + i * bpp + 0] != r  && pixel_array[(j + 1) * outter_surface->pitch + i * bpp + 0] != border_colour) ||
+                    (pixel_array[(j - 1) * outter_surface->pitch + i * bpp + 0] != r && pixel_array[(j - 1) * outter_surface->pitch + i * bpp + 0] != border_colour) ||
+                    (pixel_array[j * outter_surface->pitch + (i - 1) * bpp + 0] != r && pixel_array[j * outter_surface->pitch + (i - 1) * bpp + 0] != border_colour) ||
+                    (pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 0] != r && pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 0] != border_colour)) &&
+
+                    /* green */
+                    ((pixel_array[(j + 1) * outter_surface->pitch + i * bpp + 1] != g && pixel_array[(j + 1) * outter_surface->pitch + i * bpp + 1] != border_colour) ||
+                    (pixel_array[(j - 1) * outter_surface->pitch + i * bpp + 1] != g && pixel_array[(j - 1) * outter_surface->pitch + i * bpp + 1] != border_colour) ||
+                    (pixel_array[j * outter_surface->pitch + (i - 1) * bpp + 1] != g && pixel_array[j * outter_surface->pitch + (i - 1) * bpp + 1] != border_colour) ||
+                    (pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 1] != g && pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 1] != border_colour)) &&
+
+                    /* blue */
+                    ((pixel_array[(j + 1) * outter_surface->pitch + i * bpp + 2] != b && pixel_array[(j + 1) * outter_surface->pitch + i * bpp + 2] != border_colour) ||
+                    (pixel_array[(j - 1) * outter_surface->pitch + i * bpp + 2] != b && pixel_array[(j - 1) * outter_surface->pitch + i * bpp + 2] != border_colour) ||
+                    (pixel_array[j * outter_surface->pitch + (i - 1) * bpp + 2] != b && pixel_array[j * outter_surface->pitch + (i - 1) * bpp + 2] != border_colour) ||
+                    (pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 2] != b && pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 2] != border_colour))
+
+                    /* Not white */
+                ){
+                    set_pixel(outter_surface, win, i, j, border_colour, border_colour, border_colour); /* Set Border To Black For Now */
+                }
+            }
+        }
+    }
+
+    return;
+}
+
 void print_country_colours(void){
     for(const auto& cou : countries){
         std::printf("%s, %s RGB:%d %d %d\n",cou.tag.c_str(), cou.country_name.c_str(), cou.country_rgb.r, cou.country_rgb.g, cou.country_rgb.b);

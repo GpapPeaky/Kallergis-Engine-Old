@@ -87,28 +87,40 @@ void set_pixel(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint8 r, Uin
  */
 void pixel_screen_fill(SDL_Surface* surface, SDL_Window* win);
 
-/**
- * @brief Colour converter
- * 
- * @param h Hue
- * @param s Saturation
- * @param v -
- * @param r Red
- * @param g Green
- * @param b Blue
- */
-void hsv2rgb(float h, float s, float v, Uint8& r, Uint8& g, Uint8& b);
+// /**
+//  * @brief Colour converter
+//  * 
+//  * @param h Hue
+//  * @param s Saturation
+//  * @param v -
+//  * @param r Red
+//  * @param g Green
+//  * @param b Blue
+//  */
+// void hsv2rgb(float h, float s, float v, Uint8& r, Uint8& g, Uint8& b);
+
+// /**
+//  * @brief Colour wheel for editor
+//  * 
+//  * @param surface Surface to paint at
+//  * @param x X 
+//  * @param y Y 
+//  * @param width Width of box 
+//  * @param height Height of box 
+//  */
+// void colour_box(SDL_Surface* surface, int x, int y, int width, int height);
 
 /**
- * @brief Colour wheel for editor
+ * @brief Generates borders between countries
  * 
- * @param surface Surface to paint at
- * @param x X 
- * @param y Y 
- * @param width Width of box 
- * @param height Height of box 
+ * @param outter_surface Surface to colour the country borders
+ * @param inner_surface Surface to colour the province borders
+ * @param win Window to go to
+ * @param border_colour Border Colour
+ * 
+ * @warning There should be no 1 pixel threshold in order to produce good results, also no province shall have isolated 2x2 or 1xY / Xx1 type of mapdata
  */
-void colour_box(SDL_Surface* surface, int x, int y, int width, int height);
+void mark_borders(SDL_Surface* outter_surface, SDL_Surface* inner_surface, SDL_Window* win, int border_colour);
 
 /**
  * @brief Prints the colours of all countries

@@ -69,7 +69,7 @@ err_capable reg_to_country(const std::string fname);
  * 
  * @returns The resized surface
  */
-SDL_Surface* resize_province_bitmap(SDL_Surface* surface, float w, float h);
+SDL_Surface* resize_bitmap(SDL_Surface* surface, float w, float h);
 
 /**
  * @brief prints all regions, along with their data

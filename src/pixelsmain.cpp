@@ -17,7 +17,7 @@ int main(int argv, char* args[]){
     }
 
     SDL_Surface* screen = SDL_GetWindowSurface(pixel_win);
-    SDL_Surface* surface = IMG_Load("history/map/test.bmp");
+    SDL_Surface* surface = IMG_Load("history/map/provinces.bmp");
     if(!surface){
         std::printf("Image Failed to Load\n");
     }
@@ -25,9 +25,10 @@ int main(int argv, char* args[]){
     int w, h;
     SDL_GetRendererOutputSize(pixel_renderer, &w, &h); /* Due to the windows high dpi and other parameters, we cannot use SDL_GetWindowSize etc */
     std::printf("WIDTH: %d - HEIGHT: %d\n", w, h);
-    surface = resize_province_bitmap(surface, 5760, 3240); /* Retain the actual size of the bitmap, to not lose quality */
+    surface = resize_bitmap(surface, 5760, 3240); /* Retain the actual size of the bitmap, to not lose quality */
 
     camera cam = init_camera();
+    // mark_borders(surface, pixel_win);
 
     bool quit = false;
     SDL_Event event;
