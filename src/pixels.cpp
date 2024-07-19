@@ -88,75 +88,86 @@ void pixel_screen_fill(SDL_Surface* surface, SDL_Window* win){
     return;
 }
 
-void mark_borders(SDL_Surface* outter_surface, SDL_Surface* inner_surface, SDL_Window* win, int border_colour){
-    // Uint8* pixel_array = (Uint8*)inner_surface->pixels;
-    // int bpp = inner_surface->format->BytesPerPixel;
+void mark_borders(SDL_Surface* src, SDL_Surface* dst, SDL_Window* win, int border_colour){
 
-    // /* Inner Borders First */
-    // for(int i = 0 ; i < inner_surface->w ; i++){
-    //     for(int j = 0 ; j < inner_surface->h ; j++){
+    /* To Avoid Conflict Between 2 iterations */
+    int counter_colour;
+    if(border_colour == INNER_BORDER_COLOUR_GS){
+        counter_colour = OUTTER_BORDER_COLOUR_GS;
+    }else if(border_colour == OUTTER_BORDER_COLOUR_GS){
+        counter_colour = INNER_BORDER_COLOUR_GS;
+    }else{
+        std::printf("Incorrect Colour Chosen For Border Generation\n");
+        return;
+    }
 
-    //         int r = pixel_array[j * inner_surface->pitch + i * bpp + 0];
-    //         int g = pixel_array[j * inner_surface->pitch + i * bpp + 1];
-    //         int b = pixel_array[j * inner_surface->pitch + i * bpp + 2];
-    //         if(r != 0 && g != 0 && b != 0){                
-    //             if( /* red */
-    //                 ((pixel_array[(j + 1) * inner_surface->pitch + i * bpp + 0] != r  && pixel_array[(j + 1) * inner_surface->pitch + i * bpp + 0] != 255) ||
-    //                 (pixel_array[(j - 1) * inner_surface->pitch + i * bpp + 0] != r && pixel_array[(j - 1) * inner_surface->pitch + i * bpp + 0] != 255) ||
-    //                 (pixel_array[j * inner_surface->pitch + (i - 1) * bpp + 0] != r && pixel_array[j * inner_surface->pitch + (i - 1) * bpp + 0] != 255) ||
-    //                 (pixel_array[j * inner_surface->pitch + (i + 1) * bpp + 0] != r && pixel_array[j * inner_surface->pitch + (i + 1) * bpp + 0] != 255)) &&
+    Uint8* pixel_array = (Uint8*)src->pixels;
+    int bpp = src->format->BytesPerPixel;
 
-    //                 /* green */
-    //                 ((pixel_array[(j + 1) * inner_surface->pitch + i * bpp + 1] != g && pixel_array[(j + 1) * inner_surface->pitch + i * bpp + 1] != 255) ||
-    //                 (pixel_array[(j - 1) * inner_surface->pitch + i * bpp + 1] != g && pixel_array[(j - 1) * inner_surface->pitch + i * bpp + 1] != 255) ||
-    //                 (pixel_array[j * inner_surface->pitch + (i - 1) * bpp + 1] != g && pixel_array[j * inner_surface->pitch + (i - 1) * bpp + 1] != 255) ||
-    //                 (pixel_array[j * inner_surface->pitch + (i + 1) * bpp + 1] != g && pixel_array[j * inner_surface->pitch + (i + 1) * bpp + 1] != 255)) &&
+    if(src != NULL){
+        pixel_array = (Uint8*)src->pixels;
+        bpp = src->format->BytesPerPixel;
 
-    //                 /* blue */
-    //                 ((pixel_array[(j + 1) * inner_surface->pitch + i * bpp + 2] != b && pixel_array[(j + 1) * inner_surface->pitch + i * bpp + 2] != 255) ||
-    //                 (pixel_array[(j - 1) * inner_surface->pitch + i * bpp + 2] != b && pixel_array[(j - 1) * inner_surface->pitch + i * bpp + 2] != 255) ||
-    //                 (pixel_array[j * inner_surface->pitch + (i - 1) * bpp + 2] != b && pixel_array[j * inner_surface->pitch + (i - 1) * bpp + 2] != 255) ||
-    //                 (pixel_array[j * inner_surface->pitch + (i + 1) * bpp + 2] != b && pixel_array[j * inner_surface->pitch + (i + 1) * bpp + 2] != 255))
+        for(int i = 0 ; i < src->w ; i++){
+            for(int j = 0 ; j < src->h ; j++){
+                int r = pixel_array[j * src->pitch + i * bpp + 0];
+                int g = pixel_array[j * src->pitch + i * bpp + 1];
+                int b = pixel_array[j * src->pitch + i * bpp + 2];
+                if(r != 0 && g != 0 && b != 0){
+                    if( /* red */
+                        ((pixel_array[(j + 1) * src->pitch + i * bpp + 0] != r && pixel_array[(j + 1) * src->pitch + i * bpp + 0] != border_colour && pixel_array[(j + 1) * src->pitch + i * bpp + 0] != counter_colour) ||
+                        (pixel_array[(j - 1) * src->pitch + i * bpp + 0] != r && pixel_array[(j - 1) * src->pitch + i * bpp + 0] != border_colour && pixel_array[(j - 1) * src->pitch + i * bpp + 0] != counter_colour) ||
+                        (pixel_array[j * src->pitch + (i - 1) * bpp + 0] != r && pixel_array[j * src->pitch + (i - 1) * bpp + 0] != border_colour && pixel_array[j * src->pitch + (i - 1) * bpp + 0] != counter_colour) ||
+                        (pixel_array[j * src->pitch + (i + 1) * bpp + 0] != r && pixel_array[j * src->pitch + (i + 1) * bpp + 0] != border_colour && pixel_array[j * src->pitch + (i + 1) * bpp + 0] != counter_colour)) ||
 
-    //                 /* Not white */
-    //             ){
-    //                 set_pixel(outter_surface, win, i, j, 150, 150, 150);
-    //             }
-    //         }
-    //     }
-    // }
+                        /* green */
+                        ((pixel_array[(j + 1) * src->pitch + i * bpp + 1] != g && pixel_array[(j + 1) * src->pitch + i * bpp + 1] != border_colour && pixel_array[(j + 1) * src->pitch + i * bpp + 1] != counter_colour) ||
+                        (pixel_array[(j - 1) * src->pitch + i * bpp + 1] != g && pixel_array[(j - 1) * src->pitch + i * bpp + 1] != border_colour && pixel_array[(j - 1) * src->pitch + i * bpp + 1] != counter_colour) ||
+                        (pixel_array[j * src->pitch + (i - 1) * bpp + 1] != g && pixel_array[j * src->pitch + (i - 1) * bpp + 1] != border_colour && pixel_array[j * src->pitch + (i - 1) * bpp + 1] != counter_colour) ||
+                        (pixel_array[j * src->pitch + (i + 1) * bpp + 1] != g && pixel_array[j * src->pitch + (i + 1) * bpp + 1] != border_colour && pixel_array[j * src->pitch + (i + 1) * bpp + 1] != counter_colour)) ||
 
-    Uint8* pixel_array = (Uint8*)outter_surface->pixels;
-    int bpp = outter_surface->format->BytesPerPixel;
+                        /* blue */
+                        ((pixel_array[(j + 1) * src->pitch + i * bpp + 2] != b && pixel_array[(j + 1) * src->pitch + i * bpp + 2] != border_colour && pixel_array[(j + 1) * src->pitch + i * bpp + 2] != counter_colour) ||
+                        (pixel_array[(j - 1) * src->pitch + i * bpp + 2] != b && pixel_array[(j - 1) * src->pitch + i * bpp + 2] != border_colour && pixel_array[(j - 1) * src->pitch + i * bpp + 2] != counter_colour) ||
+                        (pixel_array[j * src->pitch + (i - 1) * bpp + 2] != b && pixel_array[j * src->pitch + (i - 1) * bpp + 2] != border_colour && pixel_array[j * src->pitch + (i - 1) * bpp + 2] != counter_colour) ||
+                        (pixel_array[j * src->pitch + (i + 1) * bpp + 2] != b && pixel_array[j * src->pitch + (i + 1) * bpp + 2] != border_colour && pixel_array[j * src->pitch + (i + 1) * bpp + 2] != counter_colour))
+                    ){
+                        if(
+                            ((pixel_array[(j - 1) * src->pitch + (i - 1) * bpp + 0] != 0) &&
+                            (pixel_array[(j - 1) * src->pitch + (i - 1) * bpp + 1] != 0) &&
+                            (pixel_array[(j - 1) * src->pitch + (i - 1) * bpp + 2] != 0)) ||
 
-    /* Outer Borders Second */
-    for(int i = 0 ; i < outter_surface->w ; i++){
-        for(int j = 0 ; j < outter_surface->h ; j++){
-            int r = pixel_array[j * outter_surface->pitch + i * bpp + 0];
-            int g = pixel_array[j * outter_surface->pitch + i * bpp + 1];
-            int b = pixel_array[j * outter_surface->pitch + i * bpp + 2];
-            if(r != 0 && g != 0 && b != 0){
-                if( /* red */
-                    ((pixel_array[(j + 1) * outter_surface->pitch + i * bpp + 0] != r  && pixel_array[(j + 1) * outter_surface->pitch + i * bpp + 0] != border_colour) ||
-                    (pixel_array[(j - 1) * outter_surface->pitch + i * bpp + 0] != r && pixel_array[(j - 1) * outter_surface->pitch + i * bpp + 0] != border_colour) ||
-                    (pixel_array[j * outter_surface->pitch + (i - 1) * bpp + 0] != r && pixel_array[j * outter_surface->pitch + (i - 1) * bpp + 0] != border_colour) ||
-                    (pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 0] != r && pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 0] != border_colour)) ||
+                            ((pixel_array[j * src->pitch + (i - 1) * bpp + 0] != 0) &&
+                            (pixel_array[j * src->pitch + (i - 1) * bpp + 1] != 0) &&
+                            (pixel_array[j * src->pitch + (i - 1) * bpp + 2] != 0)) ||
 
-                    /* green */
-                    ((pixel_array[(j + 1) * outter_surface->pitch + i * bpp + 1] != g && pixel_array[(j + 1) * outter_surface->pitch + i * bpp + 1] != border_colour) ||
-                    (pixel_array[(j - 1) * outter_surface->pitch + i * bpp + 1] != g && pixel_array[(j - 1) * outter_surface->pitch + i * bpp + 1] != border_colour) ||
-                    (pixel_array[j * outter_surface->pitch + (i - 1) * bpp + 1] != g && pixel_array[j * outter_surface->pitch + (i - 1) * bpp + 1] != border_colour) ||
-                    (pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 1] != g && pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 1] != border_colour)) ||
+                            ((pixel_array[(j + 1) * src->pitch + (i - 1) * bpp + 0] != 0) &&
+                            (pixel_array[(j + 1) * src->pitch + (i - 1) * bpp + 1] != 0) &&
+                            (pixel_array[(j + 1) * src->pitch + (i - 1) * bpp + 2] != 0)) ||
 
-                    /* blue */
-                    ((pixel_array[(j + 1) * outter_surface->pitch + i * bpp + 2] != b && pixel_array[(j + 1) * outter_surface->pitch + i * bpp + 2] != border_colour) ||
-                    (pixel_array[(j - 1) * outter_surface->pitch + i * bpp + 2] != b && pixel_array[(j - 1) * outter_surface->pitch + i * bpp + 2] != border_colour) ||
-                    (pixel_array[j * outter_surface->pitch + (i - 1) * bpp + 2] != b && pixel_array[j * outter_surface->pitch + (i - 1) * bpp + 2] != border_colour) ||
-                    (pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 2] != b && pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 2] != border_colour))
+                            ((pixel_array[(j - 1) * src->pitch + i * bpp + 0] != 0) &&
+                            (pixel_array[(j - 1) * src->pitch + i * bpp + 1] != 0) &&
+                            (pixel_array[(j - 1) * src->pitch + i * bpp + 2] != 0)) ||
 
-                    /* Not white */
-                ){
-                    set_pixel(outter_surface, win, i, j, border_colour, border_colour, border_colour); /* Set Border To Black For Now */
+                            ((pixel_array[(j + 1) * src->pitch + i * bpp + 0] != 0) &&
+                            (pixel_array[(j + 1) * src->pitch + i * bpp + 1] != 0) &&
+                            (pixel_array[(j + 1) * src->pitch + i * bpp + 2] != 0)) ||
+
+                            ((pixel_array[(j + 1) * src->pitch + (i + 1) * bpp + 0] != 0) &&
+                            (pixel_array[(j + 1) * src->pitch + (i + 1) * bpp + 1] != 0) &&
+                            (pixel_array[(j + 1) * src->pitch + (i + 1) * bpp + 2] != 0)) ||
+
+                            ((pixel_array[(j - 1) * src->pitch + (i + 1) * bpp + 0] != 0) &&
+                            (pixel_array[(j - 1) * src->pitch + (i + 1) * bpp + 1] != 0) &&
+                            (pixel_array[(j - 1) * src->pitch + (i + 1) * bpp + 2] != 0)) ||
+
+                            ((pixel_array[j * src->pitch + (i + 1) * bpp + 0] != 0) &&
+                            (pixel_array[j * src->pitch + (i + 1) * bpp + 1] != 0) &&
+                            (pixel_array[j * src->pitch + (i + 1) * bpp + 2] != 0))
+                        ){
+                            set_pixel(dst, win, i, j, border_colour, border_colour, border_colour);
+                        }
+                    }
                 }
             }
         }

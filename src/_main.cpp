@@ -48,7 +48,8 @@ int main(int argv, char* args[]){
         std::printf("Countries Painting Completed\n");
     #endif
 
-    mark_borders(map, click_map, win, BORDER_COLOUR_GS);
+    mark_borders(map, map, win, OUTTER_BORDER_COLOUR_GS);
+    // mark_borders(click_map, map, win, INNER_BORDER_COLOUR_GS); /* FIXME */
     #ifdef MAIN_DBG
         std::printf("Borders Created\n\n");
     #endif

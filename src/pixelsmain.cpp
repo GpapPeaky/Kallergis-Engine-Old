@@ -34,7 +34,6 @@ int main(int argv, char* args[]){
     SDL_Event event;
     while(!quit){
         srand(time(NULL)); /* Change seed with every loop */
-        bool toggle = false;
         while(SDL_PollEvent(&event)){
             /* Camera movement */
             handle_camera(cam, event);

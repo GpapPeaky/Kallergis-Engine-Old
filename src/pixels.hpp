@@ -90,14 +90,14 @@ void pixel_screen_fill(SDL_Surface* surface, SDL_Window* win);
 /**
  * @brief Generates borders between countries
  * 
- * @param outter_surface Surface to colour the country borders
- * @param inner_surface Surface to colour the province borders
+ * @param src Surface to scan for edges
+ * @param dst Destination of pixel sets
  * @param win Window to go to
  * @param border_colour Border Colour
  * 
  * @warning There should be no 1 pixel threshold in order to produce good results, also no province shall have isolated 2x2 or 1xY / Xx1 type of mapdata
  */
-void mark_borders(SDL_Surface* outter_surface, SDL_Surface* inner_surface, SDL_Window* win, int border_colour);
+void mark_borders(SDL_Surface* src, SDL_Surface* dst, SDL_Window* win, int border_colour);
 
 /**
  * @brief Prints the colours of all countries
