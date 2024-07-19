@@ -140,13 +140,13 @@ void mark_borders(SDL_Surface* outter_surface, SDL_Surface* inner_surface, SDL_W
                     ((pixel_array[(j + 1) * outter_surface->pitch + i * bpp + 0] != r  && pixel_array[(j + 1) * outter_surface->pitch + i * bpp + 0] != border_colour) ||
                     (pixel_array[(j - 1) * outter_surface->pitch + i * bpp + 0] != r && pixel_array[(j - 1) * outter_surface->pitch + i * bpp + 0] != border_colour) ||
                     (pixel_array[j * outter_surface->pitch + (i - 1) * bpp + 0] != r && pixel_array[j * outter_surface->pitch + (i - 1) * bpp + 0] != border_colour) ||
-                    (pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 0] != r && pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 0] != border_colour)) &&
+                    (pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 0] != r && pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 0] != border_colour)) ||
 
                     /* green */
                     ((pixel_array[(j + 1) * outter_surface->pitch + i * bpp + 1] != g && pixel_array[(j + 1) * outter_surface->pitch + i * bpp + 1] != border_colour) ||
                     (pixel_array[(j - 1) * outter_surface->pitch + i * bpp + 1] != g && pixel_array[(j - 1) * outter_surface->pitch + i * bpp + 1] != border_colour) ||
                     (pixel_array[j * outter_surface->pitch + (i - 1) * bpp + 1] != g && pixel_array[j * outter_surface->pitch + (i - 1) * bpp + 1] != border_colour) ||
-                    (pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 1] != g && pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 1] != border_colour)) &&
+                    (pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 1] != g && pixel_array[j * outter_surface->pitch + (i + 1) * bpp + 1] != border_colour)) ||
 
                     /* blue */
                     ((pixel_array[(j + 1) * outter_surface->pitch + i * bpp + 2] != b && pixel_array[(j + 1) * outter_surface->pitch + i * bpp + 2] != border_colour) ||

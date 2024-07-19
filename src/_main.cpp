@@ -48,7 +48,7 @@ int main(int argv, char* args[]){
         std::printf("Countries Painting Completed\n");
     #endif
 
-    mark_borders(map, click_map, win, 1);
+    mark_borders(map, click_map, win, BORDER_COLOUR_GS);
     #ifdef MAIN_DBG
         std::printf("Borders Created\n\n");
     #endif

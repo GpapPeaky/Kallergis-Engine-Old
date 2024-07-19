@@ -1,5 +1,5 @@
 # COUNTRY TAG : { REG_ID_1, REG_ID_2, REG_ID_3, ... }
 
-"TS2" : { 3, 4 }
-"TS3" : { 5 }
-"TST" : { 1, 2 }
+"TST" : { 1, 5, 3 }
+"TS2" : { 2 }
+"TS3" : { 4, 6 }
