@@ -5,7 +5,7 @@ void cleanup(SDL_Window* win, SDL_Renderer* renderer){
     SDL_DestroyWindow(win);
     SDL_Quit();
 
-    std::printf("terminates correctly\n"); /* Exit Callback */
+    std::printf("Main Exitted Correctly\n"); /* Exit Callback */
 
     return;
 }

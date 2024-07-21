@@ -61,6 +61,7 @@ int main(int argv, char* args[]){
     print_provinces();
 
     #ifdef MAIN_MENU
+        /* TODO: refactor to a function , not raw code in main */
         /* Menu */
         bool menu_box = false;
         while(!menu_box){
@@ -71,14 +72,18 @@ int main(int argv, char* args[]){
             while(SDL_PollEvent(&e)){
             if(e.type == SDL_MOUSEBUTTONDOWN){
                 button* pressed = check_for_button_interaction();
-                if(strcmp(pressed->text, "play") == 0){
-                    std::printf("Entering game\n");
-                    menu_box = true;
-                }
-                if(strcmp(pressed->text, "quit") == 0){
-                    std::printf("Quitting game\n");
-                    cleanup(win, renderer);
-                    return EXIT_SUCCESS;
+                if(pressed != NULL){
+                    if(strcmp(pressed->text, "play") == 0){
+                        std::printf("Entering game\n");
+                        buttons_cleanup();
+                        menu_box = true;
+                    }
+                    if(strcmp(pressed->text, "quit") == 0){
+                        std::printf("Quitting game\n");
+                        buttons_cleanup();
+                        cleanup(win, renderer);
+                        return EXIT_SUCCESS;
+                    }
                 }
             }
             SDL_UpdateWindowSurface(win);
@@ -99,8 +104,8 @@ int main(int argv, char* args[]){
 
         #ifdef WIN_UPDATE /* Only updates when the TAB key is pressed, if called in main it will update and stay there always */
             SDL_UpdateWindowSurface(win);
-        /* If any change is done to the window surface (all the surfaces mashed together), it is changed and updated so that it is shown */
-        /* It clatters due to the {CLEAR -> RENDERCOPY -> PRESENT} method */
+            /* If any change is done to the window surface (all the surfaces mashed together), it is changed and updated so that it is shown */
+            /* It clatters due to the {CLEAR -> RENDERCOPY -> PRESENT} method */
         #endif
     }
 

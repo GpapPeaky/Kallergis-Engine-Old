@@ -2,13 +2,55 @@
 #include "init_map.hpp"
 
 SDL_Surface* menu;
-std::vector<button> buttons;
+std::vector<button*> buttons;
+
+button* create_button(SDL_Surface* screen_to_copy_to, const char* text, const char* file, int x, int y){
+    button* new_button = new button;
+
+    new_button->text = text;
+    new_button->img = SDL_LoadBMP(file);
+    if(!new_button->img){
+        std::printf("Bitmap Not Found\n");
+        return NULL;
+    }
+    new_button->rect.w = new_button->img->w;
+    new_button->rect.h = new_button->img->h;
+    new_button->rect.x = x;
+    new_button->rect.y = y;
+
+    if(x == CENTERED){
+        new_button->rect.x = (screen_to_copy_to->w / 2) - (new_button->rect.w / 2);
+    }
+
+    if(y == CENTERED){
+        new_button->rect.y = (screen_to_copy_to->h / 2) - (new_button->rect.h / 2);
+    }
+
+    std::printf("Button Created\n");
+    return new_button;
+}
+
+void delete_button(button* but){
+    if(but->img){
+        SDL_FreeSurface(but->img);
+    }
+
+    delete but;
+
+    return;
+}
+
+void buttons_cleanup(){
+    for(button* but : buttons){
+        delete_button(but);
+    }
+
+    buttons.clear();
+
+    return;
+}
 
 void init_menu(std::string filename){
-
-    button play;
-    button quit;
-
     SDL_Surface* native_menu = SDL_LoadBMP(filename.c_str());
     if(!native_menu){
         std::printf("Failed to load native menu surface\n");
@@ -19,30 +61,18 @@ void init_menu(std::string filename){
         std::printf("Failed to load menu surface\n");
     }
 
-    /* TODO: Make a create_button() function */
-    play.text = "play";
-    play.img = SDL_LoadBMP("assets/gfx/menu/play_button.bmp");
-    play.rect.w = play.img->w;
-    play.rect.h = play.img->h;
-    play.rect.x = (menu->w / 2) - (play.rect.w / 2);
-    play.rect.y = (menu->h / 2) - (play.rect.h / 2) - 200;
-
-    quit.text = "quit";
-    quit.img = SDL_LoadBMP("assets/gfx/menu/quit_button.bmp");
-    quit.rect.w = quit.img->w;
-    quit.rect.h = quit.img->h;
-    quit.rect.x = (menu->w / 2) - (quit.rect.w / 2);
-    quit.rect.y = (menu->h / 2) - (quit.rect.h / 2) + 200;
-
-    buttons.push_back(play);
+    button* quit = create_button(menu, "quit", "assets/gfx/menu/quit_button.bmp", CENTERED, CENTERED);
     buttons.push_back(quit);
+
+    button* play = create_button(menu, "play", "assets/gfx/menu/play_button.bmp", CENTERED, 200);
+    buttons.push_back(play);
 
     return;
 }
 
 render_capable draw_buttons(void){
     for(auto& butt : buttons){
-        SDL_UpperBlitScaled(butt.img, NULL, screen, &butt.rect);
+        SDL_UpperBlitScaled(butt->img, NULL, screen, &butt->rect);
     }
 
     return;
@@ -52,11 +82,13 @@ button* check_for_button_interaction(void){
     int x, y;
     SDL_GetMouseState(&x, &y);
     for(auto& butt : buttons){
-        if(x > butt.rect.x && x < butt.rect.w + butt.rect.x && y > butt.rect.y && y < butt.rect.h + butt.rect.y){
-            printf("Button %s clicked\n", butt.text);
-            return &butt;
+        if(x > butt->rect.x && x < butt->rect.w + butt->rect.x && y > butt->rect.y && y < butt->rect.h + butt->rect.y){
+            printf("Button %s clicked\n", butt->text);
+            return butt;
         }
     }
+
+    return NULL;
 
     /* FIXME: Not pressing a button still makes the game quit */
 }

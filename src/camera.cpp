@@ -5,6 +5,7 @@ camera init_camera(void){
 
     camera cam = { rect, 1.0f };
 
+    std::printf("Camera Initialised\n");
     return cam;
 }
 
