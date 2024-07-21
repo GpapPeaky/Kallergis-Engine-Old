@@ -51,7 +51,7 @@ int main(int argv, char* args[]){
     mark_borders(map, map, win, OUTTER_BORDER_COLOUR_GS);
     // mark_borders(click_map, map, win, INNER_BORDER_COLOUR_GS); /* FIXME */
     #ifdef MAIN_DBG
-        std::printf("Borders Created\n\n");
+        std::printf("Borders Created\n");
     #endif
 
     /* Prints */
@@ -59,6 +59,9 @@ int main(int argv, char* args[]){
     print_countries();
     print_country_colours();
     print_provinces();
+    #ifdef MAIN_DBG
+        std::printf("Prints Completed\n\n");
+    #endif
 
     #ifdef MAIN_MENU
         /* TODO: refactor to a function , not raw code in main */
