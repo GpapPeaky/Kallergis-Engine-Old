@@ -23,7 +23,7 @@ style = "width: 563px;
     <p align="left">  The Engine Was Made In Order To Make Modding Grand Strategy Games Easier, Mainly To Create A Random Scenarios And Games By Only Changin A Bitmap And Some Other Files Like Country Names, Regions Population ect. A more extensive Editor Will Be Added Once Most Of Other Engine Utilities And Routines Are Completed.  </p>
 </div>
 
-<img src='../history/map/test.bmp'
+<img src='../history/map/provinces.bmp'
 alt = ""
 style = "width: 1024;
          height: 768; 
