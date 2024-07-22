@@ -3,6 +3,7 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include <cstring>
 
 #ifndef COU
 /**
@@ -16,6 +17,7 @@ typedef struct country{
     std::vector<reg> country_regs;
     SDL_Surface* country_flag;
     SDL_Color country_rgb;
+    uint units_num;
 }cou;
 
 extern std::vector<cou> countries; /* Contains data for each country */
@@ -30,5 +32,14 @@ extern std::vector<cou> countries; /* Contains data for each country */
  *                0 on success
 */
 err_capable init_countries(const std::string cou, const std::string tags);
+
+/**
+ * @brief gets the country object of a specific tag
+ * 
+ * @param tag Country tag
+ * 
+ * @returns the country object
+ */
+cou get_country(std::string tag);
 
 #endif

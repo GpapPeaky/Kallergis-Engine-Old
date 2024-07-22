@@ -10,6 +10,7 @@ SDL_FRect rect;
 SDL_FRect b_rect;
 SDL_FRect c_rect;
 
+/* TODO: Rewrite the font module */
 err_capable init_font(void){
 
     TTF_Init(); /* Initialise */

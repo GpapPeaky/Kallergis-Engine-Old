@@ -59,6 +59,7 @@ err_capable init_countries(const std::string countries_file, const std::string t
             new_country.country_rgb.r = R;
             new_country.country_rgb.g = G;
             new_country.country_rgb.b = B;
+            new_country.units_num = 0; /* No units at first */
 
             countries.push_back(new_country); /* Add to countries vector */
         }else{
@@ -70,5 +71,12 @@ err_capable init_countries(const std::string countries_file, const std::string t
     cou_file.close();
 
     return SUCCESS;
+}
 
+cou get_country(std::string tag){
+    for(auto& cou : countries){
+        if(strcmp(cou.tag.c_str(), tag.c_str()) == 0){
+            return cou;
+        }
+    }
 }

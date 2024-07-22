@@ -89,6 +89,4 @@ button* check_for_button_interaction(void){
     }
 
     return NULL;
-
-    /* FIXME: Not pressing a button still makes the game quit */
 }
