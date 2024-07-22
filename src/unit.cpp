@@ -27,6 +27,7 @@ void create_unit(unit_t type, cou country, int x, int y){
             new_unit.rect.y = y;
             new_unit.owner_tag = country.tag; /* Copy tag to owner field */
             break;
+        /* WRITE: Complete the function and the itnerface */
         default:
             break;
         }
