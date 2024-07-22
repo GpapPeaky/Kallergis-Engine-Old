@@ -39,7 +39,7 @@ err_capable generate_countries_surfaces(SDL_Surface* surface, SDL_Window* win){
                             ){
                                 /* First Non Black at 813 x 602 */
                                 // std::printf("Non-black pixel found and painted at %d %d\n", i, j);
-                                set_pixel(map, win, i, j, current_rgb.r, current_rgb.g, current_rgb.b);
+                                set_pixel(map, win, i, j, current_rgb.r, current_rgb.g, current_rgb.b, ALPHA);
                             }else{
                                 /* WARN: Make sure that all provinces have no 0 R, G, B value, else it will crash */
                                 continue;
@@ -54,15 +54,30 @@ err_capable generate_countries_surfaces(SDL_Surface* surface, SDL_Window* win){
     return SUCCESS;
 }
 
-void set_pixel(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint8 r, Uint8 g, Uint8 b){
+void set_pixel(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255){
     SDL_LockSurface(surface); /* Lock in order to edit */
+    int bpp = surface->format->BytesPerPixel;
     Uint8* pixel_array = (Uint8*)surface->pixels;
+    Uint8* p = pixel_array + y * surface->pitch + x * bpp;
+    Uint32 pixel_value;
 
     /* Making the correct offsets | format: { B, G, R } */
     /* It becomes { R, G, B } if a surface is blitted onto the window surface (screen) -> offsets need to change */
-    pixel_array[y * surface->pitch + x * surface->format->BytesPerPixel + 0] = r; 
-    pixel_array[y * surface->pitch + x * surface->format->BytesPerPixel + 1] = g;
-    pixel_array[y * surface->pitch + x * surface->format->BytesPerPixel + 2] = b;
+    switch(bpp){
+        case 3: /* 24 bit surface */
+            p[0] = r;
+            p[1] = g;
+            p[2] = b;
+            break;
+        case 4:
+            pixel_value = SDL_MapRGBA(surface->format, r, g, b, a);
+            *(Uint32*)p = pixel_value;
+            break;
+        default:
+            std::printf("Unsupported pixel format\n");
+            break;
+    }
+
     SDL_UnlockSurface(surface);
 
     return;
@@ -79,7 +94,7 @@ void pixel_screen_fill(SDL_Surface* surface, SDL_Window* win){
                 pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 1] == 0 &&
                 pixel_array[j * surface->pitch + i * surface->format->BytesPerPixel + 2] == 0
             ){
-                set_pixel(surface, win, i, j, 255, 255, 255); /* Simple Example of image manipulation, quite fast... */
+                set_pixel(surface, win, i, j, 255, 255, 255, ALPHA); /* Simple Example of image manipulation, quite fast... */
             }
         }
     }
@@ -113,61 +128,42 @@ void mark_borders(SDL_Surface* src, SDL_Surface* dst, SDL_Window* win, int borde
                 int r = pixel_array[j * src->pitch + i * bpp + 0];
                 int g = pixel_array[j * src->pitch + i * bpp + 1];
                 int b = pixel_array[j * src->pitch + i * bpp + 2];
-                if(r != 0 && g != 0 && b != 0){
-                    if( /* red */
-                        ((pixel_array[(j + 1) * src->pitch + i * bpp + 0] != r && pixel_array[(j + 1) * src->pitch + i * bpp + 0] != border_colour && pixel_array[(j + 1) * src->pitch + i * bpp + 0] != counter_colour) ||
-                        (pixel_array[(j - 1) * src->pitch + i * bpp + 0] != r && pixel_array[(j - 1) * src->pitch + i * bpp + 0] != border_colour && pixel_array[(j - 1) * src->pitch + i * bpp + 0] != counter_colour) ||
-                        (pixel_array[j * src->pitch + (i - 1) * bpp + 0] != r && pixel_array[j * src->pitch + (i - 1) * bpp + 0] != border_colour && pixel_array[j * src->pitch + (i - 1) * bpp + 0] != counter_colour) ||
-                        (pixel_array[j * src->pitch + (i + 1) * bpp + 0] != r && pixel_array[j * src->pitch + (i + 1) * bpp + 0] != border_colour && pixel_array[j * src->pitch + (i + 1) * bpp + 0] != counter_colour)) ||
 
-                        /* green */
-                        ((pixel_array[(j + 1) * src->pitch + i * bpp + 1] != g && pixel_array[(j + 1) * src->pitch + i * bpp + 1] != border_colour && pixel_array[(j + 1) * src->pitch + i * bpp + 1] != counter_colour) ||
-                        (pixel_array[(j - 1) * src->pitch + i * bpp + 1] != g && pixel_array[(j - 1) * src->pitch + i * bpp + 1] != border_colour && pixel_array[(j - 1) * src->pitch + i * bpp + 1] != counter_colour) ||
-                        (pixel_array[j * src->pitch + (i - 1) * bpp + 1] != g && pixel_array[j * src->pitch + (i - 1) * bpp + 1] != border_colour && pixel_array[j * src->pitch + (i - 1) * bpp + 1] != counter_colour) ||
-                        (pixel_array[j * src->pitch + (i + 1) * bpp + 1] != g && pixel_array[j * src->pitch + (i + 1) * bpp + 1] != border_colour && pixel_array[j * src->pitch + (i + 1) * bpp + 1] != counter_colour)) ||
+                if(r == 0 && g == 0 && b == 0){
+                    continue;
+                }
+                
+                bool is_border = false;
 
-                        /* blue */
-                        ((pixel_array[(j + 1) * src->pitch + i * bpp + 2] != b && pixel_array[(j + 1) * src->pitch + i * bpp + 2] != border_colour && pixel_array[(j + 1) * src->pitch + i * bpp + 2] != counter_colour) ||
-                        (pixel_array[(j - 1) * src->pitch + i * bpp + 2] != b && pixel_array[(j - 1) * src->pitch + i * bpp + 2] != border_colour && pixel_array[(j - 1) * src->pitch + i * bpp + 2] != counter_colour) ||
-                        (pixel_array[j * src->pitch + (i - 1) * bpp + 2] != b && pixel_array[j * src->pitch + (i - 1) * bpp + 2] != border_colour && pixel_array[j * src->pitch + (i - 1) * bpp + 2] != counter_colour) ||
-                        (pixel_array[j * src->pitch + (i + 1) * bpp + 2] != b && pixel_array[j * src->pitch + (i + 1) * bpp + 2] != border_colour && pixel_array[j * src->pitch + (i + 1) * bpp + 2] != counter_colour))
-                    ){
-                        if(
-                            ((pixel_array[(j - 1) * src->pitch + (i - 1) * bpp + 0] != 0) &&
-                            (pixel_array[(j - 1) * src->pitch + (i - 1) * bpp + 1] != 0) &&
-                            (pixel_array[(j - 1) * src->pitch + (i - 1) * bpp + 2] != 0)) ||
+                /* Check Neighours */
+                for (int y_off = -1; y_off <= 1; y_off++) {
+                    for (int x_off = -1; x_off <= 1; x_off++) {
+                        if(x_off == 0 && y_off == 0) continue; /* Skip current pixel */
 
-                            ((pixel_array[j * src->pitch + (i - 1) * bpp + 0] != 0) &&
-                            (pixel_array[j * src->pitch + (i - 1) * bpp + 1] != 0) &&
-                            (pixel_array[j * src->pitch + (i - 1) * bpp + 2] != 0)) ||
+                        int x_neighbor = i + x_off;
+                        int y_neighbor = j + y_off;
 
-                            ((pixel_array[(j + 1) * src->pitch + (i - 1) * bpp + 0] != 0) &&
-                            (pixel_array[(j + 1) * src->pitch + (i - 1) * bpp + 1] != 0) &&
-                            (pixel_array[(j + 1) * src->pitch + (i - 1) * bpp + 2] != 0)) ||
+                        /* Check if it is in-bounds */
+                        if(x_neighbor >= 0 && x_neighbor < src->w && y_neighbor >= 0 && y_neighbor < src->h){
+                            Uint8 r_neighbor = pixel_array[y_neighbor * src->pitch + x_neighbor * bpp + 0];
+                            Uint8 g_neighbor = pixel_array[y_neighbor * src->pitch + x_neighbor * bpp + 1];
+                            Uint8 b_neighbor = pixel_array[y_neighbor * src->pitch + x_neighbor * bpp + 2];
 
-                            ((pixel_array[(j - 1) * src->pitch + i * bpp + 0] != 0) &&
-                            (pixel_array[(j - 1) * src->pitch + i * bpp + 1] != 0) &&
-                            (pixel_array[(j - 1) * src->pitch + i * bpp + 2] != 0)) ||
-
-                            ((pixel_array[(j + 1) * src->pitch + i * bpp + 0] != 0) &&
-                            (pixel_array[(j + 1) * src->pitch + i * bpp + 1] != 0) &&
-                            (pixel_array[(j + 1) * src->pitch + i * bpp + 2] != 0)) ||
-
-                            ((pixel_array[(j + 1) * src->pitch + (i + 1) * bpp + 0] != 0) &&
-                            (pixel_array[(j + 1) * src->pitch + (i + 1) * bpp + 1] != 0) &&
-                            (pixel_array[(j + 1) * src->pitch + (i + 1) * bpp + 2] != 0)) ||
-
-                            ((pixel_array[(j - 1) * src->pitch + (i + 1) * bpp + 0] != 0) &&
-                            (pixel_array[(j - 1) * src->pitch + (i + 1) * bpp + 1] != 0) &&
-                            (pixel_array[(j - 1) * src->pitch + (i + 1) * bpp + 2] != 0)) ||
-
-                            ((pixel_array[j * src->pitch + (i + 1) * bpp + 0] != 0) &&
-                            (pixel_array[j * src->pitch + (i + 1) * bpp + 1] != 0) &&
-                            (pixel_array[j * src->pitch + (i + 1) * bpp + 2] != 0))
-                        ){
-                            set_pixel(dst, win, i, j, border_colour, border_colour, border_colour);
+                            if((r_neighbor != r || g_neighbor != g || b_neighbor != b) &&
+                                r_neighbor != border_colour && g_neighbor != border_colour && b_neighbor != border_colour &&
+                                r_neighbor != counter_colour && g_neighbor != counter_colour && b_neighbor != counter_colour){
+                                is_border = true;
+                                break;
+                            }
                         }
                     }
+                    if(is_border) break;
+                }
+
+                if(is_border && (border_colour == OUTTER_BORDER_COLOUR_GS)){
+                    set_pixel(dst, win, i, j, 255, border_colour, border_colour, ALPHA);
+                }else if(is_border && (border_colour == INNER_BORDER_COLOUR_GS)){
+                    set_pixel(dst, win, i, j, border_colour, border_colour, border_colour, 130);
                 }
             }
         }

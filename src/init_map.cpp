@@ -7,6 +7,8 @@ std::vector<reg>  regions;
 SDL_Surface* map_surface;
 SDL_Surface* map;
 SDL_Surface* click_map; /* For the clicking, highlighting and hovering events */
+SDL_Surface* inner_border_map;
+SDL_Surface* outter_border_map;
 
 err_capable init_map(void){
 
@@ -18,6 +20,8 @@ err_capable init_map(void){
 
     map = resize_bitmap(map_surface, BMP_WIDTH, BMP_HEIGHT); /* Retain Image Quality */
     click_map = resize_bitmap(map_surface, BMP_WIDTH, BMP_HEIGHT); /* Retain Image Quality */
+    inner_border_map = SDL_CreateRGBSurfaceWithFormat(0, BMP_WIDTH, BMP_HEIGHT, 32, SDL_PIXELFORMAT_RGBA32);
+    outter_border_map = SDL_CreateRGBSurfaceWithFormat(0, BMP_WIDTH, BMP_HEIGHT, 32, SDL_PIXELFORMAT_RGBA32);
 
     return SUCCESS;
 }

@@ -21,6 +21,8 @@ extern std::vector<reg> regions;
 extern SDL_Surface* map_surface;
 extern SDL_Surface* map;
 extern SDL_Surface* click_map;
+extern SDL_Surface* inner_border_map;
+extern SDL_Surface* outter_border_map;
 
 /**
  * @brief Selects and image for a map

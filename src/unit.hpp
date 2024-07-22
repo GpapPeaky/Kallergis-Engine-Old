@@ -3,6 +3,8 @@
 #include <vector>
 #include <cstring>
 #include "country.hpp"
+#include "province.hpp"
+#include "hashtable.hpp"
 
 typedef enum unit_types{
     INFANTRY = 0,
@@ -33,10 +35,10 @@ extern std::vector<unit> units;
  * 
  * @param type Type of unit
  * @param country For what country
- * @param x x axis
- * @param y y axis
+ * @param prov_id In what province to show the unit
+ * @param surface what surface to scan for the position
  */
-void create_unit(unit_t type, cou country, int x, int y);
+void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface);
 
 /**
  * @brief Draws units

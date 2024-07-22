@@ -74,8 +74,10 @@ err_capable generate_countries_surfaces(SDL_Surface* surface, SDL_Window* win);
  * @param r red value
  * @param g green value
  * @param b blue value
+ * 
+ * @param a alpha value (default = 255)
  */
-void set_pixel(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint8 r, Uint8 g, Uint8 b);
+void set_pixel(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
 /**
  * @brief Test function, to understan memory manipulation better

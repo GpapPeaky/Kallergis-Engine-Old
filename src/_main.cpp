@@ -48,8 +48,8 @@ int main(int argv, char* args[]){
         std::printf("Countries Painting Completed\n");
     #endif
 
-    mark_borders(map, map, win, OUTTER_BORDER_COLOUR_GS);
-    // mark_borders(click_map, map, win, INNER_BORDER_COLOUR_GS); /* FIXME */
+    mark_borders(map, outter_border_map, win, OUTTER_BORDER_COLOUR_GS);
+    mark_borders(click_map, inner_border_map, win, INNER_BORDER_COLOUR_GS); /* FIXME */
     #ifdef MAIN_DBG
         std::printf("Borders Created\n\n");
     #endif
@@ -96,14 +96,21 @@ int main(int argv, char* args[]){
 
     /* Game */
 
-    create_unit(INFANTRY, get_country("TST"), 0, 0);
+    create_unit(INFANTRY, get_country("TST"), 5, map);
 
     bool quit = false;
     while(!quit){
         events_handling(quit, cam);
+        // generate_countries_surfaces(map, win); /* Lags the engine ,call it if a province is annexed */
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0)); /* Clean Canvas */
         render_to_screen(map, screen, cam);
-        draw_units(screen);
+        if(cam.zoom > 1.7){
+            render_to_screen(inner_border_map, screen, cam);
+        }
+        render_to_screen(outter_border_map, screen, cam);
+        if(cam.zoom > 1.6){
+            draw_units(screen);
+        }
         // render_to_screen(click_map, screen, cam);
         // SDL_UpperBlitScaled(click_map, &cam.rect, screen, NULL);
         // render_to_screen(map, screen, cam); /* Renders the .bmp by blitting it onto the screen */
