@@ -64,12 +64,9 @@ void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface){
             SDL_GetRGB(pixel, surface->format, &sr, &sg, &sb);
 
             if(sr == r && sg == g && sb == b){
-                std::printf("Surface RGB %d %d %d\n", sr, sg, sb);
-                std::printf("Parsed RGB %d %d %d\n", r, g, b);
                 /* TODO: Make it so that the x,y are in the middle of the province */
                 new_unit.rect.x = i;
                 new_unit.rect.y = j;
-                std::printf("Unit at %d %d\n", i, j);
                 found = true;
                 break;
             }
@@ -83,8 +80,8 @@ void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface){
     new_unit.id = country.units_num; /* Assign a unique id to each unit */
     units.push_back(new_unit); /* Push to vector */
 
-    std::printf("\n\nCreated unit for %s %s at %d %d\n\n",country.tag.c_str(),country.country_name.c_str(), new_unit.rect.x, new_unit.rect.y);
-
+    std::printf("Created unit for %s %s at %d %d\n",country.tag.c_str(),country.country_name.c_str(), new_unit.rect.x, new_unit.rect.y);
+    
     return;
 }
 

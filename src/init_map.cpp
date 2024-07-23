@@ -220,7 +220,7 @@ void print_regions(void){
     for(const auto& reg : regions){
         std::printf("REG: %s ID - %d\n", reg.reg_name.c_str(), reg.reg_id);
         for (const auto& prov : reg.reg_provs){
-            std::printf("   PROV: %s, RGB, %d,%d,%d, ID: %d\n", prov.prov_name.c_str(), prov.prov_colour.r, prov.prov_colour.b, prov.prov_colour.g, prov.prov_id);
+            std::printf("   PROV: %s,\tRGB, <%d,%d,%d>,\tID: %d\n", prov.prov_name.c_str(), prov.prov_colour.r, prov.prov_colour.b, prov.prov_colour.g, prov.prov_id);
         }
         std::printf("\n");
     }
@@ -234,7 +234,7 @@ void print_countries(void){
         for(const auto& creg : cou.country_regs){
             std::printf("   REG: %s, ID: %d\n",creg.reg_name.c_str(), creg.reg_id);
             for(const auto& prov : creg.reg_provs){
-                std::printf("       PROV: %s, RGB, %d,%d,%d, ID: %d\n", prov.prov_name.c_str(), prov.prov_colour.r, prov.prov_colour.b, prov.prov_colour.g, prov.prov_id);
+                std::printf("       PROV: %s,\tRGB, <%d,%d,%d>,\tID: %d\n", prov.prov_name.c_str(), prov.prov_colour.r, prov.prov_colour.b, prov.prov_colour.g, prov.prov_id);
             }
         }
     }
@@ -246,7 +246,7 @@ void print_provinces(void){
     for(int i = 0 ; i < prov_hash_s ; i++){
         prov* current = provinces_h[h(i, PROV_M)];
         while(current != NULL){
-            printf(" -PROV: %s, RGB %d - %d - %d, ID %d, HASH_ID %d\n", current->prov_name.c_str(), current->prov_colour.r, current->prov_colour.g, current->prov_colour.b, current->prov_id, i);
+            printf(" -PROV: %s,\tRGB <%d,%d,%d>,\tID %d,\tHASH_ID %d\n", current->prov_name.c_str(), current->prov_colour.r, current->prov_colour.g, current->prov_colour.b, current->prov_id, i);
             current = current->next;
         }
     }

@@ -173,7 +173,7 @@ void mark_borders(SDL_Surface* src, SDL_Surface* dst, SDL_Window* win, int borde
 
 void print_country_colours(void){
     for(const auto& cou : countries){
-        std::printf("%s, %s RGB:%d %d %d\n",cou.tag.c_str(), cou.country_name.c_str(), cou.country_rgb.r, cou.country_rgb.g, cou.country_rgb.b);
+        std::printf("%s,\t%s\tRGB: <%d,%d,%d>\n",cou.tag.c_str(), cou.country_name.c_str(), cou.country_rgb.r, cou.country_rgb.g, cou.country_rgb.b);
     }
 
     return;

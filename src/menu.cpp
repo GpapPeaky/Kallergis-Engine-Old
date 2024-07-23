@@ -26,7 +26,6 @@ button* create_button(SDL_Surface* screen_to_copy_to, const char* text, const ch
         new_button->rect.y = (screen_to_copy_to->h / 2) - (new_button->rect.h / 2);
     }
 
-    std::printf("Button Created\n");
     return new_button;
 }
 
@@ -83,7 +82,6 @@ button* check_for_button_interaction(void){
     SDL_GetMouseState(&x, &y);
     for(auto& butt : buttons){
         if(x > butt->rect.x && x < butt->rect.w + butt->rect.x && y > butt->rect.y && y < butt->rect.h + butt->rect.y){
-            printf("Button %s clicked\n", butt->text);
             return butt;
         }
     }
