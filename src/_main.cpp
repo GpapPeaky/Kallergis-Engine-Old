@@ -96,7 +96,7 @@ int main(int argv, char* args[]){
 
     /* Game */
 
-    create_unit(INFANTRY, get_country("TST"), 5, map);
+    create_unit(INFANTRY, get_country("TST"), 5, click_map);
 
     bool quit = false;
     while(!quit){
@@ -108,8 +108,8 @@ int main(int argv, char* args[]){
             render_to_screen(inner_border_map, screen, cam);
         }
         render_to_screen(outter_border_map, screen, cam);
-        if(cam.zoom > 1.6){
-            draw_units(screen);
+        if(cam.zoom > 1.7){
+            draw_units(screen, cam);
         }
         // render_to_screen(click_map, screen, cam);
         // SDL_UpperBlitScaled(click_map, &cam.rect, screen, NULL);

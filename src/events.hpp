@@ -1,6 +1,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_keyboard.h>
 #include <algorithm>
+#include <cmath>
+#include <chrono> /* For the clock */
+#include <unordered_map>
 #include "init_win.hpp"
 #include "map.hpp"
 #include "font.hpp"

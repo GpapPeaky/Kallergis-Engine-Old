@@ -74,7 +74,8 @@
         "queue": "cpp",
         "ranges": "cpp",
         "span": "cpp",
-        "xhash": "cpp"
+        "xhash": "cpp",
+        "chrono": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

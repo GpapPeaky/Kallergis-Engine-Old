@@ -9,7 +9,6 @@ camera init_camera(void){
     return cam;
 }
 
-
 void handle_camera(camera& cam, SDL_Event e) {
     // Check for mouse wheel events
     if (e.type == SDL_MOUSEWHEEL) {

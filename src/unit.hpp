@@ -5,6 +5,7 @@
 #include "country.hpp"
 #include "province.hpp"
 #include "hashtable.hpp"
+#include "camera.hpp"
 
 typedef enum unit_types{
     INFANTRY = 0,
@@ -37,6 +38,7 @@ extern std::vector<unit> units;
  * @param country For what country
  * @param prov_id In what province to show the unit
  * @param surface what surface to scan for the position
+ * @param cam for unit postitions
  */
 void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface);
 
@@ -44,5 +46,6 @@ void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface);
  * @brief Draws units
 
  * @param screen Where to draw the units
+ * @param camera transform unit positions
  */
-render_capable draw_units(SDL_Surface* screen);
+render_capable draw_units(SDL_Surface* screen, camera cam);

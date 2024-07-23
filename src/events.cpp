@@ -1,17 +1,20 @@
 #include "events.hpp"
 
+auto prev_time = std::chrono::steady_clock::now();
+const Uint8* state;
+
 eng_event info_on_hover(void){
 
+    /* WRITE */
     /* Info box: 129 - 114 */
     return;
 }
 
 eng_event highlight_on_click(int x, int y, SDL_Surface* map){
-
     Uint8 r, g, b;
 
     /* Bounds check */
-    if (x < 0 || x >= map->w || y < 0 || y >= map->h) {
+    if(x < 0 || x >= map->w || y < 0 || y >= map->h){
         return;
     }
 
@@ -43,6 +46,10 @@ eng_event pan_map(int d_x, int d_y){
 
 void events_handling(bool& quit, camera& cam){
     SDL_Event e;
+    /* Initial Values For Camera Velocity */
+    float vel_x = 1.0f;
+    float vel_y = 1.0f;
+    state = SDL_GetKeyboardState(NULL);
 
     while(SDL_PollEvent(&e)){
         int w, h;
@@ -68,36 +75,10 @@ void events_handling(bool& quit, camera& cam){
             cam.rect.w = new_w;
             cam.rect.h = new_h;
         }else if(e.type == SDL_KEYDOWN){
-            /* Initial Values */
-            float vel_x = 1.0f;
-            float vel_y = 1.0f;
-
-            Uint32 prev_time = SDL_GetTicks();
-            Uint32 current_time;
-            float dt = 1.0f; /* Initial Value */
-
-            if(e.key.keysym.sym == SDLK_w){
-                vel_y -= ACC / cam.zoom - 1;
-            }else if(e.key.keysym.sym == SDLK_s){
-                vel_y += ACC / cam.zoom + 1;
-            }else if(e.key.keysym.sym == SDLK_a){
-                vel_x -= ACC / cam.zoom - 1;
-            }else if(e.key.keysym.sym == SDLK_d){
-                vel_x += ACC / cam.zoom + 1;
-            }else if(e.key.keysym.sym == SDLK_e){
+            if(e.key.keysym.sym == SDLK_e){
                 SDL_SaveBMP(map, "bin/output.bmp");
                 quit = true;
             }
-
-            current_time = SDL_GetTicks();
-            dt = (current_time - prev_time) / 1000.0f; /* Convert to seconds */
-
-            cam.rect.x += static_cast<int>(vel_x * (dt + 0.1f));
-            cam.rect.y += static_cast<int>(vel_y * (dt + 0.1f));
-
-            /* Decelerate */
-            vel_x *= DEC;
-            vel_y *= DEC;
         }else if(e.type == SDL_MOUSEBUTTONDOWN){
             int mouse_x, mouse_y;
             SDL_GetMouseState(&mouse_x, &mouse_y);
@@ -106,4 +87,52 @@ void events_handling(bool& quit, camera& cam){
             highlight_on_click(surface_x, surface_y, click_map);
         }
     }
+
+    float move_x = 0.0f;
+    float move_y = 0.0f;
+
+    /* Unordered map for non-serial movement */
+    if(state[SDL_SCANCODE_W]){
+        move_y -= 1.0f;
+    }else if(state[SDL_SCANCODE_S]){
+        move_y += 1.0f;
+    }else if(state[SDL_SCANCODE_A]){
+        move_x -= 1.0f;
+    }else if(state[SDL_SCANCODE_D]){
+        move_x += 1.0f;
+    }
+
+    /* Find the length */
+    float length = std::sqrt(move_x * move_x + move_y * move_y);
+    if(length > 0.0f){
+        move_x /= length;
+        move_y /= length;
+    }
+
+    /* Apply acceleration to direction */
+    vel_x += move_x * ACC / cam.zoom;
+    vel_y += move_y * ACC / cam.zoom;
+
+    /* Find the camera speed and cap it if it exceeds the max camera speed macro */
+    float speed = std::sqrt(vel_x * vel_x + vel_y * vel_y);
+    if(speed > MAX_CAMERA_SPEED){
+        vel_x = (vel_x / speed) * MAX_CAMERA_SPEED;
+        vel_y = (vel_y / speed) * MAX_CAMERA_SPEED;
+    }
+
+    /* Calculate time elapsed */
+    auto current_time = std::chrono::steady_clock::now();
+    std::chrono::duration<float> elapsed = current_time - prev_time;
+    prev_time = current_time;
+    float dt = elapsed.count();
+
+    /* Update the camera x and y */
+    cam.rect.x += static_cast<int>(vel_x * dt);
+    cam.rect.y += static_cast<int>(vel_y * dt);
+
+    /* Decellerate */
+    vel_x *= DEC;
+    vel_y *= DEC;
+
+    return;
 }
