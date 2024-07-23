@@ -10,32 +10,60 @@ eng_event info_on_hover(void){
     return;
 }
 
-eng_event highlight_on_click(int x, int y, SDL_Surface* map){
+eng_event highlight_on_click(int x, int y, SDL_Surface* src, SDL_Surface* dst){
     Uint8 r, g, b;
 
     /* Bounds check */
-    if(x < 0 || x >= map->w || y < 0 || y >= map->h){
+    if(x < 0 || x >= src->w || y < 0 || y >= src->h){
         return;
     }
 
-    int index = y * map->pitch + x * 3;
+    int src_bpp = src->format->BytesPerPixel;
+    int dst_bpp = dst->format->BytesPerPixel;
+    int index = y * src->pitch + x * src_bpp; /* bpp usually 3 or 4 */
+    Uint8* pixels = (Uint8*)src->pixels;
 
-    b = ((Uint8*)map->pixels)[index + 0];
-    g = ((Uint8*)map->pixels)[index + 1];
-    r = ((Uint8*)map->pixels)[index + 2];
+    b = ((Uint8*)pixels)[index + 0];
+    g = ((Uint8*)pixels)[index + 1];
+    r = ((Uint8*)pixels)[index + 2];
 
     SDL_Color clicked = { r, g, b, ALPHA };
+    int id;
 
     for(int i = 0 ; i < prov_hash_s ; i++){
         prov* current = provinces_h[h(i, PROV_M)];
         while(current != NULL){
             if(current->prov_colour.r == clicked.r && current->prov_colour.g == clicked.g && current->prov_colour.b == clicked.b){
-                std::printf("Clicked Province: %s\n", current->prov_name.c_str());
+                std::printf("Clicked Province: %s - <%d, %d, %d>\n", current->prov_name.c_str(), current->prov_colour.r, current->prov_colour.g, current->prov_colour.b);
+                id = current->prov_id;
                 return;
             }
             current = current->next;
         }
     }
+
+    SDL_LockSurface(dst);
+
+    for(int i = 0 ; i < src->w ; i++){
+        for(int j = 0 ; j < src->h ; j++){
+            Uint8* src_pixel = pixels + j * src->pitch + i * src_bpp;
+            Uint8 sr = src_pixel[0];
+            Uint8 sg = src_pixel[1];
+            Uint8 sb = src_pixel[2];
+            if(sr == 0 && sg == 0 && sb == 0){
+                continue;
+            }else if(
+                sr == r &&
+                sg == g &&
+                sb == b
+            ){
+                std::printf("Correct\n");
+                set_pixel(dst, win, i, j, 255, 255, 255, 150);
+            }
+        }
+    }
+
+    SDL_UnlockSurface(dst);
 
     return;
 }
@@ -84,7 +112,7 @@ void events_handling(bool& quit, camera& cam){
             SDL_GetMouseState(&mouse_x, &mouse_y);
             int surface_x = (mouse_x / cam.zoom) + cam.rect.x;
             int surface_y = (mouse_y / cam.zoom) + cam.rect.y;
-            highlight_on_click(surface_x, surface_y, click_map);
+            highlight_on_click(surface_x, surface_y, click_map, highlight_map);
         }
     }
 

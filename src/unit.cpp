@@ -7,10 +7,19 @@ void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface){
         std::printf("Incompatible type given in unit creation\n");
         return;
     }
-    // if(std::find(countries.begin(), countries.end(), country) == countries.end()){
-    //     std::printf("Country specified, %s not found\n", country.tag.c_str());
-    //     return;
-    // } /* Error */
+
+    bool found = false;
+    for(auto& reg : country.country_regs){
+        for(auto& prov : reg.reg_provs){
+            if(prov.prov_id == prov_id){
+                std::printf("Province %d found in region %d\n", prov_id, reg.reg_id);
+                found = true;
+            }
+        }
+    }
+
+    /* Wrong input, no unit is created */
+    if(!found){ std::printf("Province %d doesn't belong to the country %s - %s\n", prov_id, country.tag.c_str(), country.country_name.c_str()); return; }
 
     unit new_unit;
 
@@ -24,6 +33,7 @@ void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface){
             new_unit.rect.w = new_unit.img->w;
             new_unit.rect.h = new_unit.img->h;
             new_unit.owner_tag = country.tag; /* Copy tag to owner field */
+            new_unit.prov_visited = prov_id; /* To know where the troop is */
             break;
         /* WRITE: Complete the function and the interface */
         default:
@@ -53,8 +63,8 @@ void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface){
 
     int bpp = surface->format->BytesPerPixel;
     Uint8* pixels = (Uint8*)surface->pixels;
+    int count = 0, sum_x = 0, sum_y = 0; /* Number of pixels */
 
-    bool found = false;
     for(int i = 0 ; i < surface->w ; i++){
         for(int j = 0 ; j < surface->h ; j++){
             Uint32 pixel = 0;
@@ -64,17 +74,34 @@ void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface){
             SDL_GetRGB(pixel, surface->format, &sr, &sg, &sb);
 
             if(sr == r && sg == g && sb == b){
-                /* TODO: Make it so that the x,y are in the middle of the province */
-                new_unit.rect.x = i;
-                new_unit.rect.y = j;
-                found = true;
-                break;
+                count++;
+                sum_x += i;
+                sum_y += j;
             }
         }
-        if(found) break;
     }
 
-    SDL_UnlockSurface(surface); // Unlock the surface after accessing pixels
+    if (count > 0){
+        int mid_x = sum_x / count;
+        int mid_y = sum_y / count;
+
+        new_unit.rect.x = mid_x;
+        new_unit.rect.y = mid_y;
+    }
+
+    SDL_UnlockSurface(surface); /* Unlock the surface after accessing pixels */
+
+    SDL_LockSurface(new_unit.img);
+
+    for(int x = 0 ; x < new_unit.img->w ; x++){
+        for(int y = 0 ; y < new_unit.img->w ; y++){
+            if(x == 0 || y == 0 || x == new_unit.img->w - 1 || y == new_unit.img->h - 1){
+                set_pixel(new_unit.img, win, x, y, 255, 255, 255, 150); /* Add an outline to the unit */
+            }
+        }
+    }
+
+    SDL_UnlockSurface(new_unit.img);
 
     country.units_num++; /* Increment */
     new_unit.id = country.units_num; /* Assign a unique id to each unit */

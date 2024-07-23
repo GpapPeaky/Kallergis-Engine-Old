@@ -2,6 +2,7 @@
 #include <SDL2/SDL_image.h>
 #include <vector>
 #include <cstring>
+#include "pixels.hpp"
 #include "country.hpp"
 #include "province.hpp"
 #include "hashtable.hpp"
@@ -33,6 +34,7 @@ typedef struct unit{
     /* Owner */
     std::string owner_tag;
     uint id;
+    uint prov_visited;
 }unit;
 
 extern std::vector<unit> units;

@@ -1,3 +1,1 @@
 This file is a placeholder, only to be shown on my TODO tree
-
-TODO: Refactor the architecture of the project, mainly the folders UI and MENU in ASSETS/GFX, to a combined file or something like that

@@ -12,7 +12,7 @@ int main(int argv, char** args){
     /* Viewport initialisation */
     camera cam = init_camera();
     /* UI initialisation */
-    init_menu("assets/gfx/menu/menu_bg.bmp");
+    init_menu("assets/gfx/ui/menu/menu_bg.bmp");
     /* Provinces hastable initialisation */
     prime_array_generation(300);
     init_hash();
@@ -102,21 +102,33 @@ int main(int argv, char** args){
     #endif
 
     create_unit(INFANTRY, get_country("TST"), 5, click_map); /* TEST */
+    create_unit(INFANTRY, get_country("TST"), 20, click_map); 
+    create_unit(INFANTRY, get_country("TST"), 21, click_map); 
+    create_unit(INFANTRY, get_country("TST"), 1, click_map); 
+    create_unit(INFANTRY, get_country("TST"), 2, click_map); 
+    create_unit(INFANTRY, get_country("TST"), 5, click_map); 
+    create_unit(INFANTRY, get_country("TST"), 3, click_map); 
+    create_unit(INFANTRY, get_country("TST"), 9, click_map); 
+    create_unit(INFANTRY, get_country("TST"), 32, click_map); 
+
+    /* Wrong prov_id given */
+    create_unit(INFANTRY, get_country("TST"), 36, click_map); 
 
     /* Game */
     bool quit = false;
     while(!quit){
         events_handling(quit, cam);
-        // generate_countries_surfaces(map, win); /* Lags the engine ,call it if a province is annexed */
+        // // generate_countries_surfaces(map, win); /* Lags the engine ,call it if a province is annexed */
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0)); /* Clean Canvas */
         render_to_screen(map, screen, cam);
         if(cam.zoom > 1.7){
             render_to_screen(inner_border_map, screen, cam);
         }
         render_to_screen(outter_border_map, screen, cam);
-        if(cam.zoom > 1.7){
+        if(cam.zoom > 1.0){
             draw_units(screen, cam);
         }
+        render_to_screen(highlight_map, screen, cam); /* FIXME: Highlight map not showing */
         // render_to_screen(click_map, screen, cam);
         // SDL_UpperBlitScaled(click_map, &cam.rect, screen, NULL);
         // render_to_screen(map, screen, cam); /* Renders the .bmp by blitting it onto the screen */

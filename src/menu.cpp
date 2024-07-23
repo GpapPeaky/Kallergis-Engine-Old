@@ -60,10 +60,10 @@ void init_menu(std::string filename){
         std::printf("Failed to load menu surface\n");
     }
 
-    button* quit = create_button(menu, "quit", "assets/gfx/menu/quit_button.bmp", CENTERED, CENTERED);
+    button* quit = create_button(menu, "quit", "assets/gfx/ui/menu/quit_button.bmp", CENTERED, CENTERED);
     buttons.push_back(quit);
 
-    button* play = create_button(menu, "play", "assets/gfx/menu/play_button.bmp", CENTERED, 200);
+    button* play = create_button(menu, "play", "assets/gfx/ui/menu/play_button.bmp", CENTERED, 200);
     buttons.push_back(play);
 
     return;

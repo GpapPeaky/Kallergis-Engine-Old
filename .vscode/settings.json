@@ -75,7 +75,10 @@
         "ranges": "cpp",
         "span": "cpp",
         "xhash": "cpp",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "forward_list": "cpp",
+        "ratio": "cpp",
+        "iomanip": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
