@@ -43,38 +43,46 @@ style = "width: 1024;
 
 ## List of Functions
 
-- `void cleanup`
-- `err_capable init_countries`
-- `void events_handling`
-- `eng_event info_on_hover`
-- `eng_event highlight_on_click`
-- `eng_event pan_map`
-- `err_capable init_font`
-- `render_capable render_text`
-- `render_capable render_on_mouse_hover`
-- `void init_hash`
-- `ulint H`
-- `ulint h`
-- `int prime_selection`
-- `err_capable init_map`
-- `err_capable prov_to_reg`
-- `err_capable reg_names`
-- `err_capable reg_to_country`
-- `void print_regions`
-- `void print_countries`
-- `void print_provinces`
-- `err_capable win_init`
-- `render_capable render_to_screen`
-- `void initialise_viewport`
-- `err_capable generate_pixel_coords`
-- `err_capable generate_province_connections`
-- `err_capable generate_countries_surfaces`
-- `void set_pixel`
-- `void pixel_screen_fill`
-- `void flood_fill`
-- `bool is_black`
-- `SDL_Colour get_country_colour`
-- `void print_country_colours`
-- `uint is_prime`
-- `void prime_array_generation`
-- `void print_primes`
+```
+camera init_camera
+void handle_camera
+void cleanup
+err_capable init_countries
+cou get_country
+void events_handling
+eng_event info_on_hover
+eng_event highlight_on_click
+eng_event pan_map
+err_capable init_font
+render_capable render_text
+render_capable render_on_mouse_hover
+void init_hash
+ulint H
+ulint h
+int prime_selection
+err_capable init_map
+err_capable prov_to_reg
+err_capable reg_names
+err_capable reg_to_country
+void print_regions
+void print_countries
+void print_provinces
+err_capable win_init
+render_capable render_to_screen
+void delete_button
+void buttons_cleanup
+void init_menu
+render_capable draw_buttons
+err_capable generate_pixel_coords
+err_capable generate_province_connections
+err_capable generate_countries_surfaces
+void set_pixel
+void pixel_screen_fill
+void mark_borders
+void print_country_colours
+uint is_prime
+void prime_array_generation
+void print_primes
+void create_unit
+render_capable draw_units
+```

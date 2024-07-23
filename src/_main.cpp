@@ -49,7 +49,7 @@ int main(int argv, char* args[]){
     #endif
 
     mark_borders(map, outter_border_map, win, OUTTER_BORDER_COLOUR_GS);
-    mark_borders(click_map, inner_border_map, win, INNER_BORDER_COLOUR_GS); /* FIXME */
+    mark_borders(click_map, inner_border_map, win, INNER_BORDER_COLOUR_GS);
     #ifdef MAIN_DBG
         std::printf("Borders Created\n\n");
     #endif

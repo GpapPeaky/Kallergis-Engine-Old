@@ -14,6 +14,12 @@ typedef enum unit_types{
     MECHANISED = 3
 }unit_t;
 
+#ifndef UNITS
+/**
+ * @brief Military units are handled here
+ */
+#define UNITS
+
 typedef struct unit{
     /* Stats */
     int men;
@@ -49,3 +55,5 @@ void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface);
  * @param camera transform unit positions
  */
 render_capable draw_units(SDL_Surface* screen, camera cam);
+
+#endif

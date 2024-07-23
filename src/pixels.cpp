@@ -38,7 +38,6 @@ err_capable generate_countries_surfaces(SDL_Surface* surface, SDL_Window* win){
                                 prov.prov_colour.b == b
                             ){
                                 /* First Non Black at 813 x 602 */
-                                // std::printf("Non-black pixel found and painted at %d %d\n", i, j);
                                 set_pixel(map, win, i, j, current_rgb.r, current_rgb.g, current_rgb.b, ALPHA);
                             }else{
                                 /* WARN: Make sure that all provinces have no 0 R, G, B value, else it will crash */

@@ -71,5 +71,5 @@ render_capable render_text(std::string msg, SDL_FRect* position){
 }
 
 render_capable render_on_mouse_hover(void){
-    /* TODO */
+    return;
 }
