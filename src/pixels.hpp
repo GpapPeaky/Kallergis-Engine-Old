@@ -43,6 +43,8 @@ err_capable set_pixel(SDL_Texture* texture, int x, int y, Uint8 r, Uint8 g, Uint
  */
 void pixel_screen_fill(SDL_Texture* texture);
 
+/*______________________________________________________________________________________________*/
+
 /**
  * @brief Parses the bmp and scans for each pixel
  *          it paints the cou RGB value onto a new surface that is rendered lastly
@@ -55,7 +57,7 @@ void pixel_screen_fill(SDL_Texture* texture);
  * @returns 1 on failure
  *              0 on success
 */
-err_capable generate_countries_surfaces(SDL_Surface* surface, SDL_Window* win);
+err_capable generate_countries_textures(SDL_Surface* surface, SDL_Window* win);
 
 /**
  * @brief Generates borders between countries
