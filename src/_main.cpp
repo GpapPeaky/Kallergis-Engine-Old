@@ -147,6 +147,7 @@ int main(int argv, char** args){
 
         /* Frame rate cap at 60 fps (60 FPS means 16 microseconds per frame (or per loop, since one counts as one frame)) */
         Uint32 time_elapsed = SDL_GetTicks() - start;
+        std::printf("FPS %d\n", time_elapsed);
         if(time_elapsed < 16){
             SDL_Delay(16 - time_elapsed);
         }

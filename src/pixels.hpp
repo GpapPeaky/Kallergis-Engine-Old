@@ -20,35 +20,28 @@
 #define PIXELS_H
 
 /**
- * @brief Parses the bmp and scans for each pixel
- *             generates a pixel data file pixdf
- *             that has all pixel coordinates saved along with their color, prov and reg id
- *              ignoring { 0, 0, 0 } RGB -> impassable terrain/sea/lake ...
+ * @brief Sets a pixel at specific coordinates to a specific colour
  * 
- * @param fname .bmp to parse
+ * @param texture Texture to change the pixel of
+ * @param x x axis
+ * @param y y axis
+ * @param r red value
+ * @param g green value
+ * @param b blue value
+ * @param a alpha value (default = 255)
  * 
- * @attention the image might have to be of specific size (5760 x 3240)
- * 
- * @returns 1 on failure
- *                0 on success
-*/
-err_capable generate_pixel_coords(std::string fname);
-/* WRITE */
+ * @returns 0 on SUCCESS 1 on FAILURE
+ */
+err_capable set_pixel(SDL_Texture* texture, int x, int y, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
 /**
- * @brief Parses the bmp and scans for each pixel
- *             it then assigns to the prov_con vector of provinces for each province, it's connections
- *             if a different prov_rgb is found
+ * @brief Test function, to understan memory manipulation better
  * 
- * @param fname .bmp to parse
+ * @param texture Texture to colour
  * 
- * @attention the image might have to be of specific size (5760 x 3240)
- * 
- * @returns 1 on failure
- *                0 on success
-*/
-err_capable generate_province_connections(std::string fname);
-/* WRITE */
+ * @warning DO NOT USE ON REGULAR, JUST A TEST!
+ */
+void pixel_screen_fill(SDL_Texture* texture);
 
 /**
  * @brief Parses the bmp and scans for each pixel
@@ -63,31 +56,6 @@ err_capable generate_province_connections(std::string fname);
  *              0 on success
 */
 err_capable generate_countries_surfaces(SDL_Surface* surface, SDL_Window* win);
-
-/**
- * @brief Sets a pixel at specific coordinates to a specific colour
- * 
- * @param surface Surface to change the pixel of
- * @param win window where the surface is shown
- * @param x x axis
- * @param y y axis
- * @param r red value
- * @param g green value
- * @param b blue value
- * 
- * @param a alpha value (default = 255)
- */
-void set_pixel(SDL_Surface* surface, SDL_Window* win, int x, int y, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
-
-/**
- * @brief Test function, to understan memory manipulation better
- * 
- * @param surface Surface to colour
- * @param win Window to go to
- * 
- * @warning DO NOT USE ON REGULAR, JUST A TEST!
- */
-void pixel_screen_fill(SDL_Surface* surface, SDL_Window* win);
 
 /**
  * @brief Generates borders between countries
