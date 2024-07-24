@@ -8,7 +8,6 @@
 #include "../auxf/includes.aux"
 
 int main(int argv, char** args){
-
     /* Viewport initialisation */
     camera cam = init_camera();
     /* UI initialisation */
@@ -110,15 +109,21 @@ int main(int argv, char** args){
     create_unit(INFANTRY, get_country("TST"), 3, click_map); 
     create_unit(INFANTRY, get_country("TST"), 9, click_map); 
     create_unit(INFANTRY, get_country("TST"), 32, click_map); 
-
     /* Wrong prov_id given */
     create_unit(INFANTRY, get_country("TST"), 36, click_map); 
+
+    /* TODO: USE THE RENDERER TO ACCELERATE WITH HARDWARE THE RENDERING: SDL_LockTexture CAN BE USED TO ACCESS PIXELS OF EVERY TEXTURES */
+    /* TODO: DO SOME TESTING WITH pixelsmain.cpp BEFORE IMPLEMENTING ANYTHING */
+    /* TODO: ADD AN ARRAY OF SDL_Texture* TO PARSE WHEN RENDERING COPIES TO THE SCREEN */
+    /* IT APPEARS THAT THE (CLEAR -> RENDERCOPY -> PRESENT) METHOD IS GPU ACCELERATED... */
 
     /* Game */
     bool quit = false;
     while(!quit){
+        Uint32 start = SDL_GetTicks();
+
         events_handling(quit, cam);
-        // // generate_countries_surfaces(map, win); /* Lags the engine ,call it if a province is annexed */
+        // generate_countries_surfaces(map, win); /* Lags the engine ,call it if a province is annexed */
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0)); /* Clean Canvas */
         render_to_screen(map, screen, cam);
         if(cam.zoom > 1.7){
@@ -139,6 +144,12 @@ int main(int argv, char** args){
             /* If any change is done to the window surface (all the surfaces mashed together), it is changed and updated so that it is shown */
             /* It clatters due to the {CLEAR -> RENDERCOPY -> PRESENT} method */
         #endif
+
+        /* Frame rate cap at 60 fps (60 FPS means 16 microseconds per frame (or per loop, since one counts as one frame)) */
+        Uint32 time_elapsed = SDL_GetTicks() - start;
+        if(time_elapsed < 16){
+            SDL_Delay(16 - time_elapsed);
+        }
     }
 
     /* Cleanup */

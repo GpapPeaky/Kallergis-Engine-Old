@@ -3,3 +3,5 @@
 "TST" : { 1, 5, 3 }
 "TS2" : { 2 }
 "TS3" : { 4, 6 }
+# We assign it the new region
+"TS4" : { 7 }

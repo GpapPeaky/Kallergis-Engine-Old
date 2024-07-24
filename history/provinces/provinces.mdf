@@ -46,3 +46,7 @@
 "Chania Demos" : { 1, 72, 160 } : 5
 
 "South-Central Crete" : { 201, 163, 140 } : 6
+
+# Creating a new province and a new region
+# We also need to edit the provinces bitmap to include the colour we added
+"Titoyannis Papadakis Ksrgw" : { 230, 231, 232 } : 7
