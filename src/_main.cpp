@@ -70,7 +70,7 @@ int main(int argv, char** args){
         std::printf("\nPrints Completed l:%d\n\n", __LINE__);
     #endif
 
-    #ifdef MAIN_MENU /* TEST */
+    #ifdef MAIN_MENU
         /* TODO: refactor to a function ,not raw code in main! */
         bool menu_box = false;
         while(!menu_box){
@@ -100,7 +100,7 @@ int main(int argv, char** args){
         }
     #endif
 
-    create_unit(INFANTRY, get_country("TST"), 5, click_map); /* TEST */
+    create_unit(INFANTRY, get_country("TST"), 5, click_map);
     create_unit(INFANTRY, get_country("TST"), 20, click_map); 
     create_unit(INFANTRY, get_country("TST"), 21, click_map); 
     create_unit(INFANTRY, get_country("TST"), 1, click_map); 
