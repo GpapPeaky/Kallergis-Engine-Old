@@ -86,6 +86,7 @@ void events_handling(bool& quit, camera& cam){
             quit = true;
         }else if(e.type == SDL_MOUSEWHEEL){
             /* Calculate new zoom level */
+            /* FIXME: it bugs if we zoom in or out too much */ 
             float zoom_factor = (e.wheel.y > 0) ? 1.1f : 0.9f;
             cam.zoom *= zoom_factor;
 

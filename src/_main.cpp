@@ -70,6 +70,7 @@ int main(int argv, char** args){
         std::printf("\nPrints Completed l:%d\n\n", __LINE__);
     #endif
 
+    /* IDEA: Might keep this like that... */
     #ifdef MAIN_MENU
         /* TODO: refactor to a function ,not raw code in main! */
         bool menu_box = false;
