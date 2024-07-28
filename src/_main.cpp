@@ -18,7 +18,7 @@ int main(int argv, char** args){
     /* Initialise the window and renderer */
     win_init("keng");
     /* Initialise the map data to be used */
-    init_map();
+    init_map_textures();
 
     #ifdef MAIN_DBG
         std::printf("\nInit Functions Completed l:%d\n", __LINE__);
@@ -49,17 +49,17 @@ int main(int argv, char** args){
     #endif
 
     /* Paints the given province map with the correct country colour */
-    generate_countries_surfaces(map, win);
+    mark_countries(map);
     #ifdef MAIN_DBG
         std::printf("Countries Painting Completed l:%d\n", __LINE__);
     #endif
 
     /* Paints the borders inbetween countries and provinces */
-    mark_borders(map, outter_border_map, win, OUTTER_BORDER_COLOUR_GS);
-    mark_borders(click_map, inner_border_map, win, INNER_BORDER_COLOUR_GS);
-    #ifdef MAIN_DBG
-        std::printf("Border Generation Completed l:%d\n\n", __LINE__);
-    #endif
+    // mark_borders(map, outter_border_map, win, OUTTER_BORDER_COLOUR_GS);
+    // mark_borders(click_map, inner_border_map, win, INNER_BORDER_COLOUR_GS);
+    // #ifdef MAIN_DBG
+    //     std::printf("Border Generation Completed l:%d\n\n", __LINE__);
+    // #endif
 
     /* Prints */
     print_regions();
@@ -100,17 +100,17 @@ int main(int argv, char** args){
         }
     #endif
 
-    create_unit(INFANTRY, get_country("TST"), 5, click_map);
-    create_unit(INFANTRY, get_country("TST"), 20, click_map); 
-    create_unit(INFANTRY, get_country("TST"), 21, click_map); 
-    create_unit(INFANTRY, get_country("TST"), 1, click_map); 
-    create_unit(INFANTRY, get_country("TST"), 2, click_map); 
-    create_unit(INFANTRY, get_country("TST"), 5, click_map); 
-    create_unit(INFANTRY, get_country("TST"), 3, click_map); 
-    create_unit(INFANTRY, get_country("TST"), 9, click_map); 
-    create_unit(INFANTRY, get_country("TST"), 32, click_map); 
-    /* Wrong prov_id given */
-    create_unit(INFANTRY, get_country("TST"), 36, click_map); 
+    // create_unit(INFANTRY, get_country("TST"), 5, click_map);
+    // create_unit(INFANTRY, get_country("TST"), 20, click_map); 
+    // create_unit(INFANTRY, get_country("TST"), 21, click_map); 
+    // create_unit(INFANTRY, get_country("TST"), 1, click_map); 
+    // create_unit(INFANTRY, get_country("TST"), 2, click_map); 
+    // create_unit(INFANTRY, get_country("TST"), 5, click_map); 
+    // create_unit(INFANTRY, get_country("TST"), 3, click_map); 
+    // create_unit(INFANTRY, get_country("TST"), 9, click_map); 
+    // create_unit(INFANTRY, get_country("TST"), 32, click_map); 
+    // /* Wrong prov_id given */
+    // create_unit(INFANTRY, get_country("TST"), 36, click_map); 
 
     /* TODO: USE THE RENDERER TO ACCELERATE WITH HARDWARE THE RENDERING: SDL_LockTexture CAN BE USED TO ACCESS PIXELS OF EVERY TEXTURES */
     /* TODO: DO SOME TESTING WITH pixelsmain.cpp BEFORE IMPLEMENTING ANYTHING */
@@ -120,37 +120,39 @@ int main(int argv, char** args){
     /* Game */
     bool quit = false;
     while(!quit){
-        Uint32 start = SDL_GetTicks();
 
         events_handling(quit, cam);
+        
+        SDL_RenderClear(renderer);
+
+        SDL_RenderCopy(renderer, map, &cam.rect, NULL);
+
+        SDL_RenderPresent(renderer);
+
+
         // generate_countries_surfaces(map, win); /* Lags the engine ,call it if a province is annexed */
-        SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0)); /* Clean Canvas */
-        render_to_screen(map, screen, cam);
-        if(cam.zoom > 1.7){
-            render_to_screen(inner_border_map, screen, cam);
-        }
-        render_to_screen(outter_border_map, screen, cam);
-        if(cam.zoom > 1.0){
-            draw_units(screen, cam);
-        }
-        render_to_screen(highlight_map, screen, cam); /* FIXME: Highlight map not showing */
+        // SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0)); /* Clean Canvas */
+        // render_to_screen(map, screen, cam);
+        // if(cam.zoom > 1.7){
+        //     render_to_screen(inner_border_map, screen, cam);
+        // }
+        // render_to_screen(outter_border_map, screen, cam);
+        // if(cam.zoom > 1.0){
+        //     draw_units(screen, cam);
+        // }
+        // render_to_screen(highlight_map, screen, cam); /* FIXME: Highlight map not showing */
         // render_to_screen(click_map, screen, cam);
         // SDL_UpperBlitScaled(click_map, &cam.rect, screen, NULL);
         // render_to_screen(map, screen, cam); /* Renders the .bmp by blitting it onto the screen */
         // render_on_mouse_hover(); /* Special Event */
 
-        #ifdef WIN_UPDATE
-            SDL_UpdateWindowSurface(win);
-            /* If any change is done to the window surface (all the surfaces mashed together), it is changed and updated so that it is shown */
-            /* It clatters due to the {CLEAR -> RENDERCOPY -> PRESENT} method */
-        #endif
+        // #ifdef WIN_UPDATE
+        //     SDL_UpdateWindowSurface(win);
+        //     /* If any change is done to the window surface (all the surfaces mashed together), it is changed and updated so that it is shown */
+        //     /* It clatters due to the {CLEAR -> RENDERCOPY -> PRESENT} method */
+        // #endif
 
         /* Frame rate cap at 60 fps (60 FPS means 16 microseconds per frame (or per loop, since one counts as one frame)) */
-        Uint32 time_elapsed = SDL_GetTicks() - start;
-        std::printf("FPS %d\n", time_elapsed);
-        if(time_elapsed < 16){
-            SDL_Delay(16 - time_elapsed);
-        }
     }
 
     /* Cleanup */

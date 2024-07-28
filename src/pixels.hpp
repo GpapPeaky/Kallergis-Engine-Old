@@ -55,21 +55,20 @@ void pixel_screen_fill(SDL_Texture* texture);
  */
 err_capable load_bitmap(SDL_Texture* dest, const char* filename);
 
-/*______________________________________________________________________________________________*/
-
 /**
  * @brief Parses the bmp and scans for each pixel
  *          it paints the cou RGB value onto a new surface that is rendered lastly
  * 
  * @attention the image might have to be of specific size (5760 x 3240)
  * 
- * @param surface Surface to paint
- * @param win Window of surface
+ * @param texture texture to paint
  * 
  * @returns 1 on failure
  *              0 on success
 */
-err_capable generate_countries_textures(SDL_Surface* surface, SDL_Window* win);
+err_capable mark_countries(SDL_Texture* texture);
+
+/*______________________________________________________________________________________________*/
 
 /**
  * @brief Generates borders between countries

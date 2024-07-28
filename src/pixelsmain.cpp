@@ -18,6 +18,7 @@ int main(int argv, char* args[]){
 
     SDL_Texture* texture = SDL_CreateTexture(pixel_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, BMP_WIDTH, BMP_HEIGHT);
     load_bitmap(texture, "history/map/provinces.bmp"); /* Loading an image onto the texture */
+    mark_countries(texture);
 
     camera cam = init_camera();
     // mark_borders(surface, pixel_win);

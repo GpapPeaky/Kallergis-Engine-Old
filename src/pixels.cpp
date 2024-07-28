@@ -126,50 +126,58 @@ err_capable load_bitmap(SDL_Texture* dest, const char* filename){
     return SUCCESS;
 }
 
-// err_capable generate_countries_surfaces(SDL_Surface* surface, SDL_Window* win){
-//     /* We need to check for Non-black pixels */
-//     Uint8* pixel_array = (Uint8*)map->pixels;
-//     for(int i = 0 ; i < map->w ; i++){
-//         for(int j = 0 ; j < map->h ; j++){
-//             if(
-//                 pixel_array[j * map->pitch + i * map->format->BytesPerPixel + 0] != 0 &&
-//                 pixel_array[j * map->pitch + i * map->format->BytesPerPixel + 1] != 0 &&
-//                 pixel_array[j * map->pitch + i * map->format->BytesPerPixel + 2] != 0
-//             ){
-//                 /* Save the pixel for more checks */
-//                 Uint8 r, g, b;
-//                 r = pixel_array[j * map->pitch + i * map->format->BytesPerPixel + 2];
-//                 g = pixel_array[j * map->pitch + i * map->format->BytesPerPixel + 1];
-//                 b = pixel_array[j * map->pitch + i * map->format->BytesPerPixel + 0];
-//                 for(auto& cou : countries){
-//                     SDL_Colour current_rgb;
-//                     current_rgb.r = cou.country_rgb.r;
-//                     current_rgb.g = cou.country_rgb.g;
-//                     current_rgb.b = cou.country_rgb.b;
-//                     // current_rgb = { 255, 255, 255 };
+err_capable mark_countries(SDL_Texture* texture){
+    /* We need to check for Non-black pixels */
+    SDL_Surface* src = SDL_LoadBMP("history/map/provinces.bmp");
+    if(!src){
+        std::printf("Loading bitmap failed, path not found\n");
+        return FAIL;
+    }
+    int bpp = src->format->BytesPerPixel;
+    int pitch = src->pitch;
+    Uint8* pixel_array = (Uint8*)src->pixels;
+    for(int i = 0 ; i < src->w ; i++){
+        for(int j = 0 ; j < src->h ; j++){
+            if(
+                pixel_array[j * pitch + i * bpp + 0] != 0 &&
+                pixel_array[j * pitch + i * bpp + 1] != 0 &&
+                pixel_array[j * pitch + i * bpp + 2] != 0
+            ){
+                /* Save the pixel for more checks */
+                Uint8 r, g, b;
+                r = pixel_array[j * pitch + i * bpp + 2]; /* Little endian */
+                g = pixel_array[j * pitch + i * bpp + 1];
+                b = pixel_array[j * pitch + i * bpp + 0];
+                /* It doesn't check for countries? */
+                for(auto& cou : countries){
+                    SDL_Colour current_rgb;
+                    current_rgb.r = cou.country_rgb.r;
+                    current_rgb.g = cou.country_rgb.g;
+                    current_rgb.b = cou.country_rgb.b;
+                    // current_rgb = { 255, 255, 255 };
 
-//                     for(auto& reg : cou.country_regs){
-//                         for(auto& prov : reg.reg_provs){
-//                             if(
-//                                 prov.prov_colour.r == r &&
-//                                 prov.prov_colour.g == g &&
-//                                 prov.prov_colour.b == b
-//                             ){
-//                                 /* First Non Black at 813 x 602 */
-//                                 set_pixel(map, win, i, j, current_rgb.r, current_rgb.g, current_rgb.b, ALPHA);
-//                             }else{
-//                                 /* WARN: Make sure that all provinces have no 0 R, G, B value, else it will crash */
-//                                 continue;
-//                             }
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
+                    for(auto& reg : cou.country_regs){
+                        for(auto& prov : reg.reg_provs){
+                            if( 
+                                prov.prov_colour.r == r &&
+                                prov.prov_colour.g == g &&
+                                prov.prov_colour.b == b
+                            ){
+                                /* First Non Black at 813 x 602 */
+                                set_pixel(texture, i, j, current_rgb.b, current_rgb.g, current_rgb.r, ALPHA); /* Little endian */
+                            }else{
+                                /* WARN: Make sure that all provinces have no 0 R, G, B value, else it will crash */
+                                continue;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-//     return SUCCESS;
-// }
+    return SUCCESS;
+}
 
 // void mark_borders(SDL_Surface* src, SDL_Surface* dst, SDL_Window* win, int border_colour){
 

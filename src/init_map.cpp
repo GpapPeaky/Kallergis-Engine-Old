@@ -3,30 +3,7 @@
 /* The country regions are only there for ownership, the values of each region is updated in the global region vector 
 the same is true for the provinces */
 
-std::vector<reg>  regions;
-SDL_Surface* map_surface;
-SDL_Surface* map;
-SDL_Surface* click_map; /* For the clicking, highlighting and hovering events */
-SDL_Surface* inner_border_map;
-SDL_Surface* outter_border_map;
-SDL_Surface* highlight_map;
-
-err_capable init_map(void){
-
-    map_surface = SDL_LoadBMP("history/map/provinces.bmp");
-    if(map_surface == nullptr){
-        printf("Error, cannot create map surface\n");
-        return FAIL;
-    }
-
-    map = resize_bitmap(map_surface, BMP_WIDTH, BMP_HEIGHT); /* Retain Image Quality */
-    click_map = resize_bitmap(map_surface, BMP_WIDTH, BMP_HEIGHT); /* Retain Image Quality */
-    inner_border_map = SDL_CreateRGBSurfaceWithFormat(0, BMP_WIDTH, BMP_HEIGHT, 32, SDL_PIXELFORMAT_RGBA32);
-    outter_border_map = SDL_CreateRGBSurfaceWithFormat(0, BMP_WIDTH, BMP_HEIGHT, 32, SDL_PIXELFORMAT_RGBA32);
-    highlight_map = SDL_CreateRGBSurfaceWithFormat(0, BMP_WIDTH, BMP_HEIGHT, 32, SDL_PIXELFORMAT_RGBA32);
-
-    return SUCCESS;
-}
+std::vector<reg> regions;
 
 err_capable prov_to_reg(const std::string fname){
     
