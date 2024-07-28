@@ -43,6 +43,18 @@ err_capable set_pixel(SDL_Texture* texture, int x, int y, Uint8 r, Uint8 g, Uint
  */
 void pixel_screen_fill(SDL_Texture* texture);
 
+/**
+ * @brief Loads a bitmap, from a file
+ * 
+ * @param filename bmp to load
+ * @param dest texture to load the bitmap
+ * 
+ * @warning Make sure that the texture is empty, or else it will be overwritten
+ * 
+ * @returns 0 on SUCCESS 1 on FAILURE
+ */
+err_capable load_bitmap(SDL_Texture* dest, const char* filename);
+
 /*______________________________________________________________________________________________*/
 
 /**

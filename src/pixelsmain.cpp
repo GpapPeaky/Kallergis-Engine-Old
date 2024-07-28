@@ -16,12 +16,10 @@ int main(int argv, char* args[]){
         return EXIT_FAILURE;
     }
 
-    int w, h;
-    SDL_GetRendererOutputSize(pixel_renderer, &w, &h); /* Due to the windows high dpi and other parameters, we cannot use SDL_GetWindowSize etc */
-    std::printf("WIDTH: %d - HEIGHT: %d\n", w, h);
-    SDL_Texture* texture = SDL_CreateTexture(pixel_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, w, h);
+    SDL_Texture* texture = SDL_CreateTexture(pixel_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, BMP_WIDTH, BMP_HEIGHT);
+    load_bitmap(texture, "history/map/provinces.bmp"); /* Loading an image onto the texture */
 
-    // camera cam = init_camera();
+    camera cam = init_camera();
     // mark_borders(surface, pixel_win);
 
     bool quit = false;
@@ -29,7 +27,7 @@ int main(int argv, char* args[]){
     while(!quit){
         while(SDL_PollEvent(&event)){
             /* Camera movement */
-            // handle_camera(cam, event);
+            handle_camera(cam, event);
             
             if(event.type == SDL_QUIT || event.key.keysym.sym == SDLK_e){
                 quit = true;
@@ -48,8 +46,9 @@ int main(int argv, char* args[]){
             if(event.button.button == SDL_BUTTON_LEFT){
                 int x, y;
                 SDL_GetMouseState(&x, &y);
-
-                set_pixel(texture, x, y, 255, 255, 255, ALPHA);
+                int surface_x = (x / cam.zoom) + cam.rect.x;
+                int surface_y = (y / cam.zoom) + cam.rect.y;
+                set_pixel(texture, surface_x, surface_y, 255, 255, 255, ALPHA);
             }
             // if(event.key.keysym.sym == SDLK_TAB){
             //     toggle = !toggle;
@@ -70,7 +69,7 @@ int main(int argv, char* args[]){
 
         SDL_RenderClear(pixel_renderer);
         
-        SDL_RenderCopy(pixel_renderer, texture, NULL, NULL);
+        SDL_RenderCopy(pixel_renderer, texture, &cam.rect, NULL);
 
         SDL_RenderPresent(pixel_renderer);
         /* Fuck me it works... */

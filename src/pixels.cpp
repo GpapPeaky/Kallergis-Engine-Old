@@ -39,6 +39,8 @@ err_capable set_pixel(SDL_Texture* texture, int x, int y, Uint8 r, Uint8 g, Uint
             *reinterpret_cast<Uint32*>(p) = pixel_value;
             break;
         default:
+            SDL_FreeFormat(pixel_format);
+            SDL_UnlockTexture(texture);
             std::printf("Unsupported pixel format\n");
             break;
     }
@@ -91,6 +93,37 @@ void pixel_screen_fill(SDL_Texture* texture){
     SDL_FreeFormat(pixel_format);
 
     return;
+}
+
+err_capable load_bitmap(SDL_Texture* dest, const char* filename){
+    SDL_Surface* src = SDL_LoadBMP(filename);
+    if(!src){
+        std::printf("Loading bitmap failed, path not found: %s\n", filename);
+        return FAIL;
+    }
+
+    Uint8* pixels = (Uint8*)src->pixels;
+    int w = src->w;
+    int h = src->h;
+    int sh, sw;
+    SDL_QueryTexture(dest, NULL, NULL, &sw, &sh);
+    if(sw != w || sh != h){
+        std::printf("Incompatible sizes between the bitmap and the texture | bitmap: %d x %d | texture: %d x %d\n", w, h, sw, sh);
+        return FAIL;
+    }
+
+    for(int j = 0 ; j < h ; j++){
+        for(int i = 0 ; i < w ; i++){
+            Uint8* p = pixels + j * src->pitch + i * src->format->BytesPerPixel;
+            Uint8 r = p[0];
+            Uint8 g = p[1];
+            Uint8 b = p[2];
+            set_pixel(dest, i, j, b, g, r, ALPHA); /* HUH?: Little endian ??? */
+        }
+    }
+
+    SDL_FreeSurface(src);
+    return SUCCESS;
 }
 
 // err_capable generate_countries_surfaces(SDL_Surface* surface, SDL_Window* win){
