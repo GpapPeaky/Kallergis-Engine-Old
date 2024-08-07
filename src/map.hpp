@@ -10,11 +10,11 @@
  */
 #define MAP
 
+extern SDL_Surface* click_surface;
+
 extern SDL_Texture* map;
-extern SDL_Texture* click_map;
 extern SDL_Texture* inner_border_map;
 extern SDL_Texture* outter_border_map;
-extern SDL_Texture* highlight_map;
 
 /**
  * @brief renders a surface onto the screen by blitting it

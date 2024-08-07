@@ -70,9 +70,10 @@ void init_menu(std::string filename){
 }
 
 render_capable draw_buttons(void){
-    for(auto& butt : buttons){
-        SDL_UpperBlitScaled(butt->img, NULL, screen, &butt->rect);
-    }
+    /* FIXME */
+    // for(auto& butt : buttons){
+    //     SDL_UpperBlitScaled(butt->img, NULL, screen, &butt->rect);
+    // }
 
     return;
 }

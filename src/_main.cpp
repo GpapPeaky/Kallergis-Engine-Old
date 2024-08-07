@@ -49,17 +49,17 @@ int main(int argv, char** args){
     #endif
 
     /* Paints the given province map with the correct country colour */
-    mark_countries(map);
+    mark_countries(click_surface, map); /* We use the click map as per usual */
     #ifdef MAIN_DBG
         std::printf("Countries Painting Completed l:%d\n", __LINE__);
     #endif
 
     /* Paints the borders inbetween countries and provinces */
     // mark_borders(map, outter_border_map, win, OUTTER_BORDER_COLOUR_GS);
-    // mark_borders(click_map, inner_border_map, win, INNER_BORDER_COLOUR_GS);
-    // #ifdef MAIN_DBG
-    //     std::printf("Border Generation Completed l:%d\n\n", __LINE__);
-    // #endif
+    mark_inner_borders(click_surface, inner_border_map); /* FIXME: Marks coastlines and rivers as well, when it shouldn't */
+    #ifdef MAIN_DBG
+        std::printf("Border Generation Completed l:%d\n\n", __LINE__);
+    #endif
 
     /* Prints */
     print_regions();
@@ -70,36 +70,36 @@ int main(int argv, char** args){
         std::printf("\nPrints Completed l:%d\n\n", __LINE__);
     #endif
 
-    /* IDEA: Might keep this like that... */
-    #ifdef MAIN_MENU
-        /* TODO: refactor to a function ,not raw code in main! */
-        bool menu_box = false;
-        while(!menu_box){
-            SDL_Event e;
+    // /* IDEA: Might keep this like that... */
+    // #ifdef MAIN_MENU
+    //     /* TODO: refactor to a function ,not raw code in main! */
+    //     bool menu_box = false;
+    //     while(!menu_box){
+    //         SDL_Event e;
 
-            SDL_UpperBlitScaled(menu, NULL, screen, NULL);
-            draw_buttons();
-            while(SDL_PollEvent(&e)){
-            if(e.type == SDL_MOUSEBUTTONDOWN){
-                button* pressed = check_for_button_interaction();
-                if(pressed != NULL){
-                    if(strcmp(pressed->text, "play") == 0){
-                        std::printf("Entering game...\n");
-                        buttons_cleanup();
-                        menu_box = true;
-                    }
-                    if(strcmp(pressed->text, "quit") == 0){
-                        std::printf("Quitting game...\n");
-                        buttons_cleanup();
-                        cleanup(win, renderer);
-                        return EXIT_SUCCESS;
-                    }
-                }
-            }
-            SDL_UpdateWindowSurface(win);
-            }
-        }
-    #endif
+    //         SDL_UpperBlitScaled(menu, NULL, screen, NULL);
+    //         draw_buttons();
+    //         while(SDL_PollEvent(&e)){
+    //         if(e.type == SDL_MOUSEBUTTONDOWN){
+    //             button* pressed = check_for_button_interaction();
+    //             if(pressed != NULL){
+    //                 if(strcmp(pressed->text, "play") == 0){
+    //                     std::printf("Entering game...\n");
+    //                     buttons_cleanup();
+    //                     menu_box = true;
+    //                 }
+    //                 if(strcmp(pressed->text, "quit") == 0){
+    //                     std::printf("Quitting game...\n");
+    //                     buttons_cleanup();
+    //                     cleanup(win, renderer);
+    //                     return EXIT_SUCCESS;
+    //                 }
+    //             }
+    //         }
+    //         SDL_UpdateWindowSurface(win);
+    //         }
+    //     }
+    // #endif
 
     // create_unit(INFANTRY, get_country("TST"), 5, click_map);
     // create_unit(INFANTRY, get_country("TST"), 20, click_map); 
@@ -127,6 +127,7 @@ int main(int argv, char** args){
         SDL_RenderClear(renderer);
 
         SDL_RenderCopy(renderer, map, &cam.rect, NULL);
+        SDL_RenderCopy(renderer, inner_border_map, &cam.rect, NULL); /* Renders black?? */
 
         SDL_RenderPresent(renderer);
 

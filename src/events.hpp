@@ -35,9 +35,9 @@ eng_event info_on_hover(void);
  * @param mouse_x Mouse x
  * @param mouse_y Mouse y
  * @param src Surface to parse
- * @param dst Surface to highlight
+ * @param dst Texture to highlight
 */
-eng_event highlight_on_click(int mouse_x, int mouse_y, SDL_Surface* src, SDL_Surface* dst);
+eng_event highlight_on_click(int mouse_x, int mouse_y, SDL_Surface* src, SDL_Texture* dst);
 
 /**
  * @brief Allows to pan the map

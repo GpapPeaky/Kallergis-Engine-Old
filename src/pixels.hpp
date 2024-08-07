@@ -61,12 +61,13 @@ err_capable load_bitmap(SDL_Texture* dest, const char* filename);
  * 
  * @attention the image might have to be of specific size (5760 x 3240)
  * 
+ * @param src Surface to scan
  * @param texture texture to paint
  * 
  * @returns 1 on failure
  *              0 on success
 */
-err_capable mark_countries(SDL_Texture* texture);
+err_capable mark_countries(SDL_Surface* src, SDL_Texture* texture);
 
 /*______________________________________________________________________________________________*/
 
@@ -75,12 +76,10 @@ err_capable mark_countries(SDL_Texture* texture);
  * 
  * @param src Surface to scan for edges
  * @param dst Destination of pixel sets
- * @param win Window to go to
- * @param border_colour Border Colour
  * 
  * @warning There should be no 1 pixel threshold in order to produce good results, also no province shall have isolated 2x2 or 1xY / Xx1 type of mapdata
  */
-void mark_borders(SDL_Surface* src, SDL_Surface* dst, SDL_Window* win, int border_colour);
+void mark_inner_borders(SDL_Surface* src, SDL_Texture* dst);
 
 /**
  * @brief Prints the colours of all countries

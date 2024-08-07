@@ -126,9 +126,8 @@ err_capable load_bitmap(SDL_Texture* dest, const char* filename){
     return SUCCESS;
 }
 
-err_capable mark_countries(SDL_Texture* texture){
+err_capable mark_countries(SDL_Surface* src, SDL_Texture* texture){
     /* We need to check for Non-black pixels */
-    SDL_Surface* src = SDL_LoadBMP("history/map/provinces.bmp");
     if(!src){
         std::printf("Loading bitmap failed, path not found\n");
         return FAIL;
@@ -179,74 +178,61 @@ err_capable mark_countries(SDL_Texture* texture){
     return SUCCESS;
 }
 
-// void mark_borders(SDL_Surface* src, SDL_Surface* dst, SDL_Window* win, int border_colour){
+/* TODO: Add mark_outter_borders */
+void mark_inner_borders(SDL_Surface* src, SDL_Texture* dst){
+    if(!src){
+        std::printf("Error, source for marking inner borders is incompatible\n");
+        return;
+    }
+    Uint32 black = SDL_MapRGB(src->format, 0, 0, 0);
+    int bpp = src->format->BytesPerPixel;
+    int pitch = src->pitch;
+    Uint8* pixel_array = (Uint8*)src->pixels;
+    Uint32 border_colour = SDL_MapRGB(src->format, 0, 0, 0);
+    Uint32 inner_border_colour = SDL_MapRGB(src->format, INNER_BORDER_COLOUR_GS, INNER_BORDER_COLOUR_GS, INNER_BORDER_COLOUR_GS);
 
-//     /* To Avoid Conflict Between 2 iterations */
-//     int counter_colour;
-//     if(border_colour == INNER_BORDER_COLOUR_GS){
-//         counter_colour = OUTTER_BORDER_COLOUR_GS;
-//     }else if(border_colour == OUTTER_BORDER_COLOUR_GS){
-//         counter_colour = INNER_BORDER_COLOUR_GS;
-//     }else{
-//         std::printf("Incorrect Colour Chosen For Border Generation\n");
-//         return;
-//     }
+    if(src != NULL){
+        for(int i = 0 ; i < src->w ; i++){
+            for(int j = 0 ; j < src->h ; j++){
+                Uint8 r, g, b;
+                Uint32 pixel = *((Uint32*)(pixel_array + j * pitch + i * bpp));
 
-//     Uint8* pixel_array = (Uint8*)src->pixels;
-//     int bpp = src->format->BytesPerPixel;
+                SDL_GetRGB(pixel, src->format, &r, &g, &b);
 
-//     if(src != NULL){
-//         pixel_array = (Uint8*)src->pixels;
-//         bpp = src->format->BytesPerPixel;
-
-//         for(int i = 0 ; i < src->w ; i++){
-//             for(int j = 0 ; j < src->h ; j++){
-//                 int r = pixel_array[j * src->pitch + i * bpp + 0];
-//                 int g = pixel_array[j * src->pitch + i * bpp + 1];
-//                 int b = pixel_array[j * src->pitch + i * bpp + 2];
-
-//                 if(r == 0 && g == 0 && b == 0){
-//                     continue;
-//                 }
+                if(pixel == black) continue;
                 
-//                 bool is_border = false;
+                bool is_border = false;
 
-//                 /* Check Neighours */
-//                 for (int y_off = -1; y_off <= 1; y_off++) {
-//                     for (int x_off = -1; x_off <= 1; x_off++) {
-//                         if(x_off == 0 && y_off == 0) continue; /* Skip current pixel */
+                /* Check Neighours */
+                for(int y_off = -1; y_off <= 1; y_off++){
+                    for(int x_off = -1; x_off <= 1; x_off++){
+                        if(x_off == 0 && y_off == 0) continue; /* Skip current pixel */
 
-//                         int x_neighbor = i + x_off;
-//                         int y_neighbor = j + y_off;
+                        int x_neighbor = i + x_off;
+                        int y_neighbor = j + y_off;
 
-//                         /* Check if it is in-bounds */
-//                         if(x_neighbor >= 0 && x_neighbor < src->w && y_neighbor >= 0 && y_neighbor < src->h){
-//                             Uint8 r_neighbor = pixel_array[y_neighbor * src->pitch + x_neighbor * bpp + 0];
-//                             Uint8 g_neighbor = pixel_array[y_neighbor * src->pitch + x_neighbor * bpp + 1];
-//                             Uint8 b_neighbor = pixel_array[y_neighbor * src->pitch + x_neighbor * bpp + 2];
+                        /* Check if it is in-bounds */
+                        if(x_neighbor >= 0 && x_neighbor < src->w && y_neighbor >= 0 && y_neighbor < src->h){
+                            Uint32 neighbor_pixel = *((Uint32*)(pixel_array + y_neighbor * pitch + x_neighbor * bpp));
+                            Uint8 r_neighbor, g_neighbor, b_neighbor;
+                            SDL_GetRGB(neighbor_pixel, src->format, &r_neighbor, &g_neighbor, &b_neighbor);
 
-//                             if((r_neighbor != r || g_neighbor != g || b_neighbor != b) &&
-//                                 r_neighbor != border_colour && g_neighbor != border_colour && b_neighbor != border_colour &&
-//                                 r_neighbor != counter_colour && g_neighbor != counter_colour && b_neighbor != counter_colour){
-//                                 is_border = true;
-//                                 break;
-//                             }
-//                         }
-//                     }
-//                     if(is_border) break;
-//                 }
+                            if(neighbor_pixel != pixel && neighbor_pixel != black){
+                                is_border = true;
+                                break;
+                            }
+                        }
+                    }
+                    if(is_border) break;
+                }if(is_border){
+                    set_pixel(dst, i, j, INNER_BORDER_COLOUR_GS, INNER_BORDER_COLOUR_GS, INNER_BORDER_COLOUR_GS, 130);
+                }
+            }
+        }
+    }
 
-//                 if(is_border && (border_colour == OUTTER_BORDER_COLOUR_GS)){
-//                     set_pixel(dst, win, i, j, 255, border_colour, border_colour, ALPHA);
-//                 }else if(is_border && (border_colour == INNER_BORDER_COLOUR_GS)){
-//                     set_pixel(dst, win, i, j, border_colour, border_colour, border_colour, 130);
-//                 }
-//             }
-//         }
-//     }
-
-//     return;
-// }
+    return;
+}
 
 void print_country_colours(void){
     for(const auto& cou : countries){
