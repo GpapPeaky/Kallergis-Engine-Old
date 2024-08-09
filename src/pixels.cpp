@@ -126,6 +126,38 @@ err_capable load_bitmap(SDL_Texture* dest, const char* filename){
     return SUCCESS;
 }
 
+err_capable load_png(SDL_Texture* dest, const char* filename){
+    SDL_Surface* src = IMG_Load(filename);
+    if(!src){
+        std::printf("Loading png failed, path not found: %s\n", filename);
+        return FAIL;
+    }
+
+    Uint8* pixels = (Uint8*)src->pixels;
+    int w = src->w;
+    int h = src->h;
+    int sh, sw;
+    SDL_QueryTexture(dest, NULL, NULL, &sw, &sh);
+    if(sw != w || sh != h){
+        std::printf("Incompatible sizes between the bitmap and the texture | bitmap: %d x %d | texture: %d x %d\n", w, h, sw, sh);
+        return FAIL;
+    }
+
+    for(int j = 0 ; j < h ; j++){
+        for(int i = 0 ; i < w ; i++){
+            Uint8* p = pixels + j * src->pitch + i * src->format->BytesPerPixel;
+            Uint8 r = p[0];
+            Uint8 g = p[1];
+            Uint8 b = p[2];
+            Uint8 a = (src->format->BytesPerPixel == 4) ? p[3] : 255;
+            set_pixel(dest, i, j, b, g, r, a); /* HUH?: Little endian ??? */
+        }
+    }
+
+    SDL_FreeSurface(src);
+    return SUCCESS;
+}
+
 err_capable mark_countries(SDL_Surface* src, SDL_Texture* texture){
     /* We need to check for Non-black pixels */
     if(!src){
@@ -188,8 +220,6 @@ void mark_inner_borders(SDL_Surface* src, SDL_Texture* dst){
     int bpp = src->format->BytesPerPixel;
     int pitch = src->pitch;
     Uint8* pixel_array = (Uint8*)src->pixels;
-    Uint32 border_colour = SDL_MapRGB(src->format, 0, 0, 0);
-    Uint32 inner_border_colour = SDL_MapRGB(src->format, INNER_BORDER_COLOUR_GS, INNER_BORDER_COLOUR_GS, INNER_BORDER_COLOUR_GS);
 
     if(src != NULL){
         for(int i = 0 ; i < src->w ; i++){

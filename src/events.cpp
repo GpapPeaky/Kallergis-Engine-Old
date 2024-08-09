@@ -5,7 +5,6 @@ const Uint8* state;
 
 eng_event info_on_hover(void){
 
-    /* WRITE */
     /* Info box: 129 - 114 */
     return;
 }
@@ -48,7 +47,7 @@ eng_event pan_map(int d_x, int d_y){
     return;
 }
 
-void events_handling(bool& quit, camera& cam){
+eng_event events_handling(bool& quit, camera& cam){
     SDL_Event e;
     /* Initial Values For Camera Velocity */
     float vel_x = 1.0f;
@@ -62,12 +61,11 @@ void events_handling(bool& quit, camera& cam){
             quit = true;
         }else if(e.type == SDL_MOUSEWHEEL){
             /* Calculate new zoom level */
-            /* FIXME: it bugs if we zoom in or out too much */ 
             float zoom_factor = (e.wheel.y > 0) ? 1.1f : 0.9f;
             cam.zoom *= zoom_factor;
 
-            if(cam.zoom < 0.1f) cam.zoom = 0.1f;
-            if(cam.zoom > 10.0f) cam.zoom = 10.0f;
+            if(cam.zoom <= 0.32f) cam.zoom = 0.32f; /* Max zoom out */
+            if(cam.zoom >= 15.0f) cam.zoom = 15.0f; /* Max zoom in */
 
             int center_x = cam.rect.x + cam.rect.w / 2;
             int center_y = cam.rect.y + cam.rect.h / 2;
@@ -79,6 +77,13 @@ void events_handling(bool& quit, camera& cam){
             cam.rect.y = center_y - new_h / 2;
             cam.rect.w = new_w;
             cam.rect.h = new_h;
+
+            /* Out of bounds checks */
+            if(cam.rect.x < 0) cam.rect.x = 0;
+            if(cam.rect.y < 0) cam.rect.y = 0;
+            if(cam.rect.x + cam.rect.w > BMP_WIDTH) cam.rect.x = BMP_WIDTH - cam.rect.w;
+            if(cam.rect.y + cam.rect.h > BMP_HEIGHT) cam.rect.y = BMP_HEIGHT - cam.rect.h;
+            std::printf("zoom: %.2f\n", cam.zoom);
         }else if(e.type == SDL_KEYDOWN){
             if(e.key.keysym.sym == SDLK_e){
                 // SDL_SaveBMP(map, "bin/output.bmp"); /* FIXME */
@@ -93,19 +98,21 @@ void events_handling(bool& quit, camera& cam){
         }
     }
 
-    float move_x = 0.0f;
-    float move_y = 0.0f;
+    double move_x = 0.0f;
+    double move_y = 0.0f;
 
     /* Unordered map for non-serial movement */
     if(state[SDL_SCANCODE_W]){
-        move_y -= 1.0f;
+        move_y -= 1.0f / cam.zoom;
     }else if(state[SDL_SCANCODE_S]){
-        move_y += 1.0f;
+        move_y += 1.0f / cam.zoom;
     }else if(state[SDL_SCANCODE_A]){
-        move_x -= 1.0f;
+        move_x -= 1.0f / cam.zoom;
     }else if(state[SDL_SCANCODE_D]){
-        move_x += 1.0f;
+        move_x += 1.0f / cam.zoom;
     }
+
+    /* WARN: Problematic zoom at 8.0f cam.zoom */
 
     /* Find the length */
     float length = std::sqrt(move_x * move_x + move_y * move_y);
@@ -115,15 +122,8 @@ void events_handling(bool& quit, camera& cam){
     }
 
     /* Apply acceleration to direction */
-    vel_x += move_x * ACC / cam.zoom;
-    vel_y += move_y * ACC / cam.zoom;
-
-    /* Find the camera speed and cap it if it exceeds the max camera speed macro */
-    float speed = std::sqrt(vel_x * vel_x + vel_y * vel_y);
-    if(speed > MAX_CAMERA_SPEED){
-        vel_x = (vel_x / speed) * MAX_CAMERA_SPEED;
-        vel_y = (vel_y / speed) * MAX_CAMERA_SPEED;
-    }
+    vel_x += static_cast<float>((move_x * ACC / cam.zoom) + 0.4f);
+    vel_y += static_cast<float>((move_y * ACC / cam.zoom) + 0.4f);
 
     /* Calculate time elapsed */
     auto current_time = std::chrono::steady_clock::now();
@@ -134,6 +134,12 @@ void events_handling(bool& quit, camera& cam){
     /* Update the camera x and y */
     cam.rect.x += static_cast<int>(vel_x * dt);
     cam.rect.y += static_cast<int>(vel_y * dt);
+
+    /* Out of bounds checks */
+    if(cam.rect.x < 0) cam.rect.x = 0;
+    if(cam.rect.y < 0) cam.rect.y = 0;
+    if(cam.rect.x + cam.rect.w > BMP_WIDTH) cam.rect.x = BMP_WIDTH - cam.rect.w;
+    if(cam.rect.y + cam.rect.h > BMP_HEIGHT) cam.rect.y = BMP_HEIGHT - cam.rect.h;
 
     /* Decellerate */
     vel_x *= DEC;

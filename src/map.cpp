@@ -6,6 +6,8 @@ SDL_Texture* map; /* Main Map */
 SDL_Texture* inner_border_map;
 SDL_Texture* outter_border_map;
 
+std::vector<SDL_Texture*> textures;
+
 err_capable init_map_textures(void){
 
     map = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, BMP_WIDTH, BMP_HEIGHT);
@@ -47,6 +49,9 @@ err_capable init_map_textures(void){
 
     // // Unlock the texture
     // SDL_UnlockTexture(inner_border_map);
+
+    textures.push_back(map);
+    textures.push_back(inner_border_map);
 
     return SUCCESS;
 }

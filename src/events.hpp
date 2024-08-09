@@ -22,7 +22,7 @@
  * @param quit Checks if the program has quit or not
  * @param cam camera struct for viewport
 */
-void events_handling(bool& quit, camera& cam);
+eng_event events_handling(bool& quit, camera& cam);
 
 /**
  * @brief displays info when hovering a province

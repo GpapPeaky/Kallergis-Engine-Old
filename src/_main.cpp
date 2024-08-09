@@ -19,6 +19,8 @@ int main(int argv, char** args){
     win_init("keng");
     /* Initialise the map data to be used */
     init_map_textures();
+    /* Initialise the unit graphic assets */
+    init_unit_assets();
 
     #ifdef MAIN_DBG
         std::printf("\nInit Functions Completed l:%d\n", __LINE__);
@@ -70,52 +72,41 @@ int main(int argv, char** args){
         std::printf("\nPrints Completed l:%d\n\n", __LINE__);
     #endif
 
-    // /* IDEA: Might keep this like that... */
-    // #ifdef MAIN_MENU
-    //     /* TODO: refactor to a function ,not raw code in main! */
-    //     bool menu_box = false;
-    //     while(!menu_box){
-    //         SDL_Event e;
+    /* IDEA: Might keep this like that... */
+    #ifdef MAIN_MENU
+        /* TODO: refactor to a function ,not raw code in main! */
+        bool menu_box = false;
+        while(!menu_box){
+            SDL_Event e;
 
-    //         SDL_UpperBlitScaled(menu, NULL, screen, NULL);
-    //         draw_buttons();
-    //         while(SDL_PollEvent(&e)){
-    //         if(e.type == SDL_MOUSEBUTTONDOWN){
-    //             button* pressed = check_for_button_interaction();
-    //             if(pressed != NULL){
-    //                 if(strcmp(pressed->text, "play") == 0){
-    //                     std::printf("Entering game...\n");
-    //                     buttons_cleanup();
-    //                     menu_box = true;
-    //                 }
-    //                 if(strcmp(pressed->text, "quit") == 0){
-    //                     std::printf("Quitting game...\n");
-    //                     buttons_cleanup();
-    //                     cleanup(win, renderer);
-    //                     return EXIT_SUCCESS;
-    //                 }
-    //             }
-    //         }
-    //         SDL_UpdateWindowSurface(win);
-    //         }
-    //     }
-    // #endif
+            SDL_UpperBlitScaled(menu, NULL, screen, NULL);
+            draw_buttons();
+            while(SDL_PollEvent(&e)){
+            if(e.type == SDL_MOUSEBUTTONDOWN){
+                button* pressed = check_for_button_interaction();
+                if(pressed != NULL){
+                    if(strcmp(pressed->text, "play") == 0){
+                        std::printf("Entering game...\n");
+                        buttons_cleanup();
+                        menu_box = true;
+                    }
+                    if(strcmp(pressed->text, "quit") == 0){
+                        std::printf("Quitting game...\n");
+                        buttons_cleanup();
+                        cleanup(win, renderer);
+                        return EXIT_SUCCESS;
+                    }
+                }
+            }
+            SDL_UpdateWindowSurface(win);
+            }
+        }
+    #endif
 
-    // create_unit(INFANTRY, get_country("TST"), 5, click_map);
-    // create_unit(INFANTRY, get_country("TST"), 20, click_map); 
-    // create_unit(INFANTRY, get_country("TST"), 21, click_map); 
-    // create_unit(INFANTRY, get_country("TST"), 1, click_map); 
-    // create_unit(INFANTRY, get_country("TST"), 2, click_map); 
-    // create_unit(INFANTRY, get_country("TST"), 5, click_map); 
-    // create_unit(INFANTRY, get_country("TST"), 3, click_map); 
-    // create_unit(INFANTRY, get_country("TST"), 9, click_map); 
-    // create_unit(INFANTRY, get_country("TST"), 32, click_map); 
+    create_unit(INFANTRY, get_country("TST"), 2, click_surface);
     // /* Wrong prov_id given */
-    // create_unit(INFANTRY, get_country("TST"), 36, click_map); 
+    // create_unit(INFANTRY, get_country("TST"), 36, click_surface); 
 
-    /* TODO: USE THE RENDERER TO ACCELERATE WITH HARDWARE THE RENDERING: SDL_LockTexture CAN BE USED TO ACCESS PIXELS OF EVERY TEXTURES */
-    /* TODO: DO SOME TESTING WITH pixelsmain.cpp BEFORE IMPLEMENTING ANYTHING */
-    /* TODO: ADD AN ARRAY OF SDL_Texture* TO PARSE WHEN RENDERING COPIES TO THE SCREEN */
     /* IT APPEARS THAT THE (CLEAR -> RENDERCOPY -> PRESENT) METHOD IS GPU ACCELERATED... */
 
     /* Game */
@@ -123,12 +114,10 @@ int main(int argv, char** args){
     while(!quit){
 
         events_handling(quit, cam);
-        
-        SDL_RenderClear(renderer);
 
-        SDL_RenderCopy(renderer, map, &cam.rect, NULL);
-        SDL_RenderCopy(renderer, inner_border_map, &cam.rect, NULL); /* Renders black?? */
-
+        /* TODO: Refactor Renditions, into one function */
+        render_map(renderer, textures, cam);
+        draw_units(cam);
         SDL_RenderPresent(renderer);
 
         // generate_countries_surfaces(map, win); /* Lags the engine ,call it if a province is annexed */

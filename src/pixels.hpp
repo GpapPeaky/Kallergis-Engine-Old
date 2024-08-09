@@ -56,6 +56,18 @@ void pixel_screen_fill(SDL_Texture* texture);
 err_capable load_bitmap(SDL_Texture* dest, const char* filename);
 
 /**
+ * @brief Loads a png, from a file
+ * 
+ * @param filename png to load
+ * @param dest texture to load the png
+ * 
+ * @warning Make sure that the texture is empty, or else it will be overwritten
+ * 
+ * @returns 0 on SUCCESS 1 on FAILURE
+ */
+err_capable load_png(SDL_Texture* dest, const char* filename);
+
+/**
  * @brief Parses the bmp and scans for each pixel
  *          it paints the cou RGB value onto a new surface that is rendered lastly
  * 

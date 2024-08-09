@@ -27,7 +27,7 @@ typedef struct unit{
     int att;
     int def;
     /* Image data */
-    SDL_Surface* img;
+    SDL_Texture* img;
     SDL_Rect rect;
     /* Handles most stats */
     unit_t type;
@@ -37,7 +37,16 @@ typedef struct unit{
     uint prov_visited;
 }unit;
 
+extern SDL_Texture* inf;
+extern SDL_Texture* art;
+extern SDL_Texture* arm;
+extern SDL_Texture* mec;
 extern std::vector<unit> units;
+
+/**
+ * @brief Initialises the textures for each unit type
+ */
+void init_unit_assets(void);
 
 /**
  * @brief Creates a unit
@@ -53,9 +62,8 @@ void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface);
 /**
  * @brief Draws units
 
- * @param screen Where to draw the units
  * @param camera transform unit positions
  */
-render_capable draw_units(SDL_Surface* screen, camera cam);
+render_capable draw_units(camera cam);
 
 #endif

@@ -5,7 +5,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string>
+#include <vector>
 #include "../auxf/definitions.aux"
+#include "camera.hpp"
 
 #ifndef INIT_WIN
 /**
@@ -26,5 +28,14 @@ extern SDL_Renderer* renderer;
  * @returns 1 on failure 0 on success
 */
 err_capable win_init(const char* name);
+
+/**
+ * @brief Renders the assets on screen
+ * 
+ * @param renderer Renderer to call
+ * @param textures Textures vector to render
+ * @param cam Camera for viewport
+ */
+render_capable render_map(SDL_Renderer* renderer, std::vector<SDL_Texture*> textures, camera cam);
 
 #endif

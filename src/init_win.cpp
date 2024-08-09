@@ -27,3 +27,13 @@ err_capable win_init(const char* name){
 
     return SUCCESS;
 }
+
+render_capable render_map(SDL_Renderer* renderer, std::vector<SDL_Texture*> textures, camera cam){
+    SDL_RenderClear(renderer);
+
+    for(SDL_Texture* texture : textures){
+        SDL_RenderCopy(renderer, texture, &cam.rect, NULL);
+    }
+
+    return;
+}
