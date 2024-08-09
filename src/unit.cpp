@@ -39,7 +39,6 @@ void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface){  
     /* Wrong input, no unit is created */
     if(!found){ std::printf("Province %d doesn't belong to the country %s - %s\n", prov_id, country.tag.c_str(), country.country_name.c_str()); return; }
 
-    int width, height;
     unit new_unit;
 
     switch(type){
