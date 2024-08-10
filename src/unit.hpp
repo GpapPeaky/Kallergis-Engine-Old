@@ -8,6 +8,15 @@
 #include "hashtable.hpp"
 #include "camera.hpp"
 
+#ifndef UNITS
+/**
+ * @brief Military units are handled here
+ */
+#define UNITS
+
+/**
+ * @brief Unit types
+ */
 typedef enum unit_types{
     INFANTRY = 0,
     ARTILLERY = 1,
@@ -15,12 +24,9 @@ typedef enum unit_types{
     MECHANISED = 3
 }unit_t;
 
-#ifndef UNITS
 /**
- * @brief Military units are handled here
+ * @brief Unit object
  */
-#define UNITS
-
 typedef struct unit{
     /* Stats */
     int men;
@@ -37,6 +43,7 @@ typedef struct unit{
     uint prov_visited;
 }unit;
 
+extern unit* selected_unit;
 extern SDL_Texture* inf;
 extern SDL_Texture* art;
 extern SDL_Texture* arm;
@@ -61,9 +68,16 @@ void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface);
 
 /**
  * @brief Draws units
-
+ *
  * @param camera transform unit positions
  */
 render_capable draw_units(camera cam);
+
+/**
+ * @brief Highlights the selected unit
+ * 
+ * @param camera transform unit positions
+ */
+render_capable highlight_selected_unit(camera cam);
 
 #endif

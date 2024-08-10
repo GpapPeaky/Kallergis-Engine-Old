@@ -104,6 +104,8 @@ int main(int argv, char** args){
     #endif
 
     create_unit(INFANTRY, get_country("TST"), 2, click_surface);
+    create_unit(INFANTRY, get_country("TST"), 4, click_surface);
+    create_unit(INFANTRY, get_country("TST"), 3, click_surface);
     // /* Wrong prov_id given */
     // create_unit(INFANTRY, get_country("TST"), 36, click_surface); 
 
@@ -112,12 +114,10 @@ int main(int argv, char** args){
     /* Game */
     bool quit = false;
     while(!quit){
-
-        events_handling(quit, cam);
-
         /* TODO: Refactor Renditions, into one function */
         render_map(renderer, textures, cam);
         draw_units(cam);
+        events_handling(quit, cam);
         SDL_RenderPresent(renderer);
 
         // generate_countries_surfaces(map, win); /* Lags the engine ,call it if a province is annexed */

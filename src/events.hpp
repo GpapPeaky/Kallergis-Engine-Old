@@ -9,6 +9,7 @@
 #include "font.hpp"
 #include "../auxf/definitions.aux"
 #include "camera.hpp"
+#include "unit.hpp"
 
 #ifndef EVENTS
 /**

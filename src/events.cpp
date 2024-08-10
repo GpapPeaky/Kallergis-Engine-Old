@@ -55,8 +55,8 @@ eng_event events_handling(bool& quit, camera& cam){
     state = SDL_GetKeyboardState(NULL);
 
     while(SDL_PollEvent(&e)){
-        int w, h;
-        SDL_GetRendererOutputSize(renderer, &w, &h); /* For The Camera Readjustment */
+        int sw, sh;
+        SDL_GetRendererOutputSize(renderer, &sw, &sh); /* For The Camera Readjustment */
         if(e.type == SDL_QUIT){
             quit = true;
         }else if(e.type == SDL_MOUSEWHEEL){
@@ -70,8 +70,8 @@ eng_event events_handling(bool& quit, camera& cam){
             int center_x = cam.rect.x + cam.rect.w / 2;
             int center_y = cam.rect.y + cam.rect.h / 2;
 
-            int new_w = static_cast<int>(w / cam.zoom); /* The handle_camera() function had 1000 and 900 px */
-            int new_h = static_cast<int>(h / cam.zoom);
+            int new_w = static_cast<int>(sw / cam.zoom); /* The handle_camera() function had 1000 and 900 px */
+            int new_h = static_cast<int>(sh / cam.zoom);
 
             cam.rect.x = center_x - new_w / 2;
             cam.rect.y = center_y - new_h / 2;
@@ -83,7 +83,7 @@ eng_event events_handling(bool& quit, camera& cam){
             if(cam.rect.y < 0) cam.rect.y = 0;
             if(cam.rect.x + cam.rect.w > BMP_WIDTH) cam.rect.x = BMP_WIDTH - cam.rect.w;
             if(cam.rect.y + cam.rect.h > BMP_HEIGHT) cam.rect.y = BMP_HEIGHT - cam.rect.h;
-            std::printf("zoom: %.2f\n", cam.zoom);
+            // std::printf("zoom: %.2f\n", cam.zoom);
         }else if(e.type == SDL_KEYDOWN){
             if(e.key.keysym.sym == SDLK_e){
                 // SDL_SaveBMP(map, "bin/output.bmp"); /* FIXME */
@@ -91,9 +91,44 @@ eng_event events_handling(bool& quit, camera& cam){
             }
         }else if(e.type == SDL_MOUSEBUTTONDOWN){
             int mouse_x, mouse_y;
-            SDL_GetMouseState(&mouse_x, &mouse_y);
-            int surface_x = (mouse_x / cam.zoom) + cam.rect.x;
-            int surface_y = (mouse_y / cam.zoom) + cam.rect.y;
+            int unit_x;
+            int unit_y;
+            SDL_GetMouseState(&mouse_x, &mouse_y); /* We use the untransformed coord for the mouse */
+
+            for(auto& unit : units){
+                /* Transforming unit rect coords */
+                unit_x = static_cast<int>((unit.rect.x - cam.rect.x) * cam.zoom);
+                unit_y = static_cast<int>((unit.rect.y - cam.rect.y) * cam.zoom); /* Reverse transform the coords */
+                SDL_Rect hrect = { unit_x, unit_y, UNIT_SIZE, UNIT_SIZE };
+
+                // std::printf("Mouse at window coordinates: (%d, %d)\n", mouse_x, mouse_y);
+                // std::printf("Mouse at surface coordinates: (%d, %d)\n", surface_x, surface_y);
+                // std::printf("Checking unit %d with rect: {x: %d, y: %d, w: %d, h: %d}\n", 
+                //             unit.id, unit_x, unit_y, unit.rect.w, unit.rect.h);
+
+                /* Find the name in the hashtable with the correct id and prov id */
+                prov* current = provinces_h[h(unit.prov_visited, PROV_M)];
+                std::string name;
+
+                while(current != NULL){
+                    if(current->prov_id == unit.prov_visited){
+                        name = current->prov_name;
+                        break;
+                    }
+                    current = current->next;
+                }
+
+                if(mouse_x >= unit_x && mouse_x <= unit_x + unit.rect.w &&
+                   mouse_y >= unit_y && mouse_y <= unit_y + unit.rect.h){
+                    // std::printf("Unit %d at province %d, %s clicked\n__________________________\n", unit.id, unit.prov_visited, name.c_str());
+                    selected_unit = &unit;
+                    break;
+                }
+                if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE){
+                    selected_unit = NULL;
+                }
+            }
+
             // highlight_on_click(surface_x, surface_y, click_surface, map); /* FIXME */
         }
     }

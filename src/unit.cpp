@@ -1,5 +1,6 @@
 #include "unit.hpp"
 
+unit* selected_unit = NULL;
 SDL_Texture* inf;
 SDL_Texture* art;
 SDL_Texture* arm;
@@ -109,7 +110,6 @@ void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface){  
 
     SDL_UnlockSurface(surface); /* Unlock the surface after accessing pixels */
 
-    country.units_num++; /* Increment */
     new_unit.id = country.units_num; /* Assign a unique id to each unit */
     units.push_back(new_unit); /* Push to vector */
 
@@ -130,6 +130,24 @@ render_capable draw_units(camera cam){
 
             SDL_RenderCopy(renderer, unit.img, NULL, &dest_rect);
         }
+    }
+
+    highlight_selected_unit(cam);
+    return;
+}
+
+render_capable highlight_selected_unit(camera cam){
+    if(selected_unit){
+        int screen_x = static_cast<int>((selected_unit->rect.x - cam.rect.x) * cam.zoom);
+        int screen_y = static_cast<int>((selected_unit->rect.y - cam.rect.y) * cam.zoom);
+
+        SDL_Rect highlight_rect = { screen_x, screen_y, UNIT_SIZE, UNIT_SIZE };
+
+        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 100);
+        SDL_RenderDrawRect(renderer, &highlight_rect);
+    }else{
+        return;
     }
 
     return;
