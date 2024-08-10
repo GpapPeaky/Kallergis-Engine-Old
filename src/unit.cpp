@@ -21,7 +21,7 @@ void init_unit_assets(void){
     return;
 }
 
-void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface){   /* FIXME */
+void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface){
     if(type != INFANTRY && type != ARTILLERY && type != ARMOR && type != MECHANISED){ 
         std::printf("Incompatible type given in unit creation\n");
         return;
