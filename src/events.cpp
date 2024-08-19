@@ -106,16 +106,16 @@ eng_event events_handling(bool& quit, camera& cam){
                     //             unit.id, unit_x, unit_y, unit.rect.w, unit.rect.h);
 
                     /* Find the name in the hashtable with the correct id and prov id */
-                    prov* current = provinces_h[h(unit.prov_visited, PROV_M)];
-                    std::string name;
+                    // prov* current = provinces_h[h(unit.prov_visited, PROV_M)];
+                    // std::string name;
 
-                    while(current != NULL){
-                        if(current->prov_id == unit.prov_visited){
-                            name = current->prov_name;
-                            break;
-                        }
-                        current = current->next;
-                    }
+                    // while(current != NULL){
+                    //     if(current->prov_id == unit.prov_visited){
+                    //         name = current->prov_name;
+                    //         break;
+                    //     }
+                    //     current = current->next;
+                    // }
 
                     if(mouse_x >= unit_x && mouse_x <= unit_x + unit.rect.w &&
                     mouse_y >= unit_y && mouse_y <= unit_y + unit.rect.h){

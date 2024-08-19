@@ -187,7 +187,7 @@ void move_unit(SDL_Surface* surface, camera cam){
             for(int i = 0 ; i < prov_hash_s ; i++){
                 prov* current = provinces_h[i];
                 while(current != NULL){
-                    if(current->prov_colour.r == b && current->prov_colour.g == g && current->prov_colour.b == r){ /* Little endian */
+                    if(current->prov_colour.r == b && current->prov_colour.g == g && current->prov_colour.b == r){ /* HUH? Little endian */
                         selected_unit->prov_visited = current->prov_id;
                         break;
                     }
