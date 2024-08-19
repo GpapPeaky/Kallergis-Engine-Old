@@ -52,7 +52,6 @@ eng_event events_handling(bool& quit, camera& cam){
     /* Initial Values For Camera Velocity */
     float vel_x = 1.0f;
     float vel_y = 1.0f;
-    state = SDL_GetKeyboardState(NULL);
 
     while(SDL_PollEvent(&e)){
         int sw, sh;
@@ -90,46 +89,49 @@ eng_event events_handling(bool& quit, camera& cam){
                 quit = true;
             }
         }else if(e.type == SDL_MOUSEBUTTONDOWN){
-            int mouse_x, mouse_y;
-            int unit_x;
-            int unit_y;
-            SDL_GetMouseState(&mouse_x, &mouse_y); /* We use the untransformed coord for the mouse */
+            if(e.button.button == SDL_BUTTON_LEFT){
+                int mouse_x, mouse_y;
+                int unit_x;
+                int unit_y;
+                SDL_GetMouseState(&mouse_x, &mouse_y); /* We use the untransformed coord for the mouse */
 
-            for(auto& unit : units){
-                /* Transforming unit rect coords */
-                unit_x = static_cast<int>((unit.rect.x - cam.rect.x) * cam.zoom);
-                unit_y = static_cast<int>((unit.rect.y - cam.rect.y) * cam.zoom); /* Reverse transform the coords */
-                SDL_Rect hrect = { unit_x, unit_y, UNIT_SIZE, UNIT_SIZE };
+                for(auto& unit : units){
+                    /* Transforming unit rect coords */
+                    unit_x = static_cast<int>((unit.rect.x - cam.rect.x) * cam.zoom);
+                    unit_y = static_cast<int>((unit.rect.y - cam.rect.y) * cam.zoom); /* Reverse transform the coords */
 
-                // std::printf("Mouse at window coordinates: (%d, %d)\n", mouse_x, mouse_y);
-                // std::printf("Mouse at surface coordinates: (%d, %d)\n", surface_x, surface_y);
-                // std::printf("Checking unit %d with rect: {x: %d, y: %d, w: %d, h: %d}\n", 
-                //             unit.id, unit_x, unit_y, unit.rect.w, unit.rect.h);
+                    // std::printf("Mouse at window coordinates: (%d, %d)\n", mouse_x, mouse_y);
+                    // std::printf("Mouse at surface coordinates: (%d, %d)\n", surface_x, surface_y);
+                    // std::printf("Checking unit %d with rect: {x: %d, y: %d, w: %d, h: %d}\n", 
+                    //             unit.id, unit_x, unit_y, unit.rect.w, unit.rect.h);
 
-                /* Find the name in the hashtable with the correct id and prov id */
-                prov* current = provinces_h[h(unit.prov_visited, PROV_M)];
-                std::string name;
+                    /* Find the name in the hashtable with the correct id and prov id */
+                    prov* current = provinces_h[h(unit.prov_visited, PROV_M)];
+                    std::string name;
 
-                while(current != NULL){
-                    if(current->prov_id == unit.prov_visited){
-                        name = current->prov_name;
+                    while(current != NULL){
+                        if(current->prov_id == unit.prov_visited){
+                            name = current->prov_name;
+                            break;
+                        }
+                        current = current->next;
+                    }
+
+                    if(mouse_x >= unit_x && mouse_x <= unit_x + unit.rect.w &&
+                    mouse_y >= unit_y && mouse_y <= unit_y + unit.rect.h){
+                        // std::printf("Unit %d at province %d, %s clicked\n__________________________\n", unit.id, unit.prov_visited, name.c_str());
+                        selected_unit = &unit;
                         break;
                     }
-                    current = current->next;
+                    if(e.type == SDL_KEYDOWN || e.key.keysym.sym == SDLK_ESCAPE){
+                        selected_unit = NULL;
+                    }
                 }
-
-                if(mouse_x >= unit_x && mouse_x <= unit_x + unit.rect.w &&
-                   mouse_y >= unit_y && mouse_y <= unit_y + unit.rect.h){
-                    // std::printf("Unit %d at province %d, %s clicked\n__________________________\n", unit.id, unit.prov_visited, name.c_str());
-                    selected_unit = &unit;
-                    break;
-                }
-                if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE){
-                    selected_unit = NULL;
-                }
-            }
 
             // highlight_on_click(surface_x, surface_y, click_surface, map); /* FIXME */
+            }else if(e.button.button == SDL_BUTTON_RIGHT){
+                move_unit(click_surface, cam); /* Move the unit, if able, the check if not NULL is in the function */
+            }
         }
     }
 

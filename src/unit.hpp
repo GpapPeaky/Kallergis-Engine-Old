@@ -69,9 +69,17 @@ void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface);
 /**
  * @brief Draws units
  *
- * @param camera transform unit positions
+ * @param camera to transform unit positions
  */
 render_capable draw_units(camera cam);
+
+/**
+ * @brief Moves the selected unit
+ * 
+ * @param surface Surface to check (clickmap)
+ * @param camera to transform unit positions
+ */
+void move_unit(SDL_Surface* surface, camera cam);
 
 /**
  * @brief Highlights the selected unit
