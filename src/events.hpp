@@ -17,6 +17,8 @@
  */
 #define EVENTS
 
+extern const Uint8* state;
+
 /**
  * @brief Handles events
  * 

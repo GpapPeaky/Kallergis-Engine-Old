@@ -199,9 +199,9 @@ void move_unit(SDL_Surface* surface, camera cam){
         SDL_UnlockSurface(surface); /* Unlock the surface after accessing pixels */
 
         return;
-    }else{
-        return;
     }
+
+    return;
 }
 
 render_capable draw_units(camera cam){

@@ -52,6 +52,7 @@ eng_event events_handling(bool& quit, camera& cam){
     /* Initial Values For Camera Velocity */
     float vel_x = 1.0f;
     float vel_y = 1.0f;
+    state = SDL_GetKeyboardState(NULL); /* Get the state of the keyboard */
 
     while(SDL_PollEvent(&e)){
         int sw, sh;
@@ -123,7 +124,7 @@ eng_event events_handling(bool& quit, camera& cam){
                         selected_unit = &unit;
                         break;
                     }
-                    if(e.type == SDL_KEYDOWN || e.key.keysym.sym == SDLK_ESCAPE){
+                    if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE){
                         selected_unit = NULL;
                     }
                 }
