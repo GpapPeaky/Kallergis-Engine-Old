@@ -10,11 +10,37 @@ std::vector<unit> units;
 void init_unit_assets(void){
     SDL_Surface* src = IMG_Load("assets/gfx/units/inf.png");
     if(!src){
-        std::printf("Texture couldn't be created\n");
+        std::printf("Texture couldn't be created l:%d\n", __LINE__);
     }
-
     inf = SDL_CreateTextureFromSurface(renderer, src);
     if(!inf){
+        std::printf("Failed to create texture from surface: %s\n", SDL_GetError());
+    }
+
+    src = IMG_Load("assets/gfx/units/art.png");
+    if(!src){
+        std::printf("Texture couldn't be created l:%d\n", __LINE__);
+    }
+    art = SDL_CreateTextureFromSurface(renderer, src);
+    if(!art){
+        std::printf("Failed to create texture from surface: %s\n", SDL_GetError());
+    }
+
+    src = IMG_Load("assets/gfx/units/arm.png");
+    if(!src){
+        std::printf("Texture couldn't be created l:%d\n", __LINE__);
+    }
+    arm = SDL_CreateTextureFromSurface(renderer, src);
+    if(!arm){
+        std::printf("Failed to create texture from surface: %s\n", SDL_GetError());
+    }
+
+    src = IMG_Load("assets/gfx/units/mot.png");
+    if(!src){
+        std::printf("Texture couldn't be created l:%d\n", __LINE__);
+    }
+    mot = SDL_CreateTextureFromSurface(renderer, src);
+    if(!mot){
         std::printf("Failed to create texture from surface: %s\n", SDL_GetError());
     }
 
@@ -22,7 +48,7 @@ void init_unit_assets(void){
 }
 
 void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface){
-    if(type != INFANTRY && type != ARTILLERY && type != ARMOR && type != MECHANISED){ 
+    if(type != INFANTRY && type != ARTILLERY && type != ARMOR && type != MOTORISED){ 
         std::printf("Incompatible type given in unit creation\n");
         return;
     }
@@ -55,6 +81,39 @@ void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface){
             new_unit.prov_visited = prov_id; /* To know where the troop is */
             break;
         /* WRITE: Complete the function and the interface */
+        case ARTILLERY:
+            new_unit.att = 2;
+            new_unit.def = 0;
+            new_unit.men = 1000;
+            new_unit.type = type;
+            new_unit.img = art;
+            new_unit.rect.w = UNIT_SIZE;
+            new_unit.rect.h = UNIT_SIZE;
+            new_unit.owner_tag = country.tag; /* Copy tag to owner field */
+            new_unit.prov_visited = prov_id; /* To know where the troop is */
+            break;
+        case ARMOR:
+            new_unit.att = 2;
+            new_unit.def = 3;
+            new_unit.men = 1000;
+            new_unit.type = type;
+            new_unit.img = arm;
+            new_unit.rect.w = UNIT_SIZE;
+            new_unit.rect.h = UNIT_SIZE;
+            new_unit.owner_tag = country.tag; /* Copy tag to owner field */
+            new_unit.prov_visited = prov_id; /* To know where the troop is */
+            break;
+        case MOTORISED:
+            new_unit.att = 2;
+            new_unit.def = 2;
+            new_unit.men = 1000;
+            new_unit.type = type;
+            new_unit.img = mot;
+            new_unit.rect.w = UNIT_SIZE;
+            new_unit.rect.h = UNIT_SIZE;
+            new_unit.owner_tag = country.tag; /* Copy tag to owner field */
+            new_unit.prov_visited = prov_id; /* To know where the troop is */
+            break;
         default:
             break;
     }

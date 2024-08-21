@@ -104,8 +104,9 @@ int main(int argv, char** args){
     #endif
 
     create_unit(INFANTRY, get_country("TST"), 2, click_surface);
-    create_unit(INFANTRY, get_country("TST"), 4, click_surface);
-    create_unit(INFANTRY, get_country("TST"), 3, click_surface);
+    create_unit(ARMOR, get_country("TST"), 4, click_surface);
+    create_unit(ARTILLERY, get_country("TST"), 3, click_surface);
+    create_unit(MOTORISED, get_country("TST"), 5, click_surface);
     // /* Wrong prov_id given */
     // create_unit(INFANTRY, get_country("TST"), 36, click_surface); 
 
