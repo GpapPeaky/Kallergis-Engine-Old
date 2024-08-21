@@ -62,9 +62,9 @@ void init_unit_assets(void);
  * @param country For what country
  * @param prov_id In what province to show the unit
  * @param surface what surface to scan for the position
- * @param cam for unit postitions
+ * @param cam for unit postitions and to reduce the time it takes to scan the image
  */
-void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface);
+void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface, camera cam);
 
 /**
  * @brief Draws units

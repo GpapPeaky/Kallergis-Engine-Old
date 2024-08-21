@@ -57,19 +57,20 @@ int main(int argv, char** args){
     #endif
 
     /* Paints the borders inbetween countries and provinces */
-    // mark_borders(map, outter_border_map, win, OUTTER_BORDER_COLOUR_GS);
     mark_inner_borders(click_surface, inner_border_map); /* FIXME: Marks coastlines and rivers as well, when it shouldn't */
     #ifdef MAIN_DBG
         std::printf("Border Generation Completed l:%d\n\n", __LINE__);
     #endif
 
     /* Prints */
-    print_regions();
-    print_countries();
-    print_country_colours();
-    print_provinces();
-    #ifdef MAIN_DBG
-        std::printf("\nPrints Completed l:%d\n\n", __LINE__);
+    #ifdef MAIN_PRINTS
+        print_regions();
+        print_countries();
+        print_country_colours();
+        print_provinces();
+        #ifdef MAIN_DBG
+            std::printf("\nPrints Completed l:%d\n\n", __LINE__);
+        #endif
     #endif
 
     /* IDEA: Might keep this like that... */
@@ -103,20 +104,21 @@ int main(int argv, char** args){
         }
     #endif
 
-    create_unit(INFANTRY, get_country("TST"), 6, click_surface);
-    create_unit(INFANTRY, get_country("TST"), 7, click_surface);
-    create_unit(INFANTRY, get_country("TST"), 8, click_surface);
-    create_unit(INFANTRY, get_country("TST"), 9, click_surface);
-    create_unit(INFANTRY, get_country("TST"), 1, click_surface);
-    create_unit(INFANTRY, get_country("TST"), 2, click_surface);
-    create_unit(INFANTRY, get_country("TST"), 10, click_surface);
-    create_unit(INFANTRY, get_country("TST"), 11, click_surface);
-    create_unit(INFANTRY, get_country("TST"), 12, click_surface);
-    create_unit(ARMOR, get_country("TST"), 4, click_surface);
-    create_unit(ARTILLERY, get_country("TST"), 3, click_surface);
-    create_unit(MOTORISED, get_country("TST"), 5, click_surface);
+    /* Quite Expensive */
+    create_unit(INFANTRY, get_country("TST"), 6, click_surface, cam);
+    create_unit(INFANTRY, get_country("TST"), 7, click_surface, cam);
+    create_unit(INFANTRY, get_country("TST"), 8, click_surface, cam);
+    create_unit(INFANTRY, get_country("TST"), 9, click_surface, cam);
+    create_unit(INFANTRY, get_country("TST"), 1, click_surface, cam);
+    create_unit(INFANTRY, get_country("TST"), 2, click_surface, cam);
+    create_unit(INFANTRY, get_country("TST"), 10, click_surface, cam);
+    create_unit(INFANTRY, get_country("TST"), 11, click_surface, cam);
+    create_unit(INFANTRY, get_country("TST"), 12, click_surface, cam);
+    create_unit(ARMOR, get_country("TST"), 4, click_surface, cam);
+    create_unit(ARTILLERY, get_country("TST"), 3, click_surface, cam);
+    create_unit(MOTORISED, get_country("TST"), 5, click_surface, cam);
     // /* Wrong prov_id given */
-    create_unit(INFANTRY, get_country("TST"), 36, click_surface); 
+    create_unit(INFANTRY, get_country("TST"), 36, click_surface, cam); 
 
     /* IT APPEARS THAT THE (CLEAR -> RENDERCOPY -> PRESENT) METHOD IS GPU ACCELERATED... */
 

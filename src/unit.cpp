@@ -47,7 +47,7 @@ void init_unit_assets(void){
     return;
 }
 
-void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface){
+void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface, camera cam){
     if(type != INFANTRY && type != ARTILLERY && type != ARMOR && type != MOTORISED){ 
         std::printf("Incompatible type given in unit creation\n");
         return;
@@ -137,14 +137,14 @@ void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface){
         return;
     }
 
-    SDL_LockSurface(surface); // Lock the surface before accessing pixels
+    SDL_LockSurface(surface);
 
     int bpp = surface->format->BytesPerPixel;
     Uint8* pixels = (Uint8*)surface->pixels;
     int count = 0, sum_x = 0, sum_y = 0; /* Number of pixels */
 
-    for(int i = 0 ; i < surface->w ; i++){
-        for(int j = 0 ; j < surface->h ; j++){
+    for(int i = cam.rect.x ; i < cam.rect.w + cam.rect.x ; i++){
+        for(int j = cam.rect.y ; j < cam.rect.h + cam.rect.y ; j++){
             Uint32 pixel = 0;
             memcpy(&pixel, pixels + j * surface->pitch + i * bpp, bpp);
 
