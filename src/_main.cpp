@@ -103,12 +103,20 @@ int main(int argv, char** args){
         }
     #endif
 
+    create_unit(INFANTRY, get_country("TST"), 6, click_surface);
+    create_unit(INFANTRY, get_country("TST"), 7, click_surface);
+    create_unit(INFANTRY, get_country("TST"), 8, click_surface);
+    create_unit(INFANTRY, get_country("TST"), 9, click_surface);
+    create_unit(INFANTRY, get_country("TST"), 1, click_surface);
     create_unit(INFANTRY, get_country("TST"), 2, click_surface);
+    create_unit(INFANTRY, get_country("TST"), 10, click_surface);
+    create_unit(INFANTRY, get_country("TST"), 11, click_surface);
+    create_unit(INFANTRY, get_country("TST"), 12, click_surface);
     create_unit(ARMOR, get_country("TST"), 4, click_surface);
     create_unit(ARTILLERY, get_country("TST"), 3, click_surface);
     create_unit(MOTORISED, get_country("TST"), 5, click_surface);
     // /* Wrong prov_id given */
-    // create_unit(INFANTRY, get_country("TST"), 36, click_surface); 
+    create_unit(INFANTRY, get_country("TST"), 36, click_surface); 
 
     /* IT APPEARS THAT THE (CLEAR -> RENDERCOPY -> PRESENT) METHOD IS GPU ACCELERATED... */
 
@@ -122,27 +130,7 @@ int main(int argv, char** args){
         
         SDL_RenderPresent(renderer);
 
-        // generate_countries_surfaces(map, win); /* Lags the engine ,call it if a province is annexed */
-        // SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0)); /* Clean Canvas */
-        // render_to_screen(map, screen, cam);
-        // if(cam.zoom > 1.7){
-        //     render_to_screen(inner_border_map, screen, cam);
-        // }
-        // render_to_screen(outter_border_map, screen, cam);
-        // if(cam.zoom > 1.0){
-        //     draw_units(screen, cam);
-        // }
-        // render_to_screen(highlight_map, screen, cam); /* FIXME: Highlight map not showing */
-        // render_to_screen(click_map, screen, cam);
-        // SDL_UpperBlitScaled(click_map, &cam.rect, screen, NULL);
-        // render_to_screen(map, screen, cam); /* Renders the .bmp by blitting it onto the screen */
-        // render_on_mouse_hover(); /* Special Event */
-
-        // #ifdef WIN_UPDATE
-        //     SDL_UpdateWindowSurface(win);
-        //     /* If any change is done to the window surface (all the surfaces mashed together), it is changed and updated so that it is shown */
-        //     /* It clatters due to the {CLEAR -> RENDERCOPY -> PRESENT} method */
-        // #endif
+        // generate_countries_surfaces(map, win); /* Lags the engine ,call it if a region is annexed */
 
         /* Frame rate cap at 60 fps (60 FPS means 16 microseconds per frame (or per loop, since one counts as one frame)) */
     }

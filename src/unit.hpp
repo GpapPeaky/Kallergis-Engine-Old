@@ -78,6 +78,10 @@ render_capable draw_units(camera cam);
  * 
  * @param surface Surface to check (clickmap)
  * @param camera to transform unit positions
+ * 
+ * @warning If A provinece is too big and a part of it is outside of the camera view when clicked, the unit will move on the middle of the PART of the province the camera views
+ *          . For this reason, provinces should be small, and have to either be whole onto the screen, or not at all. If a province is half shown, even if it is small, the unit
+ *          will move almost to the center, with a small margin of error.
  */
 void move_unit(SDL_Surface* surface, camera cam);
 
