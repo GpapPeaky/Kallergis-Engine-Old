@@ -21,7 +21,7 @@ typedef enum unit_types{
     INFANTRY = 0,
     ARTILLERY = 1,
     ARMOR = 2,
-    MECHANISED = 3
+    MOTORISED = 3
 }unit_t;
 
 /**
@@ -47,7 +47,7 @@ extern unit* selected_unit;
 extern SDL_Texture* inf;
 extern SDL_Texture* art;
 extern SDL_Texture* arm;
-extern SDL_Texture* mec;
+extern SDL_Texture* mot;
 extern std::vector<unit> units;
 
 /**

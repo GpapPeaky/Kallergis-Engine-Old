@@ -4,7 +4,7 @@ unit* selected_unit = NULL;
 SDL_Texture* inf;
 SDL_Texture* art;
 SDL_Texture* arm;
-SDL_Texture* mec;
+SDL_Texture* mot;
 std::vector<unit> units;
 
 void init_unit_assets(void){
