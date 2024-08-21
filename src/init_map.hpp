@@ -1,3 +1,4 @@
+#include "economy.hpp"
 #include "province.hpp"
 #include "regions.hpp"
 #include "country.hpp"

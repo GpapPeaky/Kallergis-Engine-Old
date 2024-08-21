@@ -1,52 +1,52 @@
-# "PROV_NAME" : { R, G, B } (ALPHA REMAINS TO 255) : REG_ID
+# "PROV_NAME" : { R, G, B } (ALPHA REMAINS TO 255) : REG_ID : POPULATION : GOOD PRODUCED : { ADM, MIL, PROD } : INFRASTRUCTURE LEVEL
 # PROV_ID IS GENERATED WHEN EACH PROVINCE IS PARSED 
 # 0 0 0 WILL CONSIST OF OCEAN TILES, IMPASSABLE 
 # FOLLOW THE EXACT SYNTAX OR ELSE THE PROGRAM WON'T WORK ACCORDINGLY
 
-"Messabelies" : { 255, 10, 10 } : 1
-"Saint John" : { 10, 255, 10 } : 1
-"Saint Catherine" : { 10, 10, 255 } : 1
-"Estavromenos" : { 255, 100, 50 } : 1
-"Gazi" : { 255, 50, 50 } : 1
-"Voutes" : { 255, 100, 100 } : 1
-"Kokkini" : { 255, 150, 150 } : 1
-"Alikarnasos" : { 255, 150, 100 } : 1
-"Linoperamata" : { 255, 200, 150 } : 1
-"62 Martyrs" : { 255, 10, 255 } : 1
-"Herakleion" : { 10, 255, 255 } : 1
-"Palaiokastro" : { 20, 100, 10 } : 1
-"Ammoudi" : { 210, 50, 10 } : 1
-"Lygaria" : { 20, 50, 132 } : 1
-"Saint Pelagia" : { 20, 163, 132 } : 1
-"Knossos" : { 85, 85, 132 } : 1
-"Tylissos" : { 245, 112, 10 } : 1
-"Gournes" : { 109, 112, 120 } : 1
-"Savvathianoi" : { 47, 91, 132 } : 1
-"Kapetanaki Metoxi" : { 221, 91, 132 } : 1
-"Pantanassa" : { 82, 91, 132 } : 1
-"Almiros" : { 70, 200, 150 } : 1
-"Rogdia" : { 20, 170, 10 } : 1
-"Mononautis" : { 198, 69, 162 } : 1
-"Koukistra" : { 82, 50, 132 } : 1
-"Tsigkounia" : { 82, 116, 132 } : 1
-"Monompela" : { 177, 116, 132 } : 1
-"Galanos Volakas" : { 175, 8, 5 } : 1
+"Messabelies" : { 255, 10, 10 } : 1 : 15000 : COAL : { 3, 2, 5 } : 2
+"Saint John" : { 10, 255, 10 } : 1 : 23000 : IRON : { 1, 1, 3 } : 1
+"Saint Catherine" : { 10, 10, 255 } : 1 : 5000 : WOOD : { 2, 1, 1 } : 1
+"Estavromenos" : { 255, 100, 50 } : 1 : 3000 : FOOD : { 1, 1, 2 } : 2
+"Gazi" : { 255, 50, 50 } : 1 : 10000 : COPPER : { 2, 3, 2 } : 2
+"Voutes" : { 255, 100, 100 } : 1 : 2000 : WOOD : { 1, 1, 1 } : 1
+"Kokkini" : { 255, 150, 150 } : 1 : 3000 : GEMS : { 1, 1, 6 } : 2 
+"Alikarnasos" : { 255, 150, 100 } : 1 : 5000 : OIL : { 2, 1, 3 } : 1
+"Linoperamata" : { 255, 200, 150 } : 1 : 1000 : LEATHER : { 1, 1, 2 } : 1
+"62 Martyrs" : { 255, 10, 255 } : 1 : 45000 : PAPER : { 2, 3, 4 } : 3
+"Herakleion" : { 10, 255, 255 } : 1 : 120000 : ARMS : { 15, 9, 10 } : 4
+"Palaiokastro" : { 20, 100, 10 } : 1 : 6000 : FISH : { 2, 3, 1 } : 1
+"Ammoudi" : { 210, 50, 10 } : 1 : 1000 : FISH : { 1, 1, 2 } : 1 
+"Lygaria" : { 20, 50, 132 } : 1 : 2000 : FISH : { 1, 1, 2 } : 1
+"Saint Pelagia" : { 20, 163, 132 } : 1 : 2000 : WOOD : { 2, 1, 2 } : 1
+"Knossos" : { 85, 85, 132 } : 1 : 3000 : STONE : { 1, 2, 4 } : 2
+"Tylissos" : { 245, 112, 10 } : 1 : 2000 : STONE : { 2, 5, 1 } : 2
+"Gournes" : { 109, 112, 120 } : 1 : 1000 : STONE : { 1, 1, 1 } : 2
+"Savvathianoi" : { 47, 91, 132 } : 1 : 2000 : WOOD : { 2, 1, 1 } : 1
+"Kapetanaki Metoxi" : { 221, 91, 132 } : 1 : 1000 : COAL : { 1, 1, 1 } : 1
+"Pantanassa" : { 82, 91, 132 } : 1 : 3000 : GEMS : { 1, 2, 2 } : 1
+"Almiros" : { 70, 200, 150 } : 1 : 2000 : GLASS : { 1, 1, 3 } : 1
+"Rogdia" : { 20, 170, 10 } : 1 : 4000 : WOOD : { 2, 3, 5 } : 2
+"Mononautis" : { 198, 69, 162 } : 1 : 3000 : GLASS : { 1, 1, 3 } : 2
+"Koukistra" : { 82, 50, 132 } : 1 : 1000 : WOOD : { 1, 1, 1 } : 1
+"Tsigkounia" : { 82, 116, 132 } : 1 : 1000 : GUNPOWDER : { 1, 1, 4 } : 2
+"Monompela" : { 177, 116, 132 } : 1 : 1000 : FOOD : { 1, 1, 2 } : 1
+"Galanos Volakas" : { 175, 8, 5 } : 1 : 2000 : LEATHER : { 2, 2, 2 } : 2
 
-"Herakleion Demos" : { 105, 200, 95 } : 2
-"Saint Nickolas Demos" : { 200, 200, 95 } : 2
-"Rethemnon Demos" : { 200, 100, 95 } : 2
+"Herakleion Demos" : { 105, 200, 95 } : 2 : 120000 : WOOD : { 5, 5, 5 } : 3
+"Saint Nickolas Demos" : { 200, 200, 95 } : 2 : 55000 : IRON : { 4, 3, 4 } : 2
+"Rethemnon Demos" : { 200, 100, 95 } : 2 : 75000 : GOLD : { 3, 5, 15 } : 3
 
-"Timpaki" : { 109, 78, 82 } : 3
-"Viannos" : { 109, 151, 151 } : 3
-"Southern Coast" : { 150, 70, 70 } : 3
-"North Timpaki Coast" : { 193, 159, 140 } : 3
+"Timpaki" : { 109, 78, 82 } : 3 : 2000 : ARMS : { 3, 2, 5 } : 2
+"Viannos" : { 109, 151, 151 } : 3 : 4000 : ARMS : { 5, 14, 26 } : 3
+"Southern Coast" : { 150, 70, 70 } : 3 : 1000 : GLASS : { 4, 2, 2 } : 1
+"North Timpaki Coast" : { 193, 159, 140 } : 3 : 10000 : FOOD : { 5, 2, 2 } : 1
 
-"Central Crete" : { 109, 89, 140 } : 4
+"Central Crete" : { 109, 89, 140 } : 4 : 5000 : WOOD : { 3, 3, 2 } : 2
 
-"Chania Demos" : { 1, 72, 160 } : 5
+"Chania Demos" : { 1, 72, 160 } : 5 : 57000 : WOOD : { 5, 2, 5 } : 2
 
-"South-Central Crete" : { 201, 163, 140 } : 6
+"South-Central Crete" : { 201, 163, 140 } : 6 : 4000 : FABRIC : { 1, 3, 5 } : 2
 
 # Creating a new province and a new region
 # We also need to edit the provinces bitmap to include the colour we added
-"Titoyannis Papadakis Ksrgw" : { 230, 231, 232 } : 7
+"Titoyannis Papadakis Ksrgw" : { 230, 231, 232 } : 7 : 4000 : ARMS : { 1, 4, 5 } : 2

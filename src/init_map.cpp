@@ -14,7 +14,8 @@ err_capable prov_to_reg(const std::string fname){
     }
 
     std::string line;
-    std::regex pattern("\"([^\"]+)\"\\s*:\\s*\\{\\s*(\\d+),\\s*(\\d+),\\s*(\\d+)\\s*\\}\\s*:\\s*(\\d+)"); /* Regex pattern */
+    /* REGEX PATTERN */
+    std::regex pattern("\"([^\"]+)\"\\s*:\\s*\\{\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*,\\s*(\\d{1,3})\\s*\\}\\s*:\\s*(\\d+)\\s*:\\s*(\\d+)\\s*:\\s*(COAL|IRON|STEEL|FABRIC|WOOD|ARMS|OIL|RUBBER|GUNPOWDER|GOLD|COPPER|LEATHER|FISH|GLASS|GEMS|STONE|PAPER|FOOD)\\s*:\\s*\\{\\s*(\\d+)\\s*,\\s*(\\d+)\\s*,\\s*(\\d+)\\s*\\}\\s*:\\s*(\\d+)");
 
     int i = 0;
     int line_n = 0;
@@ -30,11 +31,16 @@ err_capable prov_to_reg(const std::string fname){
         if(std::regex_search(line, matches, pattern)){
             i++;
             std::string prov_name = matches[1];
-            int R = std::stoi(matches[2]);
-            int G = std::stoi(matches[3]);
-            int B = std::stoi(matches[4]);
-            int region_id = std::stoi(matches[5]);
-
+            int R = std::stoi(matches[2].str());
+            int G = std::stoi(matches[3].str());
+            int B = std::stoi(matches[4].str());
+            int region_id = std::stoi(matches[5].str());
+            uint population = std::stoul(matches[6].str());
+            std::string good_produced_str = matches[7].str();
+            uint admn_dev = std::stoul(matches[8].str());
+            uint mil_dev = std::stoul(matches[9].str());
+            uint prod_dev = std::stoul(matches[10].str());
+            uint infra_level = std::stoul(matches[11].str());
 
             /* Create a new province by allocating memory */
 
@@ -47,6 +53,9 @@ err_capable prov_to_reg(const std::string fname){
                 return FAIL;
             }
 
+            auto it = product_map.find(good_produced_str);
+            product good_produced = it->second;
+
             new_prov->prov_name = prov_name;
             new_prov->prov_colour.a = ALPHA;
             new_prov->prov_colour.r = R;
@@ -54,6 +63,12 @@ err_capable prov_to_reg(const std::string fname){
             new_prov->prov_colour.b = B;
             new_prov->prov_id = i; /* Unique id for each province */
             new_prov->region = region_id;
+            new_prov->province_economy.development.admin = admn_dev;
+            new_prov->province_economy.development.mil = mil_dev;
+            new_prov->province_economy.development.prod = prod_dev;
+            new_prov->province_economy.local_goods.population = population;
+            new_prov->province_economy.local_goods.good = good_produced;
+            new_prov->province_economy.infrastructure = infra_level;
             new_prov->next = NULL;
 
             ulint hidx = h(new_prov->prov_id, PROV_M);
@@ -78,9 +93,10 @@ err_capable prov_to_reg(const std::string fname){
             }
 
             /* Each province is also saved here, and in the regions vector */
+            regions[region_id].pops += new_prov->province_economy.local_goods.population;
             regions[region_id].reg_provs.push_back(*new_prov); /* Regions will remain in vectors for now... */
         }else{
-            std::printf("Failed to parse line: %s", line);
+            std::printf("Failed to parse line: %s\n", line);
             file.close();
             return FAIL;
         }
@@ -197,7 +213,7 @@ SDL_Surface* resize_bitmap(SDL_Surface* map_surface, float w, float h){
 
 void print_regions(void){
     for(const auto& reg : regions){
-        std::printf("REG: %s ID - %d\n", reg.reg_name.c_str(), reg.reg_id);
+        std::printf("REG: %s ID - %d - POP: %d\n", reg.reg_name.c_str(), reg.reg_id, reg.pops);
         for (const auto& prov : reg.reg_provs){
             std::printf("   PROV: %s,\tRGB, <%d,%d,%d>,\tID: %d\n", prov.prov_name.c_str(), prov.prov_colour.r, prov.prov_colour.b, prov.prov_colour.g, prov.prov_id);
         }
@@ -225,11 +241,13 @@ void print_provinces(void){
     for(int i = 0 ; i < prov_hash_s ; i++){
         prov* current = provinces_h[h(i, PROV_M)];
         while(current != NULL){
-            printf(" -PROV: %s,\tRGB <%d,%d,%d>,\tID %d,\tHASH_ID %d\n", current->prov_name.c_str(), current->prov_colour.r, current->prov_colour.g, current->prov_colour.b, current->prov_id, i);
+            printf(" -PROV: %s,\tRGB <%d,%d,%d>,\tID %d,\tHASH_ID %d\n",current->prov_name.c_str(), current->prov_colour.r, current->prov_colour.g, current->prov_colour.b, current->prov_id, i);
+            printf("ECO: adm: %d mil: %d prd: %d | pops: %d| infr: %d -> Income: %.2f, Local Production: %s %.2f\n", current->province_economy.development.admin, current->province_economy.development.mil, current->province_economy.development.prod,
+            current->province_economy.local_goods.population, current->province_economy.infrastructure, I(current->province_economy), goods_names[current->province_economy.local_goods.good], GP(current->province_economy.local_goods));
+            printf("___________________________________________________________________________________________\n");
             current = current->next;
         }
     }
 
     return;
 }
-

@@ -3,6 +3,7 @@
 #include <vector>
 #include <SDL2/SDL.h>
 #include "../auxf/definitions.aux"
+#include "economy.hpp"
 
 #ifndef PROV
 /**
@@ -21,6 +22,7 @@ typedef struct prov{
     uint region;
     std::string owner_tag;
     SDL_Color prov_colour;
+    eco province_economy;
     std::vector<struct prov> prov_con; /* Province connections */
     struct prov* next;
 }prov;

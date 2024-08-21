@@ -104,22 +104,9 @@ int main(int argv, char** args){
         }
     #endif
 
-    /* Quite Expensive */
     /* TODO: Start Adding UI for unit creation, Add a units.udf file for the where the first units are created */
-    create_unit(INFANTRY, get_country("TST"), 6, click_surface, cam);
-    create_unit(INFANTRY, get_country("TST"), 7, click_surface, cam);
-    create_unit(INFANTRY, get_country("TST"), 8, click_surface, cam);
-    create_unit(INFANTRY, get_country("TST"), 9, click_surface, cam);
-    create_unit(INFANTRY, get_country("TST"), 1, click_surface, cam);
-    create_unit(INFANTRY, get_country("TST"), 2, click_surface, cam);
-    create_unit(INFANTRY, get_country("TST"), 10, click_surface, cam);
-    create_unit(INFANTRY, get_country("TST"), 11, click_surface, cam);
-    create_unit(INFANTRY, get_country("TST"), 12, click_surface, cam);
-    create_unit(ARMOR, get_country("TST"), 4, click_surface, cam);
-    create_unit(ARTILLERY, get_country("TST"), 3, click_surface, cam);
-    create_unit(MOTORISED, get_country("TST"), 5, click_surface, cam);
-    // /* Wrong prov_id given */
-    create_unit(INFANTRY, get_country("TST"), 36, click_surface, cam); 
+
+    create_unit(ARTILLERY, get_country("TST"), 1, click_surface, cam);
 
     /* IT APPEARS THAT THE (CLEAR -> RENDERCOPY -> PRESENT) METHOD IS GPU ACCELERATED... */
 
