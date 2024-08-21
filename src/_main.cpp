@@ -105,6 +105,7 @@ int main(int argv, char** args){
     #endif
 
     /* Quite Expensive */
+    /* TODO: Start Adding UI for unit creation, Add a units.udf file for the where the first units are created */
     create_unit(INFANTRY, get_country("TST"), 6, click_surface, cam);
     create_unit(INFANTRY, get_country("TST"), 7, click_surface, cam);
     create_unit(INFANTRY, get_country("TST"), 8, click_surface, cam);
