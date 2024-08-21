@@ -44,6 +44,7 @@ eng_event highlight_on_click(int x, int y, SDL_Surface* src, SDL_Texture* dst){
 }
 
 eng_event pan_map(int d_x, int d_y){
+    /* WRITE */
     return;
 }
 

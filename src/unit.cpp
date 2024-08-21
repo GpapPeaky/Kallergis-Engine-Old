@@ -150,6 +150,11 @@ void move_unit(SDL_Surface* surface, camera cam){
         Uint8 r, g, b;
         SDL_GetRGB(pixel, surface->format, &r, &g, &b);
 
+        if(r == 0 && g == 0 && b == 0){
+            /* If you click at the sea or river, nothing happens... */
+            return;
+        }
+
         int count = 0, sum_x = 0, sum_y = 0; /* Number of pixels */
 
         /* PARSE ONLY WHAT THE CAMERA SEES -> INCREASE IN SPEED */
