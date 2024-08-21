@@ -106,7 +106,7 @@ int main(int argv, char** args){
 
     /* TODO: Start Adding UI for unit creation, Add a units.udf file for the where the first units are created */
 
-    create_unit(ARTILLERY, get_country("TST"), 1, click_surface, cam);
+    create_unit(MOTORISED, get_country("TST"), 1, click_surface, cam);
 
     /* IT APPEARS THAT THE (CLEAR -> RENDERCOPY -> PRESENT) METHOD IS GPU ACCELERATED... */
 
