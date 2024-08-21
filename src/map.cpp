@@ -6,7 +6,7 @@ SDL_Texture* map; /* Main Map */
 SDL_Texture* inner_border_map;
 SDL_Texture* outter_border_map;
 
-std::vector<SDL_Texture*> textures;
+std::vector<SDL_Texture*> textures; /* Map Textures */
 
 err_capable init_map_textures(void){
 

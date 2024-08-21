@@ -119,6 +119,7 @@ int main(int argv, char** args){
         render_map(renderer, textures, cam);
         draw_units(cam);
         events_handling(quit, cam);
+        
         SDL_RenderPresent(renderer);
 
         // generate_countries_surfaces(map, win); /* Lags the engine ,call it if a province is annexed */
