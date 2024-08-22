@@ -5,6 +5,7 @@ SDL_Texture* inf;
 SDL_Texture* art;
 SDL_Texture* arm;
 SDL_Texture* mot;
+/* TODO: add the units vector onto the country struct, to be able to access it faster */
 std::vector<unit> units;
 
 void init_unit_assets(void){
@@ -80,7 +81,6 @@ void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface, ca
             new_unit.owner_tag = country.tag; /* Copy tag to owner field */
             new_unit.prov_visited = prov_id; /* To know where the troop is */
             break;
-        /* WRITE: Complete the function and the interface */
         case ARTILLERY:
             new_unit.att = 2;
             new_unit.def = 0;
@@ -178,6 +178,10 @@ void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface, ca
     return;
 }
 
+/* FIXME: If A provinece is too big and a part of it is outside of the camera view when clicked, the unit will move on the middle of the PART of the province the camera views
+. For this reason, provinces should be small, and have to either be whole onto the screen, or not at all. If a province is half shown, even if it is small, the unit
+will move almost to the center, with a small margin of error. */
+/* FIXME: Zooming out to much also breaks the unit move event, (due to the camera), and crashes the program */
 void move_unit(SDL_Surface* surface, camera cam){
     if(selected_unit){
         int mouse_x, mouse_y;
@@ -251,7 +255,7 @@ void move_unit(SDL_Surface* surface, camera cam){
             for(int i = 0 ; i < prov_hash_s ; i++){
                 prov* current = provinces_h[i];
                 while(current != NULL){
-                    if(current->prov_colour.r == b && current->prov_colour.g == g && current->prov_colour.b == r){ /* HUH? Little endian */
+                    if(current->prov_colour.r == b && current->prov_colour.g == g && current->prov_colour.b == r){ /* HUH? Little endian ??? */
                         selected_unit->prov_visited = current->prov_id;
                         break;
                     }

@@ -73,7 +73,6 @@ int main(int argv, char** args){
         #endif
     #endif
 
-    /* IDEA: Might keep this like that... */
     #ifdef MAIN_MENU
         /* TODO: refactor to a function ,not raw code in main! */
         bool menu_box = false;
