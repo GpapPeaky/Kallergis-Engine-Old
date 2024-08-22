@@ -9,21 +9,35 @@ eng_event info_on_hover(void){
     return;
 }
 
-eng_event highlight_on_click(int x, int y, SDL_Surface* src, SDL_Texture* dst){
-    Uint8 r, g, b;
+eng_event highlight_on_click(int x, int y, SDL_Surface* src, SDL_Texture* dst, camera cam){
+    int world_x = static_cast<int>(x / cam.zoom + cam.rect.x);
+    int world_y = static_cast<int>(y / cam.zoom + cam.rect.y);
 
-    /* Bounds check */
-    if(x < 0 || x >= src->w || y < 0 || y >= src->h){
-        return;
-    }
-
+    /* TODO: Make it so that when a unit is clicked, no province print is shown */
+    
     int src_bpp = src->format->BytesPerPixel;
-    int index = y * src->pitch + x * src_bpp; /* bpp usually 3 or 4 */
     Uint8* pixels = (Uint8*)src->pixels;
 
-    b = ((Uint8*)pixels)[index + 0];
-    g = ((Uint8*)pixels)[index + 1];
-    r = ((Uint8*)pixels)[index + 2];
+    /* Pixel at mouse position */
+    Uint32 pixel = 0;
+    Uint8* pixel_ptr = pixels + (world_y * src->pitch) + (world_x * src_bpp);
+
+    SDL_LockSurface(src);
+
+    switch(src_bpp){
+        case 3: /* 24-bit format (little-endian) */
+            pixel = (pixel_ptr[0] << 16) | (pixel_ptr[1] << 8) | pixel_ptr[2];
+            break;
+        case 4: /* 32-bit format */
+            pixel = *(Uint32*)pixel_ptr;
+            break;
+        default:
+            std::printf("Unsupported pixel format\n");
+            SDL_UnlockSurface(src);
+            return;
+    }
+    Uint8 r, g, b;
+    SDL_GetRGB(pixel, src->format, &r, &g, &b);
 
     SDL_Color clicked = { r, g, b, ALPHA };
     int id;
@@ -31,8 +45,10 @@ eng_event highlight_on_click(int x, int y, SDL_Surface* src, SDL_Texture* dst){
     for(int i = 0 ; i < prov_hash_s ; i++){
         prov* current = provinces_h[h(i, PROV_M)];
         while(current != NULL){
-            if(current->prov_colour.r == clicked.r && current->prov_colour.g == clicked.g && current->prov_colour.b == clicked.b){
-                std::printf("Clicked Province: %s - <%d, %d, %d>\n", current->prov_name.c_str(), current->prov_colour.r, current->prov_colour.g, current->prov_colour.b);
+            if(current->prov_colour.r == clicked.b && current->prov_colour.g == clicked.g && current->prov_colour.b == clicked.r){ /* HUH? Little Endian ??? */
+                std::printf("Clicked Province: %s - <%d, %d, %d>  Dev: <%d %d %d> Infr: %d Goods: %s Pops: %d\n", current->prov_name.c_str(), current->prov_colour.r, current->prov_colour.g, current->prov_colour.b, 
+                current->province_economy.development.admin, current->province_economy.development.mil, current->province_economy.development.prod,
+                current->province_economy.infrastructure, goods_names[current->province_economy.local_goods.good], current->province_economy.local_goods.population);
                 id = current->prov_id;
                 return;
             }
@@ -130,7 +146,7 @@ eng_event events_handling(bool& quit, camera& cam){
                     }
                 }
 
-            // highlight_on_click(surface_x, surface_y, click_surface, map); /* FIXME */
+            highlight_on_click(mouse_x, mouse_y, click_surface, map, cam); /* FIXME */
             }else if(e.button.button == SDL_BUTTON_RIGHT){
                 move_unit(click_surface, cam); /* Move the unit, if able, the check if not NULL is in the function */
             }
