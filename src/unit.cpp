@@ -8,44 +8,52 @@ SDL_Texture* mot;
 /* TODO: add the units vector onto the country struct, to be able to access it faster */
 std::vector<unit> units;
 
-void init_unit_assets(void){
+err_capable init_unit_assets(void){
     SDL_Surface* src = IMG_Load("assets/gfx/units/inf.png");
     if(!src){
         std::printf("Texture couldn't be created l:%d\n", __LINE__);
+        return FAIL;
     }
     inf = SDL_CreateTextureFromSurface(renderer, src);
     if(!inf){
         std::printf("Failed to create texture from surface: %s\n", SDL_GetError());
+        return FAIL;
     }
 
     src = IMG_Load("assets/gfx/units/art.png");
     if(!src){
         std::printf("Texture couldn't be created l:%d\n", __LINE__);
+        return FAIL;
     }
     art = SDL_CreateTextureFromSurface(renderer, src);
     if(!art){
         std::printf("Failed to create texture from surface: %s\n", SDL_GetError());
+        return FAIL;
     }
 
     src = IMG_Load("assets/gfx/units/arm.png");
     if(!src){
         std::printf("Texture couldn't be created l:%d\n", __LINE__);
+        return FAIL;
     }
     arm = SDL_CreateTextureFromSurface(renderer, src);
     if(!arm){
         std::printf("Failed to create texture from surface: %s\n", SDL_GetError());
+        return FAIL;
     }
 
     src = IMG_Load("assets/gfx/units/mot.png");
     if(!src){
         std::printf("Texture couldn't be created l:%d\n", __LINE__);
+        return FAIL;
     }
     mot = SDL_CreateTextureFromSurface(renderer, src);
     if(!mot){
         std::printf("Failed to create texture from surface: %s\n", SDL_GetError());
+        return FAIL;
     }
 
-    return;
+    return SUCCESS;
 }
 
 void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface, camera cam){

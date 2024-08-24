@@ -21,6 +21,8 @@ int main(int argv, char** args){
     init_map_textures();
     /* Initialise the unit graphic assets */
     init_unit_assets();
+    /* Initialise goods graphic assets */
+    init_goods();
 
     #ifdef MAIN_DBG
         std::printf("\nInit Functions Completed l:%d\n", __LINE__);
@@ -115,6 +117,7 @@ int main(int argv, char** args){
         /* TODO: Refactor Renditions, into one function */
         render_map(renderer, textures, cam);
         draw_units(cam);
+        render_goods_bar();
         events_handling(quit, cam);
         
         SDL_RenderPresent(renderer);

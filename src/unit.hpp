@@ -52,8 +52,10 @@ extern std::vector<unit> units;
 
 /**
  * @brief Initialises the textures for each unit type
+ * 
+ * @returns 1 on failure, 0 on success
  */
-void init_unit_assets(void);
+err_capable init_unit_assets(void);
 
 /**
  * @brief Creates a unit
