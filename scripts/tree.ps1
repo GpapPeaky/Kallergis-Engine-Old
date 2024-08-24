@@ -9,7 +9,7 @@ function pathlist {
 
     foreach ($item in $items) {
         # If it's a file with .cpp, .hpp, or .exe extension
-        if (-not $item.PSIsContainer -and $item.Name -match '\.(cpp|hpp|exe|mdf|ndf|cdf|bmp)$') {
+        if (-not $item.PSIsContainer -and $item.Name -match '\.(cpp|hpp|exe|mdf|ndf|cdf|bmp|png)$') {
             Write-Output ("{0}{1}" -f ('    ' * $IndentLevel), $item.Name)
         }
         # If it's a directory
