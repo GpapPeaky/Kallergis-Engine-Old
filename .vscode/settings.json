@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.mdf": "py",
         "*.aux": "cpp",
         "vector": "cpp",
         "algorithm": "cpp",
