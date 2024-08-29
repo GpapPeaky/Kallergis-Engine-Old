@@ -158,13 +158,13 @@ eng_event events_handling(bool& quit, camera& cam){
 
     /* Unordered map for non-serial movement */
     if(state[SDL_SCANCODE_W]){
-        move_y -= 1.0f / cam.zoom;
+        move_y -= CAMERA_MOVE_SPEED;
     }else if(state[SDL_SCANCODE_S]){
-        move_y += 1.0f / cam.zoom;
+        move_y += CAMERA_MOVE_SPEED;
     }else if(state[SDL_SCANCODE_A]){
-        move_x -= 1.0f / cam.zoom;
+        move_x -= CAMERA_MOVE_SPEED;
     }else if(state[SDL_SCANCODE_D]){
-        move_x += 1.0f / cam.zoom;
+        move_x += CAMERA_MOVE_SPEED;
     }
 
     /* WARN: Problematic zoom at 8.0f cam.zoom */
@@ -177,8 +177,8 @@ eng_event events_handling(bool& quit, camera& cam){
     }
 
     /* Apply acceleration to direction */
-    vel_x += static_cast<float>((move_x * ACC / cam.zoom) + 0.4f);
-    vel_y += static_cast<float>((move_y * ACC / cam.zoom) + 0.4f);
+    vel_x += static_cast<float>((move_x * ACC) + 0.01f);
+    vel_y += static_cast<float>((move_y * ACC) + 0.01f);
 
     /* Calculate time elapsed */
     auto current_time = std::chrono::steady_clock::now();

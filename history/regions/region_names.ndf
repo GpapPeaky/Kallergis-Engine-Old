@@ -1,11 +1,6 @@
 # REG_ID : REG_NAME
 
-1 : "Herakleion City"
-2 : "Demos"
-3 : "South Crete"
-4 : "Central Crete"
-5 : "Chania"
-6 : "South-Central Crete"
-
-# Adding a name to that region
-7 : "H panagia ths panagias"
+1 : "Herakleion"
+2 : "Rethemnon"
+3 : "Chania"
+4 : "Saint Nickolas"

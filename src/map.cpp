@@ -21,12 +21,12 @@ err_capable init_map_textures(void){
         std::printf("Failed to set blend mode: %s\n", SDL_GetError());
         return FAIL;
     }
-    click_surface = SDL_LoadBMP("history/map/provinces.bmp");
+    click_surface = SDL_LoadBMP("history/map/prov.bmp");
     if(!click_surface){
         std::printf("Loading clicking bitmap failed, path not found\n");
         return FAIL;
     }
-    load_bitmap(map, "history/map/provinces.bmp");
+    load_bitmap(map, "history/map/prov.bmp");
 
     /*_______________________________________________________________________________________*/
 
