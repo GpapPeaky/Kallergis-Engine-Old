@@ -25,43 +25,43 @@ int main(int argv, char** args){
     init_goods();
 
     #ifdef MAIN_DBG
-        std::printf("\nInit Functions Completed l:%d\n", __LINE__);
+        dprint("init called");
     #endif
 
     /* Parse provinces, (RGB values, names, ids ect.) and add them to the respective region (regions are initialised here as well...) */
     prov_to_reg("history/provinces/provinces.mdf"); /* Relative to the executable location */ 
     #ifdef MAIN_DBG
-        std::printf("Provinces To Regions Parse Completed l:%d\n", __LINE__);
+        dprint("prov to regions called");
     #endif
 
     /* Parse region names, to assign them to the previously initialised regions */
     reg_names("history/regions/region_names.ndf");
     #ifdef MAIN_DBG
-        std::printf("Region Names Parse Completed l:%d\n", __LINE__);
+        dprint("region names called");
     #endif
     
     /* Parse country data (RGB values, names) and their unique tags */
     init_countries("history/country/cou.ndf", "history/country/tags.cdf");
     #ifdef MAIN_DBG
-        std::printf("Countries Parse Completed l:%d\n", __LINE__);
+        dprint("init countries called");
     #endif
 
     /* Parse ownership data, to assign the regions to the correct country */
     reg_to_country("history/country/ownership.cdf"); 
     #ifdef MAIN_DBG
-        std::printf("Region To Countries Complete l:%d\n", __LINE__);
+        dprint("regions to countries called");
     #endif
 
     /* Paints the given province map with the correct country colour */
     mark_countries(click_surface, map); /* We use the click map as per usual */
     #ifdef MAIN_DBG
-        std::printf("Countries Painting Completed l:%d\n", __LINE__);
+        dprint("marking countries called");
     #endif
 
     /* Paints the borders inbetween countries and provinces */
     mark_inner_borders(click_surface, inner_border_map); /* FIXME: Marks coastlines and rivers as well, when it shouldn't */
     #ifdef MAIN_DBG
-        std::printf("Border Generation Completed l:%d\n\n", __LINE__);
+        dprint("border generation called");
     #endif
 
     /* Prints */
@@ -71,7 +71,7 @@ int main(int argv, char** args){
         print_country_colours();
         print_provinces();
         #ifdef MAIN_DBG
-            std::printf("\nPrints Completed l:%d\n\n", __LINE__);
+            dprint("Prints Completed\n");
         #endif
     #endif
 
