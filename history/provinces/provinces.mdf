@@ -4,12 +4,12 @@
 # FOLLOW THE EXACT SYNTAX OR ELSE THE PROGRAM WON'T WORK ACCORDINGLY
 
 # 1
-"Demos Chersonisou" : { 200, 150, 100 } : 1 : 27277 : GEMS : { 23, 19, 41 } : 4
 "Demos Herakleiou" : { 25, 150, 100 } : 1 : 179302 : COPPER : { 70, 123, 138 } : 5
+"Demos Chersonisou" : { 200, 150, 100 } : 1 : 27277 : GEMS : { 23, 19, 41 } : 4
 "Demos Maleviziou" : { 150, 25, 100 } : 1 : 25734 : OIL : { 20, 15, 34 } : 3
 "Demos Faistou" : { 150, 150, 100 } : 1 : 23921 : STONE : { 17, 12, 29 } : 2
-"Demos Gortynas" : { 255, 200, 25 } : 1 : 14167 : STONE : { 14, 9, 14 } : 2
 "Demos Archanes-Asterusia" : { 255, 200, 255 } : 1 : 16067 : WOOD : { 16, 10, 19 } : 1
+"Demos Gortynas" : { 255, 200, 25 } : 1 : 14167 : STONE : { 14, 9, 14 } : 2
 "Demos Minoa Pediados" : { 255, 175, 75 } : 1 : 14165 : WOOD : { 14, 8, 13 } : 1
 "Demos Minoa Pediados" : { 150, 175, 75 } : 1 : 4465 : ARMS : { 4, 3, 7 } : 2
 
