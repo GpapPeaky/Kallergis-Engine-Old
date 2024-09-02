@@ -7,6 +7,8 @@
 
 #include "../auxf/includes.aux"
 
+/* TODO: Make it so that components that are not inside the camera's rectangle, don't render */
+
 int main(int argv, char** args){
     /* Viewport initialisation */
     camera cam = init_camera();
