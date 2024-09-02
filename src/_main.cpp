@@ -75,36 +75,6 @@ int main(int argv, char** args){
         #endif
     #endif
 
-    #ifdef MAIN_MENU
-        /* TODO: refactor to a function ,not raw code in main! */
-        bool menu_box = false;
-        while(!menu_box){
-            SDL_Event e;
-
-            SDL_UpperBlitScaled(menu, NULL, screen, NULL);
-            draw_buttons();
-            while(SDL_PollEvent(&e)){
-            if(e.type == SDL_MOUSEBUTTONDOWN){
-                button* pressed = check_for_button_interaction();
-                if(pressed != NULL){
-                    if(strcmp(pressed->text, "play") == 0){
-                        std::printf("Entering game...\n");
-                        buttons_cleanup();
-                        menu_box = true;
-                    }
-                    if(strcmp(pressed->text, "quit") == 0){
-                        std::printf("Quitting game...\n");
-                        buttons_cleanup();
-                        cleanup(win, renderer);
-                        return EXIT_SUCCESS;
-                    }
-                }
-            }
-            SDL_UpdateWindowSurface(win);
-            }
-        }
-    #endif
-
     /* TODO: Start Adding UI for unit creation, Add a units.udf file for the where the first units are created */
 
     create_unit(MOTORISED, get_country("TST"), 1, click_surface, cam);

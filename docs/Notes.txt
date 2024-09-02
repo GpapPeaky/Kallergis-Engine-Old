@@ -16,3 +16,6 @@ bad rgbs:
 !! They Had 0's so they were skipped !!
 
 _______________________________________
+
+global provinces structure is a hashtable,
+localy to each country.regs is a vector of provinces
