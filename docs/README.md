@@ -58,6 +58,8 @@ err_capable init_font
 render_capable render_text
 render_capable render_on_mouse_hover
 float GP
+err_capable init_goods
+render_capable render_goods_bar
 void init_hash
 ulint H
 ulint h
@@ -85,7 +87,7 @@ void print_country_colours
 uint is_prime
 void prime_array_generation
 void print_primes
-void init_unit_assets
+err_capable init_unit_assets
 void create_unit
 render_capable draw_units
 void move_unit
