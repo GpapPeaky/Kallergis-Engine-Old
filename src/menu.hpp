@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 #include <string>
 #include <vector>
-#include "../auxf/definitions.aux"
+#include "auxf/definitions.aux"
 
 extern SDL_Surface* menu;
 

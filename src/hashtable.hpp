@@ -2,7 +2,7 @@
 #include "regions.hpp"
 #include "country.hpp"
 #include "primes.hpp"
-#include "../auxf/modules.aux"
+#include "auxf/modules.aux"
 #include <math.h> /* Requires the -lm flag */
 
 #ifndef HASHTABLE

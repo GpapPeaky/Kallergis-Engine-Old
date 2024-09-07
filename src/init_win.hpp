@@ -6,7 +6,7 @@
 #include <SDL2/SDL_image.h>
 #include <string>
 #include <vector>
-#include "../auxf/definitions.aux"
+#include "auxf/definitions.aux"
 #include "camera.hpp"
 
 #ifndef INIT_WIN

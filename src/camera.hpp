@@ -1,6 +1,6 @@
 #include <SDL2/SDL.h>
 #include <iostream>
-#include "../auxf/definitions.aux"
+#include "auxf/definitions.aux"
 
 #ifndef CAMERA
 /**

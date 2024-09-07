@@ -5,7 +5,7 @@
  * @version 0.1 Hepanastase (release.patch Name)
  */
 
-#include "../auxf/includes.aux"
+#include "auxf/includes.aux"
 
 /* TODO: Make it so that components that are not inside the camera's rectangle, don't render */
 

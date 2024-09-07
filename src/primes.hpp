@@ -1,5 +1,5 @@
-#include "../auxf/definitions.aux"
-#include "../auxf/modules.aux"
+#include "auxf/definitions.aux"
+#include "auxf/modules.aux"
 #include <stdio.h>
 #include <stdlib.h>
 

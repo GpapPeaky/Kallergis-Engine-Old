@@ -7,7 +7,7 @@
 #include "init_win.hpp"
 #include "map.hpp"
 #include "font.hpp"
-#include "../auxf/definitions.aux"
+#include "auxf/definitions.aux"
 #include "camera.hpp"
 #include "unit.hpp"
 

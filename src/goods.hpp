@@ -3,7 +3,7 @@
 #include <SDL2/SDL_image.h>
 #include <unordered_map>
 #include "init_win.hpp"
-#include "../src/auxf/definitions.aux"
+#include "auxf/definitions.aux"
 
 #ifndef GOODS
 /**

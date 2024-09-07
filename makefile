@@ -17,8 +17,11 @@ CC = g++
 CVER = -std=c++17 # C/C++23 Maybe..?
 SDLFLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 CFLAGS = -lm -Ofast
-LIBFLAG = -Lsrc/lib
-INCLUDEFLAG = -Isrc/include
+THIRDPARTYFLG = ThirdParty/
+LIBFLAG = -L$(THIRDPARTYFLG)lib
+INCLUDEFLAG = -I$(THIRDPARTYFLG)include
+PGUIPATH = $(THIRDPARTYFLG)PeakyGUI/src/
+PGUISRC = $(PGUIPATH)pgui_button.cpp $(PGUIPATH)pgui_call.cpp $(PGUIPATH)pgui_component.cpp $(PGUIPATH)pgui_draw.cpp $(PGUIPATH)pgui_item.cpp $(PGUIPATH)pgui_event.cpp $(PGUIPATH)pgui_primitives.cpp
 SRCPATH = src/
 DSTPATH = bin/
 NONCONSOLEWIN = -Wl,--subsystem,windows # Hides the console and all prints
@@ -28,7 +31,7 @@ MWINDOWS = -mwindows # Same as the above
 # Main
 
 EXEC_NAME = keng
-DEFSRC =  $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp $(SRCPATH)province.cpp $(SRCPATH)regions.cpp $(SRCPATH)init_map.cpp $(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)pixels.cpp $(SRCPATH)events.cpp $(SRCPATH)font.cpp $(SRCPATH)primes.cpp $(SRCPATH)hashtable.cpp $(SRCPATH)cleanup.cpp $(SRCPATH)camera.cpp $(SRCPATH)menu.cpp $(SRCPATH)unit.cpp $(SRCPATH)goods.cpp $(SRCPATH)economy.cpp $(SRCPATH)dbgp.cpp
+DEFSRC = $(PGUISRC) $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp $(SRCPATH)province.cpp $(SRCPATH)regions.cpp $(SRCPATH)init_map.cpp $(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)pixels.cpp $(SRCPATH)events.cpp $(SRCPATH)font.cpp $(SRCPATH)primes.cpp $(SRCPATH)hashtable.cpp $(SRCPATH)cleanup.cpp $(SRCPATH)camera.cpp $(SRCPATH)menu.cpp $(SRCPATH)unit.cpp $(SRCPATH)goods.cpp $(SRCPATH)economy.cpp $(SRCPATH)dbgp.cpp
 
 # Hashtable
 

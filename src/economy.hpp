@@ -1,4 +1,4 @@
-#include "../src/auxf/definitions.aux"
+#include "auxf/definitions.aux"
 #include "goods.hpp"
 
 #ifndef ECONOMY

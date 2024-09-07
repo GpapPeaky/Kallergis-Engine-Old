@@ -5,7 +5,7 @@
 #include "init_map.hpp"
 #include "map.hpp"
 #include "regions.hpp"
-#include "../auxf/definitions.aux"
+#include "auxf/definitions.aux"
 
 #ifndef FONT
 /**

@@ -6,7 +6,7 @@
 #include "init_win.hpp"
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
-#include "../auxf/definitions.aux"
+#include "auxf/definitions.aux"
 #include <stdlib.h>
 #include <fstream>
 #include <regex>

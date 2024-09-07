@@ -1,6 +1,6 @@
 #include "init_map.hpp"
 #include "pixels.hpp"
-#include "../auxf/definitions.aux"
+#include "auxf/definitions.aux"
 #include "camera.hpp"
 #include <algorithm>
 #include <vector>
