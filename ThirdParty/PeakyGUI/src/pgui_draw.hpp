@@ -1,6 +1,9 @@
-#include "SDL2/SDL.h"
+#include "SDL.h"
 #include "pgui_button.hpp"
 #include "pgui_item.hpp"
+
+#ifndef __PGUI_DRAW_H__
+#define __PGUI_DRAW_H__
 
 /**
  * @brief Draws a specific button to the screen
@@ -32,3 +35,5 @@ void PGUI_DrawItem(PGUI_Item item, SDL_Renderer* rnd);
  * @param rnd renderer to use
  */
 void PGUI_DrawItems(SDL_Renderer* rnd);
+
+#endif
