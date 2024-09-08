@@ -1,13 +1,13 @@
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_pixels.h"
+#include <queue> /* For flood_fill() function */
+#include <utility> /* For pairs */
+#include <string>
+#include <math.h>
 #include "country.hpp"
 #include "init_win.hpp"
 #include "init_map.hpp"
 #include "auxf/definitions.aux"
-#include <queue> /* For flood_fill() function */
-#include <utility> /* For pairs */
-#include <string>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_pixels.h>
-#include <math.h>
 
 #ifndef PIXELS_H
 /**

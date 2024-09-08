@@ -1,7 +1,7 @@
-#include "auxf/definitions.aux"
-#include "auxf/modules.aux"
 #include <stdio.h>
 #include <stdlib.h>
+#include "auxf/definitions.aux"
+#include "auxf/modules.aux"
 
 extern int* primes;
 extern int found_primes;

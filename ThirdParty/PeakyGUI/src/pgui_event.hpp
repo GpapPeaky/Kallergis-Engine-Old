@@ -1,4 +1,4 @@
-#include "SDL.h"
+#include "../../include/SDL2/SDL.h"
 #include "pgui_item.hpp"
 
 #ifndef __PGUI_EVENT_H__

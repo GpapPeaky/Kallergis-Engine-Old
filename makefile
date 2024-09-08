@@ -33,11 +33,6 @@ MWINDOWS = -mwindows # Same as the above
 EXEC_NAME = keng
 DEFSRC = $(PGUISRC) $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp $(SRCPATH)province.cpp $(SRCPATH)regions.cpp $(SRCPATH)init_map.cpp $(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)pixels.cpp $(SRCPATH)events.cpp $(SRCPATH)font.cpp $(SRCPATH)primes.cpp $(SRCPATH)hashtable.cpp $(SRCPATH)cleanup.cpp $(SRCPATH)camera.cpp $(SRCPATH)menu.cpp $(SRCPATH)unit.cpp $(SRCPATH)goods.cpp $(SRCPATH)economy.cpp $(SRCPATH)dbgp.cpp
 
-# Hashtable
-
-HASH_EXEC_NAME = hash
-HSRC = $(SRCPATH)hashmain.cpp $(SRCPATH)primes.cpp $(SRCPATH)hashtable.cpp
-
 # Pixels
 
 PIXELS_EXEC_NAME = pixels
@@ -64,11 +59,6 @@ clean:
 test:
 	@echo Makefile test.
 	
-hash: $(HSRC)
-	@echo Hashtable test.
-	$(CC) $(CVER) $(LIBFLAG) $(INCLUDEFLAG) $^ -o $(DSTPATH)$(HASH_EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
-	$(DSTPATH)$(HASH_EXEC_NAME).exe
-
 # The country source is included to remove some errors of undefined references... pretty bad code but it is for testing anyway...
 pixels: $(PSRC)
 	@echo Pixel test.
@@ -84,8 +74,6 @@ all:
 	@echo -DEF COMPLETED
 	$(CC) $(CVER) $(LIBFLAG) $(INCLUDEFLAG) $(PSRC) -o $(DSTPATH)$(PIXELS_EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
 	@echo -PIXELS COMPLETED
-	$(CC) $(CVER) $(LIBFLAG) $(INCLUDEFLAG) $(HSRC) -o $(DSTPATH)$(HASH_EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
-	@echo -HASH COMPLETED
 	@echo Compilation completed.
 
 # Unused Variable And Functions Compiling For Debugging
@@ -94,11 +82,6 @@ def-unsd: $(DEFSRC)
 	@echo Compiling Main (Default), and running 
 	$(CC) $(CVER) $(LIBFLAG) $(INCLUDEFLAG) $(UNUSED) $^ -o $(DSTPATH)$(EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
 	$(DSTPATH)$(EXEC_NAME).exe
-
-hash-unsd: $(HSRC)
-	@echo Hashtable test.
-	$(CC) $(CVER) $(LIBFLAG) $(INCLUDEFLAG) $(UNUSED) $^ -o $(DSTPATH)$(HASH_EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
-	$(DSTPATH)$(HASH_EXEC_NAME).exe
 
 pixels-unsd: $(PSRC)
 	@echo Pixel test.
@@ -111,6 +94,4 @@ all-unsd:
 	@echo -DEF COMPLETED
 	$(CC) $(CVER) $(LIBFLAG) $(INCLUDEFLAG) $(UNUSED) $(PSRC) -o $(DSTPATH)$(PIXELS_EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
 	@echo -PIXELS COMPLETED
-	$(CC) $(CVER) $(LIBFLAG) $(INCLUDEFLAG) $(UNUSED) $(HSRC) -o $(DSTPATH)$(HASH_EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
-	@echo -HASH COMPLETED
 	@echo Compilation completed.

@@ -1,6 +1,5 @@
-#include <stdio.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_image.h"
 #include <unordered_map>
 #include "init_win.hpp"
 #include "auxf/definitions.aux"

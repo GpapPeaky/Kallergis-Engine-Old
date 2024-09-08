@@ -1,5 +1,4 @@
-#include "SDL.h"
-#include "SDL_rect.h"
+#include "../../include/SDL2/SDL.h"
 #include <iostream>
 
 #ifndef __PGUI_PRIMITIVES_H__

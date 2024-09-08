@@ -1,16 +1,15 @@
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_image.h"
+#include <fstream>
+#include <regex>
+#include <string>
 #include "economy.hpp"
 #include "province.hpp"
 #include "regions.hpp"
 #include "country.hpp"
 #include "hashtable.hpp"
 #include "init_win.hpp"
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_image.h"
 #include "auxf/definitions.aux"
-#include <stdlib.h>
-#include <fstream>
-#include <regex>
-#include <string>
 
 #ifndef INIT_MAP
 /**
