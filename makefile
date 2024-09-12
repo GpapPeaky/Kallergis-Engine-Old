@@ -20,8 +20,8 @@ CFLAGS = -lm -Ofast
 THIRDPARTYFLG = ThirdParty/
 LIBFLAG = -L$(THIRDPARTYFLG)lib
 INCLUDEFLAG = -I$(THIRDPARTYFLG)include
-PGUIPATH = $(THIRDPARTYFLG)PeakyGUI/src/
-PGUISRC = $(PGUIPATH)pgui_button.cpp $(PGUIPATH)pgui_call.cpp $(PGUIPATH)pgui_component.cpp $(PGUIPATH)pgui_draw.cpp $(PGUIPATH)pgui_item.cpp $(PGUIPATH)pgui_event.cpp $(PGUIPATH)pgui_primitives.cpp
+# PGUIPATH = $(THIRDPARTYFLG)PeakyGUI/src/
+# PGUISRC = $(PGUIPATH)pgui_button.cpp $(PGUIPATH)pgui_call.cpp $(PGUIPATH)pgui_component.cpp $(PGUIPATH)pgui_draw.cpp $(PGUIPATH)pgui_item.cpp $(PGUIPATH)pgui_event.cpp $(PGUIPATH)pgui_primitives.cpp
 SRCPATH = src/
 DSTPATH = bin/
 NONCONSOLEWIN = -Wl,--subsystem,windows # Hides the console and all prints
@@ -31,7 +31,9 @@ MWINDOWS = -mwindows # Same as the above
 # Main
 
 EXEC_NAME = keng
-DEFSRC = $(PGUISRC) $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp $(SRCPATH)province.cpp $(SRCPATH)regions.cpp $(SRCPATH)init_map.cpp $(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)pixels.cpp $(SRCPATH)events.cpp $(SRCPATH)font.cpp $(SRCPATH)primes.cpp $(SRCPATH)hashtable.cpp $(SRCPATH)cleanup.cpp $(SRCPATH)camera.cpp $(SRCPATH)menu.cpp $(SRCPATH)unit.cpp $(SRCPATH)goods.cpp $(SRCPATH)economy.cpp $(SRCPATH)dbgp.cpp
+DEFSRC = $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp $(SRCPATH)province.cpp $(SRCPATH)regions.cpp $(SRCPATH)init_map.cpp $(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)pixels.cpp $(SRCPATH)events.cpp $(SRCPATH)font.cpp $(SRCPATH)primes.cpp $(SRCPATH)hashtable.cpp $(SRCPATH)cleanup.cpp $(SRCPATH)camera.cpp $(SRCPATH)menu.cpp $(SRCPATH)unit.cpp $(SRCPATH)goods.cpp $(SRCPATH)economy.cpp $(SRCPATH)dbgp.cpp
+# DEFSRC =  $(PGUISRC) $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp $(SRCPATH)province.cpp $(SRCPATH)regions.cpp $(SRCPATH)init_map.cpp $(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)pixels.cpp $(SRCPATH)events.cpp $(SRCPATH)font.cpp $(SRCPATH)primes.cpp $(SRCPATH)hashtable.cpp $(SRCPATH)cleanup.cpp $(SRCPATH)camera.cpp $(SRCPATH)menu.cpp $(SRCPATH)unit.cpp $(SRCPATH)goods.cpp $(SRCPATH)economy.cpp $(SRCPATH)dbgp.cpp
+
 
 # Pixels
 
