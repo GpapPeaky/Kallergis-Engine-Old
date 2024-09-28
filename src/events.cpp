@@ -147,6 +147,7 @@ eng_event events_handling(bool& quit, camera& cam){
                 }
 
             highlight_on_click(mouse_x, mouse_y, click_surface, map, cam); /* FIXME */
+            PGUI_EventCycle(mouse_x, mouse_y);
             }else if(e.button.button == SDL_BUTTON_RIGHT){
                 move_unit(click_surface, cam); /* Move the unit, if able, the check if not NULL is in the function */
             }

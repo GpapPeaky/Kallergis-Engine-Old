@@ -25,6 +25,8 @@ int main(int argv, char** args){
     init_unit_assets();
     /* Initialise goods graphic assets */
     init_goods();
+    /* Initialise PeakyGUI */
+    init_pgui(renderer);
 
     #ifdef MAIN_DBG
         dprint("init called");
@@ -91,6 +93,8 @@ int main(int argv, char** args){
         draw_units(cam);
         render_goods_bar();
         events_handling(quit, cam);
+
+        PGUI_DrawItems(renderer);
         
         SDL_RenderPresent(renderer);
 

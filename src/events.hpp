@@ -1,5 +1,6 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_keyboard.h"
+#include "../ThirdParty/PeakyGUI/src/PGUI.hpp"
 #include <algorithm>
 #include <cmath>
 #include <chrono> /* For the clock */

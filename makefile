@@ -40,7 +40,7 @@ EXEC_NAME = keng
 DEFSRC = $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp $(SRCPATH)province.cpp $(SRCPATH)regions.cpp $(SRCPATH)init_map.cpp \
 $(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)pixels.cpp $(SRCPATH)events.cpp $(SRCPATH)font.cpp $(SRCPATH)primes.cpp \
 $(SRCPATH)hashtable.cpp $(SRCPATH)cleanup.cpp $(SRCPATH)camera.cpp $(SRCPATH)menu.cpp $(SRCPATH)unit.cpp \
-$(SRCPATH)goods.cpp $(SRCPATH)economy.cpp $(SRCPATH)dbgp.cpp \
+$(SRCPATH)goods.cpp $(SRCPATH)economy.cpp $(SRCPATH)dbgp.cpp $(SRCPATH)gui.cpp \
 $(PGUISRC)
 # DEFSRC =  $(PGUISRC) $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp $(SRCPATH)province.cpp $(SRCPATH)regions.cpp $(SRCPATH)init_map.cpp $(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)pixels.cpp $(SRCPATH)events.cpp $(SRCPATH)font.cpp $(SRCPATH)primes.cpp $(SRCPATH)hashtable.cpp $(SRCPATH)cleanup.cpp $(SRCPATH)camera.cpp $(SRCPATH)menu.cpp $(SRCPATH)unit.cpp $(SRCPATH)goods.cpp $(SRCPATH)economy.cpp $(SRCPATH)dbgp.cpp
 

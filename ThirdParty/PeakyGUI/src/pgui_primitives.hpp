@@ -3,8 +3,6 @@
 #include "PGUI_debug.hpp"
 #include <iostream>
 
-
-
 /* TODO: Might add namespaces for more flexible c++ use */
 
 #ifndef __PGUI_PRIMITIVES_H__
