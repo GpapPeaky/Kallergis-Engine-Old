@@ -11,7 +11,7 @@ int b_constant_p;
 int a_constant_r;
 int b_constant_r;
 
-prov** provinces_h;
+prov** provinces_h; /* This handles all provinces */
 reg** regions_h;
 
 int prime_selection(int cap, HASH_MODE mode){

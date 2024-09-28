@@ -74,7 +74,7 @@ err_capable prov_to_reg(const std::string fname){
             ulint hidx = h(new_prov->prov_id, PROV_M);
 
             if(hidx < 0 || hidx >= prov_hash_s){
-                std::printf("!!!! Hash index %d out of bounds\n", hidx);
+                std::printf("Hash index %d out of bounds\n", hidx);
                 delete new_prov;
                 continue;
             }
