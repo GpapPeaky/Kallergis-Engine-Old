@@ -20,7 +20,7 @@ CFLAGS = -lm -Ofast
 THIRDPARTYFLG = ThirdParty/
 SDL2LIB = -L$(THIRDPARTYFLG)SDL2/lib
 SDL2INC = -I$(THIRDPARTYFLG)SDL2/include
-# PGUIPATH = $(THIRDPARTYFLG)PeakyGUI/src/
+PGUIPATH = $(THIRDPARTYFLG)PeakyGUI/src/
 # PGUISRC = $(PGUIPATH)pgui_button.cpp $(PGUIPATH)pgui_call.cpp $(PGUIPATH)pgui_component.cpp $(PGUIPATH)pgui_draw.cpp $(PGUIPATH)pgui_item.cpp $(PGUIPATH)pgui_event.cpp $(PGUIPATH)pgui_primitives.cpp
 SRCPATH = src/
 DSTPATH = bin/
@@ -28,17 +28,28 @@ NONCONSOLEWIN = -Wl,--subsystem,windows # Hides the console and all prints
 MWINDOWS = -mwindows # Same as the above
 # $(CURDIR) is built-in for make to find the absolute path of the user dir
 
+# PeakyGUI
+
+PGUISRC = $(PGUIPATH)pgui_action.cpp $(PGUIPATH)pgui_button.cpp $(PGUIPATH)pgui_call.cpp $(PGUIPATH)pgui_cleanup.cpp \
+$(PGUIPATH)pgui_component.cpp $(PGUIPATH)pgui_debug.cpp $(PGUIPATH)pgui_draw.cpp $(PGUIPATH)pgui_event.cpp \
+$(PGUIPATH)pgui_event.cpp $(PGUIPATH)pgui_item.cpp $(PGUIPATH)pgui_load.cpp $(PGUIPATH)pgui_primitives.cpp
+
 # Main
 
 EXEC_NAME = keng
-DEFSRC = $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp $(SRCPATH)province.cpp $(SRCPATH)regions.cpp $(SRCPATH)init_map.cpp $(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)pixels.cpp $(SRCPATH)events.cpp $(SRCPATH)font.cpp $(SRCPATH)primes.cpp $(SRCPATH)hashtable.cpp $(SRCPATH)cleanup.cpp $(SRCPATH)camera.cpp $(SRCPATH)menu.cpp $(SRCPATH)unit.cpp $(SRCPATH)goods.cpp $(SRCPATH)economy.cpp $(SRCPATH)dbgp.cpp
+DEFSRC = $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp $(SRCPATH)province.cpp $(SRCPATH)regions.cpp $(SRCPATH)init_map.cpp \
+$(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)pixels.cpp $(SRCPATH)events.cpp $(SRCPATH)font.cpp $(SRCPATH)primes.cpp \
+$(SRCPATH)hashtable.cpp $(SRCPATH)cleanup.cpp $(SRCPATH)camera.cpp $(SRCPATH)menu.cpp $(SRCPATH)unit.cpp \
+$(SRCPATH)goods.cpp $(SRCPATH)economy.cpp $(SRCPATH)dbgp.cpp \
+$(PGUISRC)
 # DEFSRC =  $(PGUISRC) $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp $(SRCPATH)province.cpp $(SRCPATH)regions.cpp $(SRCPATH)init_map.cpp $(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)pixels.cpp $(SRCPATH)events.cpp $(SRCPATH)font.cpp $(SRCPATH)primes.cpp $(SRCPATH)hashtable.cpp $(SRCPATH)cleanup.cpp $(SRCPATH)camera.cpp $(SRCPATH)menu.cpp $(SRCPATH)unit.cpp $(SRCPATH)goods.cpp $(SRCPATH)economy.cpp $(SRCPATH)dbgp.cpp
 
 
 # Pixels
 
 PIXELS_EXEC_NAME = pixels
-PSRC = $(SRCPATH)pixels.cpp $(SRCPATH)pixelsmain.cpp $(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)init_win.cpp $(SRCPATH)init_map.cpp $(SRCPATH)province.cpp $(SRCPATH)primes.cpp $(SRCPATH)hashtable.cpp $(SRCPATH)camera.cpp
+PSRC = $(SRCPATH)pixels.cpp $(SRCPATH)pixelsmain.cpp $(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)init_win.cpp \
+$(SRCPATH)init_map.cpp $(SRCPATH)province.cpp $(SRCPATH)primes.cpp $(SRCPATH)hashtable.cpp $(SRCPATH)camera.cpp
 
 def: $(DEFSRC)
 	@echo Compiling Main (Default), and running 
