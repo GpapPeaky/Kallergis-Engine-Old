@@ -17,4 +17,35 @@
  */
 PGUI_Wrap pguiwIncrementDevelopment(PGUI_ArgumentVector args);
 
+/**
+ * @brief 
+ * 
+ * @param args arguments
+ * @note province province to increment the prod development of
+ * 
+ * @returns pointer to the province or NULL if not found
+ */
+PGUI_Wrap pguiwIncrementProdDev(PGUI_ArgumentVector args);
+
+/**
+ * @brief 
+ * 
+ * @param args arguments
+ * @note province province to increment the admin development of
+ * 
+ * @returns pointer to the province or NULL if not found
+ */
+PGUI_Wrap pguiwIncrementAdminDev(PGUI_ArgumentVector args);
+
+/**
+ * @brief 
+ * 
+ * @param args arguments
+ * @note province province to increment the mil development of
+ * 
+ * @returns pointer to the province or NULL if not found
+ */
+PGUI_Wrap pguiwIncrementMilDev(PGUI_ArgumentVector args);
+
+
 #endif
