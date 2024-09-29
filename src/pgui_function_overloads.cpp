@@ -16,5 +16,5 @@ PGUI_Wrap pguiwIncrementDevelopment(PGUI_ArgumentVector args){
         }
     }
 
-    return NULL;    
+    return static_cast<void*>(province);   
 }
