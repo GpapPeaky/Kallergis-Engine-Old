@@ -14,9 +14,6 @@ int main(int argv, char** args){
     camera cam = init_camera();
     /* UI initialisation */
     init_menu("assets/gfx/ui/menu/menu_bg.bmp");
-    /* Provinces hastable initialisation */
-    prime_array_generation(300);
-    init_hash();
     /* Initialise the window and renderer */
     win_init("keng");
     /* Initialise the map data to be used */
@@ -25,8 +22,6 @@ int main(int argv, char** args){
     init_unit_assets();
     /* Initialise goods graphic assets */
     init_goods();
-    /* Initialise PeakyGUI */
-    init_pgui(renderer);
 
     #ifdef MAIN_DBG
         dprint("init called");
@@ -79,7 +74,11 @@ int main(int argv, char** args){
         #endif
     #endif
 
-    /* TODO: Start Adding UI for unit creation, Add a units.udf file for the where the first units are created */
+    /* Initialise PeakyGUI */
+    init_pgui(renderer);
+    #ifdef PGUI_PRINT
+        dprint("PeakyGUI initialised\n");
+    #endif
 
     create_unit(MOTORISED, get_country("TST"), 1, click_surface, cam);
 

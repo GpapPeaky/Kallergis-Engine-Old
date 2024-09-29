@@ -1,6 +1,5 @@
 #include "../ThirdParty/PeakyGUI/src/PGUI.hpp"
 #include "province.hpp" /* For the prov struct */
-#include "hashtable.hpp" /* For the province hashtable */
 
 #ifndef PGUIOVERLOAD
 /**
@@ -12,7 +11,7 @@
  * @brief 
  * 
  * @param args arguments
- * @note provId province id
+ * @note province province to increment the development of
  * 
  * @returns pointer to the province
  */

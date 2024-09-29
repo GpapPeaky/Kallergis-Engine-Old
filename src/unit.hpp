@@ -5,7 +5,6 @@
 #include "pixels.hpp"
 #include "country.hpp"
 #include "province.hpp"
-#include "hashtable.hpp"
 #include "camera.hpp"
 
 #ifndef UNITS

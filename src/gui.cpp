@@ -6,8 +6,7 @@ err_capable init_pgui(SDL_Renderer* rnd){
     /* WARN: Overload the path to the correct one */
     PGUI_AssetPath = "ThirdParty/PeakyGUI/assets/";
 
-    int* provID = new int(1);
-    PGUI_ActionArguments provDevArgs = { pguiwIncrementDevelopment, {(void*)provID}, 1 }; /* Example */
+    PGUI_ActionArguments provDevArgs = { pguiwIncrementDevelopment, {(void*)provinces[0]}, 1 }; /* Example */
 
     PGUI_ActionArguments incButtonArgs = { PGUI_IncrementWrapper, {} , 0 };
     PGUI_Button* incButton1 =  PGUI_CreateButtonComplete(incButtonArgs, 0, 0, PGUI_Load("inc.png"), rnd);

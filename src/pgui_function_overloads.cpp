@@ -1,17 +1,18 @@
 #include "pgui_function_overloads.hpp"
 
 PGUI_Wrap pguiwIncrementDevelopment(PGUI_ArgumentVector args){
-    int provinceID = *static_cast<int*>(args[0]);
+    prov* province = static_cast<prov*>(args[0]);
+    if(province == NULL && args[0] == NULL){
+        std::printf("Error: province is NULL\n");
+        return NULL;
+    }
+    int provID = province->prov_id;
 
-    for(int i = 0 ; i < prov_hash_s ; i++){
-        prov* current = provinces_h[h(i, PROV_M)];
-        while(current != NULL){
-            if(provinceID == current->prov_id){
-                current->province_economy.development.admin++;
-                current->province_economy.development.mil++;
-                current->province_economy.development.prod++;
-            }
-            current = current->next;
+    for(auto prov : provinces){
+        if(provID == prov->prov_id){
+            prov->province_economy.development.admin++;
+            prov->province_economy.development.mil++;
+            prov->province_economy.development.prod++;
         }
     }
 

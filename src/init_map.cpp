@@ -71,25 +71,10 @@ err_capable prov_to_reg(const std::string fname){
             new_prov->province_economy.infrastructure = infra_level;
             new_prov->next = NULL;
 
-            ulint hidx = h(new_prov->prov_id, PROV_M);
-
-            if(hidx < 0 || hidx >= prov_hash_s){
-                std::printf("Hash index %d out of bounds\n", hidx);
-                delete new_prov;
-                continue;
-            }
+            provinces.push_back(new_prov);
 
             if(region_id >= regions.size()){
                 regions.resize(region_id + 1);
-            }
-
-            if(provinces_h[hidx] == NULL){
-                /* First Insertion */
-                provinces_h[hidx] = new_prov;
-                new_prov->next = NULL;
-            }else{
-                new_prov->next = provinces_h[hidx];
-                provinces_h[hidx] = new_prov;
             }
 
             /* Each province is also saved here, and in the regions vector */
@@ -238,15 +223,11 @@ void print_countries(void){
 }
 
 void print_provinces(void){
-    for(int i = 0 ; i < prov_hash_s ; i++){
-        prov* current = provinces_h[h(i, PROV_M)];
-        while(current != NULL){
-            printf(" -PROV: %s,\tRGB <%d,%d,%d>,\tID %d,\tHASH_ID %d\n",current->prov_name.c_str(), current->prov_colour.r, current->prov_colour.g, current->prov_colour.b, current->prov_id, i);
-            printf("ECO: adm: %d mil: %d prd: %d | pops: %d| infr: %d -> Income: %.2f, Local Production: %s %.2f\n", current->province_economy.development.admin, current->province_economy.development.mil, current->province_economy.development.prod,
-            current->province_economy.local_goods.population, current->province_economy.infrastructure, I(current->province_economy), goods_names[current->province_economy.local_goods.good], GP(current->province_economy.local_goods));
-            printf("___________________________________________________________________________________________\n");
-            current = current->next;
-        }
+    for(auto prov : provinces){
+        printf(" -PROV: %s,\tRGB <%d,%d,%d>,\tID %d\n",prov->prov_name.c_str(), prov->prov_colour.r, prov->prov_colour.g, prov->prov_colour.b, prov->prov_id);
+        printf("ECO: adm: %d mil: %d prd: %d | pops: %d| infr: %d -> Income: %.2f, Local Production: %s %.2f\n", prov->province_economy.development.admin, prov->province_economy.development.mil, prov->province_economy.development.prod,
+        prov->province_economy.local_goods.population, prov->province_economy.infrastructure, I(prov->province_economy), goods_names[prov->province_economy.local_goods.good], GP(prov->province_economy.local_goods));
+        printf("___________________________________________________________________________________________\n");
     }
 
     return;

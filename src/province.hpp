@@ -22,5 +22,7 @@ typedef struct prov{
     struct prov* next;
 }prov;
 
+extern std::vector<prov*> provinces;
+
 #endif
 

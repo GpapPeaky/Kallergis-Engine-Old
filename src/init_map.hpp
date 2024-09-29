@@ -7,7 +7,6 @@
 #include "province.hpp"
 #include "regions.hpp"
 #include "country.hpp"
-#include "hashtable.hpp"
 #include "init_win.hpp"
 #include "auxf/definitions.aux"
 

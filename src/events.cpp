@@ -42,17 +42,13 @@ eng_event highlight_on_click(int x, int y, SDL_Surface* src, SDL_Texture* dst, c
     SDL_Color clicked = { r, g, b, ALPHA };
     int id;
 
-    for(int i = 0 ; i < prov_hash_s ; i++){
-        prov* current = provinces_h[h(i, PROV_M)];
-        while(current != NULL){
-            if(current->prov_colour.r == clicked.b && current->prov_colour.g == clicked.g && current->prov_colour.b == clicked.r){ /* HUH? Little Endian ??? */
-                std::printf("Clicked Province: %s - <%d, %d, %d>  Dev: <%d %d %d> Infr: %d Goods: %s Pops: %d\n", current->prov_name.c_str(), current->prov_colour.r, current->prov_colour.g, current->prov_colour.b, 
-                current->province_economy.development.admin, current->province_economy.development.mil, current->province_economy.development.prod,
-                current->province_economy.infrastructure, goods_names[current->province_economy.local_goods.good], current->province_economy.local_goods.population);
-                id = current->prov_id;
-                return;
-            }
-            current = current->next;
+    for(auto prov : provinces){
+        if(prov->prov_colour.r == clicked.b && prov->prov_colour.g == clicked.g && prov->prov_colour.b == clicked.r){ /* HUH? Little Endian ??? */
+            std::printf("Clicked Province: %s - <%d, %d, %d>  Dev: <%d %d %d> Infr: %d Goods: %s Pops: %d\n", prov->prov_name.c_str(), prov->prov_colour.r, prov->prov_colour.g, prov->prov_colour.b, 
+            prov->province_economy.development.admin, prov->province_economy.development.mil, prov->province_economy.development.prod,
+            prov->province_economy.infrastructure, goods_names[prov->province_economy.local_goods.good], prov->province_economy.local_goods.population);
+            id = prov->prov_id;
+            return;
         }
     }
 
@@ -124,7 +120,7 @@ eng_event events_handling(bool& quit, camera& cam){
                     //             unit.id, unit_x, unit_y, unit.rect.w, unit.rect.h);
 
                     /* Find the name in the hashtable with the correct id and prov id */
-                    // prov* current = provinces_h[h(unit.prov_visited, PROV_M)];
+                    // prov* prov = provinces_h[h(unit.prov_visited, PROV_M)];
                     // std::string name;
 
                     // while(current != NULL){

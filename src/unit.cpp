@@ -127,18 +127,11 @@ void create_unit(unit_t type, cou country, int prov_id, SDL_Surface* surface, ca
     }
 
     Uint8 r, g, b;
-    prov* current = provinces_h[h(prov_id, PROV_M)];
+    prov* current = provinces[prov_id - 1];
+    r = current->prov_colour.r;
+    g = current->prov_colour.g;
+    b = current->prov_colour.b;
 
-    while(current != NULL){
-        if(current->prov_id == prov_id){
-            r = current->prov_colour.r;
-            g = current->prov_colour.g;
-            b = current->prov_colour.b;
-            break;
-        }
-
-        current = current->next;
-    }
 
     if(current == NULL){
         std::printf("Province ID %d not found\n", prov_id);
@@ -260,14 +253,10 @@ void move_unit(SDL_Surface* surface, camera cam){
             selected_unit->rect.x = sum_x / count;
             selected_unit->rect.y = sum_y / count;
 
-            for(int i = 0 ; i < prov_hash_s ; i++){
-                prov* current = provinces_h[i];
-                while(current != NULL){
-                    if(current->prov_colour.r == b && current->prov_colour.g == g && current->prov_colour.b == r){ /* HUH? Little endian ??? */
-                        selected_unit->prov_visited = current->prov_id;
-                        break;
-                    }
-                    current = current->next;
+            for(auto prov : provinces){
+                if(prov->prov_colour.r == b && prov->prov_colour.g == g && prov->prov_colour.b == r){ /* HUH? Little endian ??? */
+                    selected_unit->prov_visited = prov->prov_id;
+                    break;
                 }
             }
         }
