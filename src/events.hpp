@@ -42,7 +42,7 @@ eng_event info_on_hover(void);
  * @param dst Texture to highlight
  * @param cam Camera for coords transformation
 */
-eng_event highlight_on_click(int mouse_x, int mouse_y, SDL_Surface* src, SDL_Texture* dst, camera cam);
+prov* highlight_on_click(int mouse_x, int mouse_y, SDL_Surface* src, SDL_Texture* dst, camera cam);
 
 /**
  * @brief Allows to pan the map

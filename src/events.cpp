@@ -9,7 +9,7 @@ eng_event info_on_hover(void){
     return;
 }
 
-eng_event highlight_on_click(int x, int y, SDL_Surface* src, SDL_Texture* dst, camera cam){
+prov* highlight_on_click(int x, int y, SDL_Surface* src, SDL_Texture* dst, camera cam){
     int world_x = static_cast<int>(x / cam.zoom + cam.rect.x);
     int world_y = static_cast<int>(y / cam.zoom + cam.rect.y);
 
@@ -48,11 +48,11 @@ eng_event highlight_on_click(int x, int y, SDL_Surface* src, SDL_Texture* dst, c
             prov->province_economy.development.admin, prov->province_economy.development.mil, prov->province_economy.development.prod,
             prov->province_economy.infrastructure, goods_names[prov->province_economy.local_goods.good], prov->province_economy.local_goods.population);
             id = prov->prov_id;
-            return;
+            return prov; /* Return a pointer to the clicked province update the arguments for the province box */
         }
     }
 
-    return;
+    return NULL;
 }
 
 eng_event pan_map(int d_x, int d_y){
