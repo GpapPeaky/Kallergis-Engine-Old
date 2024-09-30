@@ -2,6 +2,7 @@
 
 auto prev_time = std::chrono::steady_clock::now();
 const Uint8* state;
+prov* clicked_province;
 
 eng_event info_on_hover(void){
 
@@ -142,9 +143,11 @@ eng_event events_handling(bool& quit, camera& cam){
                     }
                 }
 
-            prov* clicked_province = highlight_on_click(mouse_x, mouse_y, click_surface, map, cam);
-            update_province_inspector(clicked_province, renderer); /* FIXME */
-            PGUI_EventCycle(mouse_x, mouse_y);
+                if(mouse_intersecting_with_prov_gui_rects(mouse_x, mouse_y, click_surface, cam) == true){ 
+                    PGUI_EventCycle(mouse_x, mouse_y); /* Execute the button action */
+                }else{
+                    clicked_province = highlight_on_click(mouse_x, mouse_y, click_surface, map, cam); /* Click a new province */
+                }
             }else if(e.button.button == SDL_BUTTON_RIGHT){
                 move_unit(click_surface, cam); /* Move the unit, if able, the check if not NULL is in the function */
             }
@@ -199,4 +202,48 @@ eng_event events_handling(bool& quit, camera& cam){
     vel_y *= DEC;
 
     return;
+}
+
+bool mouse_intersecting_with_prov_gui_rects(int mx, int my, SDL_Surface* click_surface, camera cam){
+    /* Transform the mouse coords */
+    int world_x = static_cast<int>(mx / cam.zoom + cam.rect.x);
+    int world_y = static_cast<int>(my / cam.zoom + cam.rect.y);
+
+    bool insidePGUIItemRect = false;
+
+    /* Check if the mouse is inside a UI component */
+    for(const auto& item : PGUI_GlobalItems){
+        SDL_Rect rect = item.second->itemComponent.rect;
+
+        if(mx >= rect.x && mx <= rect.x + rect.w &&
+            my >= rect.y && my <= rect.y + rect.h){
+            insidePGUIItemRect = true;
+            break;
+        }
+    }
+
+    /* Check if the mouse is inside a province */
+    int src_bpp = click_surface->format->BytesPerPixel;
+    Uint8* pixels = (Uint8*)click_surface->pixels;
+    Uint8* pixel_ptr = pixels + (world_y * click_surface->pitch) + (world_x * src_bpp);
+
+    SDL_LockSurface(click_surface);
+
+    Uint32 pixel = 0;
+    switch(src_bpp){
+        case 3: /* 24-bit format (little-endian) */
+            pixel = (pixel_ptr[0] << 16) | (pixel_ptr[1] << 8) | pixel_ptr[2];
+            break;
+        case 4: /* 32-bit format */
+            pixel = *(Uint32*)pixel_ptr;
+            break;
+        default:
+            std::printf("Unsupported pixel format\n");
+            SDL_UnlockSurface(click_surface);
+            return false;
+    }
+
+    SDL_UnlockSurface(click_surface);
+
+    return (insidePGUIItemRect == true); /* Return the intersection */
 }

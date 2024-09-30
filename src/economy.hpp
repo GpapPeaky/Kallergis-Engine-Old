@@ -28,4 +28,14 @@ typedef struct economy{
  */
 float I(eco local_economy);
 
+
+/**
+ * @brief Calculates the local goods produced
+ * 
+ * @param local_eco Local economy
+ * 
+ * @returns the amount of goods produced
+ */
+float GP(eco local_eco);
+
 #endif

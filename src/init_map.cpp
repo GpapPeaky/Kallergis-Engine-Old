@@ -226,7 +226,7 @@ void print_provinces(void){
     for(auto prov : provinces){
         printf(" -PROV: %s,\tRGB <%d,%d,%d>,\tID %d\n",prov->prov_name.c_str(), prov->prov_colour.r, prov->prov_colour.g, prov->prov_colour.b, prov->prov_id);
         printf("ECO: adm: %d mil: %d prd: %d | pops: %d| infr: %d -> Income: %.2f, Local Production: %s %.2f\n", prov->province_economy.development.admin, prov->province_economy.development.mil, prov->province_economy.development.prod,
-        prov->province_economy.local_goods.population, prov->province_economy.infrastructure, I(prov->province_economy), goods_names[prov->province_economy.local_goods.good], GP(prov->province_economy.local_goods));
+        prov->province_economy.local_goods.population, prov->province_economy.infrastructure, I(prov->province_economy), goods_names[prov->province_economy.local_goods.good], GP(prov->province_economy));
         printf("___________________________________________________________________________________________\n");
     }
 

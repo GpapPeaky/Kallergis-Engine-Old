@@ -29,15 +29,6 @@ typedef struct local_prd{
 extern std::unordered_map<std::string, product> product_map;
 
 /**
- * @brief Calculates the local goods produced
- * 
- * @param local_production Local produce
- * 
- * @returns the amount of goods produced
- */
-float GP(local_prd local_production);
-
-/**
  * @brief Intialises the goods textures
  * 
  * @returns 1 on failure, 0 on success

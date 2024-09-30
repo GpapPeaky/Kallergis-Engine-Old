@@ -99,8 +99,9 @@ int main(int argv, char** args){
         PGUI_DrawItems(renderer);
 
         /* Text has to be in front of the GUI items */
-        render_text("Province placeholder", 17, 921);
-        render_text("Region placeholder", 17, 957);
+        render_province_info(clicked_province);
+        /* We first render, then we update */
+        update_province_inspector(clicked_province, renderer);
         
         SDL_RenderPresent(renderer);
 

@@ -1,6 +1,8 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_ttf.h"
 #include <string>
+#include <iomanip>
+#include <sstream> 
 #include "init_win.hpp"
 #include "init_map.hpp"
 #include "map.hpp"
@@ -37,18 +39,28 @@ err_capable init_font(void);
  * @param msg Message to appear
  * @param x x axis
  * @param y y axis
- * 
- * @returns 1 on FAILURE
- *                0 on SUCCESS
 */
 render_capable render_text(std::string msg, int x, int y);
 
 /**
  * @brief Renders stats on hovering a sprite with the mouse
- * 
- * @returns 1 on FAILURE
- *                0 on SUCCESS
 */
 render_capable render_on_mouse_hover(void);
+
+/**
+ * @brief Renders the selected province info
+ * 
+ * @param province province clicked
+ */
+render_capable render_province_info(prov* province);
+
+/**
+ * @brief Formats a float to show two decimals
+ * 
+ * @param value value to format
+ * 
+ * @returns the new string
+ */
+std::string format_float(float value);
 
 #endif/* FONT */
