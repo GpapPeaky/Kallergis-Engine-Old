@@ -1,7 +1,19 @@
 #include "gui.hpp"
-#include "pgui_function_overloads.hpp"
 
-err_capable init_pgui(SDL_Renderer* rnd){
+PGUI_ActionArguments provAdmDevArgs;
+PGUI_ActionArguments provMilDevArgs;
+PGUI_ActionArguments provProdDevArgs;
+PGUI_Button* adminDev;
+PGUI_Button* milDev;
+PGUI_Button* prodDev;
+PGUI_Item* provInspector;
+
+PGUI_Button* PGUI_UpdateButtonArguments(PGUI_Button* button, PGUI_ArgumentVector newArgs){
+    button->actionArgs.arguments = newArgs;
+    return button;
+}
+
+err_capable init_province_inspector(SDL_Renderer* rnd){
 
     /* WARN: Overload the path to the correct one */
     PGUI_AssetPath = "ThirdParty/PeakyGUI/assets/";
@@ -10,13 +22,13 @@ err_capable init_pgui(SDL_Renderer* rnd){
 
     /* Basic implementation of the GUI (It currently works for one specified province) */
     /* TODO: Make it so that it changes the seen province to what was clicked */
-    PGUI_ActionArguments provAdmDevArgs = { pguiwIncrementAdminDev, { (void*)provinces[0] }, 1 };
-    PGUI_ActionArguments provMilDevArgs = { pguiwIncrementMilDev, { (void*)provinces[0] }, 1 };
-    PGUI_ActionArguments provProdDevArgs = { pguiwIncrementProdDev, { (void*)provinces[0] }, 1 };
-    PGUI_Button* adminDev = PGUI_CreateButtonComplete(provAdmDevArgs, 510, 913, PGUI_Load("mana/admn.png"), renderer);
-    PGUI_Button* milDev = PGUI_CreateButtonComplete(provMilDevArgs, 510, 996, PGUI_Load("mana/mil.png"), renderer);
-    PGUI_Button* prodDev = PGUI_CreateButtonComplete(provProdDevArgs, 510, 946, PGUI_Load("mana/prod.png"), renderer);
-    PGUI_Item* provInspector = PGUI_CreateItemComplete(0, 901, PGUI_Load("provBox.png"), renderer, {
+    provAdmDevArgs = { pguiwIncrementAdminDev, { (void*)provinces[0] }, 1 };
+    provMilDevArgs = { pguiwIncrementMilDev, { (void*)provinces[0] }, 1 };
+    provProdDevArgs = { pguiwIncrementProdDev, { (void*)provinces[0] }, 1 };
+    adminDev = PGUI_CreateButtonComplete(provAdmDevArgs, 528, 911, PGUI_Load("mana/admn.png"), renderer);
+    milDev = PGUI_CreateButtonComplete(provMilDevArgs, 528, 973, PGUI_Load("mana/mil.png"), renderer);
+    prodDev = PGUI_CreateButtonComplete(provProdDevArgs, 528, 1036, PGUI_Load("mana/prod.png"), renderer);
+    provInspector = PGUI_CreateItemComplete(0, 901, PGUI_Load("provBox.png"), renderer, {
         adminDev, milDev, prodDev
     }, PGUI_True);
 
@@ -32,7 +44,17 @@ err_capable init_pgui(SDL_Renderer* rnd){
     // PGUI_Button* visibilityButton = PGUI_CreateButtonComplete(switchButtonArgs, 1000, 0, PGUI_Load("butt.png"), rnd);
     // PGUI_CreateItemComplete(0, 0, PGUI_Load("leftbar.png"), rnd, { visibilityButton }, PGUI_True);
 
-
-
     return SUCCESS; /* At some other point it will return an error */
+}
+
+err_capable update_province_inspector(prov* province, SDL_Renderer* rnd){
+    if(province == NULL){
+        return FAIL;
+    }
+
+    PGUI_UpdateButtonArguments(adminDev, { (void*)province });
+    PGUI_UpdateButtonArguments(milDev, { (void*)province });
+    PGUI_UpdateButtonArguments(prodDev, { (void*)province });
+
+    return SUCCESS;
 }

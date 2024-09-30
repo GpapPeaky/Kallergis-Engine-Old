@@ -8,6 +8,13 @@
 #define PGUIOVERLOAD
 
 /**
+ * @brief Updates the province to be selected for dev increase, for the one last clicked
+ * 
+ * @param province province to pass as a new argument
+ */
+void pguiUpdateDevelopmentTargetArguments(prov* province);
+
+/**
  * @brief 
  * 
  * @param args arguments

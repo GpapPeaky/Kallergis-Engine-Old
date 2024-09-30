@@ -19,9 +19,9 @@ extern SDL_Surface * text;
 extern SDL_Texture * txt;
 extern SDL_Texture * b_txt;
 extern TTF_Font* font;
-extern SDL_FRect rect;
-extern SDL_FRect b_rect;
-extern SDL_FRect c_rect;
+extern SDL_Rect rect;
+extern SDL_Rect b_rect;
+extern SDL_Rect c_rect;
 
 /**
  * @brief Initialises The UI
@@ -35,12 +35,13 @@ err_capable init_font(void);
  * @brief Renders Text based on a string
  * 
  * @param msg Message to appear
- * @param position Rectangle to be placed at
+ * @param x x axis
+ * @param y y axis
  * 
  * @returns 1 on FAILURE
  *                0 on SUCCESS
 */
-render_capable render_text(std::string msg, SDL_FRect* position);
+render_capable render_text(std::string msg, int x, int y);
 
 /**
  * @brief Renders stats on hovering a sprite with the mouse

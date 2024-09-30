@@ -34,7 +34,7 @@ prov* highlight_on_click(int x, int y, SDL_Surface* src, SDL_Texture* dst, camer
         default:
             std::printf("Unsupported pixel format\n");
             SDL_UnlockSurface(src);
-            return;
+            return NULL;
     }
     Uint8 r, g, b;
     SDL_GetRGB(pixel, src->format, &r, &g, &b);
@@ -142,7 +142,8 @@ eng_event events_handling(bool& quit, camera& cam){
                     }
                 }
 
-            highlight_on_click(mouse_x, mouse_y, click_surface, map, cam); /* FIXME */
+            prov* clicked_province = highlight_on_click(mouse_x, mouse_y, click_surface, map, cam);
+            update_province_inspector(clicked_province, renderer); /* FIXME */
             PGUI_EventCycle(mouse_x, mouse_y);
             }else if(e.button.button == SDL_BUTTON_RIGHT){
                 move_unit(click_surface, cam); /* Move the unit, if able, the check if not NULL is in the function */

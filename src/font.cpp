@@ -6,9 +6,9 @@ SDL_Surface* text = NULL;
 SDL_Texture* txt = NULL;
 SDL_Texture* b_txt = NULL;
 TTF_Font* font = NULL;
-SDL_FRect rect;
-SDL_FRect b_rect;
-SDL_FRect c_rect;
+SDL_Rect rect;
+SDL_Rect b_rect;
+SDL_Rect c_rect;
 
 err_capable init_font(void){
 
@@ -23,7 +23,7 @@ err_capable init_font(void){
     return SUCCESS;
 }
 
-render_capable render_text(std::string msg, SDL_FRect* position){
+render_capable render_text(std::string msg, int x, int y){
     text = TTF_RenderUTF8_Solid(font, msg.c_str(), text_colour);
     if(!text){
         std::printf("%s\n ", SDL_GetError());
@@ -46,8 +46,8 @@ render_capable render_text(std::string msg, SDL_FRect* position){
 
     SDL_FreeSurface(text);
 
-    rect.x = position->x;
-    rect.y = position->y - 20;
+    rect.x = x;
+    rect.y = y;
     rect.h = text->h;
     rect.w = text->w;
 
@@ -61,9 +61,9 @@ render_capable render_text(std::string msg, SDL_FRect* position){
     c_rect.h = text->h;
     c_rect.w = text->w;
 
-    SDL_RenderCopyF(renderer, b_txt, NULL, &c_rect);
-    SDL_RenderCopyF(renderer, b_txt, NULL, &b_rect);
-    SDL_RenderCopyF(renderer, txt, NULL, &rect);
+    SDL_RenderCopy(renderer, b_txt, NULL, &c_rect);
+    SDL_RenderCopy(renderer, b_txt, NULL, &b_rect);
+    SDL_RenderCopy(renderer, txt, NULL, &rect);
 
     SDL_DestroyTexture(b_txt);
     SDL_DestroyTexture(txt);

@@ -22,6 +22,8 @@ int main(int argv, char** args){
     init_unit_assets();
     /* Initialise goods graphic assets */
     init_goods();
+    /* Initialise the font */
+    init_font();
 
     #ifdef MAIN_DBG
         dprint("init called");
@@ -74,8 +76,8 @@ int main(int argv, char** args){
         #endif
     #endif
 
-    /* Initialise PeakyGUI */
-    init_pgui(renderer);
+    /* Initialise PeakyGUI province box */
+    init_province_inspector(renderer);
     #ifdef PGUI_PRINT
         dprint("PeakyGUI initialised\n");
     #endif
@@ -91,9 +93,14 @@ int main(int argv, char** args){
         render_map(renderer, textures, cam);
         draw_units(cam);
         render_goods_bar();
+
         events_handling(quit, cam);
 
         PGUI_DrawItems(renderer);
+
+        /* Text has to be in front of the GUI items */
+        render_text("Province placeholder", 17, 921);
+        render_text("Region placeholder", 17, 957);
         
         SDL_RenderPresent(renderer);
 

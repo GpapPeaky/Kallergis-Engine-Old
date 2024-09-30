@@ -7,7 +7,7 @@
 #include <unordered_map>
 #include "init_win.hpp"
 #include "map.hpp"
-#include "font.hpp"
+#include "gui.hpp"
 #include "auxf/definitions.aux"
 #include "camera.hpp"
 #include "unit.hpp"
