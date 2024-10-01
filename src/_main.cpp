@@ -82,8 +82,6 @@ int main(int argv, char** args){
         dprint("PeakyGUI initialised\n");
     #endif
 
-    create_unit(MOTORISED, get_country("TST"), 1, click_surface, cam);
-
     /* IT APPEARS THAT THE (CLEAR -> RENDERCOPY -> PRESENT) METHOD IS GPU ACCELERATED... */
 
     /* Game */

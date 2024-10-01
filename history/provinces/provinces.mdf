@@ -3,23 +3,46 @@
 # 0 0 0 WILL CONSIST OF OCEAN TILES, IMPASSABLE 
 # FOLLOW THE EXACT SYNTAX OR ELSE THE PROGRAM WON'T WORK ACCORDINGLY
 
-# Herakleion
-"Demos Herakleiou" : { 25, 150, 100 } : 1 : 179302 : COPPER : { 70, 123, 138 } : 5
-"Demos Chersonisou" : { 200, 150, 100 } : 1 : 27277 : GEMS : { 23, 19, 41 } : 4
-"Demos Maleviziou" : { 150, 25, 100 } : 1 : 25734 : OIL : { 20, 15, 34 } : 3
-"Demos Faistou" : { 150, 150, 100 } : 1 : 23921 : STONE : { 17, 12, 29 } : 2
-"Demos Archanes-Asterusia" : { 255, 200, 255 } : 1 : 16067 : WOOD : { 16, 10, 19 } : 1
-"Demos Gortynas" : { 255, 200, 25 } : 1 : 14167 : STONE : { 14, 9, 14 } : 2
-"Demos Minoa Pediados" : { 255, 175, 75 } : 1 : 14165 : WOOD : { 14, 8, 13 } : 1
-"Demos Viannou" : { 150, 175, 75 } : 1 : 4465 : ARMS : { 4, 3, 7 } : 2
+# Demos Herakleiou
+"Herakleio" : { 25, 100, 25 } : 1 : 145440 : FOOD : { 41, 56, 45 } : 5
+
+"Nea Alikarnassos" : { 255, 100, 25 } : 1 : 10452 : FISH : { 13, 19, 21 } : 4
+"Herakleion Airport" : { 125, 125, 255 } : 1 : 100 : OIL : { 1, 1, 1 } : 5
+"Saint John Alikarnassou" : { 50, 100, 255 } : 1 : 105 : WOOD : { 2, 5, 6 } : 2
+"Dyo Aorakia" : { 50, 200, 120 } : 1 : 2341 : ARMS : { 7, 8, 12 } : 2
+"Industrial Area" : { 255, 200, 120 } : 1 : 156 : STEEL : { 13, 19, 10 } : 3
+
+"Kallithea" : { 255, 100, 255 } : 1 : 734 : FOOD : { 7, 10, 11 } : 3
+"Karteros" : { 150, 100, 255 } : 1 : 459 : FISH : { 5, 9, 10 } : 3
+"Prassas" : { 150, 150, 255 } : 1 : 412 : FABRIC : { 4, 8, 9 } : 2
+
+"Skalani" : { 150, 255, 255 } : 1 : 1605 : FOOD : { 7, 10, 11 } : 3
+"Sphlia" : { 125, 85, 255 } : 1 : 104 : STONE : { 2, 5, 3 } : 2
+
+"Vasileies" : { 170, 100, 100 } : 1 : 1662 : ARMS : { 8, 10, 11 } : 2
+"Silamos" : { 85, 100, 100 } : 1 : 178 : FOOD : { 2, 5, 3 } : 2
+"Saint Vlassis" : { 85, 85, 255 } : 1 : 416 : STONE : { 5, 6, 7 } : 2
+
+"Saint Sylas" : { 125, 70, 125 } : 1 : 1156 : ARMS : { 7, 14, 9 } : 2
+
+"N/A" : { 25, 150, 100 } : 1 : 1 : COPPER : { 1, 1, 1 } : 1 
+
+#Herakleion
+"Demos Chersonisou" : { 200, 150, 100 } : 2 : 27277 : GEMS : { 23, 19, 41 } : 4
+"Demos Maleviziou" : { 150, 25, 100 } : 2 : 25734 : OIL : { 20, 15, 34 } : 3
+"Demos Faistou" : { 150, 150, 100 } : 2 : 23921 : STONE : { 17, 12, 29 } : 2
+"Demos Archanes-Asterusia" : { 255, 200, 255 } : 2 : 16067 : WOOD : { 16, 10, 19 } : 1
+"Demos Gortynas" : { 255, 200, 25 } : 2 : 14167 : STONE : { 14, 9, 14 } : 2
+"Demos Minoa Pediados" : { 255, 175, 75 } : 2 : 14165 : WOOD : { 14, 8, 13 } : 1
+"Demos Viannou" : { 150, 175, 75 } : 2 : 4465 : ARMS : { 4, 3, 7 } : 2
 
 # Rethemnon
-"Rethemnon" : { 100, 150, 200 } : 2 : 70912 : GEMS : { 90, 40, 120 } : 4
+"Rethemnon" : { 100, 150, 200 } : 3 : 70912 : GEMS : { 90, 40, 120 } : 4
 
 # Chania
-"Chania" : { 100, 50, 150 } : 3 : 98562 : ARMS : { 95, 70, 150 } : 4
+"Chania" : { 100, 50, 150 } : 4 : 98562 : ARMS : { 95, 70, 150 } : 4
 
 # Agios Nickolaos
-"Agios Nickolaos" : { 200, 200, 100 } : 4 : 62489 : FOOD : { 60, 20, 90 } : 3
+"Agios Nickolaos" : { 200, 200, 100 } : 5 : 62489 : FOOD : { 60, 20, 90 } : 3
 
 # PROBLEMATIC PROVINCES 
