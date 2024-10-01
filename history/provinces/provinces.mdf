@@ -11,7 +11,7 @@
 "Herakleion Airport" : { 125, 125, 255 } : 1 : 100 : OIL : { 1, 1, 1 } : 5
 "Saint John Alikarnassou" : { 50, 100, 255 } : 1 : 105 : WOOD : { 2, 5, 6 } : 2
 "Dyo Aorakia" : { 50, 200, 120 } : 1 : 2341 : ARMS : { 7, 8, 12 } : 2
-"Industrial Area" : { 255, 200, 120 } : 1 : 156 : STEEL : { 13, 19, 10 } : 3
+"Industrial Area" : { 255, 200, 120 } : 1 : 156 : STEEL : { 1, 1, 45 } : 3
 
 "Kallithea" : { 255, 100, 255 } : 1 : 734 : FOOD : { 7, 10, 11 } : 3
 "Karteros" : { 150, 100, 255 } : 1 : 459 : FISH : { 5, 9, 10 } : 3
