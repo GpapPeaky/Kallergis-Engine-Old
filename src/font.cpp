@@ -87,8 +87,9 @@ render_capable render_province_info(prov* province){
             province_reg = reg.reg_name; /* string */
         }
     }
+    /* FIXME: Make this be like 123.23k */
     std::string province_pop = "Pops: " + std::to_string(province->province_economy.local_goods.population / 1000) + "." \
-    + std::to_string(province->province_economy.local_goods.population % 100) + "k"; /* int */
+    + std::to_string(province->province_economy.local_goods.population % 10) + "k"; /* int */
     std::string province_admin = std::to_string(province->province_economy.development.admin); /* int */
     std::string province_mil = std::to_string(province->province_economy.development.mil); /* int */
     std::string province_prod = std::to_string(province->province_economy.development.prod); /* int */

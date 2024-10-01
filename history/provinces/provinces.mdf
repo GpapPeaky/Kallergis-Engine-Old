@@ -5,6 +5,7 @@
 
 # Demos Herakleiou
 "Herakleio" : { 25, 100, 25 } : 1 : 145440 : FOOD : { 41, 56, 45 } : 5
+"Dia" : { 69, 69, 69 } : 1 : 69 : GOLD : { 1, 1, 1 } : 1
 
 "Nea Alikarnassos" : { 255, 100, 25 } : 1 : 10452 : FISH : { 13, 19, 21 } : 4
 "Herakleion Airport" : { 125, 125, 255 } : 1 : 100 : OIL : { 1, 1, 1 } : 5
