@@ -29,6 +29,7 @@ err_capable init_country_bar(cou* country, SDL_Renderer* rnd){
     countryInsignia = PGUI_CreateItemComplete(0, 0, PGUI_Load("insignia.png"), rnd, {}, PGUI_True);
     countryBar = PGUI_CreateItemComplete(0, 0, PGUI_Load("topBar.png"), rnd, {}, PGUI_True);
 
+    return SUCCESS;
 }
 
 err_capable init_province_inspector(SDL_Renderer* rnd){
