@@ -8,9 +8,27 @@ PGUI_Button* milDev;
 PGUI_Button* prodDev;
 PGUI_Item* provInspector;
 
+PGUI_Item* countryBar;
+PGUI_Item* countryInsignia;
+PGUI_Item* countryFlag; /* 263 x 263 png */
+
 PGUI_Button* PGUI_UpdateButtonArguments(PGUI_Button* button, PGUI_ArgumentVector newArgs){
     button->actionArgs.arguments = newArgs;
     return button;
+}
+
+/* TODO: add a player object */
+
+err_capable init_country_bar(cou* country, SDL_Renderer* rnd){
+    SDL_Surface* cou_flag = IMG_Load("assets/gfx/flags/HER.png");
+    if(cou_flag->w != 263 || cou_flag->h != 263){
+        std::printf("Wrong size of country flag provided, provide an image with these dimensions: 263 x 263\n");
+        return FAIL;
+    }
+    countryFlag = PGUI_CreateItemComplete(10, 10, IMG_Load("assets/gfx/flags/HER.png"), rnd, {}, PGUI_True);
+    countryInsignia = PGUI_CreateItemComplete(0, 0, PGUI_Load("insignia.png"), rnd, {}, PGUI_True);
+    countryBar = PGUI_CreateItemComplete(0, 0, PGUI_Load("topBar.png"), rnd, {}, PGUI_True);
+
 }
 
 err_capable init_province_inspector(SDL_Renderer* rnd){
@@ -25,10 +43,10 @@ err_capable init_province_inspector(SDL_Renderer* rnd){
     provAdmDevArgs = { pguiwIncrementAdminDev, { (void*)provinces[0] }, 1 };
     provMilDevArgs = { pguiwIncrementMilDev, { (void*)provinces[0] }, 1 };
     provProdDevArgs = { pguiwIncrementProdDev, { (void*)provinces[0] }, 1 };
-    adminDev = PGUI_CreateButtonComplete(provAdmDevArgs, 528, 911, PGUI_Load("mana/admn.png"), renderer);
-    milDev = PGUI_CreateButtonComplete(provMilDevArgs, 528, 973, PGUI_Load("mana/mil.png"), renderer);
-    prodDev = PGUI_CreateButtonComplete(provProdDevArgs, 528, 1036, PGUI_Load("mana/prod.png"), renderer);
-    provInspector = PGUI_CreateItemComplete(0, 901, PGUI_Load("provBox.png"), renderer, {
+    adminDev = PGUI_CreateButtonComplete(provAdmDevArgs, 528, 911, PGUI_Load("mana/admn.png"), rnd);
+    milDev = PGUI_CreateButtonComplete(provMilDevArgs, 528, 973, PGUI_Load("mana/mil.png"), rnd);
+    prodDev = PGUI_CreateButtonComplete(provProdDevArgs, 528, 1036, PGUI_Load("mana/prod.png"), rnd);
+    provInspector = PGUI_CreateItemComplete(0, 901, PGUI_Load("provBox.png"), rnd, {
         adminDev, milDev, prodDev
     }, PGUI_True);
 

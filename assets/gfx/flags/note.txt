@@ -1,0 +1,3 @@
+Country flags, will be required to have the same name as the respective country tag
+
+TODO: Make a parser for the country flags

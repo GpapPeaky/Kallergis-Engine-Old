@@ -79,7 +79,11 @@ int main(int argv, char** args){
     /* Initialise PeakyGUI province box */
     init_province_inspector(renderer);
     #ifdef PGUI_PRINT
-        dprint("PeakyGUI initialised\n");
+        dprint("Province Inspector initialised\n");
+    #endif
+    init_country_bar(&countries[0], renderer); /* It will take the player country data */
+    #ifdef PGUI_PRINT
+        dprint("Country Top Bar initialised\n");
     #endif
 
     /* IT APPEARS THAT THE (CLEAR -> RENDERCOPY -> PRESENT) METHOD IS GPU ACCELERATED... */

@@ -18,6 +18,9 @@ typedef struct country{
     SDL_Surface* country_flag;
     SDL_Color country_rgb;
     uint units_num;
+    /* Top bar */
+    int balance;
+    uint manpower;
 }cou;
 
 extern std::vector<cou> countries; /* Contains data for each country */

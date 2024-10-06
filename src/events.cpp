@@ -45,9 +45,13 @@ prov* highlight_on_click(int x, int y, SDL_Surface* src, SDL_Texture* dst, camer
 
     for(auto prov : provinces){
         if(prov->prov_colour.r == clicked.b && prov->prov_colour.g == clicked.g && prov->prov_colour.b == clicked.r){ /* HUH? Little Endian ??? */
+
+        #ifdef PRINT_CLICK
             std::printf("Clicked Province: %s - <%d, %d, %d>  Dev: <%d %d %d> Infr: %d Goods: %s Pops: %d\n", prov->prov_name.c_str(), prov->prov_colour.r, prov->prov_colour.g, prov->prov_colour.b, 
             prov->province_economy.development.admin, prov->province_economy.development.mil, prov->province_economy.development.prod,
             prov->province_economy.infrastructure, goods_names[prov->province_economy.local_goods.good], prov->province_economy.local_goods.population);
+        #endif
+
             id = prov->prov_id;
             return prov; /* Return a pointer to the clicked province update the arguments for the province box */
         }

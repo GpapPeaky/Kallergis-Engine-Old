@@ -61,6 +61,9 @@ err_capable init_countries(const std::string countries_file, const std::string t
             new_country.country_rgb.b = B;
             new_country.units_num = 0; /* No units at first */
 
+            new_country.balance = 0;
+            new_country.manpower = 0;
+
             countries.push_back(new_country); /* Add to countries vector */
         }else{
             std::printf("Failed to parse countries\n");
