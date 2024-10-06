@@ -40,7 +40,6 @@ err_capable init_province_inspector(SDL_Renderer* rnd){
     // PGUI_ActionArguments provDevArgs = { pguiwIncrementDevelopment, {(void*)provinces[0]}, 1 }; /* Example */
 
     /* Basic implementation of the GUI (It currently works for one specified province) */
-    /* TODO: Make it so that it changes the seen province to what was clicked */
     provAdmDevArgs = { pguiwIncrementAdminDev, { (void*)provinces[0] }, 1 };
     provMilDevArgs = { pguiwIncrementMilDev, { (void*)provinces[0] }, 1 };
     provProdDevArgs = { pguiwIncrementProdDev, { (void*)provinces[0] }, 1 };
