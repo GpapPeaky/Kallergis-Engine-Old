@@ -101,8 +101,11 @@ int main(int argv, char** args){
         PGUI_DrawItems(renderer);
 
         /* Text has to be in front of the GUI items */
-        render_province_info(clicked_province);
         /* We first render, then we update */
+        render_country_info(&countries[0]);
+        // update_country_info(...)
+
+        render_province_info(clicked_province);
         update_province_inspector(clicked_province, renderer);
         
         SDL_RenderPresent(renderer);

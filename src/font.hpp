@@ -48,6 +48,13 @@ render_capable render_text(std::string msg, int x, int y);
 render_capable render_on_mouse_hover(void);
 
 /**
+ * @brief Renders the country's stats
+ * 
+ * @param country country to render the stats of
+ */
+render_capable render_country_info(cou* country);
+
+/**
  * @brief Renders the selected province info
  * 
  * @param province province clicked

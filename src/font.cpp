@@ -73,6 +73,33 @@ render_capable render_on_mouse_hover(void){
     return;
 }
 
+render_capable render_country_info(cou* country){
+    if(country == NULL){
+        return;
+    }
+
+    std::string bank = std::to_string(country->balance);
+    std::string men = std::to_string(country->manpower);
+    std::string stability = std::to_string(country->stab);
+    std::string pops_string;
+    uint pops = 0;
+
+    for(auto& regions : country->country_regs){
+        for(auto& prov : regions.reg_provs){
+            pops += prov.province_economy.local_goods.population;
+        }
+    }
+
+    pops_string = std::to_string(pops);
+
+    render_text(bank, 306, 41);
+    render_text(men, 572, 41);
+    render_text(stability, 777, 41);
+    render_text(pops_string, 995, 41);
+    
+    return;
+}
+
 render_capable render_province_info(prov* province){
     if(province == NULL){
         // std::printf("Error: province NULL at render_province_info\n");

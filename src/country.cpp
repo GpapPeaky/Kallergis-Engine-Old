@@ -63,6 +63,7 @@ err_capable init_countries(const std::string countries_file, const std::string t
 
             new_country.balance = 0;
             new_country.manpower = 0;
+            new_country.stab = 0;
 
             countries.push_back(new_country); /* Add to countries vector */
         }else{

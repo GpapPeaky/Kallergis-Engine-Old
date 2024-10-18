@@ -21,6 +21,7 @@ typedef struct country{
     /* Top bar */
     int balance;
     uint manpower;
+    int stab;
 }cou;
 
 extern std::vector<cou> countries; /* Contains data for each country */
