@@ -24,6 +24,8 @@ int main(int argv, char** args){
     init_goods();
     /* Initialise the font */
     init_font();
+    /* Initialise the clock */
+    init_clock();
 
     #ifdef MAIN_DBG
         dprint("init called");
@@ -109,6 +111,9 @@ int main(int argv, char** args){
         update_province_inspector(clicked_province, renderer);
         
         SDL_RenderPresent(renderer);
+
+        /* Update the timer, to simulate change */
+        update_clock();
 
         // generate_countries_surfaces(map, win); /* Lags the engine ,call it if a region is annexed */
 

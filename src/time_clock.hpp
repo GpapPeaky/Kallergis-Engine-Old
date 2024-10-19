@@ -1,7 +1,6 @@
 #include <iostream>
 #include <ctime>
 #include <chrono>
-#include <thread>
 
 #ifndef TIME_CLOCK
 /**
@@ -9,9 +8,9 @@
  */
 #define TIME_CLOCK
 
-typedef size_t timer;
+typedef size_t lluint;
 
-timer global_time_days;
+extern lluint global_time_days;
 
 /**
  * @brief Initialises a clock
