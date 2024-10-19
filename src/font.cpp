@@ -5,7 +5,8 @@ SDL_Color text_colour_bg = {0, 0, 0};
 SDL_Surface* text = NULL;
 SDL_Texture* txt = NULL;
 SDL_Texture* b_txt = NULL;
-TTF_Font* font = NULL;
+TTF_Font* prov_inspector_font = NULL;
+TTF_Font* top_bar_font = NULL;
 SDL_Rect rect;
 SDL_Rect b_rect;
 SDL_Rect c_rect;
@@ -14,16 +15,22 @@ err_capable init_font(void){
 
     TTF_Init(); /* Initialise */
 
-    font = TTF_OpenFont("assets/gfx/font/constanb.ttf", FONT_SIZE);
-    if(!font){
-        std:printf("FONT: %s\n ", SDL_GetError());
+    prov_inspector_font = TTF_OpenFont("assets/gfx/font/constanb.ttf", PROVINCE_INSPECTOR_FONT_SIZE);
+    if(!prov_inspector_font){
+        std::printf("FONT: %s\n ", SDL_GetError());
+        return FAIL;
+    }
+
+    top_bar_font = TTF_OpenFont("assets/gfx/font/constanb.ttf", TOP_BAR_FONT_SIZE);
+    if(!top_bar_font){
+        std::printf("FONT: %s\n ", SDL_GetError());
         return FAIL;
     }
 
     return SUCCESS;
 }
 
-render_capable render_text(std::string msg, int x, int y){
+render_capable render_text(std::string msg, int x, int y, TTF_Font* font){
     text = TTF_RenderUTF8_Solid(font, msg.c_str(), text_colour);
     if(!text){
         std::printf("%s\n ", SDL_GetError());
@@ -92,10 +99,10 @@ render_capable render_country_info(cou* country){
 
     pops_string = std::to_string(pops);
 
-    render_text(bank, 306, 41);
-    render_text(men, 572, 41);
-    render_text(stability, 777, 41);
-    render_text(pops_string, 995, 41);
+    render_text(bank, 306, 41, top_bar_font);
+    render_text(men, 572, 41, top_bar_font);
+    render_text(stability, 777, 41, top_bar_font);
+    render_text(pops_string, 995, 41, top_bar_font);
     
     return;
 }
@@ -133,18 +140,18 @@ render_capable render_province_info(prov* province){
 
     /* Renditions */
     /* TODO: Check for memory leaks */
-    render_text(province_name, 17, 921);
-    render_text(province_reg, 17, 957);
+    render_text(province_name, 17, 921, prov_inspector_font);
+    render_text(province_reg, 17, 957, prov_inspector_font);
     
-    render_text(province_pop, 17, 1031);
-    render_text(province_admin, 474, 927);
-    render_text(province_mil, 474, 974);
-    render_text(province_prod, 474, 1025);
+    render_text(province_pop, 17, 1031, prov_inspector_font);
+    render_text(province_admin, 474, 927, prov_inspector_font);
+    render_text(province_mil, 474, 974, prov_inspector_font);
+    render_text(province_prod, 474, 1025, prov_inspector_font);
 
-    render_text(province_income, 219, 942);
-    render_text(province_goods_produced, 200, 1024);
+    render_text(province_income, 219, 942, prov_inspector_font);
+    render_text(province_goods_produced, 200, 1024, prov_inspector_font);
 
-    render_text(province_good, 310, 1000);
+    render_text(province_good, 310, 1000, prov_inspector_font);
 
     SDL_RenderCopy(renderer, province_good_texture, NULL, &province_good_rect);
 

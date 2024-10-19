@@ -20,7 +20,8 @@ extern SDL_Color text_colour_bg;
 extern SDL_Surface * text;
 extern SDL_Texture * txt;
 extern SDL_Texture * b_txt;
-extern TTF_Font* font;
+extern TTF_Font* province_inspector_font;
+extern TTF_Font* top_bar_font;
 extern SDL_Rect rect;
 extern SDL_Rect b_rect;
 extern SDL_Rect c_rect;
@@ -39,8 +40,9 @@ err_capable init_font(void);
  * @param msg Message to appear
  * @param x x axis
  * @param y y axis
+ * @param font font to use
 */
-render_capable render_text(std::string msg, int x, int y);
+render_capable render_text(std::string msg, int x, int y, TTF_Font* font);
 
 /**
  * @brief Renders stats on hovering a sprite with the mouse

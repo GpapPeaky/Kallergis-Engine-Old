@@ -97,6 +97,7 @@ err_capable init_goods(void){
     return SUCCESS;
 }
 
+/* TODO: make it so that we can put it anywhere */
 render_capable render_goods_bar(void){
     int i = 0;
     for(int j = 0 ; j < 270 + (GOODS_BAR_HORIZONTAL_PX_THRESHOLD * (GOODS_N / 2) - 1) ; /* (goods / 2) * goods_size + threshold * (goods - 1) */ j += (GOOD_SIZE + GOODS_BAR_HORIZONTAL_PX_THRESHOLD)){
