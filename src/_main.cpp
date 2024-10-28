@@ -7,6 +7,7 @@
 
 #include "auxf/includes.aux"
 
+/* TODO: Refactor all the code, variable and function names for something more elegant and understandable */
 /* TODO: Make it so that components that are not inside the camera's rectangle, don't render */
 
 int main(int argv, char** args){
