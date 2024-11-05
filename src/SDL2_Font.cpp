@@ -85,7 +85,7 @@ render_capable SDL2_RenderCountryStats(cou* country){
         return;
     }
 
-    std::string bank = std::to_string(country->balance);
+    std::string bank = SDL2_FormatFloat(country->balance);
     std::string men = std::to_string(country->manpower);
     std::string stability = std::to_string(country->stab);
     std::string pops_string;
@@ -122,8 +122,7 @@ render_capable SDL2_RenderProvinceInfo(prov* province){
         }
     }
     /* FIXME: Make this be like 123.23k */
-    std::string province_pop = "Pops: " + std::to_string(province->province_economy.local_goods.population / 1000) + "." \
-    + std::to_string(province->province_economy.local_goods.population % 10) + "k"; /* int */
+    std::string province_pop = "Pops: " + std::to_string(province->province_economy.local_goods.population / 1000) + "k"; /* int */
     std::string province_admin = std::to_string(province->province_economy.development.admin); /* int */
     std::string province_mil = std::to_string(province->province_economy.development.mil); /* int */
     std::string province_prod = std::to_string(province->province_economy.development.prod); /* int */

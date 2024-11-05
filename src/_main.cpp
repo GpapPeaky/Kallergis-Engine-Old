@@ -91,6 +91,7 @@ int main(int argv, char** args){
 
     /* Game */
     bool quit = false;
+    int cycles = 0;
     while(!quit){
         /* TODO: Refactor Renditions, into one function, and their names */
         SDL2_RenderMap(renderer, textures, cam);
@@ -110,12 +111,14 @@ int main(int argv, char** args){
         
         SDL_RenderPresent(renderer);
 
-        /* Update the timer, to simulate change */
-        KENG_UpdateClock();
-
-        // generate_countries_surfaces(map, win); /* Lags the engine ,call it if a region is annexed */
-
-        /* Frame rate cap at 60 fps (60 FPS means 16 microseconds per frame (or per loop, since one counts as one frame)) */
+        cycles++;
+        if(cycles % SPEED5_CYCLES_PER_UPDATE == 0){ /* We can manipulate this to simulate game speed, we dont update if we want
+        to pause the game */
+            /* Update the timer, to simulate change after 12 cycles */
+            KENG_UpdateClock();
+            KENG_UpdateProvincePopulations(&countries[0]);
+            KENG_UpdateCountryStats(&countries[0]);
+        }
     }
 
     /* Cleanup */

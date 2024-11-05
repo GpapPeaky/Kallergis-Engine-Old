@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstring>
 #include "KENG_Region.hpp"
+#include "auxf/modules.aux"
 
 #ifndef COU
 /**
@@ -19,7 +20,7 @@ typedef struct country{
     SDL_Color country_rgb;
     uint units_num;
     /* Top bar */
-    int balance;
+    float balance;
     uint manpower;
     int stab;
 }cou;

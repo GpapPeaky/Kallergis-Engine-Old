@@ -61,8 +61,8 @@ err_capable KENG_CreateCountries(const std::string countries_file, const std::st
             new_country.country_rgb.b = B;
             new_country.units_num = 0; /* No units at first */
 
-            new_country.balance = 0;
-            new_country.manpower = 0;
+            new_country.balance = 0.0f;
+            new_country.manpower = 0.0f;
             new_country.stab = 0;
 
             countries.push_back(new_country); /* Add to countries vector */
