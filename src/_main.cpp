@@ -7,86 +7,84 @@
 
 #include "auxf/includes.aux"
 
-/* TODO: Refactor all the code, variable and function names for something more elegant and understandable */
+/* TODO: Refactor all the code, variable names for something more elegant and understandable */
 /* TODO: Make it so that components that are not inside the camera's rectangle, don't render */
 
 int main(int argv, char** args){
     /* Viewport initialisation */
-    camera cam = init_camera();
-    /* UI initialisation */
-    init_menu("assets/gfx/ui/menu/menu_bg.bmp");
+    camera cam = SDL2_CreateCamera();
     /* Initialise the window and renderer */
-    win_init("keng");
+    SDL2_CreateWindowAndRenderer("keng");
     /* Initialise the map data to be used */
-    init_map_textures();
+    KENG_CreateMapTextures();
     /* Initialise the unit graphic assets */
-    init_unit_assets();
+    KENG_CreateUnitAssets();
     /* Initialise goods graphic assets */
-    init_goods();
+    KENG_CreateGoods();
     /* Initialise the font */
-    init_font();
+    SDL2_CreateFont();
     /* Initialise the clock */
-    init_clock();
+    KENG_CreateClock();
 
     #ifdef MAIN_DBG
-        dprint("init called");
+        DEBUG_Print("init called");
     #endif
 
     /* Parse provinces, (RGB values, names, ids ect.) and add them to the respective region (regions are initialised here as well...) */
-    prov_to_reg("history/provinces/provinces.mdf"); /* Relative to the executable location */ 
+    KENG_ProvinceToRegion("history/provinces/provinces.mdf"); /* Relative to the executable location */ 
     #ifdef MAIN_DBG
-        dprint("prov to regions called");
+        DEBUG_Print("prov to regions called");
     #endif
 
     /* Parse region names, to assign them to the previously initialised regions */
-    reg_names("history/regions/region_names.ndf");
+    KENG_CreateRegionNames("history/regions/region_names.ndf");
     #ifdef MAIN_DBG
-        dprint("region names called");
+        DEBUG_Print("region names called");
     #endif
     
     /* Parse country data (RGB values, names) and their unique tags */
-    init_countries("history/country/cou.ndf", "history/country/tags.cdf");
+    KENG_CreateCountries("history/country/cou.ndf", "history/country/tags.cdf");
     #ifdef MAIN_DBG
-        dprint("init countries called");
+        DEBUG_Print("init countries called");
     #endif
 
     /* Parse ownership data, to assign the regions to the correct country */
-    reg_to_country("history/country/ownership.cdf"); 
+    KENG_RegionsToCountry("history/country/ownership.cdf"); 
     #ifdef MAIN_DBG
-        dprint("regions to countries called");
+        DEBUG_Print("regions to countries called");
     #endif
 
     /* Paints the given province map with the correct country colour */
-    mark_countries(click_surface, map); /* We use the click map as per usual */
+    KENG_MarkCountries(click_surface, map); /* We use the click map as per usual */
     #ifdef MAIN_DBG
-        dprint("marking countries called");
+        DEBUG_Print("marking countries called");
     #endif
 
     /* Paints the borders inbetween countries and provinces */
-    mark_inner_borders(click_surface, inner_border_map); /* FIXME: Marks coastlines and rivers as well, when it shouldn't */
+    KENG_MarkInnerBorders(click_surface, inner_border_map); /* FIXME: Marks coastlines and rivers as well, when it shouldn't */
     #ifdef MAIN_DBG
-        dprint("border generation called");
+        DEBUG_Print("border generation called");
     #endif
 
     /* Prints */
     #ifdef MAIN_PRINTS
-        print_regions();
-        print_countries();
-        print_country_colours();
-        print_provinces();
+        KENG_PrintRegions();
+        KENG_PrintCountries();
+        KENG_PrintCountryColours();
+        KENG_PrintProvinces();
         #ifdef MAIN_DBG
-            dprint("Prints Completed\n");
+            DEBUG_Print("Prints Completed\n");
         #endif
     #endif
 
     /* Initialise PeakyGUI province box */
-    init_province_inspector(renderer);
+    PGUI_CreateProvinceInspector(renderer);
     #ifdef PGUI_PRINT
-        dprint("Province Inspector initialised\n");
+        DEBUG_Print("Province Inspector initialised\n");
     #endif
-    init_country_bar(&countries[0], renderer); /* It will take the player country data */
+    PGUI_CreateCountryBar(&countries[0], renderer); /* It will take the player country data */
     #ifdef PGUI_PRINT
-        dprint("Country Top Bar initialised\n");
+        DEBUG_Print("Country Top Bar initialised\n");
     #endif
 
     /* IT APPEARS THAT THE (CLEAR -> RENDERCOPY -> PRESENT) METHOD IS GPU ACCELERATED... */
@@ -94,27 +92,26 @@ int main(int argv, char** args){
     /* Game */
     bool quit = false;
     while(!quit){
-        /* TODO: Refactor Renditions, into one function */
-        render_map(renderer, textures, cam);
-        draw_units(cam);
-        render_goods_bar();
+        /* TODO: Refactor Renditions, into one function, and their names */
+        SDL2_RenderMap(renderer, textures, cam);
+        SDL2_DrawUnits(cam);
+        SDL2_RenderGoodsBar();
 
-        events_handling(quit, cam);
+        SDL2_HandleEvents(quit, cam);
 
         PGUI_DrawItems(renderer);
 
         /* Text has to be in front of the GUI items */
         /* We first render, then we update */
-        render_country_info(&countries[0]);
-        // update_country_info(...)
+        SDL2_RenderCountryStats(&countries[0]);
 
-        render_province_info(clicked_province);
-        update_province_inspector(clicked_province, renderer);
+        SDL2_RenderProvinceInfo(clicked_province);
+        PGUI_UpdateProvinceInspector(clicked_province, renderer);
         
         SDL_RenderPresent(renderer);
 
         /* Update the timer, to simulate change */
-        update_clock();
+        KENG_UpdateClock();
 
         // generate_countries_surfaces(map, win); /* Lags the engine ,call it if a region is annexed */
 
@@ -122,7 +119,7 @@ int main(int argv, char** args){
     }
 
     /* Cleanup */
-    cleanup(win, renderer);
+    SDL2_Cleanup(win, renderer);
 
     return EXIT_SUCCESS;
 }

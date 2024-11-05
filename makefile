@@ -37,19 +37,29 @@ $(PGUIPATH)pgui_event.cpp $(PGUIPATH)pgui_item.cpp $(PGUIPATH)pgui_load.cpp $(PG
 # Main
 
 EXEC_NAME = keng
-DEFSRC = $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp $(SRCPATH)province.cpp $(SRCPATH)regions.cpp $(SRCPATH)init_map.cpp \
-$(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)pixels.cpp $(SRCPATH)events.cpp $(SRCPATH)font.cpp $(SRCPATH)primes.cpp \
-$(SRCPATH)cleanup.cpp $(SRCPATH)camera.cpp $(SRCPATH)menu.cpp $(SRCPATH)unit.cpp $(SRCPATH)time_clock.cpp \
-$(SRCPATH)goods.cpp $(SRCPATH)economy.cpp $(SRCPATH)dbgp.cpp $(SRCPATH)gui.cpp $(SRCPATH)pgui_function_overloads.cpp \
-$(PGUISRC)
+DEFSRC = \
+$(PGUISRC)\
+$(SRCPATH)_main.cpp\
+$(SRCPATH)SDL2_Camera.cpp\
+$(SRCPATH)SDL2_Window.cpp\
+$(SRCPATH)SDL2_Pixel.cpp\
+$(SRCPATH)SDL2_CleanUp.cpp\
+$(SRCPATH)SDL2_Events.cpp\
+$(SRCPATH)SDL2_Font.cpp\
+$(SRCPATH)KENG_Parser.cpp\
+$(SRCPATH)KENG_Map.cpp\
+$(SRCPATH)KENG_Province.cpp\
+$(SRCPATH)KENG_Region.cpp\
+$(SRCPATH)KENG_Country.cpp\
+$(SRCPATH)KENG_TimeClock.cpp\
+$(SRCPATH)KENG_Unit.cpp\
+$(SRCPATH)KENG_Economy.cpp\
+$(SRCPATH)KENG_Goods.cpp\
+$(SRCPATH)KENG_Debug.cpp\
+$(SRCPATH)PGUI_GUI.cpp\
+$(SRCPATH)PGUI_Overloads.cpp\
+
 # DEFSRC =  $(PGUISRC) $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp $(SRCPATH)province.cpp $(SRCPATH)regions.cpp $(SRCPATH)init_map.cpp $(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)pixels.cpp $(SRCPATH)events.cpp $(SRCPATH)font.cpp $(SRCPATH)primes.cpp $(SRCPATH)hashtable.cpp $(SRCPATH)cleanup.cpp $(SRCPATH)camera.cpp $(SRCPATH)menu.cpp $(SRCPATH)unit.cpp $(SRCPATH)goods.cpp $(SRCPATH)economy.cpp $(SRCPATH)dbgp.cpp
-
-
-# Pixels
-
-PIXELS_EXEC_NAME = pixels
-PSRC = $(SRCPATH)pixels.cpp $(SRCPATH)pixelsmain.cpp $(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)init_win.cpp \
-$(SRCPATH)init_map.cpp $(SRCPATH)province.cpp $(SRCPATH)primes.cpp $(SRCPATH)hashtable.cpp $(SRCPATH)camera.cpp
 
 def: $(DEFSRC)
 	@echo Compiling Main (Default), and running 
@@ -71,12 +81,6 @@ clean:
 
 test:
 	@echo Makefile test.
-	
-# The country source is included to remove some errors of undefined references... pretty bad code but it is for testing anyway...
-pixels: $(PSRC)
-	@echo Pixel test.
-	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $^ -o$(DSTPATH)$(PIXELS_EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
-	$(DSTPATH)$(PIXELS_EXEC_NAME).exe
 
 # WARN: THE FLAGS HAVE TO BE AT THE END OF OF THE MAKE COMMAND, OR ELSE IT WILL NOT WORK
 
@@ -85,8 +89,6 @@ all:
 	@echo Compiling all executables...
 	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $(DEFSRC) -o $(DSTPATH)$(EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
 	@echo -DEF COMPLETED
-	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $(PSRC) -o $(DSTPATH)$(PIXELS_EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
-	@echo -PIXELS COMPLETED
 	@echo Compilation completed.
 
 # Unused Variable And Functions Compiling For Debugging
@@ -96,15 +98,8 @@ def-unsd: $(DEFSRC)
 	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $(UNUSED) $^ -o $(DSTPATH)$(EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
 	$(DSTPATH)$(EXEC_NAME).exe
 
-pixels-unsd: $(PSRC)
-	@echo Pixel test.
-	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $(UNUSED) $^ -o$(DSTPATH)$(PIXELS_EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
-	$(DSTPATH)$(PIXELS_EXEC_NAME).exe
-
 all-unsd:
 	@echo Compiling all executables...
 	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $(UNUSED) $(DEFSRC) -o $(DSTPATH)$(EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
 	@echo -DEF COMPLETED
-	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $(UNUSED) $(PSRC) -o $(DSTPATH)$(PIXELS_EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
-	@echo -PIXELS COMPLETED
 	@echo Compilation completed.

@@ -4,25 +4,31 @@
  */
 #define INC
 
-#include "../province.hpp"
-#include "../regions.hpp"
-#include "../init_win.hpp"
-#include "../init_map.hpp"
-#include "../map.hpp"
-#include "../events.hpp"
-#include "../pixels.hpp"
-#include "../font.hpp"
-#include "../cleanup.hpp"
-#include "../camera.hpp"
-#include "../menu.hpp"
-#include "../unit.hpp"
-#include "../economy.hpp"
-#include "../dbgp.hpp"
-#include "../gui.hpp"
-#include "../time_clock.hpp"
+/* Primarily SDL2 type of functions */
+#include "../SDL2_Camera.hpp"
+#include "../SDL2_Window.hpp"
+#include "../SDL2_Pixel.hpp"
+#include "../SDL2_CleanUp.hpp"
+#include "../SDL2_Events.hpp"
+#include "../SDL2_Font.hpp"
+
+/* Kallergis Engine funtions */
+#include "../KENG_Parser.hpp"
+#include "../KENG_Map.hpp"
+#include "../KENG_Province.hpp"
+#include "../KENG_Region.hpp"
+#include "../KENG_Country.hpp"
+#include "../KENG_TimeClock.hpp"
+#include "../KENG_Unit.hpp"
+#include "../KENG_Economy.hpp"
+
+/* Peaky GUI functions */
+#include "../PGUI_GUI.hpp"
+
+/* Debug */
+#include "../KENG_Debug.hpp"
 
 /* Main Modules */
-
 #include "modules.aux"
 
 #endif
