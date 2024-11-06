@@ -162,3 +162,5 @@ std::string SDL2_FormatFloat(float value){
     out << std::fixed << std::setprecision(2) << value;
     return out.str();
 }
+
+/* FIXME: PARSE A INFO FROM ONE FUCKING SOURCE JESUS PLEASE */

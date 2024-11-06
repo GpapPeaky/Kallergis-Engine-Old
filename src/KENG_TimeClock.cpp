@@ -13,10 +13,10 @@ void KENG_UpdateClock(void){
 }
 
 void KENG_UpdateCountryStats(cou* country){
-    for(auto reg : country->country_regs){
-        for(auto prov : reg.reg_provs){
+    for(auto& reg : country->country_regs){
+        for(auto& prov : reg.reg_provs){
             #ifdef UPDATE_PRINTS
-                printf("Money added: %.2f\n", I(prov.province_economy));
+                printf("Money added: %.2f from %s\n", I(prov.province_economy), prov.prov_name.c_str());
             #endif
             country->balance += I(prov.province_economy);
             country->manpower += prov.province_economy.local_goods.population / 1000;
@@ -24,6 +24,7 @@ void KENG_UpdateCountryStats(cou* country){
             /* Add a manpower cap */
         }
     }
+
     return;
 }
 
@@ -41,10 +42,6 @@ void KENG_UpdateProvincePopulations(cou* country){
             }else{
                 prov.province_economy.local_goods.population += growthAmount;
             }
-
-            #ifdef UPDATE_PRINTS
-                printf("Population added: %d\n", growthAmount);
-            #endif
         }
     }
 
@@ -57,8 +54,14 @@ void KENG_UpdateProvincePopulations(cou* country){
 
         if(growthAmount == 0){
             prov->province_economy.local_goods.population += 1; /* just add +1 */
+            #ifdef UPDATE_PRINTS
+                printf("Population added: %d\n", 1);
+            #endif
         }else{
             prov->province_economy.local_goods.population += growthAmount;
+            #ifdef UPDATE_PRINTS
+                printf("Population added: %d\n", growthAmount);
+            #endif
         }
 
         prov->province_economy.local_goods.population += growthAmount; 

@@ -70,6 +70,16 @@ err_capable PGUI_UpdateProvinceInspector(prov* province, SDL_Renderer* rnd){
         return FAIL;
     }
 
+    for(auto& country : countries){
+        for(auto& reg : country.country_regs){
+            for(auto& prov : reg.reg_provs){
+                if(prov.prov_id == province->prov_id){
+                    prov.province_economy.development = province->province_economy.development;
+                }
+            }
+        }
+    }
+
     PGUI_UpdateButtonArguments(adminDev, { (void*)province });
     PGUI_UpdateButtonArguments(milDev, { (void*)province });
     PGUI_UpdateButtonArguments(prodDev, { (void*)province });
