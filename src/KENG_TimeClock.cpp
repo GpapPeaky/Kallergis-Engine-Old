@@ -45,7 +45,7 @@ void KENG_UpdateProvincePopulations(cou* country){
         }
     }
 
-    /* FOR PGUI */
+    /* FOR PGUI, PGUI checks the global provinces vector */
     for(auto& prov : provinces){
         double growthRate = (prov->province_economy.development.admin +
         prov->province_economy.development.mil +

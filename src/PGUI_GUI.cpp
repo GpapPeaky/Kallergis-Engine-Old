@@ -70,10 +70,12 @@ err_capable PGUI_UpdateProvinceInspector(prov* province, SDL_Renderer* rnd){
         return FAIL;
     }
 
+    /* This is a local update for this specific province */
     for(auto& country : countries){
         for(auto& reg : country.country_regs){
             for(auto& prov : reg.reg_provs){
                 if(prov.prov_id == province->prov_id){
+                    /* Updates it so that the income is the same as shown in the UI */
                     prov.province_economy.development = province->province_economy.development;
                 }
             }
