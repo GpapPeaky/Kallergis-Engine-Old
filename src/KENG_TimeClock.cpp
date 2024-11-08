@@ -1,11 +1,13 @@
 #include "KENG_TimeClock.hpp"
 
 lluint KENG_daysPassedGlobal;
-uint* KENG_gameSpeed = SPEED3_CYCLES_PER_UPDATE; /* Base speed */
-uint* KENG_gamePause = NOT_PAUSED; /* Unpaused */
+uint KENG_gameSpeed;
+uint KENG_gamePause;
 
 void KENG_CreateClock(void){
     KENG_daysPassedGlobal = 0;
+    KENG_gameSpeed = SPEED3_CYCLES_PER_UPDATE;
+    KENG_gamePause = NOT_PAUSED;
     return;
 }
 

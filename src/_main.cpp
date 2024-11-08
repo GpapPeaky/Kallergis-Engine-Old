@@ -113,7 +113,7 @@ int main(int argv, char** args){
 
         cycles++;
         if(KENG_gamePause == NOT_PAUSED){
-            if(cycles % (*KENG_gameSpeed) == 0){ /* We can manipulate this to simulate game speed, we dont update if we want
+            if(cycles % KENG_gameSpeed == 0){ /* We can manipulate this to simulate game speed, we dont update if we want
             to pause the game */
                 /* Update the timer, to simulate change after 12 cycles */
                 KENG_UpdateClock();

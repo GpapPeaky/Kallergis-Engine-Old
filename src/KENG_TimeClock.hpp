@@ -12,8 +12,8 @@
 typedef size_t lluint;
 
 extern lluint KENG_daysPassedGlobal;
-extern uint* KENG_gameSpeed;
-extern uint* KENG_gamePause;
+extern uint KENG_gameSpeed;
+extern uint KENG_gamePause;
 
 /**
  * @brief Initialises a clock

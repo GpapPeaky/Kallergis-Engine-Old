@@ -72,17 +72,17 @@ eng_event SDL2_HandleEvents(bool& quit, camera& cam){
         if(e.type == SDL_QUIT){
             quit = true;
         }else if(e.key.keysym.sym == SDLK_SPACE){
-            *KENG_gamePause = !(*KENG_gamePause); /* Switching the, pausing */
+            KENG_gamePause = !(KENG_gamePause); /* Switching the, pausing */
         }else if(e.key.keysym.sym == SDLK_1){
-            *KENG_gameSpeed = SPEED1_CYCLES_PER_UPDATE;
+            KENG_gameSpeed = SPEED1_CYCLES_PER_UPDATE;
         }else if(e.key.keysym.sym == SDLK_2){
-            *KENG_gameSpeed = SPEED2_CYCLES_PER_UPDATE;
+            KENG_gameSpeed = SPEED2_CYCLES_PER_UPDATE;
         }else if(e.key.keysym.sym == SDLK_3){
-            *KENG_gameSpeed = SPEED3_CYCLES_PER_UPDATE;
+            KENG_gameSpeed = SPEED3_CYCLES_PER_UPDATE;
         }else if(e.key.keysym.sym == SDLK_4){
-            *KENG_gameSpeed = SPEED4_CYCLES_PER_UPDATE;
+            KENG_gameSpeed = SPEED4_CYCLES_PER_UPDATE;
         }else if(e.key.keysym.sym == SDLK_5){
-            *KENG_gameSpeed = SPEED5_CYCLES_PER_UPDATE;
+            KENG_gameSpeed = SPEED5_CYCLES_PER_UPDATE;
         }else if(e.type == SDL_MOUSEWHEEL){
             /* Calculate new zoom level */
             float zoom_factor = (e.wheel.y > 0) ? 1.1f : 0.9f;
