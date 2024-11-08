@@ -8,10 +8,10 @@
 #define REG
 
 typedef struct region{
-    uint pops;
+    Uint pops;
     std::string reg_name;
     std::vector<prov> reg_provs;
-    uint reg_id;
+    Uint reg_id;
 }reg;
 
 #endif

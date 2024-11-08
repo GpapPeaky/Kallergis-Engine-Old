@@ -38,8 +38,8 @@ typedef struct unit{
     unit_t type;
     /* Owner */
     std::string owner_tag;
-    uint id;
-    uint prov_visited;
+    Uint id;
+    Uint prov_visited;
 }unit;
 
 extern unit* selected_unit;
@@ -85,13 +85,13 @@ void KENG_MoveUnit(SDL_Surface* surface, camera cam);
  *
  * @param camera to transform unit positions
  */
-render_capable SDL2_DrawUnits(camera cam);
+void SDL2_DrawUnits(camera cam);
 
 /**
  * @brief Highlights the selected unit
  * 
  * @param camera transform unit positions
  */
-render_capable KENG_HiglightSelectedUnit(camera cam);
+void KENG_HiglightSelectedUnit(camera cam);
 
 #endif

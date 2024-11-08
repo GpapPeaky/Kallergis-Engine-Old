@@ -54,12 +54,12 @@ prov* SDL2_HighlightOnClick(int x, int y, SDL_Surface* src, SDL_Texture* dst, ca
     return NULL;
 }
 
-eng_event SDL2_PanScreen(int d_x, int d_y){
+void SDL2_PanScreen(int d_x, int d_y){
     /* WRITE */
     return;
 }
 
-eng_event SDL2_HandleEvents(bool& quit, camera& cam){
+void SDL2_HandleEvents(bool& quit, camera& cam){
     SDL_Event e;
     /* Initial Values For Camera Velocity */
     float vel_x = 1.0f;

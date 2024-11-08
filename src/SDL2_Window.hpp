@@ -36,6 +36,6 @@ err_capable SDL2_CreateWindowAndRenderer(const char* name);
  * @param textures Textures vector to render
  * @param cam Camera for viewport
  */
-render_capable SDL2_RenderMap(SDL_Renderer* renderer, std::vector<SDL_Texture*> textures, camera cam);
+void SDL2_RenderMap(SDL_Renderer* renderer, std::vector<SDL_Texture*> textures, camera cam);
 
 #endif

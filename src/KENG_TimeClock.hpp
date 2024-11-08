@@ -9,11 +9,11 @@
  */
 #define TIME_CLOCK
 
-typedef size_t lluint;
+typedef size_t llUint;
 
-extern lluint KENG_daysPassedGlobal;
-extern uint KENG_gameSpeed;
-extern uint KENG_gamePause;
+extern llUint KENG_daysPassedGlobal;
+extern Uint KENG_gameSpeed;
+extern Uint KENG_gamePause;
 
 /**
  * @brief Initialises a clock

@@ -27,7 +27,7 @@ err_capable SDL2_CreateWindowAndRenderer(const char* name){
     return SUCCESS;
 }
 
-render_capable SDL2_RenderMap(SDL_Renderer* renderer, std::vector<SDL_Texture*> textures, camera cam){
+void SDL2_RenderMap(SDL_Renderer* renderer, std::vector<SDL_Texture*> textures, camera cam){
     SDL_RenderClear(renderer);
 
     for(SDL_Texture* texture : textures){

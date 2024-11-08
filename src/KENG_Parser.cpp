@@ -35,12 +35,12 @@ err_capable KENG_ProvinceToRegion(const std::string fname){
             int G = std::stoi(matches[3].str());
             int B = std::stoi(matches[4].str());
             int region_id = std::stoi(matches[5].str());
-            uint population = std::stoul(matches[6].str());
+            Uint population = std::stoul(matches[6].str());
             std::string good_produced_str = matches[7].str();
-            uint admn_dev = std::stoul(matches[8].str());
-            uint mil_dev = std::stoul(matches[9].str());
-            uint prod_dev = std::stoul(matches[10].str());
-            uint infra_level = std::stoul(matches[11].str());
+            Uint admn_dev = std::stoul(matches[8].str());
+            Uint mil_dev = std::stoul(matches[9].str());
+            Uint prod_dev = std::stoul(matches[10].str());
+            Uint infra_level = std::stoul(matches[11].str());
 
             /* Create a new province by allocating memory */
 

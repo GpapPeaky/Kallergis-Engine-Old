@@ -43,26 +43,26 @@ err_capable SDL2_CreateFont(void);
  * @param y y axis
  * @param font font to use
 */
-render_capable SDL2_RenderText(std::string msg, int x, int y, TTF_Font* font);
+void SDL2_RenderText(std::string msg, int x, int y, TTF_Font* font);
 
 /**
  * @brief Renders stats on hovering a sprite with the mouse
 */
-render_capable SDL2_RenderOnMouseHover(void);
+void SDL2_RenderOnMouseHover(void);
 
 /**
  * @brief Renders the country's stats
  * 
  * @param country country to render the stats of
  */
-render_capable SDL2_RenderCountryStats(cou* country);
+void SDL2_RenderCountryStats(cou* country);
 
 /**
  * @brief Renders the selected province info
  * 
  * @param province province clicked
  */
-render_capable SDL2_RenderProvinceInfo(prov* province);
+void SDL2_RenderProvinceInfo(prov* province);
 
 /**
  * @brief Formats a float to show two decimals

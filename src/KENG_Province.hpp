@@ -13,8 +13,8 @@
 
 typedef struct prov{
     std::string prov_name;
-    uint prov_id;
-    uint region;
+    Uint prov_id;
+    Uint region;
     std::string owner_tag;
     SDL_Color prov_colour;
     eco province_economy;

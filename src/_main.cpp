@@ -91,7 +91,7 @@ int main(int argv, char** args){
 
     /* Game */
     bool quit = false;
-    int cycles = 0;
+     KENG_gameCycles = 0;
     while(!quit){
         /* TODO: Refactor Renditions, into one function, and their names */
         SDL2_RenderMap(renderer, textures, cam);
@@ -111,9 +111,9 @@ int main(int argv, char** args){
         
         SDL_RenderPresent(renderer);
 
-        cycles++;
+        KENG_gameCycles++;
         if(KENG_gamePause == NOT_PAUSED){
-            if(cycles % KENG_gameSpeed == 0){ /* We can manipulate this to simulate game speed, we dont update if we want
+            if(KENG_gameCycles % KENG_gameSpeed == 0){ /* We can manipulate this to simulate game speed, we dont update if we want
             to pause the game */
                 /* Update the timer, to simulate change after 12 cycles */
                 KENG_UpdateClock();

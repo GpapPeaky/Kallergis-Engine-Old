@@ -1,8 +1,8 @@
 #include "KENG_TimeClock.hpp"
 
-lluint KENG_daysPassedGlobal;
-uint KENG_gameSpeed;
-uint KENG_gamePause;
+llUint KENG_daysPassedGlobal;
+Uint KENG_gameSpeed;
+Uint KENG_gamePause;
 
 void KENG_CreateClock(void){
     KENG_daysPassedGlobal = 0;

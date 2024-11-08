@@ -8,15 +8,15 @@
 #define ECONOMY
 
 typedef struct dev{
-    uint admin; /* Administrative development */
-    uint mil; /* Military development */
-    uint prod; /* Production development */
+    Uint admin; /* Administrative development */
+    Uint mil; /* Military development */
+    Uint prod; /* Production development */
 }dev;
 
 typedef struct economy{
     dev development;
     local_prd local_goods;
-    uint infrastructure;
+    Uint infrastructure;
 }eco;
 
 /**

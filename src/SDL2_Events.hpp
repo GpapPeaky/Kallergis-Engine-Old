@@ -28,7 +28,7 @@ extern prov* clicked_province;
  * @param quit Checks if the program has quit or not
  * @param cam camera struct for viewport
 */
-eng_event SDL2_HandleEvents(bool& quit, camera& cam);
+void SDL2_HandleEvents(bool& quit, camera& cam);
 
 /**
  * @brief Highlights a province when clicked
@@ -47,7 +47,7 @@ prov* SDL2_HighlightOnClick(int mouse_x, int mouse_y, SDL_Surface* src, SDL_Text
  * @param d_x cursor x
  * @param d_y cursor y
 */
-eng_event SDL2_PanScreen(int d_x, int d_y);
+void SDL2_PanScreen(int d_x, int d_y);
 
 /**
  * @brief Checks if the mouse is intersecting both with a gui element and a province, if it does, then it click the button

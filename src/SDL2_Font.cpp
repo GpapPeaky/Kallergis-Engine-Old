@@ -30,7 +30,7 @@ err_capable SDL2_CreateFont(void){
     return SUCCESS;
 }
 
-render_capable SDL2_RenderText(std::string msg, int x, int y, TTF_Font* font){
+void SDL2_RenderText(std::string msg, int x, int y, TTF_Font* font){
     text = TTF_RenderUTF8_Solid(font, msg.c_str(), text_colour);
     if(!text){
         std::printf("%s\n ", SDL_GetError());
@@ -76,11 +76,11 @@ render_capable SDL2_RenderText(std::string msg, int x, int y, TTF_Font* font){
     SDL_DestroyTexture(txt);
 }
 
-render_capable SDL2_RenderOnMouseHover(void){
+void SDL2_RenderOnMouseHover(void){
     return;
 }
 
-render_capable SDL2_RenderCountryStats(cou* country){
+void SDL2_RenderCountryStats(cou* country){
     if(country == NULL){
         return;
     }
@@ -89,7 +89,7 @@ render_capable SDL2_RenderCountryStats(cou* country){
     std::string men = std::to_string(country->manpower);
     std::string stability = std::to_string(country->stab);
     std::string pops_string;
-    uint pops = 0;
+    Uint pops = 0;
 
     for(auto& regions : country->country_regs){
         for(auto& prov : regions.reg_provs){
@@ -107,7 +107,7 @@ render_capable SDL2_RenderCountryStats(cou* country){
     return;
 }
 
-render_capable SDL2_RenderProvinceInfo(prov* province){
+void SDL2_RenderProvinceInfo(prov* province){
     if(province == NULL){
         // std::printf("Error: province NULL at render_province_info\n");
         return; /* if NULL, shows nothing */

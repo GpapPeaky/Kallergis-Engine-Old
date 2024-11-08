@@ -269,7 +269,7 @@ void KENG_MoveUnit(SDL_Surface* surface, camera cam){
     return;
 }
 
-render_capable SDL2_DrawUnits(camera cam){
+void SDL2_DrawUnits(camera cam){
     if(!units.empty()){
         for(auto& unit : units){
             /* Calculate the positions */
@@ -287,7 +287,7 @@ render_capable SDL2_DrawUnits(camera cam){
     return;
 }
 
-render_capable KENG_HiglightSelectedUnit(camera cam){
+void KENG_HiglightSelectedUnit(camera cam){
     if(selected_unit){
         int screen_x = static_cast<int>((selected_unit->rect.x - cam.rect.x) * cam.zoom);
         int screen_y = static_cast<int>((selected_unit->rect.y - cam.rect.y) * cam.zoom);

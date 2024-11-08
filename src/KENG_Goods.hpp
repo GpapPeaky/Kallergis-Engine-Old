@@ -22,7 +22,7 @@ typedef enum product{
 }product;
 
 typedef struct local_prd{
-    uint population;
+    Uint population;
     product good;
 }local_prd;
 
@@ -38,6 +38,6 @@ err_capable KENG_CreateGoods(void);
 /**
  * @brief Renders the goods bar onto the screen
  */
-render_capable SDL2_RenderGoodsBar(void);
+void SDL2_RenderGoodsBar(void);
 
 #endif

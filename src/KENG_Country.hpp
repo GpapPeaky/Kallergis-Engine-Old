@@ -18,10 +18,10 @@ typedef struct country{
     std::vector<reg> country_regs;
     SDL_Surface* country_flag;
     SDL_Color country_rgb;
-    uint units_num;
+    Uint units_num;
     /* Top bar */
     float balance;
-    uint manpower;
+    Uint manpower;
     int stab;
 }cou;
 
