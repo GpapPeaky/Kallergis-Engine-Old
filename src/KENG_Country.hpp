@@ -36,7 +36,7 @@ extern std::vector<cou> countries; /* Contains data for each country */
  * @returns 1 on failure
  *                0 on success
 */
-err_capable KENG_CreateCountries(const std::string cou, const std::string tags);
+int KENG_CreateCountries(const std::string cou, const std::string tags);
 
 /**
  * @brief gets the country object of a specific tag

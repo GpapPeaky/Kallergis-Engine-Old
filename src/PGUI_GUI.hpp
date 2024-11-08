@@ -41,7 +41,7 @@ PGUI_Button* PGUI_UpdateButtonArguments(PGUI_Button* button, PGUI_ActionArgument
  * 
  * @returns 0 on success, 1 on failure
  */
-err_capable PGUI_CreateCountryBar(cou* country, SDL_Renderer* rnd);
+int PGUI_CreateCountryBar(cou* country, SDL_Renderer* rnd);
 
 /**
  * @brief Initialises PeakyGUI, province inspection
@@ -50,11 +50,16 @@ err_capable PGUI_CreateCountryBar(cou* country, SDL_Renderer* rnd);
  * 
  * @returns 0 on success, 1 on failure
  */
-err_capable PGUI_CreateProvinceInspector(SDL_Renderer* rnd);
+int PGUI_CreateProvinceInspector(SDL_Renderer* rnd);
 
 /**
  * @brief Updates the province that the gui is currently looking at
+ * 
+ * @param province province to be shown at the province inspector
+ * @param rnd renderer to use (we can remove it)
+ * 
+ * @returns 0 on success, 1 on failure
  */
-err_capable PGUI_UpdateProvinceInspector(prov* province, SDL_Renderer* rnd);
+int PGUI_UpdateProvinceInspector(prov* province, SDL_Renderer* rnd);
 
 #endif

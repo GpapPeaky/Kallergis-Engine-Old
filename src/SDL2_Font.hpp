@@ -33,7 +33,7 @@ extern SDL_Rect c_rect;
  * @returns 1 on FAILURE
  *                0 on SUCCESS
 */
-err_capable SDL2_CreateFont(void); 
+int SDL2_CreateFont(void); 
 
 /**
  * @brief Renders Text based on a string

@@ -32,7 +32,7 @@
  * 
  * @returns 0 on SUCCESS 1 on FAILURE
  */
-err_capable SDL2_SetPixel(SDL_Texture* texture, int x, int y, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+int SDL2_SetPixel(SDL_Texture* texture, int x, int y, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
 /**
  * @brief Test function, to understan memory manipulation better
@@ -53,7 +53,7 @@ void SDL2_PixelScreenFill(SDL_Texture* texture);
  * 
  * @returns 0 on SUCCESS 1 on FAILURE
  */
-err_capable SDL2_LoadBitmap(SDL_Texture* dest, const char* filename);
+int SDL2_LoadBitmap(SDL_Texture* dest, const char* filename);
 
 /**
  * @brief Loads a png, from a file
@@ -65,7 +65,7 @@ err_capable SDL2_LoadBitmap(SDL_Texture* dest, const char* filename);
  * 
  * @returns 0 on SUCCESS 1 on FAILURE
  */
-err_capable SDL2_LoadPNG(SDL_Texture* dest, const char* filename);
+int SDL2_LoadPNG(SDL_Texture* dest, const char* filename);
 
 /**
  * @brief Parses the bmp and scans for each pixel
@@ -79,9 +79,7 @@ err_capable SDL2_LoadPNG(SDL_Texture* dest, const char* filename);
  * @returns 1 on failure
  *              0 on success
 */
-err_capable KENG_MarkCountries(SDL_Surface* src, SDL_Texture* texture);
-
-/*______________________________________________________________________________________________*/
+int KENG_MarkCountries(SDL_Surface* src, SDL_Texture* texture);
 
 /**
  * @brief Generates borders between countries

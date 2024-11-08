@@ -19,7 +19,7 @@ PGUI_Button* PGUI_UpdateButtonArguments(PGUI_Button* button, PGUI_ArgumentVector
 
 /* TODO: add a player object */
 
-err_capable PGUI_CreateCountryBar(cou* country, SDL_Renderer* rnd){
+int PGUI_CreateCountryBar(cou* country, SDL_Renderer* rnd){
     SDL_Surface* cou_flag = IMG_Load("assets/gfx/flags/HER.png");
     if(cou_flag->w != 263 || cou_flag->h != 263){
         std::printf("Wrong size of country flag provided, provide an image with these dimensions: 263 x 263\n");
@@ -32,7 +32,7 @@ err_capable PGUI_CreateCountryBar(cou* country, SDL_Renderer* rnd){
     return SUCCESS;
 }
 
-err_capable PGUI_CreateProvinceInspector(SDL_Renderer* rnd){
+int PGUI_CreateProvinceInspector(SDL_Renderer* rnd){
 
     /* WARN: Overload the path to the correct one */
     PGUI_AssetPath = "ThirdParty/PeakyGUI/assets/";
@@ -65,7 +65,7 @@ err_capable PGUI_CreateProvinceInspector(SDL_Renderer* rnd){
     return SUCCESS; /* At some other point it will return an error */
 }
 
-err_capable PGUI_UpdateProvinceInspector(prov* province, SDL_Renderer* rnd){
+int PGUI_UpdateProvinceInspector(prov* province, SDL_Renderer* rnd){
     if(province == NULL){
         return FAIL;
     }

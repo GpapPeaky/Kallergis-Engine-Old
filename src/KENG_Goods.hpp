@@ -33,7 +33,7 @@ extern std::unordered_map<std::string, product> product_map;
  * 
  * @returns 1 on failure, 0 on success
  */
-err_capable KENG_CreateGoods(void);
+int KENG_CreateGoods(void);
 
 /**
  * @brief Renders the goods bar onto the screen

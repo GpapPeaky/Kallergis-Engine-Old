@@ -54,11 +54,11 @@ void SDL2_PanScreen(int d_x, int d_y);
  * 
  * @param mx mouse x
  * @param my mouse y
- * @param click_surface surface to scan the click
+ * @param clickSurface surface to scan the click
  * @param cam camera to transform the provided mouse coords
  * 
  * @returns true if it intersects, false if it doesn't
  */
-bool KENG_MouseIntersectingWithProvinceGUICheck(int mx, int my, SDL_Surface* click_surface, camera cam);
+bool KENG_MouseIntersectingWithProvinceGUICheck(int mx, int my, SDL_Surface* clickSurface, camera cam);
 
 #endif

@@ -153,13 +153,13 @@ void SDL2_HandleEvents(bool& quit, camera& cam){
                     }
                 }
 
-                if(KENG_MouseIntersectingWithProvinceGUICheck(mouse_x, mouse_y, click_surface, cam) == true){ 
+                if(KENG_MouseIntersectingWithProvinceGUICheck(mouse_x, mouse_y, KENG_clickSurface, cam) == true){ 
                     PGUI_EventCycle(mouse_x, mouse_y); /* Execute the button action */
                 }else{
-                    clicked_province = SDL2_HighlightOnClick(mouse_x, mouse_y, click_surface, map, cam); /* Click a new province */
+                    clicked_province = SDL2_HighlightOnClick(mouse_x, mouse_y, KENG_clickSurface, map, cam); /* Click a new province */
                 }
             }else if(e.button.button == SDL_BUTTON_RIGHT){
-                KENG_MoveUnit(click_surface, cam); /* Move the unit, if able, the check if not NULL is in the function */
+                KENG_MoveUnit(KENG_clickSurface, cam); /* Move the unit, if able, the check if not NULL is in the function */
             }
         }
     }
@@ -214,7 +214,7 @@ void SDL2_HandleEvents(bool& quit, camera& cam){
     return;
 }
 
-bool KENG_MouseIntersectingWithProvinceGUICheck(int mx, int my, SDL_Surface* click_surface, camera cam){
+bool KENG_MouseIntersectingWithProvinceGUICheck(int mx, int my, SDL_Surface* KENG_clickSurface, camera cam){
     /* Transform the mouse coords */
     int world_x = static_cast<int>(mx / cam.zoom + cam.rect.x);
     int world_y = static_cast<int>(my / cam.zoom + cam.rect.y);
@@ -233,11 +233,11 @@ bool KENG_MouseIntersectingWithProvinceGUICheck(int mx, int my, SDL_Surface* cli
     }
 
     /* Check if the mouse is inside a province */
-    int src_bpp = click_surface->format->BytesPerPixel;
-    Uint8* pixels = (Uint8*)click_surface->pixels;
-    Uint8* pixel_ptr = pixels + (world_y * click_surface->pitch) + (world_x * src_bpp);
+    int src_bpp = KENG_clickSurface->format->BytesPerPixel;
+    Uint8* pixels = (Uint8*)KENG_clickSurface->pixels;
+    Uint8* pixel_ptr = pixels + (world_y * KENG_clickSurface->pitch) + (world_x * src_bpp);
 
-    SDL_LockSurface(click_surface);
+    SDL_LockSurface(KENG_clickSurface);
 
     Uint32 pixel = 0;
     switch(src_bpp){
@@ -249,11 +249,11 @@ bool KENG_MouseIntersectingWithProvinceGUICheck(int mx, int my, SDL_Surface* cli
             break;
         default:
             std::printf("Unsupported pixel format\n");
-            SDL_UnlockSurface(click_surface);
+            SDL_UnlockSurface(KENG_clickSurface);
             return false;
     }
 
-    SDL_UnlockSurface(click_surface);
+    SDL_UnlockSurface(KENG_clickSurface);
 
     return (insidePGUIItemRect == true); /* Return the intersection */
 }

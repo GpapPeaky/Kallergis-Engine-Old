@@ -44,52 +44,5 @@ style = "width: 1024;
 ## List of Functions
 
 ```
-camera init_camera
-void handle_camera
-void cleanup
-err_capable init_countries
-cou get_country
-float I
-void events_handling
-void info_on_hover
-void highlight_on_click
-void pan_map
-err_capable init_font
-void render_text
-void render_on_mouse_hover
-float GP
-err_capable init_goods
-void render_goods_bar
-void init_hash
-ULint H
-ULint h
-int prime_selection
-err_capable prov_to_reg
-err_capable reg_names
-err_capable reg_to_country
-void print_regions
-void print_countries
-void print_provinces
-err_capable win_init
-void render_map
-err_capable init_map_textures
-void delete_button
-void buttons_cleanup
-void init_menu
-void draw_buttons
-err_capable set_pixel
-void pixel_screen_fill
-err_capable load_bitmap
-err_capable load_png
-err_capable mark_countries
-void mark_inner_borders
-void print_country_colours
-Uint is_prime
-void prime_array_generation
-void print_primes
-err_capable init_unit_assets
-void create_unit
-void draw_units
-void move_unit
-void highlight_selected_unit
+
 ```

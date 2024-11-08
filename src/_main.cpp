@@ -12,9 +12,9 @@
 
 int main(int argv, char** args){
     /* Viewport initialisation */
-    camera cam = SDL2_CreateCamera();
+    camera KENG_SDL2camera = SDL2_CreateCamera();
     /* Initialise the window and renderer */
-    SDL2_CreateWindowAndRenderer("keng");
+    SDL2_CreateWindowAndRenderer("Keng");
     /* Initialise the map data to be used */
     KENG_CreateMapTextures();
     /* Initialise the unit graphic assets */
@@ -55,13 +55,13 @@ int main(int argv, char** args){
     #endif
 
     /* Paints the given province map with the correct country colour */
-    KENG_MarkCountries(click_surface, map); /* We use the click map as per usual */
+    KENG_MarkCountries(KENG_clickSurface, map); /* We use the click map as per usual */
     #ifdef MAIN_DBG
         DEBUG_Print("marking countries called");
     #endif
 
     /* Paints the borders inbetween countries and provinces */
-    KENG_MarkInnerBorders(click_surface, inner_border_map); /* FIXME: Marks coastlines and rivers as well, when it shouldn't */
+    KENG_MarkInnerBorders(KENG_clickSurface, inner_border_map); /* FIXME: Marks coastlines and rivers as well, when it shouldn't */
     #ifdef MAIN_DBG
         DEBUG_Print("border generation called");
     #endif
@@ -87,18 +87,16 @@ int main(int argv, char** args){
         DEBUG_Print("Country Top Bar initialised\n");
     #endif
 
-    /* IT APPEARS THAT THE (CLEAR -> RENDERCOPY -> PRESENT) METHOD IS GPU ACCELERATED... */
-
     /* Game */
-    bool quit = false;
-     KENG_gameCycles = 0;
-    while(!quit){
+    bool SDL2_quit = false;
+    Uint KENG_gameCycles = 0;
+    while(!SDL2_quit){
         /* TODO: Refactor Renditions, into one function, and their names */
-        SDL2_RenderMap(renderer, textures, cam);
-        SDL2_DrawUnits(cam);
+        SDL2_RenderMap(renderer, textures, KENG_SDL2camera);
+        SDL2_DrawUnits(KENG_SDL2camera);
         SDL2_RenderGoodsBar();
 
-        SDL2_HandleEvents(quit, cam);
+        SDL2_HandleEvents(SDL2_quit, KENG_SDL2camera);
 
         PGUI_DrawItems(renderer);
 

@@ -11,7 +11,7 @@
  */
 #define MAP
 
-extern SDL_Surface* click_surface;
+extern SDL_Surface* KENG_clickSurface;
 
 extern SDL_Texture* map;
 extern SDL_Texture* inner_border_map;
@@ -25,6 +25,6 @@ extern std::vector<SDL_Texture*> textures;
  * 
  * @returns 0 on SUCCESS 1 on FAIL
  */
-err_capable KENG_CreateMapTextures(void);
+int KENG_CreateMapTextures(void);
 
 #endif

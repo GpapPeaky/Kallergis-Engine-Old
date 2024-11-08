@@ -54,7 +54,7 @@ extern std::vector<unit> units;
  * 
  * @returns 1 on failure, 0 on success
  */
-err_capable KENG_CreateUnitAssets(void);
+int KENG_CreateUnitAssets(void);
 
 /**
  * @brief Creates a unit

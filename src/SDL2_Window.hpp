@@ -27,7 +27,7 @@ extern SDL_Renderer* renderer;
  * 
  * @returns 1 on failure 0 on success
 */
-err_capable SDL2_CreateWindowAndRenderer(const char* name);
+int SDL2_CreateWindowAndRenderer(const char* name);
 
 /**
  * @brief Renders the assets on screen

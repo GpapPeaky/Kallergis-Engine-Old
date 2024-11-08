@@ -3,7 +3,7 @@
 SDL_Window* win;
 SDL_Renderer* renderer;
 
-err_capable SDL2_CreateWindowAndRenderer(const char* name){
+int SDL2_CreateWindowAndRenderer(const char* name){
 
     if(SDL_Init(SDL_INIT_VIDEO) != 0){ fprintf(stderr, "Unable to initialize SDL: %s\n", SDL_GetError()); return FAIL; }
     if(IMG_Init(IMG_INIT_PNG) != IMG_INIT_PNG){ fprintf(stderr, "Unable to initialize IMG: %s\n", SDL_GetError()); return FAIL; } /* IMG_Init returns the flag */

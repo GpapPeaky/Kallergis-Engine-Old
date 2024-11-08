@@ -27,7 +27,7 @@ extern std::vector<reg> regions;
  * @returns 1 on failure
  *                0 on success
 */
-err_capable KENG_ProvinceToRegion(const std::string fname);
+int KENG_ProvinceToRegion(const std::string fname);
 
 /**
  * @brief parses data from ndf, to assign a name to each region
@@ -37,7 +37,7 @@ err_capable KENG_ProvinceToRegion(const std::string fname);
  * @returns 1 on failure
  *                0 on success
 */
-err_capable KENG_CreateRegionNames(const std::string fname);
+int KENG_CreateRegionNames(const std::string fname);
 
 /**
  * @brief assigns regions to countries
@@ -47,7 +47,7 @@ err_capable KENG_CreateRegionNames(const std::string fname);
  * @returns 1 on failure
  *                0 on success
 */
-err_capable KENG_RegionsToCountry(const std::string fname);
+int KENG_RegionsToCountry(const std::string fname);
 
 /**
  * @brief Resizes a bmp surface to w / h

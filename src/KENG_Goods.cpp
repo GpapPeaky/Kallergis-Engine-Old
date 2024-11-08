@@ -32,7 +32,7 @@ std::unordered_map<std::string, product> product_map = {
     {"STONE", STONE}, {"PAPER", PAPER}, {"FOOD", FOOD}
 };
 
-err_capable KENG_CreateGoods(void){
+int KENG_CreateGoods(void){
     SDL_Surface* src = IMG_Load("assets/gfx/goods/arms.png");
     goods_textures[ARMS] = SDL_CreateTextureFromSurface(renderer, src);
 

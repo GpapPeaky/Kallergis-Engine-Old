@@ -2,7 +2,7 @@
 
 std::vector<cou> countries;
 
-err_capable KENG_CreateCountries(const std::string countries_file, const std::string tags){
+int KENG_CreateCountries(const std::string countries_file, const std::string tags){
 
     std::ifstream tags_file(tags);
     if(!tags_file.is_open()){

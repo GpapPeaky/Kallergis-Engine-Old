@@ -8,7 +8,7 @@ SDL_Texture* mot;
 /* TODO: add the units vector onto the country struct, to be able to access it faster */
 std::vector<unit> units;
 
-err_capable KENG_CreateUnitAssets(void){
+int KENG_CreateUnitAssets(void){
     SDL_Surface* src = IMG_Load("assets/gfx/units/inf.png");
     if(!src){
         std::printf("Texture couldn't be created l:%d\n", __LINE__);

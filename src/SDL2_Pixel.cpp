@@ -1,6 +1,6 @@
 #include "SDL2_Pixel.hpp"
 
-err_capable SDL2_SetPixel(SDL_Texture* texture, int x, int y, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255){
+int SDL2_SetPixel(SDL_Texture* texture, int x, int y, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255){
     void* pixels = NULL;
     int pitch = 0;
     int bpp; /* Calculate bytes per pixel */
@@ -95,7 +95,7 @@ void SDL2_PixelScreenFill(SDL_Texture* texture){
     return;
 }
 
-err_capable SDL2_LoadBitmap(SDL_Texture* dest, const char* filename){
+int SDL2_LoadBitmap(SDL_Texture* dest, const char* filename){
     SDL_Surface* src = SDL_LoadBMP(filename);
     if(!src){
         std::printf("Loading bitmap failed, path not found: %s\n", filename);
@@ -126,7 +126,7 @@ err_capable SDL2_LoadBitmap(SDL_Texture* dest, const char* filename){
     return SUCCESS;
 }
 
-err_capable SDL2_LoadPNG(SDL_Texture* dest, const char* filename){
+int SDL2_LoadPNG(SDL_Texture* dest, const char* filename){
     SDL_Surface* src = IMG_Load(filename);
     if(!src){
         std::printf("Loading png failed, path not found: %s\n", filename);
@@ -155,10 +155,11 @@ err_capable SDL2_LoadPNG(SDL_Texture* dest, const char* filename){
     }
 
     SDL_FreeSurface(src);
+
     return SUCCESS;
 }
 
-err_capable KENG_MarkCountries(SDL_Surface* src, SDL_Texture* texture){
+int KENG_MarkCountries(SDL_Surface* src, SDL_Texture* texture){
     /* We need to check for Non-black pixels */
     if(!src){
         std::printf("Loading bitmap failed, path not found\n");

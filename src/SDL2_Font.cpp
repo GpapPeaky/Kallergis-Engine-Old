@@ -11,17 +11,17 @@ SDL_Rect rect;
 SDL_Rect b_rect;
 SDL_Rect c_rect;
 
-err_capable SDL2_CreateFont(void){
+int SDL2_CreateFont(void){
 
     TTF_Init(); /* Initialise */
 
-    prov_inspector_font = TTF_OpenFont("assets/gfx/font/constanb.ttf", PROVINCE_INSPECTOR_FONT_SIZE);
+    prov_inspector_font = TTF_OpenFont("assets/gfx/font/osr.ttf", PROVINCE_INSPECTOR_FONT_SIZE);
     if(!prov_inspector_font){
         std::printf("FONT: %s\n ", SDL_GetError());
         return FAIL;
     }
 
-    top_bar_font = TTF_OpenFont("assets/gfx/font/constanb.ttf", TOP_BAR_FONT_SIZE);
+    top_bar_font = TTF_OpenFont("assets/gfx/font/osr.ttf", TOP_BAR_FONT_SIZE);
     if(!top_bar_font){
         std::printf("FONT: %s\n ", SDL_GetError());
         return FAIL;
@@ -74,6 +74,8 @@ void SDL2_RenderText(std::string msg, int x, int y, TTF_Font* font){
 
     SDL_DestroyTexture(b_txt);
     SDL_DestroyTexture(txt);
+
+    return;
 }
 
 void SDL2_RenderOnMouseHover(void){
