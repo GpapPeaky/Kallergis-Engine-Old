@@ -9,6 +9,7 @@
 #include "SDL2_Camera.hpp"
 #include "KENG_Map.hpp"
 #include "KENG_Unit.hpp"
+#include "KENG_TimeClock.hpp"
 #include "PGUI_GUI.hpp"
 #include "auxf/definitions.aux"
 

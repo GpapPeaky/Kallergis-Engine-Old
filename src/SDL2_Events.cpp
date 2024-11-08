@@ -67,10 +67,22 @@ eng_event SDL2_HandleEvents(bool& quit, camera& cam){
     state = SDL_GetKeyboardState(NULL); /* Get the state of the keyboard */
 
     while(SDL_PollEvent(&e)){
-        int sw, sh;
+        int sw, sh; /* Rendering output width and height */
         SDL_GetRendererOutputSize(renderer, &sw, &sh); /* For The Camera Readjustment */
         if(e.type == SDL_QUIT){
             quit = true;
+        }else if(e.key.keysym.sym == SDLK_SPACE){
+            *KENG_gamePause = !(*KENG_gamePause); /* Switching the, pausing */
+        }else if(e.key.keysym.sym == SDLK_1){
+            *KENG_gameSpeed = SPEED1_CYCLES_PER_UPDATE;
+        }else if(e.key.keysym.sym == SDLK_2){
+            *KENG_gameSpeed = SPEED2_CYCLES_PER_UPDATE;
+        }else if(e.key.keysym.sym == SDLK_3){
+            *KENG_gameSpeed = SPEED3_CYCLES_PER_UPDATE;
+        }else if(e.key.keysym.sym == SDLK_4){
+            *KENG_gameSpeed = SPEED4_CYCLES_PER_UPDATE;
+        }else if(e.key.keysym.sym == SDLK_5){
+            *KENG_gameSpeed = SPEED5_CYCLES_PER_UPDATE;
         }else if(e.type == SDL_MOUSEWHEEL){
             /* Calculate new zoom level */
             float zoom_factor = (e.wheel.y > 0) ? 1.1f : 0.9f;

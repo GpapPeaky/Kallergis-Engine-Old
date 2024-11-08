@@ -112,12 +112,14 @@ int main(int argv, char** args){
         SDL_RenderPresent(renderer);
 
         cycles++;
-        if(cycles % SPEED5_CYCLES_PER_UPDATE == 0){ /* We can manipulate this to simulate game speed, we dont update if we want
-        to pause the game */
-            /* Update the timer, to simulate change after 12 cycles */
-            KENG_UpdateClock();
-            KENG_UpdateProvincePopulations(&countries[0]);
-            KENG_UpdateCountryStats(&countries[0]);
+        if(KENG_gamePause == 0){
+            if(cycles % (*KENG_gameSpeed) == 0){ /* We can manipulate this to simulate game speed, we dont update if we want
+            to pause the game */
+                /* Update the timer, to simulate change after 12 cycles */
+                KENG_UpdateClock();
+                KENG_UpdateProvincePopulations(&countries[0]);
+                KENG_UpdateCountryStats(&countries[0]);
+            }
         }
     }
 
