@@ -112,7 +112,7 @@ int main(int argv, char** args){
         SDL_RenderPresent(renderer);
 
         cycles++;
-        if(KENG_gamePause == 0){
+        if(KENG_gamePause == NOT_PAUSED){
             if(cycles % (*KENG_gameSpeed) == 0){ /* We can manipulate this to simulate game speed, we dont update if we want
             to pause the game */
                 /* Update the timer, to simulate change after 12 cycles */
