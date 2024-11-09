@@ -6,7 +6,6 @@ the same is true for the provinces */
 std::vector<reg> regions;
 
 int KENG_ProvinceToRegion(const std::string fname){
-    
     std::ifstream file(fname);
     if(!file.is_open()){
         std::printf("Failed to open regions map data file %s\n", fname);

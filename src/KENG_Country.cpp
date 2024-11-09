@@ -3,7 +3,6 @@
 std::vector<cou> countries;
 
 int KENG_CreateCountries(const std::string countries_file, const std::string tags){
-
     std::ifstream tags_file(tags);
     if(!tags_file.is_open()){
         std::printf("Failed to load tags.cdf\n");

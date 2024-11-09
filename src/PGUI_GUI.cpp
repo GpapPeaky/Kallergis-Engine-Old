@@ -33,7 +33,6 @@ int PGUI_CreateCountryBar(cou* country, SDL_Renderer* rnd){
 }
 
 int PGUI_CreateProvinceInspector(SDL_Renderer* rnd){
-
     /* WARN: Overload the path to the correct one */
     PGUI_AssetPath = "ThirdParty/PeakyGUI/assets/";
 
@@ -85,6 +84,12 @@ int PGUI_UpdateProvinceInspector(prov* province, SDL_Renderer* rnd){
     PGUI_UpdateButtonArguments(adminDev, { (void*)province });
     PGUI_UpdateButtonArguments(milDev, { (void*)province });
     PGUI_UpdateButtonArguments(prodDev, { (void*)province });
+
+    return SUCCESS;
+}
+
+int PGUI_CreateCalendar(SDL_Renderer* rnd){
+    /* TODO: Initialise the calendar */
 
     return SUCCESS;
 }

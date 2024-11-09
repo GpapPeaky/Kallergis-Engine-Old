@@ -10,7 +10,6 @@ float I(eco local_economy){
 }
 
 float GP(eco local_eco){
-
     local_prd local_production = local_eco.local_goods;
 
     switch(local_production.good){

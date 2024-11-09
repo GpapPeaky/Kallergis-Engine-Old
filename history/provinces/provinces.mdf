@@ -4,8 +4,32 @@
 # FOLLOW THE EXACT SYNTAX OR ELSE THE PROGRAM WON'T WORK ACCORDINGLY
 
 # Demos Herakleiou
-"Herakleio" : { 25, 100, 25 } : 1 : 145440 : FOOD : { 41, 56, 45 } : 5
+"Herakleion Centre" : { 175, 255, 50 } : 1 : 35000 : FABRIC : { 31, 46, 26 } : 5
 "Dia" : { 69, 69, 69 } : 1 : 69 : GOLD : { 1, 1, 1 } : 1
+"Saint Irene" : { 100, 125, 255 } : 1 : 5200 : WOOD : { 5, 2, 1 } : 2
+"Zahariou Milos" : { 155, 50, 255 } : 1 : 1240 : FOOD : { 4, 3, 3 } : 2
+"Knossos" : { 50, 135, 50 } : 1 : 5600 : STONE : { 3, 4, 5 } : 2
+"Saint John" : { 100, 25, 50 } : 1 : 7800 : PAPER : { 5, 3, 2 } : 3
+"Kseropotamos" : { 175, 25, 100 } : 1 : 3100 : GUNPOWDER : { 4, 6, 1 } : 3
+"Kaminia" : { 175, 175, 100 } : 1 : 3000 : ARMS : { 5, 6, 2 } : 3
+"Mastampas" : { 150, 175, 120 } : 1 : 5600 : PAPER : { 5, 7, 2 } : 3
+"Deilina" : { 50, 50, 120 } : 1 : 3900 : ARMS : { 3, 8, 2 } : 3
+"Poros" : { 50, 150, 120 } : 1 : 3400 : LEATHER : { 3, 5, 1 } : 2
+"Fortetsa" : { 1, 175, 120 } : 1 : 4100 : WOOD : { 3, 6, 1 } : 2
+"Marathiths" : { 1, 50, 120 } : 1 : 2100 : WOOD : { 3, 6, 1 } : 2
+"Korakovouni" : { 50, 120, 60 } : 1 : 3000 : IRON : { 1, 4, 2 } : 1
+"Saint Catherine" : { 125, 150, 120 } : 1 : 6100 : RUBBER : { 2, 1, 2 } : 1
+"Glykoriza" : { 125, 135, 50 } : 1 : 2400 : FOOD : { 2, 6, 3 } : 1
+"Vlychia" : { 25, 100, 100 } : 1 : 1450 : WOOD : { 1, 3, 3 } : 1
+"Drakouliaris" : { 40, 70, 125 } : 1 : 1650 : STEEL : { 1, 2, 2 } : 1
+"Malades" : { 200, 155, 150 } : 1 : 1200 : IRON : { 1, 7, 3 } : 2
+"Gournes" : { 20, 155, 150 } : 1 : 1400 : FOOD : { 1, 6, 1 } : 2
+"Athanatoi" : { 255, 200, 150 } : 1 : 1000 : FOOD : { 1, 4, 1 } : 1
+"Foinikia" : { 120, 155, 150 } : 1 : 1100 : FOOD : { 2, 5, 3 } : 1
+"Lofoupoli" : { 120, 120, 60 } : 1 : 1200 : FOOD : { 2, 5, 1 } : 1
+"Semeli" : { 113, 155, 150 } : 1 : 1300 : LEATHER : { 3, 4, 2 } : 1
+"Three Vagies" : { 35, 155, 150 } : 1 : 1400 : COPPER : { 3, 4, 2 } : 1
+"Estavromenos" : { 25, 100, 25 } : 1 : 1600 : RUBBER : { 5, 6, 3 } : 3
 
 "Nea Alikarnassos" : { 255, 100, 25 } : 1 : 10452 : FISH : { 13, 19, 21 } : 4
 "Herakleion Airport" : { 125, 125, 255 } : 1 : 100 : OIL : { 1, 1, 1 } : 5
@@ -28,21 +52,25 @@
 
 #Herakleion
 "N/A" : { 25, 150, 100 } : 2 : 1 : COPPER : { 1, 1, 1 } : 1 
-"Demos Chersonisou" : { 200, 150, 100 } : 2 : 27277 : GEMS : { 23, 19, 41 } : 4
-"Demos Maleviziou" : { 150, 25, 100 } : 2 : 25734 : OIL : { 20, 15, 34 } : 3
-"Demos Faistou" : { 150, 150, 100 } : 2 : 23921 : STONE : { 17, 12, 29 } : 2
-"Demos Archanes-Asterusia" : { 255, 200, 255 } : 2 : 16067 : WOOD : { 16, 10, 19 } : 1
-"Demos Gortynas" : { 255, 200, 25 } : 2 : 14167 : STONE : { 14, 9, 14 } : 2
-"Demos Minoa Pediados" : { 255, 175, 75 } : 2 : 14165 : WOOD : { 14, 8, 13 } : 1
-"Demos Viannou" : { 150, 175, 75 } : 2 : 4465 : ARMS : { 4, 3, 7 } : 2
+"Demos Chersonisou" : { 200, 150, 100 } : 3 : 27277 : GEMS : { 23, 19, 41 } : 4
+"Demos Maleviziou" : { 150, 25, 100 } : 4 : 25734 : OIL : { 20, 15, 34 } : 3
+"Demos Faistou" : { 150, 150, 100 } : 5 : 23921 : STONE : { 17, 12, 29 } : 2
+"Demos Archanes-Asterusia" : { 255, 200, 255 } : 6 : 16067 : WOOD : { 16, 10, 19 } : 1
+"Demos Gortynas" : { 255, 200, 25 } : 7 : 14167 : STONE : { 14, 9, 14 } : 2
+"Demos Minoa Pediados" : { 255, 175, 75 } : 8 : 14165 : WOOD : { 14, 8, 13 } : 1
+"Demos Viannou" : { 150, 175, 75 } : 9 : 4465 : ARMS : { 4, 3, 7 } : 2
 
 # Rethemnon
-"Rethemnon" : { 100, 150, 200 } : 3 : 70912 : GEMS : { 90, 40, 120 } : 4
+"Rethemnon" : { 100, 150, 200 } : 10 : 70912 : GEMS : { 90, 40, 120 } : 4
 
 # Chania
-"Chania" : { 100, 50, 150 } : 4 : 98562 : ARMS : { 95, 70, 150 } : 4
+"Chania" : { 100, 50, 150 } : 11 : 98562 : ARMS : { 95, 70, 150 } : 4
 
 # Agios Nickolaos
-"Agios Nickolaos" : { 200, 200, 100 } : 5 : 62489 : FOOD : { 60, 20, 90 } : 3
+"Agios Nickolaos" : { 200, 200, 100 } : 12 : 62489 : FOOD : { 60, 20, 90 } : 3
 
 # PROBLEMATIC PROVINCES 
+
+# TODO PROVINCES
+
+"TODO" : { 50, 50, 60 } : 1 : 1700 : WOOD : { 3, 6, 1 } : 2

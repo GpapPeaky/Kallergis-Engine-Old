@@ -82,10 +82,12 @@ int main(int argv, char** args){
     #ifdef PGUI_PRINT
         DEBUG_Print("Province Inspector initialised\n");
     #endif
-    PGUI_CreateCountryBar(&countries[0], renderer); /* It will take the player country data */
+    PGUI_CreateCountryBar(&countries[2], renderer); /* It will take the player country data */
     #ifdef PGUI_PRINT
         DEBUG_Print("Country Top Bar initialised\n");
     #endif
+
+    KENG_CreateUnit(ARMOR, KENG_GetCountry("HER"), 1, KENG_clickSurface, KENG_SDL2camera);
 
     /* Game */
     bool SDL2_quit = false;
@@ -102,7 +104,7 @@ int main(int argv, char** args){
 
         /* Text has to be in front of the GUI items */
         /* We first render, then we update */
-        SDL2_RenderCountryStats(&countries[0]);
+        SDL2_RenderCountryStats(&countries[2]); /* For the player */
 
         SDL2_RenderProvinceInfo(clicked_province);
         PGUI_UpdateProvinceInspector(clicked_province, renderer);
@@ -115,8 +117,8 @@ int main(int argv, char** args){
             to pause the game */
                 /* Update the timer, to simulate change after 12 cycles */
                 KENG_UpdateClock();
-                KENG_UpdateProvincePopulations(&countries[0]);
-                KENG_UpdateCountryStats(&countries[0]);
+                KENG_UpdateProvincePopulations();
+                KENG_UpdateCountryStats();
             }
         }
     }

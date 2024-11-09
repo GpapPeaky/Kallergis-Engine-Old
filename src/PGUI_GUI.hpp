@@ -62,4 +62,13 @@ int PGUI_CreateProvinceInspector(SDL_Renderer* rnd);
  */
 int PGUI_UpdateProvinceInspector(prov* province, SDL_Renderer* rnd);
 
+/**
+ * @brief Initialises PeakyGUI, calendar and game speed manipulator
+ * 
+ * @param rnd renderer
+ * 
+ * @returns 0 on success, 1 on failure
+ */
+int PGUI_CreateCalendar(SDL_Renderer* rnd);
+
 #endif

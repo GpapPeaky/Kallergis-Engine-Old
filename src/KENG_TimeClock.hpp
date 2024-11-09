@@ -26,17 +26,13 @@ void KENG_CreateClock(void);
 void KENG_UpdateClock(void);
 
 /**
- * @brief Updates the country object for each clock tick, depending on the speed
- * 
- * @param country country to update
+ * @brief Updates the all countries' stats for each clock tick, depending on the speed
  */
-void KENG_UpdateCountryStats(cou* country);
+void KENG_UpdateCountryStats(void);
 
 /**
- * @brief Updates the population of all provinces of a country
- * 
- * @param country country to update
+ * @brief Updates the population of all provinces of all countries
  */
-void KENG_UpdateProvincePopulations(cou* country);
+void KENG_UpdateProvincePopulations(void);
 
 #endif
