@@ -1,7 +1,7 @@
 #include "../ThirdParty/PeakyGUI/src/PGUI.hpp"
 #include "auxf/definitions.aux"
+#include "KENG_Country.hpp"
 #include "PGUI_Overloads.hpp"
-#include "SDL2_Font.hpp"
 
 #ifndef GUI
 /**
@@ -23,6 +23,9 @@ extern PGUI_Item* countryBar;
 extern PGUI_Item* countryInsignia;
 extern PGUI_Item* countryFlag;
 
+/* Leader Overview */
+extern PGUI_Item* leaderOverviewBackground;
+
 /**
  * @brief Updates the arguments of a specified button
  * 
@@ -41,7 +44,7 @@ PGUI_Button* PGUI_UpdateButtonArguments(PGUI_Button* button, PGUI_ActionArgument
  * 
  * @returns 0 on success, 1 on failure
  */
-int PGUI_CreateCountryBar(cou* country, SDL_Renderer* rnd);
+int PGUI_CreateCountryBar(KENG_country* country, SDL_Renderer* rnd);
 
 /**
  * @brief Initialises PeakyGUI, province inspection
@@ -70,5 +73,14 @@ int PGUI_UpdateProvinceInspector(prov* province, SDL_Renderer* rnd);
  * @returns 0 on success, 1 on failure
  */
 int PGUI_CreateCalendar(SDL_Renderer* rnd);
+
+/**
+ * @brief Initialise PeakyGUI, country leader overview
+ * 
+ * @param rnd renderer
+ * 
+ * @returns 0 on success, 1 on failure
+ */
+int PGUI_CreateCountryLeaderOverview(SDL_Renderer* rnd);
 
 #endif

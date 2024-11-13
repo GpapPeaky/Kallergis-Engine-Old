@@ -7,11 +7,11 @@
 #include "KENG_Country.hpp"
 #include "KENG_Province.hpp"
 
-#ifndef UNITS
+#ifndef _KENG_UNITS_HPP_
 /**
  * @brief Military units are handled here
  */
-#define UNITS
+#define _KENG_UNITS_HPP_
 
 /**
  * @brief Unit types
@@ -65,7 +65,7 @@ int KENG_CreateUnitAssets(void);
  * @param surface what surface to scan for the position
  * @param cam for unit postitions and to reduce the time it takes to scan the image
  */
-void KENG_CreateUnit(unit_t type, cou country, int prov_id, SDL_Surface* surface, camera cam);
+void KENG_CreateUnit(unit_t type, KENG_country country, int prov_id, SDL_Surface* surface, camera cam);
 
 /**
  * @brief Moves the selected unit

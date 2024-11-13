@@ -8,6 +8,8 @@
 #include "KENG_Map.hpp"
 #include "KENG_Goods.hpp"
 #include "KENG_Region.hpp"
+#include "PGUI_GUI.hpp"
+#include "PGUI_Overloads.hpp"
 #include "auxf/definitions.aux"
 
 #ifndef FONT
@@ -55,7 +57,7 @@ void SDL2_RenderOnMouseHover(void);
  * 
  * @param country country to render the stats of
  */
-void SDL2_RenderCountryStats(cou* country);
+void SDL2_RenderCountryStats(KENG_country* country);
 
 /**
  * @brief Renders the selected province info
@@ -63,6 +65,13 @@ void SDL2_RenderCountryStats(cou* country);
  * @param province province clicked
  */
 void SDL2_RenderProvinceInfo(prov* province);
+
+/**
+ * @brief Renders the leader of a selected country
+ * 
+ * @param country country right clicked
+ */
+void SDL2_RenderLeaderName(KENG_country* country);
 
 /**
  * @brief Formats a float to show two decimals

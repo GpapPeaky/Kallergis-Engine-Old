@@ -36,6 +36,8 @@ $(PGUIPATH)pgui_event.cpp $(PGUIPATH)pgui_item.cpp $(PGUIPATH)pgui_load.cpp $(PG
 
 # Main
 
+# WARN: THE FLAGS HAVE TO BE AT THE END OF OF THE MAKE COMMAND, OR ELSE IT WILL NOT WORK
+
 EXEC_NAME = keng
 DEFSRC = \
 $(PGUISRC)\
@@ -55,11 +57,11 @@ $(SRCPATH)KENG_TimeClock.cpp\
 $(SRCPATH)KENG_Unit.cpp\
 $(SRCPATH)KENG_Economy.cpp\
 $(SRCPATH)KENG_Goods.cpp\
+$(SRCPATH)KENG_Player.cpp\
+$(SRCPATH)KENG_Leader.cpp\
 $(SRCPATH)KENG_Debug.cpp\
 $(SRCPATH)PGUI_GUI.cpp\
 $(SRCPATH)PGUI_Overloads.cpp\
-
-# DEFSRC =  $(PGUISRC) $(SRCPATH)init_win.cpp $(SRCPATH)_main.cpp $(SRCPATH)province.cpp $(SRCPATH)regions.cpp $(SRCPATH)init_map.cpp $(SRCPATH)country.cpp $(SRCPATH)map.cpp $(SRCPATH)pixels.cpp $(SRCPATH)events.cpp $(SRCPATH)font.cpp $(SRCPATH)primes.cpp $(SRCPATH)hashtable.cpp $(SRCPATH)cleanup.cpp $(SRCPATH)camera.cpp $(SRCPATH)menu.cpp $(SRCPATH)unit.cpp $(SRCPATH)goods.cpp $(SRCPATH)economy.cpp $(SRCPATH)dbgp.cpp
 
 def: $(DEFSRC)
 	@echo Compiling Main (Default), and running 
@@ -81,8 +83,6 @@ clean:
 
 test:
 	@echo Makefile test.
-
-# WARN: THE FLAGS HAVE TO BE AT THE END OF OF THE MAKE COMMAND, OR ELSE IT WILL NOT WORK
 
 # Compiles all executables
 all:

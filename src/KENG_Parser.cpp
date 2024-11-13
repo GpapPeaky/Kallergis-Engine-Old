@@ -163,7 +163,7 @@ int KENG_RegionsToCountry(const std::string fname){
                 region_ids.push_back(std::stoi(reg_id));
             }
 
-            for(auto& cou : countries){
+            for(auto& cou : KENG_globalCountries){
                 if(cou.tag == tag){
                     for(const auto& id : region_ids){
                         auto it = std::find_if(regions.begin(), regions.end(), [&id](const reg& r){
@@ -209,7 +209,7 @@ void KENG_PrintRegions(void){
 }
 
 void KENG_PrintCountries(void){
-    for(const auto& cou : countries){
+    for(const auto& cou : KENG_globalCountries){
         std::printf("COU: %s, TAG %s, RGB: %d %d %d\n", cou.country_name.c_str(), cou.tag.c_str(), cou.country_rgb.r, cou.country_rgb.g, cou.country_rgb.b);
         for(const auto& creg : cou.country_regs){
             std::printf("   REG: %s, ID: %d\n",creg.reg_name.c_str(), creg.reg_id);

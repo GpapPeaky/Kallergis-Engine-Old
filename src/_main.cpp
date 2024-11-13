@@ -27,43 +27,50 @@ int main(int argv, char** args){
     KENG_CreateClock();
 
     #ifdef MAIN_DBG
-        DEBUG_Print("init called");
+        KENG_DebugPrint("init called");
     #endif
 
     /* Parse provinces, (RGB values, names, ids ect.) and add them to the respective region (regions are initialised here as well...) */
     KENG_ProvinceToRegion("history/provinces/provinces.mdf"); /* Relative to the executable location */ 
     #ifdef MAIN_DBG
-        DEBUG_Print("prov to regions called");
+        KENG_DebugPrint("prov to regions called");
     #endif
 
     /* Parse region names, to assign them to the previously initialised regions */
     KENG_CreateRegionNames("history/regions/region_names.ndf");
     #ifdef MAIN_DBG
-        DEBUG_Print("region names called");
+        KENG_DebugPrint("region names called");
     #endif
     
     /* Parse country data (RGB values, names) and their unique tags */
-    KENG_CreateCountries("history/country/cou.ndf", "history/country/tags.cdf");
+    KENG_CreateCountries("history/country/cou.ndf", "history/country/tags.cdf", "history/country/leaders.cdf");
     #ifdef MAIN_DBG
-        DEBUG_Print("init countries called");
+        KENG_DebugPrint("init countries called");
     #endif
 
     /* Parse ownership data, to assign the regions to the correct country */
     KENG_RegionsToCountry("history/country/ownership.cdf"); 
     #ifdef MAIN_DBG
-        DEBUG_Print("regions to countries called");
+        KENG_DebugPrint("regions to countries called");
     #endif
 
     /* Paints the given province map with the correct country colour */
     KENG_MarkCountries(KENG_clickSurface, map); /* We use the click map as per usual */
     #ifdef MAIN_DBG
-        DEBUG_Print("marking countries called");
+        KENG_DebugPrint("marking countries called");
     #endif
 
     /* Paints the borders inbetween countries and provinces */
     KENG_MarkInnerBorders(KENG_clickSurface, inner_border_map); /* FIXME: Marks coastlines and rivers as well, when it shouldn't */
     #ifdef MAIN_DBG
-        DEBUG_Print("border generation called");
+        KENG_DebugPrint("border generation called");
+    #endif
+
+    /* Player Initialisation */
+    KENG_CreateMainPlayer(KENG_GetCountry("HER"), "Peaky", 1);
+    #ifdef MAIN_DBG
+        KENG_PrintPlayerAttributes();
+        KENG_DebugPrint("Player initialised\n");
     #endif
 
     /* Prints */
@@ -73,21 +80,29 @@ int main(int argv, char** args){
         KENG_PrintCountryColours();
         KENG_PrintProvinces();
         #ifdef MAIN_DBG
-            DEBUG_Print("Prints Completed\n");
+            KENG_DebugPrint("Prints Completed\n");
         #endif
     #endif
 
-    /* Initialise PeakyGUI province box */
+    /* Overload the PGUI path */
+    PGUI_AssetPath = "ThirdParty/PeakyGUI/assets/";
+
+    PGUI_CreateCountryBar(KENG_mainPlayer->playerCountry, renderer); /* It will take the player country data */
+    #ifdef PGUI_PRINT
+        KENG_DebugPrint("Country Top Bar initialised\n");
+    #endif
     PGUI_CreateProvinceInspector(renderer);
     #ifdef PGUI_PRINT
-        DEBUG_Print("Province Inspector initialised\n");
+        KENG_DebugPrint("Province Inspector initialised\n");
     #endif
-    PGUI_CreateCountryBar(&countries[2], renderer); /* It will take the player country data */
+    PGUI_CreateCountryLeaderOverview(renderer);
     #ifdef PGUI_PRINT
-        DEBUG_Print("Country Top Bar initialised\n");
+        KENG_DebugPrint("Leader Overview initialised\n");
     #endif
 
-    KENG_CreateUnit(ARMOR, KENG_GetCountry("HER"), 1, KENG_clickSurface, KENG_SDL2camera);
+    // PGUI_CreateCalendar(renderer);
+
+    // KENG_CreateUnit(ARMOR, *KENG_GetCountry("HER"), 1, KENG_clickSurface, KENG_SDL2camera);
 
     /* Game */
     bool SDL2_quit = false;
@@ -96,18 +111,20 @@ int main(int argv, char** args){
         /* TODO: Refactor Renditions, into one function, and their names */
         SDL2_RenderMap(renderer, textures, KENG_SDL2camera);
         SDL2_DrawUnits(KENG_SDL2camera);
-        SDL2_RenderGoodsBar();
 
         SDL2_HandleEvents(SDL2_quit, KENG_SDL2camera);
 
         PGUI_DrawItems(renderer);
+        SDL2_RenderGoodsBar();
 
         /* Text has to be in front of the GUI items */
         /* We first render, then we update */
-        SDL2_RenderCountryStats(&countries[2]); /* For the player */
+        SDL2_RenderCountryStats(KENG_mainPlayer->playerCountry); /* For the player */
 
         SDL2_RenderProvinceInfo(clicked_province);
         PGUI_UpdateProvinceInspector(clicked_province, renderer);
+
+        SDL2_RenderLeaderName(KENG_mainPlayer->playerCountry); /* For the player */
         
         SDL_RenderPresent(renderer);
 

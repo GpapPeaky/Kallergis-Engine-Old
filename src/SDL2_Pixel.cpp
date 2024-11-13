@@ -181,7 +181,7 @@ int KENG_MarkCountries(SDL_Surface* src, SDL_Texture* texture){
                 g = pixel_array[j * pitch + i * bpp + 1];
                 b = pixel_array[j * pitch + i * bpp + 0];
                 /* It doesn't check for countries? */
-                for(auto& cou : countries){
+                for(auto& cou : KENG_globalCountries){
                     SDL_Colour current_rgb;
                     current_rgb.r = cou.country_rgb.r;
                     current_rgb.g = cou.country_rgb.g;
@@ -266,7 +266,7 @@ void KENG_MarkInnerBorders(SDL_Surface* src, SDL_Texture* dst){
 }
 
 void KENG_PrintCountryColours(void){
-    for(const auto& cou : countries){
+    for(const auto& cou : KENG_globalCountries){
         std::printf("%s,\t%s\tRGB: <%d,%d,%d>\n",cou.tag.c_str(), cou.country_name.c_str(), cou.country_rgb.r, cou.country_rgb.g, cou.country_rgb.b);
     }
 

@@ -8,8 +8,6 @@ prov* SDL2_HighlightOnClick(int x, int y, SDL_Surface* src, SDL_Texture* dst, ca
     int world_x = static_cast<int>(x / cam.zoom + cam.rect.x);
     int world_y = static_cast<int>(y / cam.zoom + cam.rect.y);
 
-    /* TODO: Make it so that when a unit is clicked, no province print is shown */
-    
     int src_bpp = src->format->BytesPerPixel;
     Uint8* pixels = (Uint8*)src->pixels;
 
@@ -83,6 +81,12 @@ void SDL2_HandleEvents(bool& quit, camera& cam){
             KENG_gameSpeed = SPEED4_CYCLES_PER_UPDATE;
         }else if(e.key.keysym.sym == SDLK_5){
             KENG_gameSpeed = SPEED5_CYCLES_PER_UPDATE;
+        }else if(e.key.keysym.sym == SDLK_e){
+            /* Leader toggle 'E' */
+            PGUI_ItemVisibilitySwitch(leaderOverviewBackground);
+        }else if(e.key.keysym.sym == SDLK_q){
+            /* Province inspector toggle 'Q' */
+            PGUI_ItemVisibilitySwitch(provInspector);
         }else if(e.type == SDL_MOUSEWHEEL){
             /* Calculate new zoom level */
             float zoom_factor = (e.wheel.y > 0) ? 1.1f : 0.9f;
@@ -109,7 +113,7 @@ void SDL2_HandleEvents(bool& quit, camera& cam){
             if(cam.rect.y + cam.rect.h > BMP_HEIGHT) cam.rect.y = BMP_HEIGHT - cam.rect.h;
             // std::printf("zoom: %.2f\n", cam.zoom);
         }else if(e.type == SDL_KEYDOWN){
-            if(e.key.keysym.sym == SDLK_e){
+            if(e.key.keysym.sym == SDLK_z){
                 // SDL_SaveBMP(map, "bin/output.bmp"); /* FIXME */
                 quit = true;
             }

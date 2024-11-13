@@ -1,7 +1,5 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_pixels.h"
-#include <queue> /* For flood_fill() function */
-#include <utility> /* For pairs */
 #include <string>
 #include <math.h>
 #include "SDL2_Window.hpp"
@@ -9,7 +7,7 @@
 #include "KENG_Parser.hpp"
 #include "auxf/definitions.aux"
 
-#ifndef PIXELS_H
+#ifndef _SDL2_PIXEL_HPP_
 /**
  * @brief It has appeared that modifying the ! WINDOW ! surface is master and more efficient?
  *  Although I tried to change already loaded bitmaps, it appeared as it cannot happen?
@@ -17,7 +15,7 @@
  * 
  *  This module is for more direct pixel manipulation and all memory associated with it
  */
-#define PIXELS_H
+#define _SDL2_PIXEL_HPP_
 
 /**
  * @brief Sets a pixel at specific coordinates to a specific colour

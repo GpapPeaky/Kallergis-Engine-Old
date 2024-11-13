@@ -21,15 +21,19 @@ void PGUI_DrawItem(PGUI_Item item, SDL_Renderer* rnd){
     return;
 }
 
-void PGUI_DrawItems(SDL_Renderer* rnd){
-    for(auto it = PGUI_GlobalItems.begin() ; it != PGUI_GlobalItems.end() ; ++it){
-        PGUI_Item* item = it->second;
-        
+void PGUI_DrawItems(SDL_Renderer* rnd) {
+    std::vector<std::pair<int, PGUI_Item*>> itemsToRender(PGUI_GlobalItems.begin(), PGUI_GlobalItems.end());
+
+    std::sort(itemsToRender.begin(), itemsToRender.end(), [](const std::pair<int, PGUI_Item*>& a, const std::pair<int, PGUI_Item*>& b){
+        return a.first < b.first;
+    });
+
+    for(const auto& pair : itemsToRender){
+        PGUI_Item* item = pair.second;
         if(item->visibility == PGUI_True){
-                PGUI_DrawItem(*item, rnd); /* If visible show it */
+            PGUI_DrawItem(*item, rnd);
         }
     }
 
     return;
 }
-

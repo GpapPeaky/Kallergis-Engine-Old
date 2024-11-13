@@ -56,7 +56,7 @@ int KENG_CreateUnitAssets(void){
     return SUCCESS;
 }
 
-void KENG_CreateUnit(unit_t type, cou country, int prov_id, SDL_Surface* surface, camera cam){
+void KENG_CreateUnit(unit_t type, KENG_country country, int prov_id, SDL_Surface* surface, camera cam){
     if(type != INFANTRY && type != ARTILLERY && type != ARMOR && type != MOTORISED){ 
         std::printf("Incompatible type given in unit creation\n");
         return;
@@ -66,7 +66,6 @@ void KENG_CreateUnit(unit_t type, cou country, int prov_id, SDL_Surface* surface
     for(auto& reg : country.country_regs){
         for(auto& prov : reg.reg_provs){
             if(prov.prov_id == prov_id){
-                std::printf("Province %d found in region %d\n", prov_id, reg.reg_id);
                 found = true;
             }
         }
@@ -132,7 +131,6 @@ void KENG_CreateUnit(unit_t type, cou country, int prov_id, SDL_Surface* surface
     g = current->prov_colour.g;
     b = current->prov_colour.b;
 
-
     if(current == NULL){
         std::printf("Province ID %d not found\n", prov_id);
         return;
@@ -174,8 +172,6 @@ void KENG_CreateUnit(unit_t type, cou country, int prov_id, SDL_Surface* surface
     new_unit.id = country.units_num; /* Assign a unique id to each unit */
     units.push_back(new_unit); /* Push to vector */
 
-    std::printf("Created unit for %s %s at %d %d\n",country.tag.c_str(),country.country_name.c_str(), new_unit.rect.x, new_unit.rect.y); /* World Coords / surface coords */
-    
     return;
 }
 

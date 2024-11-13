@@ -81,7 +81,7 @@ void SDL2_RenderOnMouseHover(void){
     return;
 }
 
-void SDL2_RenderCountryStats(cou* country){
+void SDL2_RenderCountryStats(KENG_country* country){
     if(country == NULL){
         return;
     }
@@ -115,45 +115,57 @@ void SDL2_RenderProvinceInfo(prov* province){
     }
     /* Part of the Province Inspector */
 
-    std::string province_name = province->prov_name; /* string */
-    std::string province_reg;
-    for(auto& reg : regions){
-        if(reg.reg_id == province->region){
-            province_reg = reg.reg_name; /* string */
+    if(provInspector->visibility != PGUI_False){
+        std::string province_name = province->prov_name; /* string */
+        std::string province_reg;
+        for(auto& reg : regions){
+            if(reg.reg_id == province->region){
+                province_reg = reg.reg_name; /* string */
+            }
         }
+        /* FIXME: Make this be like 123.23k */
+        std::string province_pop = "Pops: " + std::to_string(province->province_economy.local_goods.population); /* int */
+        std::string province_admin = std::to_string(province->province_economy.development.admin); /* int */
+        std::string province_mil = std::to_string(province->province_economy.development.mil); /* int */
+        std::string province_prod = std::to_string(province->province_economy.development.prod); /* int */
+
+        float income = I(province->province_economy);
+        std::string province_income = "Income: " + SDL2_FormatFloat(income);
+        float production = GP(province->province_economy);
+        std::string province_goods_produced = "Production: " + SDL2_FormatFloat(production);
+
+        std::string province_good = "Produce: " + std::string(goods_names[province->province_economy.local_goods.good]); /* const char* */
+
+        SDL_Texture* province_good_texture = goods_textures[province->province_economy.local_goods.good]; /* This is fine */
+        SDL_Rect province_good_rect = { 362, 1017 - 400, GOOD_SIZE, GOOD_SIZE }; /* rectangle for rendering the province's good */
+
+        /* Renditions */
+        SDL2_RenderText(province_name, 17, 921 - 400, prov_inspector_font);
+        SDL2_RenderText(province_reg, 17, 957 - 400, prov_inspector_font);
+        
+        SDL2_RenderText(province_pop, 17, 1031 - 400, prov_inspector_font);
+        SDL2_RenderText(province_admin, 474, 927 - 400, prov_inspector_font);
+        SDL2_RenderText(province_mil, 474, 974 - 400, prov_inspector_font);
+        SDL2_RenderText(province_prod, 474, 1025 - 400, prov_inspector_font);
+
+        SDL2_RenderText(province_income, 219, 942 - 400, prov_inspector_font);
+        SDL2_RenderText(province_goods_produced, 200, 1024 - 400, prov_inspector_font);
+
+        SDL2_RenderText(province_good, 310, 1000 - 400, prov_inspector_font);
+
+        SDL_RenderCopy(renderer, province_good_texture, NULL, &province_good_rect);
     }
-    /* FIXME: Make this be like 123.23k */
-    std::string province_pop = "Pops: " + std::to_string(province->province_economy.local_goods.population); /* int */
-    std::string province_admin = std::to_string(province->province_economy.development.admin); /* int */
-    std::string province_mil = std::to_string(province->province_economy.development.mil); /* int */
-    std::string province_prod = std::to_string(province->province_economy.development.prod); /* int */
 
-    float income = I(province->province_economy);
-    std::string province_income = "Income: " + SDL2_FormatFloat(income);
-    float production = GP(province->province_economy);
-    std::string province_goods_produced = "Production: " + SDL2_FormatFloat(production);
+    return;
+}
 
-    std::string province_good = "Produce: " + std::string(goods_names[province->province_economy.local_goods.good]); /* const char* */
-
-    SDL_Texture* province_good_texture = goods_textures[province->province_economy.local_goods.good]; /* This is fine */
-    SDL_Rect province_good_rect = { 362, 1017 - 400, GOOD_SIZE, GOOD_SIZE }; /* rectangle for rendering the province's good */
-
-    /* Renditions */
-    /* TODO: Check for memory leaks */
-    SDL2_RenderText(province_name, 17, 921 - 400, prov_inspector_font);
-    SDL2_RenderText(province_reg, 17, 957 - 400, prov_inspector_font);
-    
-    SDL2_RenderText(province_pop, 17, 1031 - 400, prov_inspector_font);
-    SDL2_RenderText(province_admin, 474, 927 - 400, prov_inspector_font);
-    SDL2_RenderText(province_mil, 474, 974 - 400, prov_inspector_font);
-    SDL2_RenderText(province_prod, 474, 1025 - 400, prov_inspector_font);
-
-    SDL2_RenderText(province_income, 219, 942 - 400, prov_inspector_font);
-    SDL2_RenderText(province_goods_produced, 200, 1024 - 400, prov_inspector_font);
-
-    SDL2_RenderText(province_good, 310, 1000 - 400, prov_inspector_font);
-
-    SDL_RenderCopy(renderer, province_good_texture, NULL, &province_good_rect);
+void SDL2_RenderLeaderName(KENG_country* country){
+    int w, h;
+    SDL_GetRendererOutputSize(renderer, &w, &h);
+    if(leaderOverviewBackground->visibility != PGUI_False){
+        SDL2_RenderText(country->countryLeader->leaderName, w - 189 + 13, 295, prov_inspector_font);
+        SDL2_RenderCountryLeader(country, renderer);
+    }   
 
     return;
 }
@@ -163,5 +175,3 @@ std::string SDL2_FormatFloat(float value){
     out << std::fixed << std::setprecision(2) << value;
     return out.str();
 }
-
-/* FIXME: PARSE A INFO FROM ONE FUCKING SOURCE JESUS PLEASE */

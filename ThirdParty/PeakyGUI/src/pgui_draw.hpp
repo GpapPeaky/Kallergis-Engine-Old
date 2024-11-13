@@ -1,5 +1,6 @@
 #include "pgui_button.hpp"
 #include "pgui_item.hpp"
+#include <algorithm> /* For std::sort */
 
 #ifndef __PGUI_DRAW_H__
 #define __PGUI_DRAW_H__

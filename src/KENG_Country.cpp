@@ -1,8 +1,8 @@
 #include "KENG_Country.hpp"
 
-std::vector<cou> countries;
+std::vector<KENG_country> KENG_globalCountries;
 
-int KENG_CreateCountries(const std::string countries_file, const std::string tags){
+int KENG_CreateCountries(const std::string countries_file, const std::string tags, const std::string leadersFile){
     std::ifstream tags_file(tags);
     if(!tags_file.is_open()){
         std::printf("Failed to load tags.cdf\n");
@@ -12,6 +12,12 @@ int KENG_CreateCountries(const std::string countries_file, const std::string tag
     std::ifstream cou_file(countries_file);
     if(!cou_file.is_open()){
         std::printf("Failed to load cou.ndf\n");
+        return FAIL;
+    }
+
+    std::ifstream leaderFile(leadersFile);
+    if(!leaderFile.is_open()){
+        std::printf("Failed to load leaders.cdf\n");
         return FAIL;
     }
 
@@ -39,7 +45,6 @@ int KENG_CreateCountries(const std::string countries_file, const std::string tag
 
     std::string cou_line;
     std::regex cou_pattern("\\s*\"(\\w+)\"\\s*:\\s*\\{\\s*(\\d+),\\s*(\\d+),\\s*(\\d+)\\s*\\}");
-
     while(std::getline(cou_file, cou_line)){
         if(cou_line.empty() || cou_line[0] == '#'){
             continue;
@@ -52,19 +57,19 @@ int KENG_CreateCountries(const std::string countries_file, const std::string tag
             int G = std::stoi(cou_matches[3]);
             int B = std::stoi(cou_matches[4]);
 
-            cou new_country;
-            new_country.tag = tag;
-            new_country.country_name = tag_map[tag];
-            new_country.country_rgb.r = R;
-            new_country.country_rgb.g = G;
-            new_country.country_rgb.b = B;
-            new_country.units_num = 0; /* No units at first */
+            KENG_country newCountry;
+            newCountry.tag = tag;
+            newCountry.country_name = tag_map[tag];
+            newCountry.country_rgb.r = R;
+            newCountry.country_rgb.g = G;
+            newCountry.country_rgb.b = B;
+            newCountry.units_num = 0; /* No units at first */
 
-            new_country.balance = 0.0f;
-            new_country.manpower = 0.0f;
-            new_country.stab = 0;
+            newCountry.balance = 0.0f;
+            newCountry.manpower = 0.0f;
+            newCountry.stab = 0;
 
-            countries.push_back(new_country); /* Add to countries vector */
+            KENG_globalCountries.push_back(newCountry); /* Add to countries vector */
         }else{
             std::printf("Failed to parse countries\n");
             return FAIL;
@@ -73,13 +78,54 @@ int KENG_CreateCountries(const std::string countries_file, const std::string tag
 
     cou_file.close();
 
+    std::string leaderLine;
+    std::regex leaderPattern("\\s*\"(\\w+)\"\\s*:\\s*\"([^\"]+)\"\\s*:\\s*(\\S+)");
+    while(std::getline(leaderFile, leaderLine)){
+        if(leaderLine.empty() || leaderLine[0] == '#'){
+            continue; /* Comments */
+        }
+
+        std::smatch leaderMatches;
+        if(regex_match(leaderLine, leaderMatches, leaderPattern)){
+            std::string tag = leaderMatches[1];
+            std::string name = leaderMatches[2];
+            std::string leaderIconName = leaderMatches[3];
+
+            KENG_leader* newLeader = new KENG_leader;
+
+            newLeader = KENG_CreateCountryLeader(name, leaderIconName, renderer);
+
+            for(auto& country : KENG_globalCountries){
+                if(strcmp(country.tag.c_str(), tag.c_str()) == 0){
+                    country.countryLeader = newLeader;
+                }
+            }
+        }else{
+            std::printf("Failed to parse country leaders\n");
+            return FAIL;
+        }
+    }
+
+    leaderFile.close();
+
     return SUCCESS;
 }
 
-cou KENG_GetCountry(std::string tag){
-    for(auto& cou : countries){
+KENG_country* KENG_GetCountry(std::string tag){
+    for(auto& cou : KENG_globalCountries){
         if(strcmp(cou.tag.c_str(), tag.c_str()) == 0){
-            return cou;
+            return &cou;
         }
     }
+}
+
+void SDL2_RenderCountryLeader(KENG_country* country, SDL_Renderer* renderer){
+    int w, h;
+    SDL_GetRendererOutputSize(renderer, &w, &h);
+
+    SDL_Rect leaderRect = {w - 189 + 5, 5, COUNTRY_LEADER_SIZE, COUNTRY_LEADER_SIZE};
+
+    SDL_RenderCopy(renderer, country->countryLeader->leaderIcon, NULL, &leaderRect);
+    
+    return;
 }

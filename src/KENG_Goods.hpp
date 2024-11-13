@@ -4,11 +4,11 @@
 #include "SDL2_Window.hpp"
 #include "auxf/definitions.aux"
 
-#ifndef GOODS
+#ifndef _KENG_GOODS_HPP_
 /**
  * @brief Goods for provinces
  */
-#define GOODS
+#define _KENG_GOODS_HPP_
 
 extern const char* goods_names[18];
 extern SDL_Texture* goods_textures[18];

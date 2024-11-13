@@ -3,7 +3,7 @@
 
 #ifndef PGUIOVERLOAD
 /**
- * @brief Create specific functions for out buttons
+ * @brief Create specific functions for buttons, and only Buttons
  */
 #define PGUIOVERLOAD
 
@@ -53,6 +53,5 @@ PGUI_Wrap pguiwIncrementAdminDev(PGUI_ArgumentVector args);
  * @returns pointer to the province or NULL if not found
  */
 PGUI_Wrap pguiwIncrementMilDev(PGUI_ArgumentVector args);
-
 
 #endif

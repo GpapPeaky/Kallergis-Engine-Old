@@ -17,7 +17,7 @@ void KENG_UpdateClock(void){
 }
 
 void KENG_UpdateCountryStats(void){
-    for(auto& country : countries){
+    for(auto& country : KENG_globalCountries){
         for(auto& reg : country.country_regs){
             for(auto& prov : reg.reg_provs){
                 #ifdef UPDATE_PRINTS
@@ -36,7 +36,7 @@ void KENG_UpdateCountryStats(void){
 
 void KENG_UpdateProvincePopulations(void){
     /* This will update in all countries */
-    for(auto& country : countries){
+    for(auto& country : KENG_globalCountries){
         for(auto& reg : country.country_regs){
             for(auto& prov : reg.reg_provs){
                 double growthRate = (prov.province_economy.development.admin +
