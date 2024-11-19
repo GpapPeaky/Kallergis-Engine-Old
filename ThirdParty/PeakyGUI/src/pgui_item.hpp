@@ -18,7 +18,19 @@ typedef struct PGUI_item{
     Uint ID;
 }PGUI_Item;
 
+/**
+ * @brief A somewhat more correct name
+ */
+typedef PGUI_Item PGUI_Widget;
+
+/**
+ * @brief Item/Widget Count
+ */
 extern int PGUI_ItemCount;
+
+/**
+ * @brief Items/Widgets Map
+ */
 extern std::unordered_map<int, PGUI_Item*> PGUI_GlobalItems;
 
 /**
@@ -161,5 +173,22 @@ PGUI_Wrap PGUI_ItemVisibilitySwitchWrapper(PGUI_ArgumentVector args);
  * @returns a pointer to the created item/button
  */
 PGUI_Item* PGUI_CreateButtonAsItem(PGUI_ActionArguments action, int x, int y, SDL_Surface* buttonBackground, SDL_Renderer* rnd,  PGUI_Bool visibility);
+
+/* Function Overloads */
+
+#define PGUI_CreateButtonAsWidget PGUI_CreateButtonAsItem
+#define PGUI_WidgetVisibilitySwitchWrapper PGUI_ItemVisibilitySwitchWrapper
+#define PGUI_WidgetVisibilitySwitch PGUI_ItemVisibilitySwitch
+#define PGUI_MakeWidgetInvisibleWrapper PGUI_MakeItemInvisibleWrapper
+#define PGUI_MakeWidgetInvisible PGUI_MakeItemInvisible
+#define PGUI_MakeWidgetVisibleWrapper PGUI_MakeItemVisibleWrapper
+#define PGUI_MakeWidgetVisible PGUI_MakeItemVisible
+#define PGUI_DestroyWidgetByIDWrapper PGUI_DestroyItemByIDWrapper
+#define PGUI_DestroyWidgetWrapper PGUI_DestroyItemWrapper
+#define PGUI_DestroyWidgetByID PGUI_DestroyItemByID
+#define PGUI_DestroyWidget PGUI_DestroyItem
+#define PGUI_CreateWidgetWrapper PGUI_CreateItemWrapper
+#define PGUI_CreateWidgetComplete PGUI_CreateItemComplete
+#define PGUI_CreateWidget PGUI_CreateItem
 
 #endif
