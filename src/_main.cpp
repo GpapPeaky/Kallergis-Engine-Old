@@ -73,6 +73,12 @@ int main(int argv, char** args){
         KENG_DebugPrint("Player initialised\n");
     #endif
 
+    /* Cities */
+    KENG_CreateCitiesFromFile("history/cities/cities.mdf", renderer);
+    #ifdef MAIN_DBG
+        KENG_DebugPrint("cities created");
+    #endif
+
     /* Prints */
     #ifdef MAIN_PRINTS
         KENG_PrintRegions();
@@ -86,7 +92,6 @@ int main(int argv, char** args){
 
     /* Overload the PGUI path */
     PGUI_AssetPath = "ThirdParty/PeakyGUI/assets/";
-
     PGUI_CreateCountryBar(KENG_mainPlayer->playerCountry, renderer); /* It will take the player country data */
     #ifdef PGUI_PRINT
         KENG_DebugPrint("Country Top Bar initialised\n");
@@ -102,6 +107,7 @@ int main(int argv, char** args){
 
     // PGUI_CreateCalendar(renderer);
 
+    /* TODO: Initial units, parse from file */
     // KENG_CreateUnit(ARMOR, *KENG_GetCountry("HER"), 1, KENG_clickSurface, KENG_SDL2camera);
 
     /* Game */
@@ -121,10 +127,13 @@ int main(int argv, char** args){
         /* We first render, then we update */
         SDL2_RenderCountryStats(KENG_mainPlayer->playerCountry); /* For the player */
 
+        /* TODO: Pass to all functions the renderer as an argument */
+
         SDL2_RenderProvinceInfo(clicked_province);
         PGUI_UpdateProvinceInspector(clicked_province, renderer);
 
-        SDL2_RenderLeaderName(KENG_mainPlayer->playerCountry); /* For the player */
+        SDL2_RenderLeaderName(KENG_mainPlayer->playerCountry, renderer); /* For the player */
+        SDL2_RenderCities(renderer, KENG_SDL2camera);
         
         SDL_RenderPresent(renderer);
 

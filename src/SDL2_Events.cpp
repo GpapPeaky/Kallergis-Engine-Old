@@ -39,9 +39,12 @@ prov* SDL2_HighlightOnClick(int x, int y, SDL_Surface* src, SDL_Texture* dst, ca
         if(prov->prov_colour.r == clicked.b && prov->prov_colour.g == clicked.g && prov->prov_colour.b == clicked.r){ /* HUH? Little Endian ??? */
 
         #ifdef PRINT_CLICK
-            std::printf("Clicked Province: %s - <%d, %d, %d>  Dev: <%d %d %d> Infr: %d Goods: %s Pops: %d\n", prov->prov_name.c_str(), prov->prov_colour.r, prov->prov_colour.g, prov->prov_colour.b, 
-            prov->province_economy.development.admin, prov->province_economy.development.mil, prov->province_economy.development.prod,
-            prov->province_economy.infrastructure, goods_names[prov->province_economy.local_goods.good], prov->province_economy.local_goods.population);
+            std::printf("Clicked Province: %s - <%d, %d, %d>  Dev: <%d %d %d> Infr: %d Goods: %s Pops: %d\n",\
+            prov->prov_name.c_str(), prov->prov_colour.r, prov->prov_colour.g, prov->prov_colour.b,\
+            prov->province_economy.development.admin, prov->province_economy.development.mil,\
+            prov->province_economy.development.prod, prov->province_economy.infrastructure,\
+            goods_names[prov->province_economy.local_goods.good],\
+            prov->province_economy.local_goods.population);
         #endif
 
             id = prov->prov_id;
@@ -138,17 +141,8 @@ void SDL2_HandleEvents(bool& quit, camera& cam){
                     // prov* prov = provinces_h[h(unit.prov_visited, PROV_M)];
                     // std::string name;
 
-                    // while(current != NULL){
-                    //     if(current->prov_id == unit.prov_visited){
-                    //         name = current->prov_name;
-                    //         break;
-                    //     }
-                    //     current = current->next;
-                    // }
-
                     if(mouse_x >= unit_x && mouse_x <= unit_x + unit.rect.w &&
                     mouse_y >= unit_y && mouse_y <= unit_y + unit.rect.h){
-                        // std::printf("Unit %d at province %d, %s clicked\n__________________________\n", unit.id, unit.prov_visited, name.c_str());
                         selected_unit = &unit;
                         break;
                     }

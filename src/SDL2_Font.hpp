@@ -8,6 +8,7 @@
 #include "KENG_Map.hpp"
 #include "KENG_Goods.hpp"
 #include "KENG_Region.hpp"
+#include "KENG_City.hpp"
 #include "PGUI_GUI.hpp"
 #include "PGUI_Overloads.hpp"
 #include "auxf/definitions.aux"
@@ -23,7 +24,8 @@ extern SDL_Color text_colour_bg;
 extern SDL_Surface * text;
 extern SDL_Texture * txt;
 extern SDL_Texture * b_txt;
-extern TTF_Font* province_inspector_font;
+extern TTF_Font* prov_inspector_font;
+extern TTF_Font* city_font;
 extern TTF_Font* top_bar_font;
 extern SDL_Rect rect;
 extern SDL_Rect b_rect;
@@ -38,7 +40,7 @@ extern SDL_Rect c_rect;
 int SDL2_CreateFont(void); 
 
 /**
- * @brief Renders Text based on a string
+ * @brief Renders Text based on a string, Kind of an expensive function
  * 
  * @param msg Message to appear
  * @param x x axis
@@ -70,8 +72,9 @@ void SDL2_RenderProvinceInfo(prov* province);
  * @brief Renders the leader of a selected country
  * 
  * @param country country right clicked
+ * @param rnd Renderer to use
  */
-void SDL2_RenderLeaderName(KENG_country* country);
+void SDL2_RenderLeaderName(KENG_country* country, SDL_Renderer* rnd);
 
 /**
  * @brief Formats a float to show two decimals

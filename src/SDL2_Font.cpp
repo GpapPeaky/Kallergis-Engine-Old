@@ -6,6 +6,7 @@ SDL_Surface* text = NULL;
 SDL_Texture* txt = NULL;
 SDL_Texture* b_txt = NULL;
 TTF_Font* prov_inspector_font = NULL;
+TTF_Font* city_font = NULL;
 TTF_Font* top_bar_font = NULL;
 SDL_Rect rect;
 SDL_Rect b_rect;
@@ -20,6 +21,12 @@ int SDL2_CreateFont(void){
         return FAIL;
     }
 
+    city_font = TTF_OpenFont("assets/gfx/font/osr.ttf", CITY_FONT_SIZE);
+    if(!city_font){
+        std::printf("FONT: %s\n ", SDL_GetError());
+        return FAIL;
+    }
+
     top_bar_font = TTF_OpenFont("assets/gfx/font/osr.ttf", TOP_BAR_FONT_SIZE);
     if(!top_bar_font){
         std::printf("FONT: %s\n ", SDL_GetError());
@@ -30,52 +37,55 @@ int SDL2_CreateFont(void){
 }
 
 void SDL2_RenderText(std::string msg, int x, int y, TTF_Font* font){
-    text = TTF_RenderUTF8_Solid(font, msg.c_str(), text_colour);
-    if(!text){
-        std::printf("%s\n ", SDL_GetError());
-    }
-    txt = SDL_CreateTextureFromSurface(renderer, text);
-    if(!txt){
-        std::printf("%s\n ", SDL_GetError());
+    SDL_Surface* outline_surface = TTF_RenderUTF8_Solid(font, msg.c_str(), text_colour_bg);
+    if(!outline_surface){
+        std::printf("Error creating outline surface: %s\n", SDL_GetError());
+        return;
     }
 
-    SDL_FreeSurface(text);
-
-    text = TTF_RenderUTF8_Solid(font, msg.c_str(), text_colour_bg);
-    if(!text){
-        std::printf("%s\n ", SDL_GetError());
-    }
-    b_txt = SDL_CreateTextureFromSurface(renderer, text);
-    if(!b_txt){
-        std::printf("%s\n ", SDL_GetError());
+    SDL_Texture* outline_texture = SDL_CreateTextureFromSurface(renderer, outline_surface);
+    if(!outline_texture){
+        std::printf("Error creating outline texture: %s\n", SDL_GetError());
+        SDL_FreeSurface(outline_surface);
+        return;
     }
 
-    SDL_FreeSurface(text);
+    SDL_Surface* main_surface = TTF_RenderUTF8_Solid(font, msg.c_str(), text_colour);
+    if(!main_surface){
+        std::printf("Error creating main surface: %s\n", SDL_GetError());
+        SDL_DestroyTexture(outline_texture);
+        SDL_FreeSurface(outline_surface);
+        return;
+    }
 
-    rect.x = x;
-    rect.y = y;
-    rect.h = text->h;
-    rect.w = text->w;
+    SDL_Texture* main_texture = SDL_CreateTextureFromSurface(renderer, main_surface);
+    if(!main_texture){
+        std::printf("Error creating main texture: %s\n", SDL_GetError());
+        SDL_FreeSurface(main_surface);
+        SDL_DestroyTexture(outline_texture);
+        SDL_FreeSurface(outline_surface);
+        return;
+    }
 
-    b_rect.x = rect.x + 2;
-    b_rect.y = rect.y + 2;
-    b_rect.h = text->h + 2;
-    b_rect.w = text->w + 2;
+    SDL_Rect text_rect = {x, y, main_surface->w, main_surface->h};
+    SDL_Rect outline_rect;
 
-    c_rect.x = rect.x - 2;
-    c_rect.y = rect.y - 2;
-    c_rect.h = text->h;
-    c_rect.w = text->w;
+    for(int dx = -2; dx <= 2; dx++){
+        for(int dy = -2; dy <= 2; dy++){
+            if(dx == 0 && dy == 0) continue; 
+            outline_rect = {x + dx, y + dy, outline_surface->w, outline_surface->h};
+            SDL_RenderCopy(renderer, outline_texture, NULL, &outline_rect);
+        }
+    }
 
-    SDL_RenderCopy(renderer, b_txt, NULL, &c_rect);
-    SDL_RenderCopy(renderer, b_txt, NULL, &b_rect);
-    SDL_RenderCopy(renderer, txt, NULL, &rect);
+    SDL_RenderCopy(renderer, main_texture, NULL, &text_rect);
 
-    SDL_DestroyTexture(b_txt);
-    SDL_DestroyTexture(txt);
-
-    return;
+    SDL_FreeSurface(main_surface);
+    SDL_DestroyTexture(main_texture);
+    SDL_FreeSurface(outline_surface);
+    SDL_DestroyTexture(outline_texture);
 }
+
 
 void SDL2_RenderOnMouseHover(void){
     return;
@@ -159,12 +169,12 @@ void SDL2_RenderProvinceInfo(prov* province){
     return;
 }
 
-void SDL2_RenderLeaderName(KENG_country* country){
+void SDL2_RenderLeaderName(KENG_country* country, SDL_Renderer* rnd){
     int w, h;
-    SDL_GetRendererOutputSize(renderer, &w, &h);
+    SDL_GetRendererOutputSize(rnd, &w, &h);
     if(leaderOverviewBackground->visibility != PGUI_False){
         SDL2_RenderText(country->countryLeader->leaderName, w - 189 + 13, 295, prov_inspector_font);
-        SDL2_RenderCountryLeader(country, renderer);
+        SDL2_RenderCountryLeader(country, rnd);
     }   
 
     return;

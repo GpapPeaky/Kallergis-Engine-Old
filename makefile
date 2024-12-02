@@ -60,8 +60,9 @@ $(SRCPATH)KENG_Goods.cpp\
 $(SRCPATH)KENG_Player.cpp\
 $(SRCPATH)KENG_Leader.cpp\
 $(SRCPATH)KENG_Debug.cpp\
+$(SRCPATH)KENG_City.cpp\
 $(SRCPATH)PGUI_GUI.cpp\
-$(SRCPATH)PGUI_Overloads.cpp\
+$(SRCPATH)PGUI_Overloads.cpp
 
 def: $(DEFSRC)
 	@echo Compiling Main (Default), and running 
