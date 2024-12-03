@@ -17,6 +17,8 @@ CC = g++
 CVER = -std=c++17 # C/C++23 Maybe..?
 SDLFLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 CFLAGS = -lm -Ofast
+RESOURCES = scripts/resource.rc
+OBJECTS = obj/
 THIRDPARTYFLG = ThirdParty/
 SDL2LIB = -L$(THIRDPARTYFLG)SDL2/lib
 SDL2INC = -I$(THIRDPARTYFLG)SDL2/include
@@ -65,8 +67,9 @@ $(SRCPATH)PGUI_GUI.cpp\
 $(SRCPATH)PGUI_Overloads.cpp
 
 def: $(DEFSRC)
-	@echo Compiling Main (Default), and running 
-	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $^ -o $(DSTPATH)$(EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
+	@echo Compiling Main (Default), and running
+	windres $(RESOURCES) -O coff -o $(OBJECTS)resources.o
+	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $^ $(OBJECTS)resources.o -o $(DSTPATH)$(EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
 	$(DSTPATH)$(EXEC_NAME).exe
 	
 paths:
