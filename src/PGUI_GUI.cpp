@@ -99,7 +99,6 @@ int PGUI_CreateCountryLeaderOverview(SDL_Renderer* rnd){
     int w, h;
     SDL_GetRendererOutputSize(renderer, &w, &h);
     leaderOverviewBackground = PGUI_CreateItemComplete(w - 189, 0, PGUI_Load("lo.png"), rnd, {}, PGUI_False);
-    printf("Created Leader Overview bar with id %d\n", leaderOverviewBackground->ID);
 
     return SUCCESS;
 }

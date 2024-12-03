@@ -9,6 +9,7 @@
 #include "KENG_Province.hpp"
 #include "KENG_Region.hpp"
 #include "KENG_Country.hpp"
+#include "KENG_City.hpp"
 #include "auxf/definitions.aux"
 
 #ifndef INIT_MAP
@@ -48,6 +49,17 @@ int KENG_CreateRegionNames(const std::string fname);
  *                0 on success
 */
 int KENG_RegionsToCountry(const std::string fname);
+
+/**
+ * @brief Creates the cities read from file (cities.mdf)
+ * 
+ * @param fname File to read
+ * @param rnd Renderer to use
+ * 
+ * @returns 1 on failure
+ *              0 on success
+ */
+int KENG_CreateCitiesFromFile(const std::string fname, SDL_Renderer* rnd);
 
 /**
  * @brief Resizes a bmp surface to w / h

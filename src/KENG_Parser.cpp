@@ -184,6 +184,36 @@ int KENG_RegionsToCountry(const std::string fname){
     return SUCCESS;
 }
 
+int KENG_CreateCitiesFromFile(const std::string fname, SDL_Renderer* rnd){
+    std::ifstream file(fname);
+
+    if(!file.is_open()){
+        std::printf("City Positions not found\n");
+        return FAIL;
+    }
+
+    std::string line;
+    while(std::getline(file, line)){
+        if(line.empty()){
+            continue;
+        }
+
+        int x, y;
+        char discard;
+        std::string name;
+
+        std::istringstream linestream(line);
+        if(linestream >> discard >> x >> discard >> y >> discard >> std::ws){
+            std::getline(linestream, name);
+            KENG_CreateCity(x, y, name, IMG_Load("assets/gfx/map/cityPin.png"), renderer);
+        }
+    }
+
+    file.close();
+
+    return SUCCESS;
+}
+
 /* TODO: Move this somewhere else */
 SDL_Surface* SDL2_ResizeBitmap(SDL_Surface* map_surface, float w, float h){
     SDL_Surface* resized_map_surface = SDL_CreateRGBSurface(0, static_cast<int>(w), static_cast<int>(h), map_surface->format->BitsPerPixel, 

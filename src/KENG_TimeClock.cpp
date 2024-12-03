@@ -46,7 +46,7 @@ void KENG_UpdateProvincePopulations(void){
                 int growthAmount = static_cast<int>(prov.province_economy.local_goods.population * growthRate) / 10;
 
                 if(growthAmount == 0){
-                    prov.province_economy.local_goods.population += 1; /* just add +1 */
+                    prov.province_economy.local_goods.population += (rand() % 1); /* just add +1 or 0 */
                     #ifdef UPDATE_PRINTS
                         printf("local: Population added: %d to %s %d\n", 1, prov.prov_name.c_str(), prov.province_economy.local_goods.population);
                     #endif
@@ -68,7 +68,7 @@ void KENG_UpdateProvincePopulations(void){
         int growthAmount = static_cast<int>(prov->province_economy.local_goods.population * growthRate) / 10;
 
         if(growthAmount == 0){
-            prov->province_economy.local_goods.population += 1; /* just add +1 */
+            prov->province_economy.local_goods.population += (rand() % 1); /* just add +1 or 0 */
             #ifdef UPDATE_PRINTS
                 printf("pgui: Population added: %d to %s %d\n", 1, prov->prov_name.c_str(), prov->province_economy.local_goods.population);
             #endif
