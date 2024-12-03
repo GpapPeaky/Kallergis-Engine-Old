@@ -1,6 +1,6 @@
 # { x , y } PROV_NAME (x and y are relative to the province bitmap)
 
-{ 3175, 1389 } Herakleion
+{ 3190, 1389 } Herakleion
 { 3213, 1337 } Dia
 { 3214, 1525 } Saint Irene
 { 3220, 1483 } Zahariou Milos
@@ -10,3 +10,11 @@
 { 1273, 1035 } Chania
 { 2061, 1330 } Rethemnon
 { 4195, 1714 } Saint Nicholas
+{ 3311, 1480 } Elia Pediados
+{ 3298, 1685 } Bonh
+{ 3235, 1385 } Nea Allikarnassos
+{ 3280, 1391 } Herakleion Airport
+{ 3190, 1438 } Saint John
+{ 3183, 1450 } Fortetsa
+{ 3165, 1575 } Saint Vlassis
+{ 3243, 1471 } Sphlia
