@@ -108,7 +108,10 @@ int main(int argv, char** args){
     // PGUI_CreateCalendar(renderer);
 
     /* TODO: Initial units, parse from file */
-    // KENG_CreateUnit(ARMOR, *KENG_GetCountry("HER"), 1, KENG_clickSurface, KENG_SDL2camera);
+    KENG_CreateUnit(ARMOR, *KENG_GetCountry("HER"), 1, KENG_clickSurface, KENG_SDL2camera);
+    KENG_CreateUnit(INFANTRY, *KENG_GetCountry("HER"), 2, KENG_clickSurface, KENG_SDL2camera);
+    KENG_CreateUnit(MOTORISED, *KENG_GetCountry("HER"), 3, KENG_clickSurface, KENG_SDL2camera);
+    KENG_CreateUnit(ARTILLERY, *KENG_GetCountry("HER"), 4, KENG_clickSurface, KENG_SDL2camera);
 
     /* Game */
     bool SDL2_quit = false;
