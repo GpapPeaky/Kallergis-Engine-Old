@@ -116,6 +116,7 @@ int main(int argv, char** args){
     while(!SDL2_quit){
         /* TODO: Refactor Renditions, into one function, and their names */
         SDL2_RenderMap(renderer, textures, KENG_SDL2camera);
+        SDL2_RenderCities(renderer, KENG_SDL2camera); /* Render behind PGUI, and the units */
         SDL2_DrawUnits(KENG_SDL2camera);
 
         SDL2_HandleEvents(SDL2_quit, KENG_SDL2camera);
@@ -127,13 +128,10 @@ int main(int argv, char** args){
         /* We first render, then we update */
         SDL2_RenderCountryStats(KENG_mainPlayer->playerCountry); /* For the player */
 
-        /* TODO: Pass to all functions the renderer as an argument */
-
         SDL2_RenderProvinceInfo(clicked_province);
         PGUI_UpdateProvinceInspector(clicked_province, renderer);
 
         SDL2_RenderLeaderName(KENG_mainPlayer->playerCountry, renderer); /* For the player */
-        SDL2_RenderCities(renderer, KENG_SDL2camera);
         
         SDL_RenderPresent(renderer);
 
