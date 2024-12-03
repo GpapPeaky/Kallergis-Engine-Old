@@ -113,6 +113,8 @@ int main(int argv, char** args){
     KENG_CreateUnit(MOTORISED, *KENG_GetCountry("HER"), 3, KENG_clickSurface, KENG_SDL2camera);
     KENG_CreateUnit(ARTILLERY, *KENG_GetCountry("HER"), 4, KENG_clickSurface, KENG_SDL2camera);
 
+    srand(time(NULL));
+
     /* Game */
     bool SDL2_quit = false;
     Uint KENG_gameCycles = 0;

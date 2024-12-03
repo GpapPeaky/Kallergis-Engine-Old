@@ -35,18 +35,18 @@ void KENG_UpdateCountryStats(void){
 }
 
 void KENG_UpdateProvincePopulations(void){
-    /* This will update in all countries */
+    int generatedGrowth = rand() % 2; /* For non-growth provinces */
+
     for(auto& country : KENG_globalCountries){
         for(auto& reg : country.country_regs){
             for(auto& prov : reg.reg_provs){
                 double growthRate = (prov.province_economy.development.admin +
                         prov.province_economy.development.mil +
                         prov.province_economy.development.prod) * 0.000001f;
-
                 int growthAmount = static_cast<int>(prov.province_economy.local_goods.population * growthRate) / 10;
 
                 if(growthAmount == 0){
-                    prov.province_economy.local_goods.population += (rand() % 1); /* just add +1 or 0 */
+                    prov.province_economy.local_goods.population += generatedGrowth; /* just add +1 or 0 */
                     #ifdef UPDATE_PRINTS
                         printf("local: Population added: %d to %s %d\n", 1, prov.prov_name.c_str(), prov.province_economy.local_goods.population);
                     #endif
@@ -63,12 +63,12 @@ void KENG_UpdateProvincePopulations(void){
     /* FOR PGUI, PGUI checks the global provinces vector */
     for(auto& prov : provinces){
         double growthRate = (prov->province_economy.development.admin +
-        prov->province_economy.development.mil +
-        prov->province_economy.development.prod) * 0.000001f;
+            prov->province_economy.development.mil +
+            prov->province_economy.development.prod) * 0.000001f;
         int growthAmount = static_cast<int>(prov->province_economy.local_goods.population * growthRate) / 10;
 
         if(growthAmount == 0){
-            prov->province_economy.local_goods.population += (rand() % 1); /* just add +1 or 0 */
+            prov->province_economy.local_goods.population += generatedGrowth; /* just add +1 or 0 */
             #ifdef UPDATE_PRINTS
                 printf("pgui: Population added: %d to %s %d\n", 1, prov->prov_name.c_str(), prov->province_economy.local_goods.population);
             #endif
