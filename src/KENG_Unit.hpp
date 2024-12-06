@@ -47,6 +47,7 @@ extern SDL_Texture* inf;
 extern SDL_Texture* art;
 extern SDL_Texture* arm;
 extern SDL_Texture* mot;
+/* TODO: Make this a field for each country, let's avoid another global */
 extern std::vector<unit> units;
 
 /**
@@ -55,6 +56,15 @@ extern std::vector<unit> units;
  * @returns 1 on failure, 0 on success
  */
 int KENG_CreateUnitAssets(void);
+
+/**
+ * @brief Generates unit coordinates, per province
+ * 
+ * @param surface Surface to scan for coordinates
+ * 
+ * @returns 1 on failure, 0 on success
+ */
+int KENG_GenerateUnitCoords(SDL_Surface* surface);
 
 /**
  * @brief Creates a unit
@@ -78,7 +88,6 @@ void KENG_CreateUnit(unit_t type, KENG_country country, int prov_id, SDL_Surface
  *          will move almost to the center, with a small margin of error.
  */
 void KENG_MoveUnit(SDL_Surface* surface, camera cam);
-
 
 /**
  * @brief Draws units

@@ -117,6 +117,8 @@ KENG_country* KENG_GetCountry(std::string tag){
             return &cou;
         }
     }
+
+    return NULL; /* Not found */
 }
 
 void SDL2_RenderCountryLeader(KENG_country* country, SDL_Renderer* renderer){

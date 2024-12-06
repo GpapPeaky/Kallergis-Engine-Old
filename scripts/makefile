@@ -1,5 +1,6 @@
-# Author: GpapPeaky George Papamatthaiakis
-# https://github.com/GpapPeaky
+# # # # # # # # # # # # # # # # # # # # # # # # # #
+# Author: GpapPeaky George Papamatthaiakis        
+# https://github.com/GpapPeaky				
 #
 # Kallergis Engine Makefile
 #
@@ -14,9 +15,9 @@ UNUSED = $(UNUSEDVAR) $(UNUSEDFUNC)
 # Globals
 
 CC = g++
-CVER = -std=c++17 # C/C++23 Maybe..?
+CVER = -std=c++23 # C/C++23 Maybe..?
 SDLFLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
-CFLAGS = -lm -Ofast
+CFLAGS = -lm -Ofast -lstdc++ -pthread
 RESOURCES = scripts/resource.rc
 OBJECTS = obj/
 THIRDPARTYFLG = ThirdParty/
@@ -66,11 +67,37 @@ $(SRCPATH)KENG_City.cpp\
 $(SRCPATH)PGUI_GUI.cpp\
 $(SRCPATH)PGUI_Overloads.cpp
 
+# Compiles the default engine
+
 def: $(DEFSRC)
 	@echo Compiling Main (Default), and running
 	windres $(RESOURCES) -O coff -o $(OBJECTS)resources.o
 	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $^ $(OBJECTS)resources.o -o $(DSTPATH)$(EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
 	$(DSTPATH)$(EXEC_NAME).exe
+
+# Unused Variable And Functions Compiling For Debugging
+
+def-unsd: $(DEFSRC)
+	@echo Compiling Main (Default), and running 
+	windres $(RESOURCES) -O coff -o $(OBJECTS)resources.o
+	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $(UNUSED) $^ -o $(DSTPATH)$(EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
+	$(DSTPATH)$(EXEC_NAME).exe
+
+obj:
+	@echo Compiling resources
+	windres $(RESOURCES) -O coff -o $(OBJECTS)resources.o
+
+# CXX Version Control, Required Compiler For <thread> <mutex> 
+
+vxx:
+	 g++ $(CVER) scripts/cxxver.cpp -o bin/cxxver
+
+vxxDebug:
+	@echo Using CC: $(CC)
+	@which $(CC)
+	@$(CC) --version
+
+# Print the local paths
 	
 paths:
 	@echo CURRENT DIRECTORY: "$(CURDIR)"
@@ -87,23 +114,3 @@ clean:
 
 test:
 	@echo Makefile test.
-
-# Compiles all executables
-all:
-	@echo Compiling all executables...
-	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $(DEFSRC) -o $(DSTPATH)$(EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
-	@echo -DEF COMPLETED
-	@echo Compilation completed.
-
-# Unused Variable And Functions Compiling For Debugging
-
-def-unsd: $(DEFSRC)
-	@echo Compiling Main (Default), and running 
-	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $(UNUSED) $^ -o $(DSTPATH)$(EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
-	$(DSTPATH)$(EXEC_NAME).exe
-
-all-unsd:
-	@echo Compiling all executables...
-	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $(UNUSED) $(DEFSRC) -o $(DSTPATH)$(EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
-	@echo -DEF COMPLETED
-	@echo Compilation completed.

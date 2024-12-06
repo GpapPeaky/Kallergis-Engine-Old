@@ -25,7 +25,6 @@ int main(int argv, char** args){
     SDL2_CreateFont();
     /* Initialise the clock */
     KENG_CreateClock();
-
     #ifdef MAIN_DBG
         KENG_DebugPrint("init called");
     #endif
@@ -58,6 +57,12 @@ int main(int argv, char** args){
     KENG_MarkCountries(KENG_clickSurface, map); /* We use the click map as per usual */
     #ifdef MAIN_DBG
         KENG_DebugPrint("marking countries called");
+    #endif
+
+    /* Generate the unit coords */
+    KENG_GenerateUnitCoords(KENG_clickSurface);
+    #ifdef MAIN_DBG
+        KENG_DebugPrint("generating unit coords called");
     #endif
 
     /* Paints the borders inbetween countries and provinces */
@@ -115,13 +120,25 @@ int main(int argv, char** args){
 
     srand(time(NULL));
 
+    /* CITY THREAD */
+    /* Initialise the city thread parameters */
+    /* FIXME: Thread library is not recognised, std::mutex and std::thread are not found?? */
+    /* TODO: Add POSIX for threaded functions... (UGHH) */
+    // KENG_CityThreadParam KENG_CitiesThreadParam = KENG_InitCityThread(renderer, KENG_SDL2camera);
+    // std::thread KENG_CityRenderThread(SDL2_RenderCityThreaded, KENG_CitiesThreadParam);
+    // KENG_CityRenderThread.join(); /* Wait for the thread to finish */
+    #ifdef MAIN_DBG
+        KENG_DebugPrint("Cities thread initialised");
+    #endif
+
     /* Game */
     bool SDL2_quit = false;
     Uint KENG_gameCycles = 0;
     while(!SDL2_quit){
+        // std::lock_guard<std::mutex> lock(KENG_CityRenderMutex);
         /* TODO: Refactor Renditions, into one function, and their names */
         SDL2_RenderMap(renderer, textures, KENG_SDL2camera);
-        SDL2_RenderCities(renderer, KENG_SDL2camera); /* Render behind PGUI, and the units */
+        // SDL2_RenderCities(renderer, KENG_SDL2camera); /* Render behind PGUI, and the units, THREADED */
         SDL2_DrawUnits(KENG_SDL2camera);
 
         SDL2_HandleEvents(SDL2_quit, KENG_SDL2camera);

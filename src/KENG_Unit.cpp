@@ -56,6 +56,77 @@ int KENG_CreateUnitAssets(void){
     return SUCCESS;
 }
 
+int KENG_GenerateUnitCoords(SDL_Surface* surface){
+    if(surface == NULL){
+        std::printf("Surface provided is null\n");
+        return FAIL;
+    }
+
+    FILE* KENG_UnitCoordsFile = fopen("history/units/KENG_UnitCoords.txt", "w"); // Open in append mode
+    if (KENG_UnitCoordsFile == NULL) {
+        std::printf("Unit coords file not found\n");
+        return FAIL;
+    }
+
+    SDL_LockSurface(surface);
+
+    int bpp = surface->format->BytesPerPixel;
+    Uint8* pixels = (Uint8*)surface->pixels;
+
+    Uint8 sr, sg, sb; /* Surface RGB */
+
+    /* Iterate through all provinces */
+    for(auto& prov : provinces){
+        int count = 0, sum_x = 0, sum_y = 0;
+
+        /* Scan the entire image for matching pixels */
+        for(int j = 0 ; j < surface->h ; j++){
+            for(int i = 0 ; i < surface->w ; i++){
+                Uint8* current_pixel_ptr = pixels + (j * surface->pitch) + (i * bpp);
+                Uint32 current_pixel = 0;
+
+                /* Get the pixel colour */
+                switch(bpp){
+                    case 3:
+                        current_pixel = (current_pixel_ptr[0] << 16) | (current_pixel_ptr[1] << 8) | current_pixel_ptr[2];
+                        break;
+                    case 4:
+                        current_pixel = *(Uint32*)current_pixel_ptr;
+                        break;
+                    default:
+                        std::printf("Unsupported pixel format\n");
+                        SDL_UnlockSurface(surface);
+                        fclose(KENG_UnitCoordsFile);
+                        return FAIL;
+                }
+
+                SDL_GetRGB(current_pixel, surface->format, &sr, &sg, &sb);
+                
+                /* Check if the province pixels match */
+                if(prov->prov_colour.r == sb && prov->prov_colour.g == sg &&\
+                prov->prov_colour.b == sr){ /* HUH?: Little Endian? */
+                    sum_x += i;
+                    sum_y += j;
+                    count++;
+                }
+            }
+        }
+
+        /* If any pixels matched, calculate the center and append it to the file */
+        if(count > 0){
+            int genX = sum_x / count;
+            int genY = sum_y / count;
+            fprintf(KENG_UnitCoordsFile, "%d { %d, %d }\n", prov->prov_id, genX, genY);
+        }
+    }
+
+    SDL_UnlockSurface(surface);
+    fclose(KENG_UnitCoordsFile);
+
+    return SUCCESS;
+}
+
+
 void KENG_CreateUnit(unit_t type, KENG_country country, int prov_id, SDL_Surface* surface, camera cam){
     if(type != INFANTRY && type != ARTILLERY && type != ARMOR && type != MOTORISED){ 
         std::printf("Incompatible type given in unit creation\n");
