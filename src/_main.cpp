@@ -130,7 +130,7 @@ int main(int argv, char** args){
         // std::lock_guard<std::mutex> lock(KENG_CityRenderMutex);
         /* TODO: Refactor Renditions, into one function, and their names */
         SDL2_RenderMap(renderer, textures, KENG_SDL2camera);
-        // SDL2_RenderCities(renderer, KENG_SDL2camera); /* Render behind PGUI, and the units, THREADED */
+        SDL2_RenderCities(renderer, KENG_SDL2camera); /* Render behind PGUI, and the units, THREADED */
         SDL2_DrawUnits(KENG_SDL2camera);
 
         SDL2_HandleEvents(SDL2_quit, KENG_SDL2camera);
