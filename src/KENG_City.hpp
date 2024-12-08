@@ -20,15 +20,6 @@ typedef struct KENG_City{
     SDL_Texture* cityTexture;
 }KENG_City;
 
-typedef struct KENG_CityThreadParam{
-    SDL_Renderer* rnd;
-    camera cam;
-}KENG_CityThreadParam;
-
-extern std::mutex KENG_CityRenderMutex;
-
-extern std::atomic<bool> KENG_CityRenderThreadActive;
-
 extern std::unordered_map<int, KENG_City> KENG_Cities;
 
 /**
@@ -60,22 +51,5 @@ int KENG_CreateCity(int x, int y, std::string cityName, SDL_Surface* citySurface
  * @attention Quite the expensive function, for that we will run it on a different thread
  */
 void SDL2_RenderCities(SDL_Renderer* rnd, camera cam);
-
-/**
- * @brief Initialises the city thread parameters
- * 
- * @param rnd Renderer to use
- * @param cam Camera for scaling
- * 
- * @returns The initialised parameters
- */
-KENG_CityThreadParam KENG_InitCityThread(SDL_Renderer* rnd, camera cam);
-
-/**
- * @brief Renders the cities on a different thread than main, to avoid clatter
- * 
- * @param arg City arguments (renderer, camera)
- */
-void SDL2_RenderCityThreaded(KENG_CityThreadParam arg);
 
 #endif

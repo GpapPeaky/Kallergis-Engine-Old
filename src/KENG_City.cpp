@@ -1,9 +1,5 @@
 #include "KENG_City.hpp"
 
-std::mutex KENG_CityRenderMutex;
-
-std::atomic<bool> KENG_CityRenderThreadActive(true);
-
 std::unordered_map<int, KENG_City> KENG_Cities;
 
 static int KENG_GenerateCityID(void){
@@ -60,22 +56,6 @@ void SDL2_RenderCities(SDL_Renderer* rnd, camera cam){
         int textX = zoomRectangle.x + 10; /* Position the text on the right of the city pin */
         int textY = zoomRectangle.y;
         SDL2_RenderText(city.cityName.c_str(), textX, textY, city_font);
-    }
-
-    return;
-}
-
-KENG_CityThreadParam KENG_InitCityThread(SDL_Renderer* rnd, camera cam){
-    KENG_CityThreadParam threadParameters;
-    threadParameters.cam = cam;
-    threadParameters.rnd = rnd;
-
-    return threadParameters;
-}
-
-void SDL2_RenderCityThreaded(KENG_CityThreadParam arg){
-    while(KENG_CityRenderThreadActive.load()){ /* While active */
-        SDL2_RenderCities(arg.rnd, arg.cam);
     }
 
     return;

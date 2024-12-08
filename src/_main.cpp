@@ -120,16 +120,8 @@ int main(int argv, char** args){
 
     srand(time(NULL));
 
-    /* CITY THREAD */
-    /* Initialise the city thread parameters */
-    /* FIXME: Thread library is not recognised, std::mutex and std::thread are not found?? */
-    /* TODO: Add POSIX for threaded functions... (UGHH) */
-    // KENG_CityThreadParam KENG_CitiesThreadParam = KENG_InitCityThread(renderer, KENG_SDL2camera);
-    // std::thread KENG_CityRenderThread(SDL2_RenderCityThreaded, KENG_CitiesThreadParam);
-    // KENG_CityRenderThread.join(); /* Wait for the thread to finish */
-    #ifdef MAIN_DBG
-        KENG_DebugPrint("Cities thread initialised");
-    #endif
+    /* CITIES THREAD */
+    /* TODO: Initialise the city thread parameters */
 
     /* Game */
     bool SDL2_quit = false;
