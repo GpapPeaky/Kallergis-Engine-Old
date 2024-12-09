@@ -9,9 +9,6 @@
 #include "SDL2_Camera.hpp"
 #include <unordered_map>
 #include <string>
-#include <thread> /* Ughh... */
-#include <mutex>
-#include <atomic>
 
 typedef struct KENG_City{
     SDL_Rect cityRect;
