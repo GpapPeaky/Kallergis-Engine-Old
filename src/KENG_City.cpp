@@ -48,14 +48,20 @@ void SDL2_RenderCities(SDL_Renderer* rnd, camera cam){
         zoomRectangle.w = city.cityRect.w * cam.zoom; /* Avoid rounding issues */
         zoomRectangle.h = city.cityRect.h * cam.zoom;
         
-        if(SDL_RenderCopy(rnd, city.cityTexture, NULL, &zoomRectangle) != 0){
-            printf("Failed to render city texture: %s\n", SDL_GetError());
-            continue;
+        /* If the city is inside the camera, render it */
+        if(SDL2_ContainsRect(cam.rect, city.cityRect) == SUCCESS){
+            if(SDL_RenderCopy(rnd, city.cityTexture, NULL, &zoomRectangle) != 0){
+                printf("Failed to render city texture: %s\n", SDL_GetError());
+                continue;
+            }
         }
 
-        int textX = zoomRectangle.x + 10; /* Position the text on the right of the city pin */
-        int textY = zoomRectangle.y;
-        SDL2_RenderText(city.cityName.c_str(), textX, textY, city_font);
+        SDL_Rect textRect;
+        textRect.x = zoomRectangle.x + 10; /* Position the text on the right of the city pin */
+        textRect.y = zoomRectangle.y;
+        if(SDL2_ContainsRect(cam.rect, city.cityRect) == SUCCESS){
+            SDL2_RenderText(city.cityName.c_str(), textRect.x, textRect.y, city_font);
+        }
     }
 
     return;

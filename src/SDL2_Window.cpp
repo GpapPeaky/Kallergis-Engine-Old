@@ -36,3 +36,16 @@ void SDL2_RenderMap(SDL_Renderer* renderer, std::vector<SDL_Texture*> textures, 
 
     return;
 }
+
+#include <SDL2/SDL.h>
+
+int SDL2_ContainsRect(SDL_Rect src, SDL_Rect dst){
+    if(src.x <= dst.x &&
+        src.y <= dst.y && 
+        (src.x + src.w) >= (dst.x + dst.w) &&
+        (src.y + src.h) >= (dst.y + dst.h)){
+        return SUCCESS; 
+    }
+
+    return FAIL; 
+}

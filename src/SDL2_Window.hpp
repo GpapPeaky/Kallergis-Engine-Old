@@ -38,4 +38,14 @@ int SDL2_CreateWindowAndRenderer(const char* name);
  */
 void SDL2_RenderMap(SDL_Renderer* renderer, std::vector<SDL_Texture*> textures, camera cam);
 
+/**
+ * @brief Checks if the source rectangle is inside the destination rectangle (and vise versa)
+ * 
+ * @param src Source rectangle 
+ * @param dst Destination rectangle
+ * 
+ * @returns 0 on success, 1 on failure
+ */
+int SDL2_ContainsRect(SDL_Rect src, SDL_Rect dst);
+
 #endif
