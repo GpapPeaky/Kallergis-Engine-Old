@@ -5,8 +5,8 @@
 #define __KENG_CITY_HPP__
 
 #include "../ThirdParty/SDL2/include/SDL2/SDL.h"
-#include "SDL2_Font.hpp"
 #include "SDL2_Camera.hpp"
+#include "SDL2_Window.hpp"
 #include <unordered_map>
 #include <string>
 
@@ -45,7 +45,7 @@ int KENG_CreateCity(int x, int y, std::string cityName, SDL_Surface* citySurface
  * @param rnd Renderer to use
  * @param cam Camera, for scaling
  * 
- * @attention Quite the expensive function, for that we will run it on a different thread
+ * @attention Quite the expensive function, for that we will cache the fonts (see SDL2_Font.hpp)
  */
 void SDL2_RenderCities(SDL_Renderer* rnd, camera cam);
 

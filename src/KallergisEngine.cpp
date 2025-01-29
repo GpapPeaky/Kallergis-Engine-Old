@@ -21,8 +21,6 @@ int main(int argv, char** args){
     KENG_CreateUnitAssets();
     /* Initialise goods graphic assets */
     KENG_CreateGoods();
-    /* Initialise the font */
-    SDL2_CreateFont();
     /* Initialise the clock */
     KENG_CreateClock();
     #ifdef MAIN_DBG
@@ -129,22 +127,22 @@ int main(int argv, char** args){
     while(!SDL2_quit){
         /* TODO: Refactor Renditions, into one function, and their names */
         SDL2_RenderMap(renderer, textures, KENG_SDL2camera);
-        SDL2_RenderCities(renderer, KENG_SDL2camera); /* Render behind PGUI, and the units, THREADED */
+        SDL2_RenderCities(renderer, KENG_SDL2camera); /* Render behind PGUI, and the units, quite expensive */
         SDL2_DrawUnits(KENG_SDL2camera);
 
         SDL2_HandleEvents(SDL2_quit, KENG_SDL2camera);
 
         PGUI_DrawItems(renderer);
-        SDL2_RenderGoodsBar();
+        // SDL2_RenderGoodsBar();
 
         /* Text has to be in front of the GUI items */
         /* We first render, then we update */
-        SDL2_RenderCountryStats(KENG_mainPlayer->playerCountry); /* For the player */
+        // SDL2_RenderCountryStats(KENG_mainPlayer->playerCountry); /* For the player */ /* Needs the font */
 
-        SDL2_RenderProvinceInfo(clicked_province);
+        // SDL2_RenderProvinceInfo(clicked_province); /* Needs the font */
         PGUI_UpdateProvinceInspector(clicked_province, renderer);
 
-        SDL2_RenderLeaderName(KENG_mainPlayer->playerCountry, renderer); /* For the player */
+        // SDL2_RenderLeaderName(KENG_mainPlayer->playerCountry, renderer); /* For the player */ /* Needs the font */
         
         SDL_RenderPresent(renderer);
 

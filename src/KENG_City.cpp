@@ -60,7 +60,7 @@ void SDL2_RenderCities(SDL_Renderer* rnd, camera cam){
         textRect.x = zoomRectangle.x + 10; /* Position the text on the right of the city pin */
         textRect.y = zoomRectangle.y;
         if(SDL2_ContainsRect(cam.rect, city.cityRect) == SUCCESS){
-            SDL2_RenderText(city.cityName.c_str(), textRect.x, textRect.y, city_font);
+            /* RENDER TEXT */
         }
     }
 

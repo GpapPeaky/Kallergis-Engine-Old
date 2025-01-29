@@ -44,13 +44,12 @@ $(PGUIPATH)pgui_event.cpp $(PGUIPATH)pgui_item.cpp $(PGUIPATH)pgui_load.cpp $(PG
 EXEC_NAME = keng
 DEFSRC = \
 $(PGUISRC)\
-$(SRCPATH)_main.cpp\
+$(SRCPATH)KallergisEngine.cpp\
 $(SRCPATH)SDL2_Camera.cpp\
 $(SRCPATH)SDL2_Window.cpp\
 $(SRCPATH)SDL2_Pixel.cpp\
 $(SRCPATH)SDL2_CleanUp.cpp\
 $(SRCPATH)SDL2_Events.cpp\
-$(SRCPATH)SDL2_Font.cpp\
 $(SRCPATH)KENG_Parser.cpp\
 $(SRCPATH)KENG_Map.cpp\
 $(SRCPATH)KENG_Province.cpp\
