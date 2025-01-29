@@ -50,6 +50,8 @@ $(SRCPATH)SDL2_Window.cpp\
 $(SRCPATH)SDL2_Pixel.cpp\
 $(SRCPATH)SDL2_CleanUp.cpp\
 $(SRCPATH)SDL2_Events.cpp\
+$(SRCPATH)SDL2_Images.cpp\
+$(SRCPATH)SDL2_TextureFonts.cpp\
 $(SRCPATH)KENG_Parser.cpp\
 $(SRCPATH)KENG_Map.cpp\
 $(SRCPATH)KENG_Province.cpp\

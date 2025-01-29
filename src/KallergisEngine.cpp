@@ -21,6 +21,8 @@ int main(int argv, char** args){
     KENG_CreateUnitAssets();
     /* Initialise goods graphic assets */
     KENG_CreateGoods();
+    /* Fonts */
+    KENG_CityFont = SDL2_CreateTextureFont("assets/gfx/font/CWWB.png", 13);
     /* Initialise the clock */
     KENG_CreateClock();
     #ifdef MAIN_DBG
@@ -133,17 +135,12 @@ int main(int argv, char** args){
         SDL2_HandleEvents(SDL2_quit, KENG_SDL2camera);
 
         PGUI_DrawItems(renderer);
-        // SDL2_RenderGoodsBar();
 
         /* Text has to be in front of the GUI items */
         /* We first render, then we update */
-        // SDL2_RenderCountryStats(KENG_mainPlayer->playerCountry); /* For the player */ /* Needs the font */
 
-        // SDL2_RenderProvinceInfo(clicked_province); /* Needs the font */
         PGUI_UpdateProvinceInspector(clicked_province, renderer);
 
-        // SDL2_RenderLeaderName(KENG_mainPlayer->playerCountry, renderer); /* For the player */ /* Needs the font */
-        
         SDL_RenderPresent(renderer);
 
         KENG_gameCycles++;

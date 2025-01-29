@@ -20,12 +20,12 @@ typedef struct SDL2_TextureFont{
 /**
  * @brief Space between 2 letters (2px)
  */
-#define BSC_LETTER_SPACE 2
+#define KENG_LETTER_SPACE 2
 
 /**
  * @brief Small tolerance of error in float comparison
  */
-#define BSC_EPSILON 0.0000001f
+#define KENG_EPSILON 0.0000001f
 
 /**
  * @brief Font global
@@ -33,22 +33,7 @@ typedef struct SDL2_TextureFont{
  * @attention letter sprite is (9x9) and the
  * sheet is of size 8x5
  */
-extern SDL2_TextureFont* BSC_CWWBFont;
-
-/**
- * @brief Font global for items in inventory
- */
-extern SDL2_TextureFont* BSC_ItemHoverFont;
-
-/**
- * @brief Stat increase font (green)
- */
-extern SDL2_TextureFont* BSC_ItemIncFont;
-
-/**
- * @brief Stat decrease font (red)
- */
-extern SDL2_TextureFont* BSC_ItemDecFont;
+extern SDL2_TextureFont* KENG_CWWBFont;
 
 /**
  * @brief Initialises the font from the font spritesheet
@@ -102,16 +87,3 @@ void SDL2_RenderFontText(SDL2_TextureFont* font, const char* str, int x, int y);
  * @returns The created string
  */
 std::string SDL2_2PointFloatString(float value);
-
-/**
- * @brief Renders a string of the stat, with red
- * or green colour, depending on if the stat is
- * positive or negatice
- * 
- * @param statName Name of the stat
- * @param stat Stat to render
- * @param x X coordinate
- * @param y Y coordinate
- * @param perFlag if the stat is percentage or not
- */
-void BSC_RenderStat(const char* statName, float stat, int x, int y, bool perFlag);

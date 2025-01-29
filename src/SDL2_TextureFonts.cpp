@@ -1,9 +1,6 @@
 #include "SDL2_TextureFonts.hpp"
 
-SDL2_TextureFont* BSC_CWWBFont;
-SDL2_TextureFont* BSC_ItemHoverFont;
-SDL2_TextureFont* BSC_ItemIncFont;
-SDL2_TextureFont* BSC_ItemDecFont;
+SDL2_TextureFont* KENG_CWWBFont;
 
 SDL2_TextureFont* SDL2_CreateTextureFont(const char* filename, unsigned int fontSize){
     SDL2_TextureFont* newFont = new SDL2_TextureFont;
@@ -11,7 +8,7 @@ SDL2_TextureFont* SDL2_CreateTextureFont(const char* filename, unsigned int font
     newFont->font.surface = IMG_Load(filename);
     if(newFont->font.surface == NULL){ std::fprintf(stderr, "Cannot create font surface\n"); return NULL; }
 
-    newFont->font.texture = SDL_CreateTextureFromSurface(SDL2_Rnd, newFont->font.surface);
+    newFont->font.texture = SDL_CreateTextureFromSurface(renderer, newFont->font.surface);
     if(newFont->font.texture == NULL){ std::fprintf(stderr, "Cannot create font texture\n"); return NULL; }
 
     newFont->letterSpace = 1;
@@ -110,7 +107,7 @@ void SDL2_RenderFontCharacter(SDL2_TextureFont* font, char c, int x, int y){
     SDL_Rect src = SDL2_MapCharacterToTextureFont(font, c);
     SDL_Rect dst = { x, y, static_cast<int>(font->fontSize), static_cast<int>(font->fontSize) };
 
-    SDL_RenderCopy(SDL2_Rnd, font->font.texture, 
+    SDL_RenderCopy(renderer, font->font.texture, 
     &src, &dst);
 
     return;
@@ -130,23 +127,4 @@ std::string SDL2_2PointFloatString(float value){
     int decimalAsInt = std::abs(static_cast<int>(decimalPart * 100));
 
     return std::to_string(integerPart) + "." + std::to_string(decimalAsInt);
-}
-
-void BSC_RenderStat(const char* statName, float stat, int x, int y, bool perFlag) {
-    if (std::fabs(stat) < BSC_EPSILON) return; /* If 0 do not enter */
-
-    /* Determine font and sign based on stat value */
-    SDL2_TextureFont* font = (stat > 0) ? BSC_ItemIncFont : BSC_ItemDecFont;
-    std::string sign = (stat > 0) ? "+" : "-";
-
-    /* Building the string */
-    std::string statString;
-    statString = std::string(statName) + " " + sign + SDL2_2PointFloatString(std::fabs(stat));
-    if(perFlag){
-        statString += "%";
-    }
-
-    SDL2_RenderFontText(font, statString.c_str(), x, y);
-
-    return;
 }

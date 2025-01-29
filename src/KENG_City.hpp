@@ -7,6 +7,7 @@
 #include "../ThirdParty/SDL2/include/SDL2/SDL.h"
 #include "SDL2_Camera.hpp"
 #include "SDL2_Window.hpp"
+#include "SDL2_TextureFonts.hpp"
 #include <unordered_map>
 #include <string>
 
@@ -18,6 +19,8 @@ typedef struct KENG_City{
 }KENG_City;
 
 extern std::unordered_map<int, KENG_City> KENG_Cities;
+
+extern SDL2_TextureFont* KENG_CityFont;
 
 /**
  * @brief Generates an ID based on the previously generate ones

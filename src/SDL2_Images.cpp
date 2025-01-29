@@ -56,12 +56,12 @@ void SDL2_SetPixel(SDL2_Images* dst, int x, int y, Uint32 colour){
 int SDL2_DrawEdgeOfSurface(SDL2_Images* src, Uint32 colour){
     if(src == nullptr || src->surface == nullptr){ 
         std::fprintf(stderr, "Null img/surface for edge detection\n");
-        return FAILURE;
+        return -FAIL;
     }
 
     if(SDL_LockSurface(src->surface) < 0){
         std::fprintf(stderr, "Failed to lock surface for edge detection\n");
-        return FAILURE; /* Failled to lock surface */
+        return -FAIL; /* Failled to lock surface */
     }
 
     /* Query required data */

@@ -3,7 +3,7 @@
 #include "../ThirdParty/SDL2/include/SDL2/SDL.h"
 #include "../ThirdParty/SDL2/include/SDL2/SDL_image.h"
 
-#include "SDL2_InitWin.hpp" /* For renderer */
+#include "SDL2_Window.hpp" /* For renderer */
 
 /**
  * @brief SDL2 image data

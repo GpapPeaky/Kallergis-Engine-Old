@@ -2,6 +2,8 @@
 
 std::unordered_map<int, KENG_City> KENG_Cities;
 
+SDL2_TextureFont* KENG_CityFont;
+
 static int KENG_GenerateCityID(void){
     static int currentID = 0;
     return currentID++;
@@ -60,7 +62,7 @@ void SDL2_RenderCities(SDL_Renderer* rnd, camera cam){
         textRect.x = zoomRectangle.x + 10; /* Position the text on the right of the city pin */
         textRect.y = zoomRectangle.y;
         if(SDL2_ContainsRect(cam.rect, city.cityRect) == SUCCESS){
-            /* RENDER TEXT */
+            SDL2_RenderFontText(KENG_CityFont, city.cityName.c_str(), textRect.x, textRect.y);
         }
     }
 
