@@ -5,9 +5,11 @@
 #define __KENG_CITY_HPP__
 
 #include "../ThirdParty/SDL2/include/SDL2/SDL.h"
+
 #include "SDL2_Camera.hpp"
 #include "SDL2_Window.hpp"
 #include "SDL2_TextureFonts.hpp"
+
 #include <unordered_map>
 #include <string>
 

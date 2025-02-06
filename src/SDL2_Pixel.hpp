@@ -1,10 +1,14 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_pixels.h"
+
 #include <string>
 #include <math.h>
+
 #include "SDL2_Window.hpp"
+
 #include "KENG_Country.hpp"
 #include "KENG_Parser.hpp"
+
 #include "auxf/definitions.aux"
 
 #ifndef _SDL2_PIXEL_HPP_
@@ -46,12 +50,13 @@ void SDL2_PixelScreenFill(SDL_Texture* texture);
  * 
  * @param filename bmp to load
  * @param dest texture to load the bitmap
+ * @param alpha Alpha of texture
  * 
  * @warning Make sure that the texture is empty, or else it will be overwritten
  * 
  * @returns 0 on SUCCESS 1 on FAILURE
  */
-int SDL2_LoadBitmap(SDL_Texture* dest, const char* filename);
+int SDL2_LoadBitmap(SDL_Texture* dest, const char* filename, int alpha);
 
 /**
  * @brief Loads a png, from a file

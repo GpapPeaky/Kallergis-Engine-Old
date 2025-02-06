@@ -362,8 +362,9 @@ void KENG_HiglightSelectedUnit(camera cam){
         SDL_Rect highlight_rect = { screen_x, screen_y, UNIT_SIZE, UNIT_SIZE };
 
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 100);
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderDrawRect(renderer, &highlight_rect);
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     }else{
         return;
     }

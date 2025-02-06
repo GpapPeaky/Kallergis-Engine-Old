@@ -30,9 +30,10 @@ int SDL2_CreateWindowAndRenderer(const char* name){
 void SDL2_RenderMap(SDL_Renderer* renderer, std::vector<SDL_Texture*> textures, camera cam){
     SDL_RenderClear(renderer);
 
-    for(SDL_Texture* texture : textures){
-        SDL_RenderCopy(renderer, texture, &cam.rect, NULL);
-    }
+    // SDL_RenderCopy(renderer, textures[0], &cam.rect, nullptr); FIXME: Terrain map
+    SDL_RenderCopy(renderer, textures[1], &cam.rect, nullptr);
+    SDL_RenderCopy(renderer, textures[2], &cam.rect, nullptr);
+    SDL_RenderCopy(renderer, textures[3], &cam.rect, nullptr);
 
     return;
 }

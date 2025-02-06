@@ -3,8 +3,10 @@
 #include <fstream>
 #include <iostream>
 #include <cstring>
+
 #include "KENG_Region.hpp"
 #include "KENG_Leader.hpp"
+
 #include "auxf/modules.aux"
 
 #ifndef COU
@@ -12,6 +14,9 @@
  * @brief Countries structs, definitions, initialisation functions and other tools
  */
 #define COU
+
+/* Country colour alpha */
+#define KENG_COUNTRY_ALPHA 150
 
 typedef struct KENG_country{
     std::string country_name;

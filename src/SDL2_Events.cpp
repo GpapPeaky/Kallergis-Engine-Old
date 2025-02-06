@@ -8,16 +8,16 @@ prov* SDL2_HighlightOnClick(int x, int y, SDL_Surface* src, SDL_Texture* dst, ca
     int world_x = static_cast<int>(x / cam.zoom + cam.rect.x);
     int world_y = static_cast<int>(y / cam.zoom + cam.rect.y);
 
-    int src_bpp = src->format->BytesPerPixel;
+    int srcBpp = src->format->BytesPerPixel;
     Uint8* pixels = (Uint8*)src->pixels;
 
     /* Pixel at mouse position */
     Uint32 pixel = 0;
-    Uint8* pixel_ptr = pixels + (world_y * src->pitch) + (world_x * src_bpp);
+    Uint8* pixel_ptr = pixels + (world_y * src->pitch) + (world_x * srcBpp);
 
     SDL_LockSurface(src);
 
-    switch(src_bpp){
+    switch(srcBpp){
         case 3: /* 24-bit format (little-endian) */
             pixel = (pixel_ptr[0] << 16) | (pixel_ptr[1] << 8) | pixel_ptr[2];
             break;
@@ -151,13 +151,13 @@ void SDL2_HandleEvents(bool& quit, camera& cam){
                     }
                 }
 
-                if(KENG_MouseIntersectingWithProvinceGUICheck(mouse_x, mouse_y, KENG_clickSurface, cam) == true){ 
+                if(KENG_MouseIntersectingWithProvinceGUICheck(mouse_x, mouse_y, KENG_ClickSurface, cam) == true){ 
                     PGUI_EventCycle(mouse_x, mouse_y); /* Execute the button action */
                 }else{
-                    clicked_province = SDL2_HighlightOnClick(mouse_x, mouse_y, KENG_clickSurface, map, cam); /* Click a new province */
+                    clicked_province = SDL2_HighlightOnClick(mouse_x, mouse_y, KENG_ClickSurface, KENG_Map, cam); /* Click a new province */
                 }
             }else if(e.button.button == SDL_BUTTON_RIGHT){
-                KENG_MoveUnit(KENG_clickSurface, cam); /* Move the unit, if able, the check if not NULL is in the function */
+                KENG_MoveUnit(KENG_ClickSurface, cam); /* Move the unit, if able, the check if not NULL is in the function */
             }
         }
     }
@@ -231,14 +231,14 @@ bool KENG_MouseIntersectingWithProvinceGUICheck(int mx, int my, SDL_Surface* KEN
     }
 
     /* Check if the mouse is inside a province */
-    int src_bpp = KENG_clickSurface->format->BytesPerPixel;
+    int srcBpp = KENG_clickSurface->format->BytesPerPixel;
     Uint8* pixels = (Uint8*)KENG_clickSurface->pixels;
-    Uint8* pixel_ptr = pixels + (world_y * KENG_clickSurface->pitch) + (world_x * src_bpp);
+    Uint8* pixel_ptr = pixels + (world_y * KENG_clickSurface->pitch) + (world_x * srcBpp);
 
     SDL_LockSurface(KENG_clickSurface);
 
     Uint32 pixel = 0;
-    switch(src_bpp){
+    switch(srcBpp){
         case 3: /* 24-bit format (little-endian) */
             pixel = (pixel_ptr[0] << 16) | (pixel_ptr[1] << 8) | pixel_ptr[2];
             break;

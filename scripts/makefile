@@ -17,7 +17,7 @@ UNUSED = $(UNUSEDVAR) $(UNUSEDFUNC)
 CC = g++
 CVER = -std=c++23 # C/C++23 Maybe..?
 SDLFLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
-CFLAGS = -lm -Ofast -lstdc++ -pthread
+CFLAGS = -lm -Ofast -lstdc++
 RESOURCES = scripts/resource.rc
 OBJECTS = obj/
 THIRDPARTYFLG = ThirdParty/
@@ -65,6 +65,7 @@ $(SRCPATH)KENG_Player.cpp\
 $(SRCPATH)KENG_Leader.cpp\
 $(SRCPATH)KENG_Debug.cpp\
 $(SRCPATH)KENG_City.cpp\
+$(SRCPATH)KENG_Terrain.cpp\
 $(SRCPATH)PGUI_GUI.cpp\
 $(SRCPATH)PGUI_Overloads.cpp
 

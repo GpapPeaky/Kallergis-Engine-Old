@@ -15,7 +15,9 @@ int main(int argv, char** args){
     camera KENG_SDL2camera = SDL2_CreateCamera();
     /* Initialise the window and renderer */
     SDL2_CreateWindowAndRenderer("Keng");
-    /* Initialise the map data to be used */
+    /* Create the terrain surfaces to be used for the terrain map */
+    KENG_CreateTerrainSurfaces();
+    /* Initialise the map data to be used, textures and terrain map as well as border maps */
     KENG_CreateMapTextures();
     /* Initialise the unit graphic assets */
     KENG_CreateUnitAssets();
@@ -54,19 +56,19 @@ int main(int argv, char** args){
     #endif
 
     /* Paints the given province map with the correct country colour */
-    KENG_MarkCountries(KENG_clickSurface, map); /* We use the click map as per usual */
+    KENG_MarkCountries(KENG_ClickSurface, KENG_Map); /* We use the click map as per usual */
     #ifdef MAIN_DBG
         KENG_DebugPrint("marking countries called");
     #endif
 
     /* Generate the unit coords */
-    KENG_GenerateUnitCoords(KENG_clickSurface);
+    KENG_GenerateUnitCoords(KENG_ClickSurface);
     #ifdef MAIN_DBG
         KENG_DebugPrint("generating unit coords called");
     #endif
 
     /* Paints the borders inbetween countries and provinces */
-    KENG_MarkInnerBorders(KENG_clickSurface, inner_border_map); /* FIXME: Marks coastlines and rivers as well, when it shouldn't */
+    KENG_MarkInnerBorders(KENG_ClickSurface, KENG_InnerBorderMap); /* FIXME: Marks coastlines and rivers as well, when it shouldn't */
     #ifdef MAIN_DBG
         KENG_DebugPrint("border generation called");
     #endif
@@ -113,28 +115,26 @@ int main(int argv, char** args){
     // PGUI_CreateCalendar(renderer);
 
     /* TODO: Initial units, parse from file */
-    KENG_CreateUnit(ARMOR, *KENG_GetCountry("HER"), 1, KENG_clickSurface, KENG_SDL2camera);
-    KENG_CreateUnit(INFANTRY, *KENG_GetCountry("HER"), 2, KENG_clickSurface, KENG_SDL2camera);
-    KENG_CreateUnit(MOTORISED, *KENG_GetCountry("HER"), 3, KENG_clickSurface, KENG_SDL2camera);
-    KENG_CreateUnit(ARTILLERY, *KENG_GetCountry("HER"), 4, KENG_clickSurface, KENG_SDL2camera);
+    // KENG_CreateUnit(ARMOR, *KENG_GetCountry("HER"), 1, KENG_ClickSurface, KENG_SDL2camera);
+    // KENG_CreateUnit(INFANTRY, *KENG_GetCountry("HER"), 2, KENG_ClickSurface, KENG_SDL2camera);
+    // KENG_CreateUnit(MOTORISED, *KENG_GetCountry("HER"), 3, KENG_ClickSurface, KENG_SDL2camera);
+    // KENG_CreateUnit(ARTILLERY, *KENG_GetCountry("HER"), 4, KENG_ClickSurface, KENG_SDL2camera);
 
     srand(time(NULL));
-
-    /* CITIES THREAD */
-    /* TODO: Initialise the city thread parameters */
 
     /* Game */
     bool SDL2_quit = false;
     Uint KENG_gameCycles = 0;
     while(!SDL2_quit){
         /* TODO: Refactor Renditions, into one function, and their names */
-        SDL2_RenderMap(renderer, textures, KENG_SDL2camera);
+        SDL2_RenderMap(renderer, KENG_MapTextures, KENG_SDL2camera);
         SDL2_RenderCities(renderer, KENG_SDL2camera); /* Render behind PGUI, and the units, quite expensive */
         SDL2_DrawUnits(KENG_SDL2camera);
 
         SDL2_HandleEvents(SDL2_quit, KENG_SDL2camera);
 
-        PGUI_DrawItems(renderer);
+        /* TODO: Rework the GUI */
+        // PGUI_DrawItems(renderer);
 
         /* Text has to be in front of the GUI items */
         /* We first render, then we update */

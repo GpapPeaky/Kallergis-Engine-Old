@@ -43,15 +43,15 @@ int KENG_CreateCountries(const std::string countries_file, const std::string tag
     
     tags_file.close();
 
-    std::string cou_line;
-    std::regex cou_pattern("\\s*\"(\\w+)\"\\s*:\\s*\\{\\s*(\\d+),\\s*(\\d+),\\s*(\\d+)\\s*\\}");
-    while(std::getline(cou_file, cou_line)){
-        if(cou_line.empty() || cou_line[0] == '#'){
+    std::string countryLine;
+    std::regex countryPattern("\\s*\"(\\w+)\"\\s*:\\s*\\{\\s*(\\d+),\\s*(\\d+),\\s*(\\d+)\\s*\\}");
+    while(std::getline(cou_file, countryLine)){
+        if(countryLine.empty() || countryLine[0] == '#'){
             continue;
         }
 
         std::smatch cou_matches;
-        if(regex_match(cou_line, cou_matches, cou_pattern)){
+        if(regex_match(countryLine, cou_matches, countryPattern)){
             std::string tag = cou_matches[1];
             int R = std::stoi(cou_matches[2]);
             int G = std::stoi(cou_matches[3]);

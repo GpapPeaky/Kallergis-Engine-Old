@@ -95,7 +95,7 @@ void SDL2_PixelScreenFill(SDL_Texture* texture){
     return;
 }
 
-int SDL2_LoadBitmap(SDL_Texture* dest, const char* filename){
+int SDL2_LoadBitmap(SDL_Texture* dest, const char* filename, int alpha){
     SDL_Surface* src = SDL_LoadBMP(filename);
     if(!src){
         std::printf("Loading bitmap failed, path not found: %s\n", filename);
@@ -118,7 +118,7 @@ int SDL2_LoadBitmap(SDL_Texture* dest, const char* filename){
             Uint8 r = p[0];
             Uint8 g = p[1];
             Uint8 b = p[2];
-            SDL2_SetPixel(dest, i, j, b, g, r, ALPHA); /* HUH?: Little endian ??? */
+            SDL2_SetPixel(dest, i, j, b, g, r, alpha); /* HUH?: Little endian ??? */
         }
     }
 
@@ -165,6 +165,7 @@ int KENG_MarkCountries(SDL_Surface* src, SDL_Texture* texture){
         std::printf("Loading bitmap failed, path not found\n");
         return FAIL;
     }
+
     int bpp = src->format->BytesPerPixel;
     int pitch = src->pitch;
     Uint8* pixel_array = (Uint8*)src->pixels;
@@ -196,7 +197,7 @@ int KENG_MarkCountries(SDL_Surface* src, SDL_Texture* texture){
                                 prov.prov_colour.b == b
                             ){
                                 /* First Non Black at 813 x 602 */
-                                SDL2_SetPixel(texture, i, j, current_rgb.b, current_rgb.g, current_rgb.r, ALPHA); /* Little endian */
+                                SDL2_SetPixel(texture, i, j, current_rgb.b, current_rgb.g, current_rgb.r, KENG_COUNTRY_ALPHA); /* Little endian */
                             }else{
                                 /* WARN: Make sure that all provinces have no 0 R, G, B value, else it will crash */
                                 continue;
