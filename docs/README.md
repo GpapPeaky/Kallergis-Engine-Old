@@ -2,7 +2,7 @@
             padding: 5px; border-radius: 25px; 
             text-align: center;
             font-size: 20px">
-    <h1>Kallergis Engine -v0.1 "Hepanastase"</h1>
+    <h1>Kallergis Engine Old "Hepanastase"</h1>
     <p align="center">A Clausewitz Like Grand Strategy Game Engine, By GpapPeaky</p>
 </div>
 
