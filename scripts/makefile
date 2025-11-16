@@ -72,7 +72,7 @@ $(SRCPATH)PGUI_Overloads.cpp
 # Compiles the default engine
 
 def: $(DEFSRC)
-	@echo Compiling Main (Default), and running
+	@echo "Compiling Main (Default), and running"
 	windres $(RESOURCES) -O coff -o $(OBJECTS)resources.o
 	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $^ $(OBJECTS)resources.o -o $(DSTPATH)$(EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
 	$(DSTPATH)$(EXEC_NAME).exe
@@ -80,7 +80,7 @@ def: $(DEFSRC)
 # Unused Variable And Functions Compiling For Debugging
 
 def-unsd: $(DEFSRC)
-	@echo Compiling Main (Default), and running 
+	@echo "Compiling Main (Default), and running" 
 	windres $(RESOURCES) -O coff -o $(OBJECTS)resources.o
 	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $(UNUSED) $^ -o $(DSTPATH)$(EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
 	$(DSTPATH)$(EXEC_NAME).exe

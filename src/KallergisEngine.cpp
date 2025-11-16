@@ -112,10 +112,10 @@ int main(int argv, char** args){
         KENG_DebugPrint("Leader Overview initialised\n");
     #endif
 
-    // PGUI_CreateCalendar(renderer);
+    PGUI_CreateCalendar(renderer);
 
     /* TODO: Initial units, parse from file */
-    // KENG_CreateUnit(ARMOR, *KENG_GetCountry("HER"), 1, KENG_ClickSurface, KENG_SDL2camera);
+    KENG_CreateUnit(ARMOR, *KENG_GetCountry("HER"), 1, KENG_ClickSurface, KENG_SDL2camera);
     // KENG_CreateUnit(INFANTRY, *KENG_GetCountry("HER"), 2, KENG_ClickSurface, KENG_SDL2camera);
     // KENG_CreateUnit(MOTORISED, *KENG_GetCountry("HER"), 3, KENG_ClickSurface, KENG_SDL2camera);
     // KENG_CreateUnit(ARTILLERY, *KENG_GetCountry("HER"), 4, KENG_ClickSurface, KENG_SDL2camera);
@@ -134,7 +134,7 @@ int main(int argv, char** args){
         SDL2_HandleEvents(SDL2_quit, KENG_SDL2camera);
 
         /* TODO: Rework the GUI */
-        // PGUI_DrawItems(renderer);
+        PGUI_DrawItems(renderer);
 
         /* Text has to be in front of the GUI items */
         /* We first render, then we update */
