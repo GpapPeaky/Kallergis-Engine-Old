@@ -136,6 +136,9 @@ int main(int argv, char** args){
         /* TODO: Rework the GUI */
         PGUI_DrawItems(renderer);
 
+        SDL2_RenderGoodsBar();
+        SDL2_RenderCountryLeader(KENG_mainPlayer->playerCountry, renderer);
+
         /* Text has to be in front of the GUI items */
         /* We first render, then we update */
 

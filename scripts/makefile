@@ -2,117 +2,122 @@
 # Author: GpapPeaky George Papamatthaiakis        
 # https://github.com/GpapPeaky				
 #
-# Kallergis Engine Makefile
-#
+# Kallergis Engine Makefile (Object-Based)
 # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-# Unused Checks For Debugging
-
+### UNUSED CHECKS
 UNUSEDVAR = -Wunused-variable
 UNUSEDFUNC = -Wunused-function
 UNUSED = $(UNUSEDVAR) $(UNUSEDFUNC)
 
-# Globals
-
+### COMPILER
 CC = g++
-CVER = -std=c++23 # C/C++23 Maybe..?
-SDLFLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
+CVER = -std=c++23
 CFLAGS = -lm -Ofast -lstdc++
-RESOURCES = scripts/resource.rc
-OBJECTS = obj/
-THIRDPARTYFLG = ThirdParty/
-SDL2LIB = -L$(THIRDPARTYFLG)SDL2/lib
-SDL2INC = -I$(THIRDPARTYFLG)SDL2/include
-PGUIPATH = $(THIRDPARTYFLG)PeakyGUI/src/
-# PGUISRC = $(PGUIPATH)pgui_button.cpp $(PGUIPATH)pgui_call.cpp $(PGUIPATH)pgui_component.cpp $(PGUIPATH)pgui_draw.cpp $(PGUIPATH)pgui_item.cpp $(PGUIPATH)pgui_event.cpp $(PGUIPATH)pgui_primitives.cpp
+
+### PATHS
 SRCPATH = src/
 DSTPATH = bin/
-NONCONSOLEWIN = -Wl,--subsystem,windows # Hides the console and all prints
-MWINDOWS = -mwindows # Same as the above
-# $(CURDIR) is built-in for make to find the absolute path of the user dir
+OBJECTS = obj/
+THIRDPARTYFLG = ThirdParty/
+RESOURCES = scripts/resource.rc
 
-# PeakyGUI
+### SDL / Third-Party
+SDLFLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
+SDL2LIB = -L$(THIRDPARTYFLG)SDL2/lib
+SDL2INC = -I$(THIRDPARTYFLG)SDL2/include
 
-PGUISRC = $(PGUIPATH)pgui_action.cpp $(PGUIPATH)pgui_button.cpp $(PGUIPATH)pgui_call.cpp $(PGUIPATH)pgui_cleanup.cpp \
+### PeakyGUI
+PGUIPATH = $(THIRDPARTYFLG)PeakyGUI/src/
+PGUISRC = \
+$(PGUIPATH)pgui_action.cpp $(PGUIPATH)pgui_button.cpp $(PGUIPATH)pgui_call.cpp $(PGUIPATH)pgui_cleanup.cpp \
 $(PGUIPATH)pgui_component.cpp $(PGUIPATH)pgui_debug.cpp $(PGUIPATH)pgui_draw.cpp $(PGUIPATH)pgui_event.cpp \
-$(PGUIPATH)pgui_event.cpp $(PGUIPATH)pgui_item.cpp $(PGUIPATH)pgui_load.cpp $(PGUIPATH)pgui_primitives.cpp
+$(PGUIPATH)pgui_item.cpp $(PGUIPATH)pgui_load.cpp $(PGUIPATH)pgui_primitives.cpp
 
-# Main
-
-# WARN: THE FLAGS HAVE TO BE AT THE END OF OF THE MAKE COMMAND, OR ELSE IT WILL NOT WORK
-
-EXEC_NAME = keng
+### ENGINE SOURCE
 DEFSRC = \
-$(PGUISRC)\
-$(SRCPATH)KallergisEngine.cpp\
-$(SRCPATH)SDL2_Camera.cpp\
-$(SRCPATH)SDL2_Window.cpp\
-$(SRCPATH)SDL2_Pixel.cpp\
-$(SRCPATH)SDL2_CleanUp.cpp\
-$(SRCPATH)SDL2_Events.cpp\
-$(SRCPATH)SDL2_Images.cpp\
-$(SRCPATH)SDL2_TextureFonts.cpp\
-$(SRCPATH)KENG_Parser.cpp\
-$(SRCPATH)KENG_Map.cpp\
-$(SRCPATH)KENG_Province.cpp\
-$(SRCPATH)KENG_Region.cpp\
-$(SRCPATH)KENG_Country.cpp\
-$(SRCPATH)KENG_TimeClock.cpp\
-$(SRCPATH)KENG_Unit.cpp\
-$(SRCPATH)KENG_Economy.cpp\
-$(SRCPATH)KENG_Goods.cpp\
-$(SRCPATH)KENG_Player.cpp\
-$(SRCPATH)KENG_Leader.cpp\
-$(SRCPATH)KENG_Debug.cpp\
-$(SRCPATH)KENG_City.cpp\
-$(SRCPATH)KENG_Terrain.cpp\
-$(SRCPATH)PGUI_GUI.cpp\
+$(PGUISRC) \
+$(SRCPATH)KallergisEngine.cpp \
+$(SRCPATH)SDL2_Camera.cpp \
+$(SRCPATH)SDL2_Window.cpp \
+$(SRCPATH)SDL2_Pixel.cpp \
+$(SRCPATH)SDL2_CleanUp.cpp \
+$(SRCPATH)SDL2_Events.cpp \
+$(SRCPATH)SDL2_Images.cpp \
+$(SRCPATH)SDL2_TextureFonts.cpp \
+$(SRCPATH)KENG_Parser.cpp \
+$(SRCPATH)KENG_Map.cpp \
+$(SRCPATH)KENG_Province.cpp \
+$(SRCPATH)KENG_Region.cpp \
+$(SRCPATH)KENG_Country.cpp \
+$(SRCPATH)KENG_TimeClock.cpp \
+$(SRCPATH)KENG_Unit.cpp \
+$(SRCPATH)KENG_Economy.cpp \
+$(SRCPATH)KENG_Goods.cpp \
+$(SRCPATH)KENG_Player.cpp \
+$(SRCPATH)KENG_Leader.cpp \
+$(SRCPATH)KENG_Debug.cpp \
+$(SRCPATH)KENG_City.cpp \
+$(SRCPATH)KENG_Terrain.cpp \
+$(SRCPATH)PGUI_GUI.cpp \
 $(SRCPATH)PGUI_Overloads.cpp
 
-# Compiles the default engine
+### Convert all sources to objects in obj/
+OBJ = $(DEFSRC:%=$(OBJECTS)%.o)
 
-def: $(DEFSRC)
-	@echo "Compiling Main (Default), and running"
+### Executable name
+EXEC_NAME = keng.exe
+
+# -----------------------------------------
+# Rules
+# -----------------------------------------
+
+# Main build
+def: $(DSTPATH)$(EXEC_NAME)
+	@echo Running $(EXEC_NAME)
+	$(DSTPATH)$(EXEC_NAME)
+
+# Link final executable
+$(DSTPATH)$(EXEC_NAME): $(OBJ) $(OBJECTS)resources.o
+	@mkdir -p $(DSTPATH)
+	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $^ -o $@ $(SDLFLAGS) $(CFLAGS)
+
+# Compile each .cpp → obj/.o
+$(OBJECTS)%.cpp.o: %.cpp
+	@mkdir -p $(dir $@)
+	$(CC) $(CVER) $(SDL2INC) -c $< -o $@
+
+# Resource compilation
+$(OBJECTS)resources.o:
+	@mkdir -p $(OBJECTS)
 	windres $(RESOURCES) -O coff -o $(OBJECTS)resources.o
-	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $^ $(OBJECTS)resources.o -o $(DSTPATH)$(EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
-	$(DSTPATH)$(EXEC_NAME).exe
 
-# Unused Variable And Functions Compiling For Debugging
+### Debug build with unused warnings
+def-unsd: CFLAGS += $(UNUSED)
+def-unsd: def
 
-def-unsd: $(DEFSRC)
-	@echo "Compiling Main (Default), and running" 
-	windres $(RESOURCES) -O coff -o $(OBJECTS)resources.o
-	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $(UNUSED) $^ -o $(DSTPATH)$(EXEC_NAME) $(SDLFLAGS) $(CFLAGS)
-	$(DSTPATH)$(EXEC_NAME).exe
-
-obj:
-	@echo Compiling resources
-	windres $(RESOURCES) -O coff -o $(OBJECTS)resources.o
-
-# CXX Version Control, Required Compiler For <thread> <mutex> 
-
+### Tools
 vxx:
-	 g++ $(CVER) scripts/cxxver.cpp -o bin/cxxver
+	g++ $(CVER) scripts/cxxver.cpp -o bin/cxxver
 
 vxxDebug:
 	@echo Using CC: $(CC)
 	@which $(CC)
 	@$(CC) --version
 
-# Print the local paths
-	
 paths:
 	@echo CURRENT DIRECTORY: "$(CURDIR)"
 	@echo DSTPATH: "$(DSTPATH)"
 	@echo SRCPATH: "$(SRCPATH)"
-	@echo EXECUTABLES:
-	@echo "$(DSTPATH)$(EXEC_NAME).exe"
-	@echo "$(DSTPATH)$(HASH_EXEC_NAME).exe"
-	@echo "$(DSTPATH)$(PIXELS_EXEC_NAME).exe"
+	@echo Executable: "$(DSTPATH)$(EXEC_NAME)"
 
 clean:
-	@echo Cleaning executables...
-	@if exist "$(DSTPATH)" (rmdir /S /Q "$(DSTPATH)" && mkdir "$(DSTPATH)" && echo All files in $(DSTPATH) cleaned.) else (echo Directory "$(DSTPATH)" not found)
+	@echo Cleaning executables and obj files...
+	@if exist "$(DSTPATH)" (rmdir /S /Q "$(DSTPATH)")
+	@if exist "$(OBJECTS)" (rmdir /S /Q "$(OBJECTS)")
+	@mkdir "$(DSTPATH)"
+	@mkdir "$(OBJECTS)"
+	@echo Clean complete.
 
 test:
-	@echo Makefile test.
+	@echo Makefile test OK.
