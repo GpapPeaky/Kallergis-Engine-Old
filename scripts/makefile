@@ -1,123 +1,57 @@
-# # # # # # # # # # # # # # # # # # # # # # # # # #
-# Author: GpapPeaky George Papamatthaiakis        
-# https://github.com/GpapPeaky				
-#
-# Kallergis Engine Makefile (Object-Based)
-# # # # # # # # # # # # # # # # # # # # # # # # # #
+# Compiler
+CXX = g++
 
-### UNUSED CHECKS
-UNUSEDVAR = -Wunused-variable
-UNUSEDFUNC = -Wunused-function
-UNUSED = $(UNUSEDVAR) $(UNUSEDFUNC)
+# Paths
+SRCP = src/
+OBJDIR = obj/
+BINDIR = bin/
 
-### COMPILER
-CC = g++
-CVER = -std=c++23
-CFLAGS = -lm -Ofast -lstdc++
+# SDL2 includes and libs
+SDL2I = -IThirdParty/SDL2/include/SDL2
+SDL2L = -LThirdParty/SDL2/lib
+SDL2F = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
 
-### PATHS
-SRCPATH = src/
-DSTPATH = bin/
-OBJECTS = obj/
-THIRDPARTYFLG = ThirdParty/
-RESOURCES = scripts/resource.rc
+# Default target
+all: $(BINDIR)win.exe
 
-### SDL / Third-Party
-SDLFLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
-SDL2LIB = -L$(THIRDPARTYFLG)SDL2/lib
-SDL2INC = -I$(THIRDPARTYFLG)SDL2/include
+# Link step
+$(BINDIR)win.exe:  $(OBJDIR)main.o \
+				   $(OBJDIR)SDL2_Event.o \
+				   $(OBJDIR)SDL2_InitWin.o \
+                   $(OBJDIR)SDL2_Bitmap.o \
+				   $(OBJDIR)SDL2_Quad.o \
+				   $(OBJDIR)SDL2_Camera.o
 
-### PeakyGUI
-PGUIPATH = $(THIRDPARTYFLG)PeakyGUI/src/
-PGUISRC = \
-$(PGUIPATH)pgui_action.cpp $(PGUIPATH)pgui_button.cpp $(PGUIPATH)pgui_call.cpp $(PGUIPATH)pgui_cleanup.cpp \
-$(PGUIPATH)pgui_component.cpp $(PGUIPATH)pgui_debug.cpp $(PGUIPATH)pgui_draw.cpp $(PGUIPATH)pgui_event.cpp \
-$(PGUIPATH)pgui_item.cpp $(PGUIPATH)pgui_load.cpp $(PGUIPATH)pgui_primitives.cpp
+	@mkdir -p $(BINDIR)
+	$(CXX) $^ $(SDL2L) $(SDL2F) -o $@
 
-### ENGINE SOURCE
-DEFSRC = \
-$(PGUISRC) \
-$(SRCPATH)KallergisEngine.cpp \
-$(SRCPATH)SDL2_Camera.cpp \
-$(SRCPATH)SDL2_Window.cpp \
-$(SRCPATH)SDL2_Pixel.cpp \
-$(SRCPATH)SDL2_CleanUp.cpp \
-$(SRCPATH)SDL2_Events.cpp \
-$(SRCPATH)SDL2_Images.cpp \
-$(SRCPATH)SDL2_TextureFonts.cpp \
-$(SRCPATH)KENG_Parser.cpp \
-$(SRCPATH)KENG_Map.cpp \
-$(SRCPATH)KENG_Province.cpp \
-$(SRCPATH)KENG_Region.cpp \
-$(SRCPATH)KENG_Country.cpp \
-$(SRCPATH)KENG_TimeClock.cpp \
-$(SRCPATH)KENG_Unit.cpp \
-$(SRCPATH)KENG_Economy.cpp \
-$(SRCPATH)KENG_Goods.cpp \
-$(SRCPATH)KENG_Player.cpp \
-$(SRCPATH)KENG_Leader.cpp \
-$(SRCPATH)KENG_Debug.cpp \
-$(SRCPATH)KENG_City.cpp \
-$(SRCPATH)KENG_Terrain.cpp \
-$(SRCPATH)PGUI_GUI.cpp \
-$(SRCPATH)PGUI_Overloads.cpp
+# Explicit compile rules for each source file
+$(OBJDIR)main.o: $(SRCP)main.cpp
+	@mkdir -p $(OBJDIR)
+	$(CXX) -c $< -o $@ $(SDL2I)
 
-### Convert all sources to objects in obj/
-OBJ = $(DEFSRC:%=$(OBJECTS)%.o)
+$(OBJDIR)SDL2_Event.o: $(SRCP)SDL2_Event.cpp
+	@mkdir -p $(OBJDIR)
+	$(CXX) -c $< -o $@ $(SDL2I)
 
-### Executable name
-EXEC_NAME = keng.exe
+$(OBJDIR)SDL2_InitWin.o: $(SRCP)SDL2_InitWin.cpp
+	@mkdir -p $(OBJDIR)
+	$(CXX) -c $< -o $@ $(SDL2I)
 
-# -----------------------------------------
-# Rules
-# -----------------------------------------
+$(OBJDIR)SDL2_Bitmap.o: $(SRCP)SDL2_Bitmap.cpp
+	@mkdir -p $(OBJDIR)
+	$(CXX) -c $< -o $@ $(SDL2I)
 
-# Main build
-def: $(DSTPATH)$(EXEC_NAME)
-	@echo Running $(EXEC_NAME)
-	$(DSTPATH)$(EXEC_NAME)
+$(OBJDIR)SDL2_Quad.o: $(SRCP)SDL2_Quad.cpp
+	@mkdir -p $(OBJDIR)
+	$(CXX) -c $< -o $@ $(SDL2I)
 
-# Link final executable
-$(DSTPATH)$(EXEC_NAME): $(OBJ) $(OBJECTS)resources.o
-	@mkdir -p $(DSTPATH)
-	$(CC) $(CVER) $(SDL2LIB) $(SDL2INC) $^ -o $@ $(SDLFLAGS) $(CFLAGS)
+$(OBJDIR)SDL2_Camera.o: $(SRCP)SDL2_Camera.cpp
+	@mkdir -p $(OBJDIR)
+	$(CXX) -c $< -o $@ $(SDL2I)
 
-# Compile each .cpp → obj/.o
-$(OBJECTS)%.cpp.o: %.cpp
-	@mkdir -p $(dir $@)
-	$(CC) $(CVER) $(SDL2INC) -c $< -o $@
-
-# Resource compilation
-$(OBJECTS)resources.o:
-	@mkdir -p $(OBJECTS)
-	windres $(RESOURCES) -O coff -o $(OBJECTS)resources.o
-
-### Debug build with unused warnings
-def-unsd: CFLAGS += $(UNUSED)
-def-unsd: def
-
-### Tools
-vxx:
-	g++ $(CVER) scripts/cxxver.cpp -o bin/cxxver
-
-vxxDebug:
-	@echo Using CC: $(CC)
-	@which $(CC)
-	@$(CC) --version
-
-paths:
-	@echo CURRENT DIRECTORY: "$(CURDIR)"
-	@echo DSTPATH: "$(DSTPATH)"
-	@echo SRCPATH: "$(SRCPATH)"
-	@echo Executable: "$(DSTPATH)$(EXEC_NAME)"
-
+# Utility targets
 clean:
-	@echo Cleaning executables and obj files...
-	@if exist "$(DSTPATH)" (rmdir /S /Q "$(DSTPATH)")
-	@if exist "$(OBJECTS)" (rmdir /S /Q "$(OBJECTS)")
-	@mkdir "$(DSTPATH)"
-	@mkdir "$(OBJECTS)"
-	@echo Clean complete.
+	-rm -rf $(OBJDIR) $(BINDIR)
 
-test:
-	@echo Makefile test OK.
+.PHONY: all clean

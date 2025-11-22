@@ -1,38 +1,7 @@
-#ifndef INC
-/**
- * @brief MAIN INCLUDE FILE, SOURCE AND MODULES
- */
-#define INC
+#pragma once
 
-/* Primarily SDL2 type of functions */
+#include "../SDL2_Event.hpp"
+#include "../SDL2_InitWin.hpp"
+#include "../SDL2_Bitmap.hpp"
 #include "../SDL2_Camera.hpp"
-#include "../SDL2_Window.hpp"
-#include "../SDL2_Pixel.hpp"
-#include "../SDL2_CleanUp.hpp"
-#include "../SDL2_Events.hpp"
-#include "../SDL2_TextureFonts.hpp"
-#include "../SDL2_Images.hpp"
-
-/* Kallergis Engine funtions */
-#include "../KENG_Parser.hpp"
-#include "../KENG_Map.hpp"
-#include "../KENG_Province.hpp"
-#include "../KENG_Region.hpp"
-#include "../KENG_Country.hpp"
-#include "../KENG_TimeClock.hpp"
-#include "../KENG_Unit.hpp"
-#include "../KENG_Economy.hpp"
-#include "../KENG_Player.hpp"
-#include "../KENG_City.hpp"
-#include "../KENG_Terrain.hpp"
-
-/* Peaky GUI functions */
-#include "../PGUI_GUI.hpp"
-
-/* Debug */
-#include "../KENG_Debug.hpp"
-
-/* Main Modules */
-#include "modules.aux"
-
-#endif
+#include "../SDL2_Quad.hpp"
